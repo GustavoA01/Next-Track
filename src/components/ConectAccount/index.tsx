@@ -5,40 +5,28 @@ import { ConectDialogHeader } from "./ConectDialogHeader"
 import { ConectFooter } from "./ConectFooter"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import { conectSpotifyAccount } from "@/actions/conectSpotifyAccount"
-import axios from "axios"
+import { conectSpotifyAccount, redirectToAuthCodeFlow } from "@/actions/conectSpotifyAccount"
 import { useForm } from "react-hook-form"
+import { useState } from "react"
 
 export const ConectAccount = () => {
   const { handleSubmit, register } = useForm<{ email: string }>()
-  const handleAction = async (data: { email: string }) => {
+  const [token, setToken] = useState<string | null>(null)
+
+  const handleAction = async () => {
     try {
-      console.log("data", data.email)
-      // const response = await axios.post("/api/spotify-token")
-      await conectSpotifyAccount(data)
+      const {SPOTIFY_CLIENT_ID} = process.env
+      console.log(SPOTIFY_CLIENT_ID)
+      if (!SPOTIFY_CLIENT_ID) {
+        throw new Error("Client ID não está definido")
+      }
+      await redirectToAuthCodeFlow(SPOTIFY_CLIENT_ID)
     } catch (error) {
       console.error(error)
     }
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="rounded-full">Conectar com Spotify</Button>
-      </DialogTrigger>
-
-      <DialogContent>
-        <ConectDialogHeader />
-
-        <form onSubmit={handleSubmit(handleAction)}>
-          <div className="space-y-4">
-            <Label>Digite seu e-mail</Label>
-            <Input type="email" {...register("email")} />
-          </div>
-
-          <ConectFooter />
-        </form>
-      </DialogContent>
-    </Dialog>
+    <Button onClick={handleAction} type="submit">Conectar</Button>
   )
 }
