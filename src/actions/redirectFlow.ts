@@ -6,8 +6,8 @@ import { redirect, RedirectType } from "next/navigation"
 export async function redirectToAuthCodeFlow(clientId: string) {
   const cookiesStore = await cookies()
   const settedCookies =
-    cookiesStore.get("spotifyAccessToken")?.value ||
-    cookiesStore.get("spotifyRefreshToken")?.value
+    cookiesStore.has("spotifyRefreshToken") ||
+    cookiesStore.has("spotifyAccessToken")
 
   if (settedCookies) redirect("/home")
 
