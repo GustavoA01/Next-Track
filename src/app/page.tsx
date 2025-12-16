@@ -1,4 +1,4 @@
-import { ConectAccount } from "@/components/ConectAccount"
+import { ConectAccountButton } from "@/components/ConectAccountButton"
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
           recomendações de músicas
         </p>
 
-        <ConectAccount/>
+        <ConectAccountButton/>
       </div>
     </div>
   )
