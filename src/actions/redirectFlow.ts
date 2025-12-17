@@ -21,7 +21,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
     "user-read-email",
     "user-read-private",
     "playlist-read-private",
-    "playlist-read-collaborative",
+    // "playlist-read-collaborative",
   ].join(" ")
 
   const params = new URLSearchParams()

@@ -1,9 +1,9 @@
 import { PlaylistCard } from "@/components/PlaylistCard"
 import { SpotifyPlaylist } from "@/data/types"
-import { getAccessToken } from "@/lib/getAccessToken"
+import { getCurrentToken } from "@/lib/getCurrentToken"
 
 const Home = async () => {
-  const accessToken = await getAccessToken()
+  const accessToken = await getCurrentToken()
 
   const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
     headers: {
@@ -17,7 +17,11 @@ const Home = async () => {
     throw new Error(`Falha ao buscar playlists: ${response.status}`)
   }
 
-  const playlistsData = await response.json()
+  const playlistsData = await response.json().then((playlists) => {
+    return playlists.items.filter(
+      (playlist: SpotifyPlaylist) => playlist.public
+    )
+  })
 
   return (
     <div className="flex flex-col custom-scrollbar overflow-y-auto flex-1 space-y-4 px-4 mt-4 h-dvh pb-10">
@@ -27,7 +31,7 @@ const Home = async () => {
       </h2>
 
       <div className="flex flex-col flex-wrap hide-scrollbar max-sm:overflow-x-auto sm:grid sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">
-        {playlistsData.items.map((playlist: SpotifyPlaylist) => (
+        {playlistsData.map((playlist: SpotifyPlaylist) => (
           <PlaylistCard
             key={playlist.id}
             id={playlist.id}

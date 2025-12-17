@@ -1,7 +1,7 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-export const getAccessToken = async () => {
+export const getCurrentToken = async () => {
   const cookiesStore = await cookies()
   const accessToken = cookiesStore.get("spotifyAccessToken")?.value
   const refreshToken = cookiesStore.get("spotifyRefreshToken")?.value
