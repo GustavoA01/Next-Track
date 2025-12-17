@@ -1,6 +1,13 @@
 import { ConectAccountButton } from "@/components/ConectAccountButton"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 
-export default function Home() {
+export default async function Home() {
+  const cookiesStore = await cookies()
+  
+  const hasrefreshToken = cookiesStore.has("spotifyRefreshToken")
+  if (hasrefreshToken) redirect("/home")
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col gap-4 items-center">
@@ -11,7 +18,7 @@ export default function Home() {
           recomendações de músicas
         </p>
 
-        <ConectAccountButton/>
+        <ConectAccountButton />
       </div>
     </div>
   )

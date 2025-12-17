@@ -1,7 +1,30 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: "image-cdn-ak.spotifycdn.com",
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: "image-cdn-fa.spotifycdn.com",
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mosaic.scdn.co',
+        port: '',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

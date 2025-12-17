@@ -6,12 +6,17 @@
 @theme {
   --color-background: #121212;
   --color-primary: #1db954;
+  --color-surface: #181818;
+  --color-surface-hover: #282828;
+
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-inter: 'Inter', sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Montserrat, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 
   button,
   a {
