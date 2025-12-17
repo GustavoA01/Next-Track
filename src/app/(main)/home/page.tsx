@@ -26,10 +26,11 @@ const Home = async () => {
         personalizadas.
       </h2>
 
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         {playlistsData.items.map((playlist: SpotifyPlaylist) => (
           <PlaylistCard
             key={playlist.id}
+            id={playlist.id}
             playlistName={playlist.name}
             playlistImage={playlist.images[0]?.url || ""}
             totalTracks={playlist.tracks.total}

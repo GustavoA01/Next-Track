@@ -16,11 +16,18 @@ export async function redirectToAuthCodeFlow(clientId: string) {
 
   cookiesStore.set("verifier", verifier)
 
+  const scopes = [
+    "user-read-email",
+    "user-read-private",
+    "playlist-read-private",
+    "playlist-read-collaborative",
+  ].join(" ")
+
   const params = new URLSearchParams()
   params.append("client_id", clientId)
   params.append("response_type", "code")
   params.append("redirect_uri", "http://127.0.0.1:3000/callback")
-  params.append("scope", "user-read-private user-read-email")
+  params.append("scope", scopes)
   params.append("code_challenge_method", "S256")
   params.append("code_challenge", challenge)
 
