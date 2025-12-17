@@ -12,9 +12,9 @@
   --font-montserrat: 'Montserrat', sans-serif;
   --font-inter: 'Inter', sans-serif;
 
-  --animate-brandName-fade-in: brandName-fade-in 0.8s ease-in-out;
+  --animate-fade-in-up-down: fade-in-up-down 0.8s ease-in-out;
 
-  @keyframes brandName-fade-in {
+  @keyframes fade-in-up-down {
     from {
       opacity: 0;
       transform: translateY(-10px);

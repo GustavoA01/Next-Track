@@ -11,9 +11,9 @@ export default async function Home() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col gap-4 items-center">
-        <h1 className="text-3xl font-bold animate-brandName-fade-in">Next Track</h1>
+        <h1 className="text-3xl font-bold animate-fade-in-up-down">Next Track</h1>
 
-        <p className="text-sm text-muted-foreground animate-brandName-fade-in">
+        <p className="text-sm text-muted-foreground animate-fade-in-up-down">
           Conecte-se ao Spotify para selecionar uma playlist e obter
           recomendações de músicas
         </p>
