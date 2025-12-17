@@ -18,16 +18,16 @@ export const PlaylistCard = ({
 }: PlaylistCardProps) => {
   return (
     <Link href={`playlist/${id}`}>
-      <Card className="group w-fit px-4 cursor-pointer hover:bg-surface-hover transition-all duration-400 hover:-translate-y-1.5">
-        <div className="overflow-hidden rounded-md relative w-62.5 h-62.5">
+      <Card className="group px-4 cursor-pointer max-w-79.25 w-full hover:bg-surface-hover transition-all duration-400 hover:-translate-y-1.5">
+        <div className="overflow-hidden rounded-md relative w-auto h-auto">
           <div className="absolute inset-0 flex items-center justify-center text-black bg-primary opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10 p-2 rounded-full w-10 h-10 m-auto">
             <Sparkles size={20} />
           </div>
           <Image
-            className="rounded-md group-hover:scale-110 group-hover:blur-xs transition-all duration-300 w-full h-full object-cover"
+            className="rounded-md max-sm:m-auto sm:h-auto sm:w-full group-hover:scale-110 group-hover:blur-xs transition-all duration-300 object-cover"
             src={playlistImage}
-            width={250}
-            height={250}
+            width={150}
+            height={150}
             alt={playlistName}
           />
         </div>

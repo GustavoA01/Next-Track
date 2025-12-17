@@ -2,7 +2,7 @@ import { ConectAccountButton } from "@/components/ConectAccountButton"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-export default async function Home() {
+export default async function LoginPage() {
   const cookiesStore = await cookies()
   
   const hasrefreshToken = cookiesStore.has("spotifyRefreshToken")

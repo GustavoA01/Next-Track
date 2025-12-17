@@ -2,23 +2,24 @@ import { cookies } from "next/headers"
 
 export const connectSpotifyAccount = async (code: string) => {
   const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID
-  const { access_token, refresh_token } = await getAccessToken(clientId!, code)
+  const { accessToken, refreshToken } = await getAccessToken(clientId!, code)
 
-  return { accessToken: access_token, refreshToken: refresh_token }
+  return { accessToken, refreshToken }
 }
 
 export async function getAccessToken(
   clientId: string,
   code: string
-): Promise<{ access_token: string; refresh_token: string }> {
+): Promise<{ accessToken: string; refreshToken: string }> {
   const cookiesStore = cookies()
   const verifier = (await cookiesStore).get("verifier")?.value
+  const redirectUri = process.env.SPOTIFY_REDIRECT_URI
 
   const params = new URLSearchParams()
   params.append("client_id", clientId)
   params.append("grant_type", "authorization_code")
   params.append("code", code)
-  params.append("redirect_uri", "http://127.0.0.1:3000/callback")
+  params.append("redirect_uri", redirectUri!)
   params.append("code_verifier", verifier!)
 
   const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -27,8 +28,13 @@ export async function getAccessToken(
     body: params,
   })
 
-  const { access_token, refresh_token } = await result.json()
-  return { access_token, refresh_token }
+  const data = await result.json()
+
+  if (data.error) {
+    throw new Error(`Falha ao obter token: ${data.error}`)
+  }
+
+  return { accessToken: data.access_token, refreshToken: data.refresh_token }
 }
 
 export const refreshAccessToken = async (

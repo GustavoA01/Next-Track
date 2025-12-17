@@ -1,24 +1,27 @@
 import { connectSpotifyAccount } from "@/lib/spotify"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get("code")
   const error = searchParams.get("error")
+  console.log(request.url)
+  const redirectTo = new URL('/home', request.url)
+  const redirectLogin = new URL('/', request.url)
 
-  if (error) {
+  if (error || !code) {
     console.error("Spotify Authorization Error:", error)
-    redirect("/")
-  } else if (!code) {
-    console.error("No authorization code provided")
-    redirect("/")
+    return NextResponse.redirect(redirectLogin)
   }
 
   const { accessToken, refreshToken } = await connectSpotifyAccount(code)
 
-  if (accessToken) {
+  try {
+    if (!accessToken) {
+      throw new Error("Access token não encontrado")
+    }
+
     const cookiesStore = await cookies()
 
     cookiesStore.set("spotifyAccessToken", accessToken, {
@@ -37,6 +40,9 @@ export const GET = async (request: NextRequest) => {
       })
     }
 
-    redirect("/home")
+    return NextResponse.redirect(redirectTo)
+  } catch (error) {
+    console.error("Erro ao conectar à conta do Spotify:", error)
+    return NextResponse.redirect(redirectLogin)
   }
 }

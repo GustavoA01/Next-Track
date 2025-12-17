@@ -1,9 +1,10 @@
 "use client"
 import { usePathname } from "next/navigation"
-import { OptionsToolTip } from "../components/OptionsToolTip"
 import { Dialog } from "@/components/ui/dialog"
 import { useState } from "react"
 import { ConfirmLogOut } from "../components/ConfirmLogOut"
+import { DrawerMenu } from "../components/DrawerMenu"
+import { ToolTipMenu } from "../components/ToolTipMenu"
 
 type HeaderOptionsProps = {
   profile: {
@@ -30,9 +31,10 @@ export const HeaderOptions = ({ profile }: HeaderOptionsProps) => {
           {paths.find((path) => path.name === pathname)?.label || ""}
         </p>
 
-        <OptionsToolTip profile={profile} setIsOpen={setIsOpen} />
+        <ToolTipMenu profile={profile} setIsOpen={setIsOpen} />
+        <DrawerMenu profile={profile} setIsOpen={setIsOpen} />
       </div>
-      
+
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <ConfirmLogOut />
       </Dialog>

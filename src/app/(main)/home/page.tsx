@@ -20,13 +20,13 @@ const Home = async () => {
   const playlistsData = await response.json()
 
   return (
-    <div className="space-y-4 mx-4 mt-4">
-      <h2 className="text-lg text-muted-foreground w-200">
+    <div className="flex flex-col custom-scrollbar overflow-y-auto flex-1 space-y-4 px-4 mt-4 h-dvh pb-10">
+      <h2 className="w-full sm:w-200 text-base sm:text-lg text-muted-foreground">
         Selecione uma de suas playlists para receber recomendações
         personalizadas.
       </h2>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-col flex-wrap hide-scrollbar max-sm:overflow-x-auto sm:grid sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">
         {playlistsData.items.map((playlist: SpotifyPlaylist) => (
           <PlaylistCard
             key={playlist.id}
