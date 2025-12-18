@@ -1,7 +1,7 @@
 import { SpotifyArtist, SpotifyPlaylistTrack } from "@/data/types";
 
 type StatisticsResult = {
-  topArtists: { name: string; count: number; image: string }[];
+  topArtists: { id: string; name: string; count: number; image: string }[];
   topGenres: { name: string; percentage: number }[];
 }
 
@@ -48,6 +48,7 @@ export const getRecommendationsByGenre = async (accessToken: string, playlistId:
     })
 
     return {
+      id: artist.id,
       name: artist.name,
       count: artistCount[artist.id],
       image: artist.images[0]?.url || '',
