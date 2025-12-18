@@ -1,5 +1,5 @@
-import { Header } from "@/components/Header"
 import { SpotifyUserProfile } from "@/data/types"
+import { Header } from "@/features/Header/container/Header"
 import { getCurrentToken } from "@/lib/getCurrentToken"
 import { fetchProfile } from "@/lib/spotify"
 

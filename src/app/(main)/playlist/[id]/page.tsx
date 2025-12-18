@@ -1,15 +1,15 @@
 import { getCurrentToken } from "@/lib/getCurrentToken"
 
 const PlaylistPage = async ({ params }: { params: Promise<{ id: string }> }) => {
-  // const { id } = await params
-  // const accessToken = await getCurrentToken()
+  const { id } = await params
+  const accessToken = await getCurrentToken()
   
-  // const playlistTracks = await fetch(`https://api.spotify.com/v1/me/playlists/${id}/tracks`,{
-  //   headers:{
-  //     Authorization: `Bearer ${accessToken}`
-  //   }
-  // })
-  // console.log(playlistTracks)
+  const playlistTracks = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
+    headers:{
+      Authorization: `Bearer ${accessToken}`
+    }
+}).then(res => res.json()).then(data => data)
+  console.log(playlistTracks)
   return <div>playlist</div>
 }
 

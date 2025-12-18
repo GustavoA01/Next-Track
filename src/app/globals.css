@@ -42,16 +42,15 @@
     cursor: pointer;
   }
 
+  @media (max-width: 640px) {
   .hide-scrollbar {
-    @media (max-width: 640px) {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
 }
 
 body {
