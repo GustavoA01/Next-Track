@@ -39,7 +39,46 @@ export interface SpotifyPlaylist {
   tracks: {
     href: string
     total: number
+    primary_color: string
+    items: {
+      added_at: Date
+      track: SpotifyPlaylistTrack
+    }[]
   }
+}
+
+export interface SpotifyPlaylistTrack {
+  id: string
+  name: string
+  artists: SpotifyArtist[]  
+  album: SpotifyAlbum
+  duration_ms: number
+  preview_url: string
+  explicit: boolean
+  external_urls: { spotify: string }
+  href: string
+  type: string
+  uri: string
+  popularity: number
+  track_number: number
+}
+
+export interface SpotifyArtist {
+  id: string
+  name: string
+  external_urls: { spotify: string }
+  href: string
+  type: string
+  uri: string
+}
+
+export interface SpotifyAlbum {
+  id: string
+  name: string
+  external_urls: { spotify: string }
+  href: string
+  type: string
+  uri: string
 }
 
 export interface Image {
