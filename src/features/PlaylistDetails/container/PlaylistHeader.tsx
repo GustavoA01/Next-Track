@@ -17,9 +17,10 @@ export const PlaylistHeader = ({ playlist, profile }: PlaylistHeaderProps) => {
   const hours = Math.floor(totalDuration / 3600000)
   const minutes = Math.floor((totalDuration % 3600000) / 60000)
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`
+  
   return (
     <div>
-      <div className="flex justify-between mb-10 items-center">
+      <div className="flex justify-between mb-10 items-center px-4">
         <GoBack />
         <MenuOptions profile={profile} />
       </div>

@@ -2,6 +2,7 @@ import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types"
 import { getCurrentToken } from "@/lib/getCurrentToken"
 import { fetchProfile } from "@/lib/spotify"
 import { PlaylistHeader } from "@/features/PlaylistDetails/container/PlaylistHeader"
+import { TabsMenu } from "@/features/Tabs/container/TabsMenu"
 
 const PlaylistPage = async ({
   params,
@@ -26,8 +27,12 @@ const PlaylistPage = async ({
   console.log(playlist)
 
   return (
-    <div className="p-4">
+    <div className="py-4 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
       <PlaylistHeader playlist={playlist} profile={profile} />
+      
+      <div className="mt-15 flex flex-col items-center w-full">
+        <TabsMenu />
+      </div>
     </div>
   )
 }
