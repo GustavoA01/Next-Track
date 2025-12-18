@@ -25,10 +25,17 @@ export interface SpotifyPlaylist {
   collaborative: boolean
   external_urls: { spotify: string }
   href: string
-  owner: string
   snapshot_id: string
   type: string
   uri: string
+  owner: {
+    id: string
+    display_name: string
+    external_urls: { spotify: string }
+    href: string
+    type: string
+    uri: string
+  }
   tracks: {
     href: string
     total: number

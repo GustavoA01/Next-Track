@@ -1,5 +1,6 @@
 import { PlaylistCard } from "@/components/PlaylistCard"
 import { SpotifyPlaylist } from "@/data/types"
+import { Header } from "@/components/Header"
 import { getCurrentToken } from "@/lib/getCurrentToken"
 
 const Home = async () => {
@@ -24,6 +25,8 @@ const Home = async () => {
   })
 
   return (
+    <>
+    <Header />
     <div className="flex flex-col custom-scrollbar hide-scrollbar overflow-y-auto flex-1 space-y-4 px-4 h-dvh pb-10">
       <h2 className="w-full sm:w-200 text-base sm:text-lg text-muted-foreground">
         Selecione uma de suas playlists para receber recomendações
@@ -33,15 +36,16 @@ const Home = async () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">
         {playlistsData.map((playlist: SpotifyPlaylist) => (
           <PlaylistCard
-            key={playlist.id}
-            id={playlist.id}
-            playlistName={playlist.name}
-            playlistImage={playlist.images[0]?.url || ""}
-            totalTracks={playlist.tracks.total}
+          key={playlist.id}
+          id={playlist.id}
+          playlistName={playlist.name}
+          playlistImage={playlist.images[0]?.url || ""}
+          totalTracks={playlist.tracks.total}
           />
         ))}
       </div>
     </div>
+        </>
   )
 }
 
