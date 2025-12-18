@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Slider } from "@/components/ui/slider"
 import { TabsContent } from "@/components/ui/tabs"
 import { Sparkles, Zap } from "lucide-react"
 import { SliderVibe } from "../components/SliderVibe"

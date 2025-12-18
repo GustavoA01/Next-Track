@@ -50,7 +50,7 @@ export interface SpotifyPlaylist {
 export interface SpotifyPlaylistTrack {
   id: string
   name: string
-  artists: SpotifyArtist[]  
+  artists: SpotifyArtist[]
   album: SpotifyAlbum
   duration_ms: number
   preview_url: string
@@ -66,6 +66,10 @@ export interface SpotifyPlaylistTrack {
 export interface SpotifyArtist {
   id: string
   name: string
+  genres: string[]
+  images: Image[]
+  popularity: number
+  followers: { href: string; total: number }
   external_urls: { spotify: string }
   href: string
   type: string
