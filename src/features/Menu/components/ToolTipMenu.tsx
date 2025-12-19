@@ -24,9 +24,9 @@ export const ToolTipMenu = ({ profile, setIsOpen }: ToolTipMenuProps) => {
 
       <TooltipContent className="mt-2 bg-transparent">
         <Button
-          variant="outline"
+          variant="ghost"
           onClick={() => setIsOpen(true)}
-          className="text-muted-foreground"
+          className="text-muted-foreground bg-background"
         >
           <LogOut className="text-red-400" />
           Sair da conta

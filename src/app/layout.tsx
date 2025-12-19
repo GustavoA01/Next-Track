@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist, Montserrat, Inter } from "next/font/google"
+import { Geist, Montserrat, Inter, Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
 
 const inter = Inter({
@@ -11,6 +11,12 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["400", "700"],
+})
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-jakarta",
 })
 
 const geistSans = Geist({
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${montserrat.variable} ${inter.variable} dark antialiased`}
+        className={`${geistSans.variable} ${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
       >
         {children}
       </body>

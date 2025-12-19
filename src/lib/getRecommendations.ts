@@ -89,8 +89,9 @@ export const getPlaylistStatistic = async (
       name: artist.name,
       count: artistCount[artist.id],
       image: artist.images[0]?.url || "",
+      spotifyUrl: artist.external_urls.spotify,
     }
-  }) as { id: string; name: string; count: number; image: string }[]
+  }) as { id: string; name: string; count: number; image: string; spotifyUrl: string }[]
 
   const genresStatistics = Object.entries(genresCount)
   .sort(([, a], [, b]) => b - a)

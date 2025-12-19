@@ -1,9 +1,9 @@
 import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify"
 import { getCurrentToken } from "@/lib/getCurrentToken"
 import { fetchProfile } from "@/lib/spotify"
-import { PlaylistHeader } from "@/features/PlaylistDetails/container/PlaylistHeader"
 import { TabsMenu } from "@/features/Tabs/container/TabsMenu"
 import { getPlaylistStatistic } from "@/lib/getRecommendations"
+import { PlaylistHeader } from "@/components/Header/PlaylistHeader"
 
 const PlaylistPage = async ({
   params,
@@ -26,14 +26,21 @@ const PlaylistPage = async ({
     .then((res) => res.json())
     .then((data) => data)
 
-  const {artistsStatistics, genresStatistics} = await getPlaylistStatistic(accessToken, id, playlist.tracks.total)
+  const { artistsStatistics, genresStatistics } = await getPlaylistStatistic(
+    accessToken,
+    id,
+    playlist.tracks.total
+  )
 
   return (
-    <div className="py-4 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
+    <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
       <PlaylistHeader playlist={playlist} profile={profile} />
 
-      <div className="mt-15 flex flex-col items-center w-full 2xl:px-64">
-        <TabsMenu artistsStatistics={artistsStatistics} genresStatistics={genresStatistics} />
+      <div className="mt-10 px-4 sm:px-8 flex flex-col items-center w-full 2xl:px-64">
+        <TabsMenu
+          artistsStatistics={artistsStatistics}
+          genresStatistics={genresStatistics}
+        />
       </div>
     </div>
   )

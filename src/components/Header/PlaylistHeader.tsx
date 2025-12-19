@@ -1,15 +1,19 @@
 import { GoBack } from "@/components/GoBack"
 import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify"
 import { MenuOptions } from "@/features/Menu/container/MenuOptions"
+import { HeaderPlaylistInfo } from "./HeaderPlaylistInfo"
+import { getAverageColor } from "fast-average-color-node"
 import Image from "next/image"
-import { HeaderPlaylistInfo } from "../components/HeaderPlaylistInfo"
 
 type PlaylistHeaderProps = {
   playlist: SpotifyPlaylist
   profile: SpotifyUserProfile
 }
 
-export const PlaylistHeader = ({ playlist, profile }: PlaylistHeaderProps) => {
+export const PlaylistHeader = async ({
+  playlist,
+  profile,
+}: PlaylistHeaderProps) => {
   const totalDuration = playlist.tracks.items.reduce((acc, item) => {
     return acc + item.track.duration_ms
   }, 0)
@@ -17,9 +21,25 @@ export const PlaylistHeader = ({ playlist, profile }: PlaylistHeaderProps) => {
   const hours = Math.floor(totalDuration / 3600000)
   const minutes = Math.floor((totalDuration % 3600000) / 60000)
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`
-  
+
+  let colorHex = "#121212"
+
+  if (playlist.images[0]?.url) {
+    const response = await fetch(playlist.images[0]?.url)
+    const arrayBuffer = await response.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
+
+    const color = await getAverageColor(buffer)
+    colorHex = color.hex
+  }
+
   return (
-    <div>
+    <div
+      style={{
+        background: `linear-gradient(to bottom, ${colorHex} 80%, transparent 100%)`,
+      }}
+      className="py-4"
+    >
       <div className="flex justify-between mb-10 items-center px-4">
         <GoBack />
         <MenuOptions profile={profile} />
@@ -28,13 +48,14 @@ export const PlaylistHeader = ({ playlist, profile }: PlaylistHeaderProps) => {
       <div className="flex flex-col items-center gap-4">
         <Image
           className="m-auto rounded-lg"
+          loading="eager"
           src={playlist.images[0]?.url || ""}
           alt={playlist.name}
           width={250}
           height={250}
         />
-        
-        <h1 className="text-3xl font-bold font-montserrat mt-4">
+
+        <h1 className="text-3xl font-bold font-montserrat mt-4 line-clamp-2">
           {playlist.name}
         </h1>
 
