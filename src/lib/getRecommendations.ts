@@ -5,14 +5,14 @@ import {
   SpotifyPlaylistTracks,
 } from "@/data/types/spotify"
 
-export const getRecommendationsByGenre = async (
+export const getPlaylistStatistic = async (
   accessToken: string,
   playlistId: string,
   totalTracks: number
 ): Promise<PlaylistStatistics> => {
-  let offSetCount = 0
   const tracks: SpotifyPlaylistTracks["items"] = []
   let totalCopy = totalTracks
+  let offSetCount = 0
 
   while (totalCopy > 50) {
     const tracksResponse = await fetch(
@@ -34,6 +34,7 @@ export const getRecommendationsByGenre = async (
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=${totalCopy}`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
+        next: { revalidate: 3600 }
       }
     )
       .then((res) => res.json())
@@ -65,11 +66,11 @@ export const getRecommendationsByGenre = async (
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      next: { revalidate: 3600 }
     }).then((res) => res.json())
   })
 
   const responses = await Promise.all(promises)
-
   const artists = responses.flatMap((response) => response.artists)
 
   const genresCount: Record<string, number> = {}
@@ -91,21 +92,16 @@ export const getRecommendationsByGenre = async (
     }
   }) as { id: string; name: string; count: number; image: string }[]
 
-  const topArtists = artistsStatistics.sort((a, b) => b!.count - a!.count)
-
   const genresStatistics = Object.entries(genresCount)
-    .sort(([, a], [, b]) => b - a)
-    .map(([name, count]) => ({
-      name,
-      value: Number(count),
-      percentage: Number(((count / totalGenres) * 100).toFixed(2)),
-    }))
-
+  .sort(([, a], [, b]) => b - a)
+  .map(([name, count]) => ({
+    name,
+    value: Number(count),
+    percentage: Number(((count / totalGenres) * 100).toFixed(2)),
+  }))
+  
+  const topArtists = artistsStatistics.sort((a, b) => b!.count - a!.count)
   const topGenres = genresStatistics.slice(0, 5)
-
-  console.log(genresStatistics)
-  console.log(artistsStatistics)
-  console.log(tracks)
 
   return {
     artistsStatistics,

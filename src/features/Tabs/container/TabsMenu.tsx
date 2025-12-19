@@ -4,6 +4,7 @@ import { ChartColumnDecreasing, Sparkles } from "lucide-react"
 import { useState } from "react"
 import { StatisticContent } from "./StatisticContent"
 import { DiscoverContent } from "./DiscoverContent"
+import { PlaylistStatistics } from "@/data/types/recommendations"
 
 const tabs = [
   {
@@ -18,7 +19,10 @@ const tabs = [
   },
 ]
 
-export const TabsMenu = () => {
+export const TabsMenu = ({
+  artistsStatistics,
+  genresStatistics,
+}: PlaylistStatistics) => {
   const [tabValue, setTabValue] = useState("discover")
 
   return (
@@ -43,7 +47,11 @@ export const TabsMenu = () => {
       </TabsList>
 
       <DiscoverContent />
-      <StatisticContent />
+
+      <StatisticContent
+        artistsStatistics={artistsStatistics}
+        genresStatistics={genresStatistics}
+      />
     </Tabs>
   )
 }
