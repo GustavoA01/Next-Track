@@ -7,7 +7,7 @@ type SliderVibeProps = {
 
 export const SliderVibe = ({ leftLabel, rightLabel }: SliderVibeProps) => {
   return (
-    <div className="space-y-2 text-muted-foreground text-sm">
+    <div className="space-y-3 text-muted-foreground text-sm font-semibold">
       <div className="flex items-center justify-between">
         <p>{leftLabel}</p>
         <p>{rightLabel}</p>

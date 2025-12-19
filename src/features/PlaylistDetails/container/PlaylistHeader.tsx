@@ -1,5 +1,5 @@
 import { GoBack } from "@/components/GoBack"
-import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types"
+import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify"
 import { MenuOptions } from "@/features/Menu/container/MenuOptions"
 import Image from "next/image"
 import { HeaderPlaylistInfo } from "../components/HeaderPlaylistInfo"

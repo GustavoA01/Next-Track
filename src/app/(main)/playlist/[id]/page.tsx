@@ -1,4 +1,4 @@
-import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types"
+import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify"
 import { getCurrentToken } from "@/lib/getCurrentToken"
 import { fetchProfile } from "@/lib/spotify"
 import { PlaylistHeader } from "@/features/PlaylistDetails/container/PlaylistHeader"
@@ -25,7 +25,7 @@ const PlaylistPage = async ({
     .then((res) => res.json())
     .then((data) => data)
 
-  await getRecommendationsByGenre(accessToken, id)
+  await getRecommendationsByGenre(accessToken, id, playlist.tracks.total)
 
   console.log(playlist)
 
@@ -33,7 +33,7 @@ const PlaylistPage = async ({
     <div className="py-4 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
       <PlaylistHeader playlist={playlist} profile={profile} />
 
-      <div className="mt-15 flex flex-col items-center w-full">
+      <div className="mt-15 flex flex-col items-center w-full 2xl:px-64">
         <TabsMenu />
       </div>
     </div>

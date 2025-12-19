@@ -7,7 +7,7 @@ import { SliderVibe } from "../components/SliderVibe"
 
 export const DiscoverContent = () => {
   return (
-    <TabsContent className="sm:px-8 pt-4 flex flex-col gap-4" value="discover">
+    <TabsContent className="sm:px-8 pt-4 flex flex-col gap-6" value="discover">
       <div className="flex items-center gap-2">
         <Input
           className="w-full rounded-full max-sm:text-sm"

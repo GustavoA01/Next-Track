@@ -1,4 +1,4 @@
-import { SpotifyPlaylist } from "@/data/types"
+import { SpotifyPlaylist } from "@/data/types/spotify"
 import { Circle } from "lucide-react"
 
 type HeaderPlaylistInfoProps = {

@@ -36,15 +36,17 @@ export interface SpotifyPlaylist {
     type: string
     uri: string
   }
-  tracks: {
-    href: string
-    total: number
-    primary_color: string
-    items: {
-      added_at: Date
-      track: SpotifyPlaylistTrack
-    }[]
-  }
+  tracks: SpotifyPlaylistTracks
+}
+
+export interface SpotifyPlaylistTracks {
+  href: string
+  total: number
+  primary_color: string
+  items: {
+    added_at: Date
+    track: SpotifyPlaylistTrack
+  }[]
 }
 
 export interface SpotifyPlaylistTrack {

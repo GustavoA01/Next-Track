@@ -1,5 +1,5 @@
 import { PlaylistCard } from "@/components/PlaylistCard"
-import { SpotifyPlaylist } from "@/data/types"
+import { SpotifyPlaylist } from "@/data/types/spotify"
 import { Header } from "@/components/Header"
 import { getCurrentToken } from "@/lib/getCurrentToken"
 
