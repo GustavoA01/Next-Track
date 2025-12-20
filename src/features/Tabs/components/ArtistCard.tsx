@@ -19,8 +19,8 @@ export const ArtistCard = ({
   index,
   palleteColor,
 }: ArtistCardProps) => (
-  <Link href={artist.spotifyUrl} target="_blank">
-    <div className="relative overflow-hidden group rounded-lg min-w-37.5 min-h-37.5 sm:w-full md:h-auto border-b-rounded-lg">
+  <Link className="group" href={artist.spotifyUrl} target="_blank">
+    <div className="relative overflow-hidden rounded-lg min-w-37.5 min-h-37.5 sm:w-full md:h-auto border-b-rounded-lg">
       <p
         style={{
           color: palleteColor,

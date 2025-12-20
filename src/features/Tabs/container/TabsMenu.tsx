@@ -1,10 +1,11 @@
 "use client";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PlaylistStatistics } from "@/data/types/recommendations";
 import { ChartColumnDecreasing, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { SpotifyPlaylist } from "@/data/types/spotify";
 import { StatisticContent } from "./StatisticContent";
 import { DiscoverContent } from "./DiscoverContent";
-import { PlaylistStatistics } from "@/data/types/recommendations";
+import { useState } from "react";
 
 const tabs = [
   {
@@ -20,9 +21,10 @@ const tabs = [
 ];
 
 export const TabsMenu = ({
+  playlist,
   artistsStatistics,
   genresStatistics,
-}: PlaylistStatistics) => {
+}: PlaylistStatistics & { playlist: SpotifyPlaylist }) => {
   const [tabValue, setTabValue] = useState("discover");
 
   return (
@@ -49,6 +51,7 @@ export const TabsMenu = ({
       <DiscoverContent />
 
       <StatisticContent
+        playlist={playlist}
         artistsStatistics={artistsStatistics}
         genresStatistics={genresStatistics}
       />

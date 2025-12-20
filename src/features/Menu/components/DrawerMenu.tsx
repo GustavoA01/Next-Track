@@ -1,15 +1,15 @@
 import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 import {
-  Drawer,
   DrawerTrigger,
   DrawerContent,
   DrawerHeader,
-  DrawerTitle,
   DrawerFooter,
   DrawerClose,
+  DrawerTitle,
+  Drawer,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
 
 type DrawerMenuProps = {
   profile: {

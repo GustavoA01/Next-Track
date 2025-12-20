@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { TabsContent } from "@/components/ui/tabs";
-import { Sparkles, Zap } from "lucide-react";
 import { SliderVibe } from "../components/SliderVibe";
+import { TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Sparkles, Zap } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 export const DiscoverContent = () => {
   return (

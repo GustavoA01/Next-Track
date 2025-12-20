@@ -1,11 +1,11 @@
-import { LogOut } from "lucide-react";
+import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
 import { Button } from "../../../components/ui/button";
+import { LogOut } from "lucide-react";
 import {
-  Tooltip,
   TooltipContent,
   TooltipTrigger,
+  Tooltip,
 } from "../../../components/ui/tooltip";
-import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
 
 type ToolTipMenuProps = {
   profile: {

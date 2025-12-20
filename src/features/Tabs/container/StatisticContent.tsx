@@ -1,13 +1,17 @@
-import { TabsContent } from "@/components/ui/tabs";
-import { PlaylistStatistics } from "@/data/types/recommendations";
 import { MostListenGenreBar } from "../components/MostListenGenreBar";
-import { extractColors } from "extract-colors";
+import { PlaylistStatistics } from "@/data/types/recommendations";
+import { PopularityChart } from "../components/PoupularityChart";
+import { StatisticSubTitle } from "../components/StatSubTitle";
+import { SpotifyPlaylist } from "@/data/types/spotify";
 import { ArtistCard } from "../components/ArtistCard";
+import { TabsContent } from "@/components/ui/tabs";
+import { extractColors } from "extract-colors";
 
 export const StatisticContent = ({
+  playlist,
   artistsStatistics,
   genresStatistics,
-}: PlaylistStatistics) => {
+}: PlaylistStatistics & { playlist: SpotifyPlaylist }) => {
   const formatName = (name: string) =>
     name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -23,9 +27,9 @@ export const StatisticContent = ({
   };
 
   return (
-    <TabsContent value="statistics">
-      <div className="select-none">
-        <h1 className="font-bold my-6">Os 5 Artistias mais presentes</h1>
+    <TabsContent className="flex flex-col gap-10" value="statistics">
+      <div className="mt-4">
+        <StatisticSubTitle text="Os 5 artistias mais presentes" />
 
         <div className="flex gap-2 overflow-x-auto md:grid sm:grid-cols-5 sm:overflow-hidden hide-scrollbar">
           {artistsStatistics.slice(0, 5).map(async (artist, index) => {
@@ -41,8 +45,10 @@ export const StatisticContent = ({
             );
           })}
         </div>
+      </div>
 
-        <h1 className="font-bold my-6">Top 5 Gêneros mais presentes</h1>
+      <div>
+        <StatisticSubTitle text="Top 5 gêneros mais presentes" />
 
         <div className="space-y-4">
           {genresStatistics.slice(0, 5).map((genre) => (
@@ -53,6 +59,12 @@ export const StatisticContent = ({
             />
           ))}
         </div>
+      </div>
+
+      <div>
+        <StatisticSubTitle text="Nível de popularidade das músicas" />
+
+        <PopularityChart tracks={playlist.tracks} />
       </div>
     </TabsContent>
   );

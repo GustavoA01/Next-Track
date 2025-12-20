@@ -1,7 +1,7 @@
-import { SpotifyPlaylist } from "@/data/types/spotify";
-import { Header } from "@/components/Header";
 import { getCurrentToken } from "@/lib/getCurrentToken";
+import { SpotifyPlaylist } from "@/data/types/spotify";
 import { SearchCards } from "@/components/SearchCards";
+import { Header } from "@/components/Header";
 
 const HomePage = async () => {
   const accessToken = await getCurrentToken();

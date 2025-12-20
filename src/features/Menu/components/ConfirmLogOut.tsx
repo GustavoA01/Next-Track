@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { doLogout } from "@/actions/doLogout";
 import {
-  DialogClose,
-  DialogContent,
   DialogDescription,
+  DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogClose,
 } from "@/components/ui/dialog";
+
 export const ConfirmLogOut = () => (
   <DialogContent>
     <DialogHeader>

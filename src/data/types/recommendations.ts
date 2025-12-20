@@ -8,3 +8,9 @@ export type PlaylistStatistics = {
   }[];
   genresStatistics: { name: string; value: number; percentage: number }[];
 };
+
+export type AverageMessage = {
+  title: string;
+  text: string;
+  color: string;
+};
