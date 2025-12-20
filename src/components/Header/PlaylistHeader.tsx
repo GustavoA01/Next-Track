@@ -3,6 +3,7 @@ import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify"
 import { MenuOptions } from "@/features/Menu/container/MenuOptions"
 import { HeaderPlaylistInfo } from "./HeaderPlaylistInfo"
 import { getAverageColor } from "fast-average-color-node"
+import playlistFallbackImage from "@/assets/playlistFallback.svg"
 import Image from "next/image"
 
 type PlaylistHeaderProps = {
@@ -23,14 +24,18 @@ export const PlaylistHeader = async ({
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`
 
   let colorHex = "#121212"
+  let imageUrl = playlistFallbackImage
 
-  if (playlist.images[0]?.url) {
-    const response = await fetch(playlist.images[0]?.url)
-    const arrayBuffer = await response.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer)
+  if (playlist.images !== null) {
+    if (playlist.images[0].url) {
+      const response = await fetch(playlist.images[0].url)
+      const arrayBuffer = await response.arrayBuffer()
+      const buffer = Buffer.from(arrayBuffer)
 
-    const color = await getAverageColor(buffer)
-    colorHex = color.hex
+      const color = await getAverageColor(buffer)
+      colorHex = color.hex
+      imageUrl = playlist.images[0].url
+    }
   }
 
   return (
@@ -49,7 +54,7 @@ export const PlaylistHeader = async ({
         <Image
           className="m-auto rounded-lg"
           loading="eager"
-          src={playlist.images[0]?.url || ""}
+          src={imageUrl}
           alt={playlist.name}
           width={250}
           height={250}

@@ -1,3 +1,4 @@
+import  playlistFallbackImage  from "@/assets/playlistFallback.svg"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -31,7 +32,7 @@ export const ArtistCard = ({
       </p>
 
       <Image
-        src={artist.image}
+        src={artist.image ?? playlistFallbackImage}
         width={150}
         height={150}
         alt={artist.name}
