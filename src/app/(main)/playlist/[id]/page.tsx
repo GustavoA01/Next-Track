@@ -1,18 +1,18 @@
-import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify"
-import { getCurrentToken } from "@/lib/getCurrentToken"
-import { fetchProfile } from "@/lib/spotify"
-import { TabsMenu } from "@/features/Tabs/container/TabsMenu"
-import { getPlaylistStatistic } from "@/lib/getRecommendations"
-import { PlaylistHeader } from "@/components/Header/PlaylistHeader"
+import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify";
+import { getCurrentToken } from "@/lib/getCurrentToken";
+import { fetchProfile } from "@/lib/spotify";
+import { TabsMenu } from "@/features/Tabs/container/TabsMenu";
+import { getPlaylistStatistic } from "@/lib/getRecommendations";
+import { PlaylistHeader } from "@/components/Header/PlaylistHeader";
 
 const PlaylistPage = async ({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) => {
-  const { id } = await params
-  const accessToken = await getCurrentToken()
-  const profile: SpotifyUserProfile = await fetchProfile(accessToken)
+  const { id } = await params;
+  const accessToken = await getCurrentToken();
+  const profile: SpotifyUserProfile = await fetchProfile(accessToken);
 
   const playlist: SpotifyPlaylist = await fetch(
     `https://api.spotify.com/v1/playlists/${id}`,
@@ -21,16 +21,16 @@ const PlaylistPage = async ({
         Authorization: `Bearer ${accessToken}`,
       },
       next: { revalidate: 3600 },
-    }
+    },
   )
     .then((res) => res.json())
-    .then((data) => data)
+    .then((data) => data);
 
   const { artistsStatistics, genresStatistics } = await getPlaylistStatistic(
     accessToken,
     id,
-    playlist.tracks.total
-  )
+    playlist.tracks.total,
+  );
 
   return (
     <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
@@ -43,7 +43,7 @@ const PlaylistPage = async ({
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PlaylistPage
+export default PlaylistPage;

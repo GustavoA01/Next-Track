@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { TabsContent } from "@/components/ui/tabs"
-import { Sparkles, Zap } from "lucide-react"
-import { SliderVibe } from "../components/SliderVibe"
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { TabsContent } from "@/components/ui/tabs";
+import { Sparkles, Zap } from "lucide-react";
+import { SliderVibe } from "../components/SliderVibe";
 
 export const DiscoverContent = () => {
   return (
@@ -25,10 +25,10 @@ export const DiscoverContent = () => {
       </div>
 
       <Card className="p-4 space-y-2">
-        <SliderVibe leftLabel="CALMO" rightLabel="AGITADO"/>
-        <SliderVibe leftLabel="TRISTE" rightLabel="FELIZ"/>
-        <SliderVibe leftLabel="VOCAL" rightLabel="INSTRUMENTAL"/>
+        <SliderVibe leftLabel="CALMO" rightLabel="AGITADO" />
+        <SliderVibe leftLabel="TRISTE" rightLabel="FELIZ" />
+        <SliderVibe leftLabel="VOCAL" rightLabel="INSTRUMENTAL" />
       </Card>
     </TabsContent>
-  )
-}
+  );
+};

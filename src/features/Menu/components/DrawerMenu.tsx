@@ -1,4 +1,4 @@
-import { ProfileMenuTrigger } from "./ProfileMenuTrigger"
+import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
 import {
   Drawer,
   DrawerTrigger,
@@ -7,17 +7,17 @@ import {
   DrawerTitle,
   DrawerFooter,
   DrawerClose,
-} from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
-import { LogOut } from "lucide-react"
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
 type DrawerMenuProps = {
   profile: {
-    images: { url: string }[]
-    display_name: string | null
-  }
-  setIsOpen: (isOpen: boolean) => void
-}
+    images: { url: string }[];
+    display_name: string | null;
+  };
+  setIsOpen: (isOpen: boolean) => void;
+};
 export const DrawerMenu = ({ profile, setIsOpen }: DrawerMenuProps) => {
   return (
     <Drawer>
@@ -40,5 +40,5 @@ export const DrawerMenu = ({ profile, setIsOpen }: DrawerMenuProps) => {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-  )
-}
+  );
+};

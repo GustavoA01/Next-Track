@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { doLogout } from "@/actions/doLogout"
+import { Button } from "@/components/ui/button";
+import { doLogout } from "@/actions/doLogout";
 import {
   DialogClose,
   DialogContent,
@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 export const ConfirmLogOut = () => (
   <DialogContent>
     <DialogHeader>
@@ -28,4 +28,4 @@ export const ConfirmLogOut = () => (
       </DialogClose>
     </DialogFooter>
   </DialogContent>
-)
+);

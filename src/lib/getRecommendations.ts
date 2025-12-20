@@ -1,32 +1,32 @@
-import { PlaylistStatistics } from "@/data/types/recommendations"
+import { PlaylistStatistics } from "@/data/types/recommendations";
 import {
   SpotifyArtist,
   SpotifyPlaylistTrack,
   SpotifyPlaylistTracks,
-} from "@/data/types/spotify"
+} from "@/data/types/spotify";
 
 export const getPlaylistStatistic = async (
   accessToken: string,
   playlistId: string,
-  totalTracks: number
+  totalTracks: number,
 ): Promise<PlaylistStatistics> => {
-  const tracks: SpotifyPlaylistTracks["items"] = []
-  let totalCopy = totalTracks
-  let offSetCount = 0
+  const tracks: SpotifyPlaylistTracks["items"] = [];
+  let totalCopy = totalTracks;
+  let offSetCount = 0;
 
   while (totalCopy > 50) {
     const tracksResponse = await fetch(
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=50`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
-      }
+      },
     )
       .then((res) => res.json())
-      .then((data) => data)
+      .then((data) => data);
 
-    tracks.push(...tracksResponse.items)
-    offSetCount += 50
-    totalCopy -= 50
+    tracks.push(...tracksResponse.items);
+    offSetCount += 50;
+    totalCopy -= 50;
   }
 
   if (totalCopy > 0) {
@@ -34,31 +34,31 @@ export const getPlaylistStatistic = async (
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=${totalCopy}`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
-        next: { revalidate: 3600 }
-      }
+        next: { revalidate: 3600 },
+      },
     )
       .then((res) => res.json())
-      .then((data) => data)
+      .then((data) => data);
 
-    tracks.push(...tracksResponse.items)
+    tracks.push(...tracksResponse.items);
   }
 
-  const artistCount: Record<string, number> = {}
-  const artistIds = new Set<string>()
+  const artistCount: Record<string, number> = {};
+  const artistIds = new Set<string>();
 
   tracks.forEach((item: { track: SpotifyPlaylistTrack }) => {
-    const mainArtist = item.track.artists[0]
+    const mainArtist = item.track.artists[0];
     if (mainArtist) {
-      artistCount[mainArtist.id] = (artistCount[mainArtist.id] || 0) + 1
-      artistIds.add(mainArtist.id)
+      artistCount[mainArtist.id] = (artistCount[mainArtist.id] || 0) + 1;
+      artistIds.add(mainArtist.id);
     }
-  })
+  });
 
-  const unifiquedIdsArray = Array.from(artistIds)
-  const unifiquedIds: string[] = []
+  const unifiquedIdsArray = Array.from(artistIds);
+  const unifiquedIds: string[] = [];
 
   for (let i = 0; i < unifiquedIdsArray.length; i += 50) {
-    unifiquedIds.push(unifiquedIdsArray.splice(i, i + 50).join(","))
+    unifiquedIds.push(unifiquedIdsArray.splice(i, i + 50).join(","));
   }
 
   const promises = unifiquedIds.map(async (uniqueIds) => {
@@ -66,23 +66,23 @@ export const getPlaylistStatistic = async (
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      next: { revalidate: 3600 }
-    }).then((res) => res.json())
-  })
+      next: { revalidate: 3600 },
+    }).then((res) => res.json());
+  });
 
-  const responses = await Promise.all(promises)
-  const artists = responses.flatMap((response) => response.artists)
+  const responses = await Promise.all(promises);
+  const artists = responses.flatMap((response) => response.artists);
 
-  const genresCount: Record<string, number> = {}
-  let totalGenres = 0
+  const genresCount: Record<string, number> = {};
+  let totalGenres = 0;
 
   const artistsStatistics = artists.map((artist: SpotifyArtist) => {
-    if (!artists) return
+    if (!artists) return;
 
     artist.genres.forEach((genre: string) => {
-      genresCount[genre] = (genresCount[genre] || 0) + 1
-      totalGenres++
-    })
+      genresCount[genre] = (genresCount[genre] || 0) + 1;
+      totalGenres++;
+    });
 
     return {
       id: artist.id,
@@ -90,22 +90,28 @@ export const getPlaylistStatistic = async (
       count: artistCount[artist.id],
       image: artist.images[0]?.url || "",
       spotifyUrl: artist.external_urls.spotify,
-    }
-  }) as { id: string; name: string; count: number; image: string; spotifyUrl: string }[]
+    };
+  }) as {
+    id: string;
+    name: string;
+    count: number;
+    image: string;
+    spotifyUrl: string;
+  }[];
 
   const genresStatistics = Object.entries(genresCount)
-  .sort(([, a], [, b]) => b - a)
-  .map(([name, count]) => ({
-    name,
-    value: Number(count),
-    percentage: Number(((count / totalGenres) * 100).toFixed(2)),
-  }))
-  
-  const topArtists = artistsStatistics.sort((a, b) => b!.count - a!.count)
-  const topGenres = genresStatistics.slice(0, 5)
+    .sort(([, a], [, b]) => b - a)
+    .map(([name, count]) => ({
+      name,
+      value: Number(count),
+      percentage: Number(((count / totalGenres) * 100).toFixed(2)),
+    }));
+
+  const topArtists = artistsStatistics.sort((a, b) => b!.count - a!.count);
+  const topGenres = genresStatistics.slice(0, 5);
 
   return {
     artistsStatistics,
     genresStatistics,
-  }
-}
+  };
+};

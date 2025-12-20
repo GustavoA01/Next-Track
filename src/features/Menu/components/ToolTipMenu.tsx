@@ -1,19 +1,19 @@
-import { LogOut } from "lucide-react"
-import { Button } from "../../../components/ui/button"
+import { LogOut } from "lucide-react";
+import { Button } from "../../../components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "../../../components/ui/tooltip"
-import { ProfileMenuTrigger } from "./ProfileMenuTrigger"
+} from "../../../components/ui/tooltip";
+import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
 
 type ToolTipMenuProps = {
   profile: {
-    images: { url: string }[]
-    display_name: string | null
-  }
-  setIsOpen: (isOpen: boolean) => void
-}
+    images: { url: string }[];
+    display_name: string | null;
+  };
+  setIsOpen: (isOpen: boolean) => void;
+};
 
 export const ToolTipMenu = ({ profile, setIsOpen }: ToolTipMenuProps) => {
   return (
@@ -33,5 +33,5 @@ export const ToolTipMenu = ({ profile, setIsOpen }: ToolTipMenuProps) => {
         </Button>
       </TooltipContent>
     </Tooltip>
-  )
-}
+  );
+};

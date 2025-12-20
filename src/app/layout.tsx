@@ -1,38 +1,38 @@
-import type { Metadata } from "next"
-import { Geist, Montserrat, Inter, Plus_Jakarta_Sans } from "next/font/google"
-import "./globals.css"
+import type { Metadata } from "next";
+import { Geist, Montserrat, Inter, Plus_Jakarta_Sans } from "next/font/google";
+import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-})
+});
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["400", "700"],
-})
+});
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700", "800"],
   variable: "--font-jakarta",
-})
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-})
+});
 
 export const metadata: Metadata = {
   title: "Next Track",
   description: "Recommends music according to your taste.",
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -42,5 +42,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  )
+  );
 }

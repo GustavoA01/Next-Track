@@ -1,9 +1,9 @@
-import { Slider } from "@/components/ui/slider"
+import { Slider } from "@/components/ui/slider";
 
 type SliderVibeProps = {
-  leftLabel: string
-  rightLabel: string
-}
+  leftLabel: string;
+  rightLabel: string;
+};
 
 export const SliderVibe = ({ leftLabel, rightLabel }: SliderVibeProps) => {
   return (
@@ -12,7 +12,7 @@ export const SliderVibe = ({ leftLabel, rightLabel }: SliderVibeProps) => {
         <p>{leftLabel}</p>
         <p>{rightLabel}</p>
       </div>
-      <Slider defaultValue={[50]} className="cursor-pointer"/>
+      <Slider defaultValue={[50]} className="cursor-pointer" />
     </div>
-  )
-}
+  );
+};

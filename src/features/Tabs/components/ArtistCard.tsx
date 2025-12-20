@@ -1,18 +1,18 @@
-import  playlistFallbackImage  from "@/assets/playlistFallback.svg"
-import Image from "next/image"
-import Link from "next/link"
+import playlistFallbackImage from "@/assets/playlistFallback.svg";
+import Image from "next/image";
+import Link from "next/link";
 
 type ArtistCardProps = {
-  index: number
-  palleteColor: string
+  index: number;
+  palleteColor: string;
   artist: {
-    id: string
-    name: string
-    count: number
-    image: string
-    spotifyUrl: string
-  }
-}
+    id: string;
+    name: string;
+    count: number;
+    image: string;
+    spotifyUrl: string;
+  };
+};
 
 export const ArtistCard = ({
   artist,
@@ -36,7 +36,7 @@ export const ArtistCard = ({
         width={150}
         height={150}
         alt={artist.name}
-        className="group-hover:scale-110 transition-all duration-300 rounded-lg md:w-full md:h-auto object-cover"
+        className="group-hover:scale-110 aspect-square transition-all duration-300 rounded-lg md:w-full md:h-auto object-cover"
       />
       <div
         style={{
@@ -55,4 +55,4 @@ export const ArtistCard = ({
       </div>
     </div>
   </Link>
-)
+);

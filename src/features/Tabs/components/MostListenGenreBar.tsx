@@ -1,9 +1,9 @@
-import { Progress } from "@/components/ui/progress"
+import { Progress } from "@/components/ui/progress";
 
 type MostListenGenreBarProps = {
-  name: string
-  value: number
-}
+  name: string;
+  value: number;
+};
 
 export const MostListenGenreBar = ({
   name,
@@ -17,5 +17,5 @@ export const MostListenGenreBar = ({
       </div>
       <Progress value={value} className="h-3" />
     </div>
-  )
-}
+  );
+};

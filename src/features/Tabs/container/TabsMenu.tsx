@@ -1,10 +1,10 @@
-"use client"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ChartColumnDecreasing, Sparkles } from "lucide-react"
-import { useState } from "react"
-import { StatisticContent } from "./StatisticContent"
-import { DiscoverContent } from "./DiscoverContent"
-import { PlaylistStatistics } from "@/data/types/recommendations"
+"use client";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ChartColumnDecreasing, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { StatisticContent } from "./StatisticContent";
+import { DiscoverContent } from "./DiscoverContent";
+import { PlaylistStatistics } from "@/data/types/recommendations";
 
 const tabs = [
   {
@@ -17,13 +17,13 @@ const tabs = [
     icon: ChartColumnDecreasing,
     label: "Estatísticas",
   },
-]
+];
 
 export const TabsMenu = ({
   artistsStatistics,
   genresStatistics,
 }: PlaylistStatistics) => {
-  const [tabValue, setTabValue] = useState("discover")
+  const [tabValue, setTabValue] = useState("discover");
 
   return (
     <Tabs className="w-full px-4" value={tabValue} onValueChange={setTabValue}>
@@ -53,5 +53,5 @@ export const TabsMenu = ({
         genresStatistics={genresStatistics}
       />
     </Tabs>
-  )
-}
+  );
+};

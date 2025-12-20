@@ -1,20 +1,20 @@
-"use client"
-import { redirectToAuthCodeFlow } from "@/actions/redirectFlow"
-import { Button } from "./ui/button"
+"use client";
+import { redirectToAuthCodeFlow } from "@/actions/redirectFlow";
+import { Button } from "./ui/button";
 
 export const ConectAccountButton = () => {
   const handleAction = async () => {
     try {
-      const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID
+      const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
       if (!clientId) {
-        throw new Error("Client ID não está definido")
+        throw new Error("Client ID não está definido");
       }
 
-      await redirectToAuthCodeFlow(clientId)
+      await redirectToAuthCodeFlow(clientId);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <Button
@@ -24,5 +24,5 @@ export const ConectAccountButton = () => {
     >
       Conectar
     </Button>
-  )
-}
+  );
+};

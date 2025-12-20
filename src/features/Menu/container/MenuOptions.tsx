@@ -1,22 +1,20 @@
-'use client'
-import { Dialog } from "@/components/ui/dialog"
-import { ConfirmLogOut } from "../components/ConfirmLogOut"
-import { DrawerMenu } from "../components/DrawerMenu"
-import { ToolTipMenu } from "../components/ToolTipMenu"
-import { useState } from "react"
+"use client";
+import { Dialog } from "@/components/ui/dialog";
+import { ConfirmLogOut } from "../components/ConfirmLogOut";
+import { DrawerMenu } from "../components/DrawerMenu";
+import { ToolTipMenu } from "../components/ToolTipMenu";
+import { useState } from "react";
 
-type MenuOptionsProps  = {
+type MenuOptionsProps = {
   profile: {
-    images: { url: string }[]
-    display_name: string | null
-  }
-}
+    images: { url: string }[];
+    display_name: string | null;
+  };
+};
 
-export const MenuOptions = ({
-  profile
-}: MenuOptionsProps) => {
-  const [isConfirmLogoutOpen, setIsConfirmLogoutOpen] = useState(false)
-  
+export const MenuOptions = ({ profile }: MenuOptionsProps) => {
+  const [isConfirmLogoutOpen, setIsConfirmLogoutOpen] = useState(false);
+
   return (
     <>
       <div className="flex items-center">
@@ -32,5 +30,5 @@ export const MenuOptions = ({
         <ConfirmLogOut />
       </Dialog>
     </>
-  )
-}
+  );
+};
