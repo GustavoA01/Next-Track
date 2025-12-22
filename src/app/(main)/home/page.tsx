@@ -27,8 +27,8 @@ const HomePage = async () => {
   return (
     <div>
       <Header />
-      <div className="flex flex-col custom-scrollbar hide-scrollbar overflow-y-auto flex-1 space-y-4 px-4 h-dvh pb-10">
-        <h2 className="w-full sm:w-200 text-base sm:text-lg text-muted-foreground">
+      <div className="flex flex-col custom-scrollbar hide-scrollbar overflow-y-auto flex-1 space-y-4 h-dvh pb-10">
+        <h2 className=" sm:text-lg text-muted-foreground container mx-auto px-4 sm:px-8">
           Selecione uma de suas playlists para receber recomendações
           personalizadas.
         </h2>

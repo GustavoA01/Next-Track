@@ -11,14 +11,14 @@ async function LoginPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-black/80 ">
-      {/* <Image
+      <Image
         fill
         preload
         objectFit="cover"
         className="-z-30"
         src={"/bgLogin.webp"}
         alt="imagem de fundo"
-      /> */}
+      />
       <div className="flex flex-col gap-4 items-center px-4 text-center">
         <h1 className="text-3xl md:text-5xl font-bold animate-fade-in-up-down ">
           Next Track

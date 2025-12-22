@@ -43,9 +43,9 @@ export const PlaylistHeader = async ({
       style={{
         background: `linear-gradient(to bottom, ${colorHex} 80%, transparent 100%)`,
       }}
-      className="py-4"
+      className="py-4 select-none"
     >
-      <div className="flex justify-between mb-10 items-center px-4">
+      <div className="flex justify-between mb-10 items-center px-4 container mx-auto sm:px-8">
         <GoBack />
         <MenuOptions profile={profile} />
       </div>

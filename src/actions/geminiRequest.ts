@@ -30,6 +30,7 @@ export async function geminiRquest({
   Prompt do usuário:
   ${prompt}
   `;
+
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents: `${initialPrompt}`,

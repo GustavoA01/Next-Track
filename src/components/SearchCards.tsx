@@ -18,11 +18,11 @@ export const SearchCards = ({
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 container mx-auto px-4 sm:px-8 ">
       <Input
+        className="w-full sm:w-[40%]"
         placeholder="Buscar por nome"
         onChange={(e) => setQueryText(e.target.value)}
-        className="w-full sm:w-[40%]"
       />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">

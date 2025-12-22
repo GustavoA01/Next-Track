@@ -6,6 +6,7 @@ import { SpotifyPlaylist } from "@/data/types/spotify";
 import { StatisticContent } from "./StatisticContent";
 import { DiscoverContent } from "./DiscoverContent";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const tabs = [
   {
@@ -28,13 +29,18 @@ export const TabsMenu = ({
   const [tabValue, setTabValue] = useState("discover");
 
   return (
-    <Tabs className="w-full px-4" value={tabValue} onValueChange={setTabValue}>
-      <TabsList className="bg-transparent rounded-none pb-0 w-full">
+    <Tabs className="w-full" value={tabValue} onValueChange={setTabValue}>
+      <TabsList className="bg-transparent rounded-none m-auto w-full">
         {tabs.map((tab) => (
-          <TabsTrigger
+          <Button
             key={tab.value}
-            value={tab.value}
-            className="border-none rounded-none"
+            variant="ghost"
+            onClick={() => setTabValue(tab.value)}
+            className={`flex-1 rounded-none ${
+              tabValue === tab.value
+                ? "border-b-2 border-primary text-white/80"
+                : "border-b-2 border-transparent"
+            }`}
           >
             <tab.icon
               className={`${
@@ -44,7 +50,7 @@ export const TabsMenu = ({
               }`}
             />{" "}
             {tab.label}
-          </TabsTrigger>
+          </Button>
         ))}
       </TabsList>
 

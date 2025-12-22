@@ -40,7 +40,7 @@ export const ArtistCard = ({
       />
       <div
         style={{
-          background: `linear-gradient(to top, ${palleteColor} 50%, transparent 100%)`,
+          background: `linear-gradient(to top, ${palleteColor} 60%, transparent 100%)`,
         }}
         className="w-full h-15 absolute bottom-1.5 rounded-b-lg flex items-center justify-center"
       ></div>

@@ -8,7 +8,7 @@ export const Header = async () => {
   const profile: SpotifyUserProfile = await fetchProfile(accessToken);
 
   return (
-    <header className="flex justify-between px-4 pt-4  mb-4">
+    <header className="flex justify-between px-4 container mx-auto sm:px-8 pt-4 mb-4 select-none">
       <h1 className="text-lg sm:text-2xl">Next Track</h1>
       <MenuOptions profile={profile} />
     </header>
