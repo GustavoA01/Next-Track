@@ -1,3 +1,5 @@
+import { SpotifyPlaylistTracks } from "./spotify";
+
 export type PlaylistStatistics = {
   artistsStatistics: {
     id: string;
@@ -7,6 +9,7 @@ export type PlaylistStatistics = {
     spotifyUrl: string;
   }[];
   genresStatistics: { name: string; value: number; percentage: number }[];
+  tracks?: SpotifyPlaylistTracks["items"];
 };
 
 export type AverageMessage = {

@@ -22,8 +22,8 @@ const tabs = [
 
 export const TabsMenu = ({
   playlist,
-  artistsStatistics,
   genresStatistics,
+  artistsStatistics,
 }: PlaylistStatistics & { playlist: SpotifyPlaylist }) => {
   const [tabValue, setTabValue] = useState("discover");
 
@@ -34,7 +34,7 @@ export const TabsMenu = ({
           <TabsTrigger
             key={tab.value}
             value={tab.value}
-            className={`border-none rounded-b-none bg-transparent`}
+            className={`border-none rounded-b-none bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary`}
           >
             <tab.icon
               className={`${
@@ -48,12 +48,15 @@ export const TabsMenu = ({
         ))}
       </TabsList>
 
-      <DiscoverContent />
+      <DiscoverContent
+        genresStatistics={genresStatistics}
+        artistsStatistics={artistsStatistics}
+      />
 
       <StatisticContent
         playlist={playlist}
-        artistsStatistics={artistsStatistics}
         genresStatistics={genresStatistics}
+        artistsStatistics={artistsStatistics}
       />
     </Tabs>
   );

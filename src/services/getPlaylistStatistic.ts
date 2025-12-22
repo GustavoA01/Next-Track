@@ -1,7 +1,4 @@
-import {
-  AverageMessage,
-  PlaylistStatistics,
-} from "@/data/types/recommendations";
+import { PlaylistStatistics } from "@/data/types/recommendations";
 import {
   SpotifyArtist,
   SpotifyPlaylistTrack,
@@ -115,5 +112,6 @@ export const getPlaylistStatistic = async (
   return {
     artistsStatistics,
     genresStatistics,
+    tracks,
   };
 };

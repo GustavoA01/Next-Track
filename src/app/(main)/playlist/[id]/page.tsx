@@ -1,9 +1,10 @@
 import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify";
 import { PlaylistHeader } from "@/components/Header/PlaylistHeader";
-import { getPlaylistStatistic } from "@/services/getRecommendations";
+import { getPlaylistStatistic } from "@/services/getPlaylistStatistic";
 import { TabsMenu } from "@/features/Tabs/container/TabsMenu";
 import { getCurrentToken } from "@/lib/getCurrentToken";
 import { fetchProfile } from "@/lib/spotify";
+import { geminiRquest } from "@/actions/geminiRequest";
 
 const PlaylistPage = async ({
   params,
@@ -26,11 +27,15 @@ const PlaylistPage = async ({
     .then((res) => res.json())
     .then((data) => data);
 
-  const { artistsStatistics, genresStatistics } = await getPlaylistStatistic(
-    accessToken,
-    id,
-    playlist.tracks.total,
-  );
+  const { artistsStatistics, genresStatistics, tracks } =
+    await getPlaylistStatistic(accessToken, id, playlist.tracks.total);
+
+  // await geminiRquest({
+  //   artistsStatistics: artistsStatistics.slice(0, 5),
+  //   genresStatistics: genresStatistics.slice(0, 5),
+  //   tracks,
+  //   prompt: "",
+  // })
 
   return (
     <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">

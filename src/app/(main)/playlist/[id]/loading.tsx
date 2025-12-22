@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const Loading = () => {
   return (
-    <div className="p-4 overflow-y-auto overflow-x-hidden">
+    <div className="px-4 pt-4 pb-8 2xl:px-64 overflow-y-auto overflow-x-hidden">
       <header className="flex justify-between mb-8">
         <Skeleton className="h-10 w-10" />
         <Skeleton className="h-10 w-10 rounded-full" />
