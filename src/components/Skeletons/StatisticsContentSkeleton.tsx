@@ -13,9 +13,8 @@ export function StatisticsContentSkeleton() {
               className="shrink-0 sm:w-auto"
             >
               <div className="rounded-xl overflow-hidden">
-                <Skeleton className="w-[220px] h-[220px] sm:w-full sm:h-[180px]" />
+                <Skeleton className="w-55 h-55 sm:w-full sm:h-60" />
               </div>
-              <Skeleton className="h-4 mt-2 w-40 sm:w-full" />
             </div>
           ))}
         </div>

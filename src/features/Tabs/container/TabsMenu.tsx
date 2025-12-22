@@ -34,7 +34,7 @@ export const TabsMenu = ({
 
   return (
     <Tabs className="w-full" value={tabValue} onValueChange={setTabValue}>
-      <TabsList className="bg-transparent rounded-none m-auto w-full">
+      <TabsList className="bg-transparent m-auto w-full">
         {tabs.map((tab) => (
           <Button
             key={tab.value}
@@ -58,12 +58,10 @@ export const TabsMenu = ({
         ))}
       </TabsList>
 
-      <Suspense fallback={<DiscoverContentSkeleton />}>
-        <DiscoverContent
-          genresStatistics={genresStatistics}
-          artistsStatistics={artistsStatistics}
-        />
-      </Suspense>
+      <DiscoverContent
+        genresStatistics={genresStatistics}
+        artistsStatistics={artistsStatistics}
+      />
 
       <Suspense fallback={<StatisticsContentSkeleton />}>
         <StatisticContent
