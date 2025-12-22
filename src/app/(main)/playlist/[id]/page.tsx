@@ -1,6 +1,6 @@
 import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify";
 import { PlaylistHeader } from "@/components/Header/PlaylistHeader";
-import { getPlaylistStatistic } from "@/lib/getRecommendations";
+import { getPlaylistStatistic } from "@/services/getRecommendations";
 import { TabsMenu } from "@/features/Tabs/container/TabsMenu";
 import { getCurrentToken } from "@/lib/getCurrentToken";
 import { fetchProfile } from "@/lib/spotify";

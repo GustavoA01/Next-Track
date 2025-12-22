@@ -18,10 +18,6 @@ export const MenuOptions = ({ profile }: MenuOptionsProps) => {
   return (
     <>
       <div className="flex items-center">
-        {/* <p className="text-muted-foreground font-montserrat animate-fade-in-up-down">
-          Next Track
-        </p> */}
-
         <ToolTipMenu profile={profile} setIsOpen={setIsConfirmLogoutOpen} />
         <DrawerMenu profile={profile} setIsOpen={setIsConfirmLogoutOpen} />
       </div>

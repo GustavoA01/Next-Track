@@ -63,7 +63,6 @@ export const StatisticContent = ({
 
       <div>
         <StatisticSubTitle text="Nível de popularidade das músicas" />
-
         <PopularityChart tracks={playlist.tracks} />
       </div>
     </TabsContent>

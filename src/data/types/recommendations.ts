@@ -12,5 +12,5 @@ export type PlaylistStatistics = {
 export type AverageMessage = {
   title: string;
   text: string;
-  color: string;
+  textColor: string;
 };

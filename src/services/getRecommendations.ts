@@ -110,68 +110,10 @@ export const getPlaylistStatistic = async (
       percentage: Number(((count / totalGenres) * 100).toFixed(2)),
     }));
 
-  const topArtists = artistsStatistics.sort((a, b) => b!.count - a!.count);
-  const topGenres = genresStatistics.slice(0, 5);
+  artistsStatistics.sort((a, b) => b.count - a.count);
 
   return {
     artistsStatistics,
     genresStatistics,
   };
-};
-
-export const getPopularity = (tracks: SpotifyPlaylistTracks) => {
-  const popularityDictionary: Record<number, number> = {};
-
-  tracks.items.forEach((item) => {
-    const popularity = item.track.popularity;
-    popularityDictionary[popularity] =
-      (popularityDictionary[popularity] || 0) + 1;
-  });
-
-  const chartData = Object.entries(popularityDictionary).map(
-    ([popularity, count]) => ({
-      popularity: Number(popularity),
-      count,
-    }),
-  );
-
-  // chartData.sort((a, b) => a.popularity - b.popularity)
-
-  return chartData;
-};
-
-export const getPopularityAvgMessage = (
-  tracks: SpotifyPlaylistTracks,
-  playlistLength: number,
-): AverageMessage => {
-  const sum = tracks.items.reduce(
-    (sum, item) => sum + item.track.popularity,
-    0,
-  );
-
-  const average = Math.floor(sum / playlistLength);
-
-  let message: AverageMessage;
-
-  if (average <= 30) {
-    message = {
-      title: "Underground",
-      text: "Essa playlist é para quem foge do óbvio. A maioria das faixas aqui são tesouros escondidos que pouca gente conhece. Pura cultura de nicho!",
-      color: "text-[#C084FC]",
-    };
-  } else if (average <= 65) {
-    message = {
-      title: "Equilibrado",
-      color: "text-[#38BDF8]",
-      text: "Um equilíbrio perfeito! Você misturou grandes sucessos com faixas mais profundas e específicas.",
-    };
-  } else {
-    message = {
-      title: "Mainstream",
-      text: "Essa seleção é composta por músicas que furaram a bolha e conquistaram o mundo. É hit atrás de hit!",
-      color: "text-[#FACC15]",
-    };
-  }
-
-  return message;
 };

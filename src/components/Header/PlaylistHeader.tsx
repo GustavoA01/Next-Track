@@ -1,9 +1,9 @@
-import { GoBack } from "@/components/GoBack";
 import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify";
 import { MenuOptions } from "@/features/Menu/container/MenuOptions";
+import playlistFallbackImage from "@/assets/playlistFallback.svg";
 import { HeaderPlaylistInfo } from "./HeaderPlaylistInfo";
 import { getAverageColor } from "fast-average-color-node";
-import playlistFallbackImage from "@/assets/playlistFallback.svg";
+import { GoBack } from "@/components/GoBack";
 import Image from "next/image";
 
 type PlaylistHeaderProps = {

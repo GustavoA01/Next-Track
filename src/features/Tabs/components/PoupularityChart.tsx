@@ -1,14 +1,12 @@
 import { SpotifyPlaylistTracks } from "@/data/types/spotify";
+import { getPopularityAvgMessage } from "@/utils/getPopularityAvgMessage";
+import { getTrackPopularity } from "@/utils/getTrackPopulartity";
 import { Bar, BarChart, XAxis } from "recharts";
 import {
-  getPopularityAvgMessage,
-  getPopularity,
-} from "@/lib/getRecommendations";
-import {
-  ChartTooltipContent,
-  ChartLegendContent,
   ChartContainer,
   ChartLegend,
+  ChartLegendContent,
+  ChartTooltipContent,
 } from "@/components/ui/chart";
 
 const chartConfig = {
@@ -25,20 +23,24 @@ type PopularityChartProps = {
 
 export const PopularityChart = ({ tracks }: PopularityChartProps) => {
   const avgMessage = getPopularityAvgMessage(tracks, tracks.total);
-  const chartData = getPopularity(tracks);
+  const chartData = getTrackPopularity(tracks);
 
   return (
     <div>
       <div className="mb-4">
         <h2
-          className={`sm:text-lg md:text-xl ${avgMessage.color} font-montserrat font-semibold mb-2`}
+          className={`sm:text-lg md:text-xl ${avgMessage.textColor} font-montserrat font-semibold mb-2`}
         >
           {avgMessage.title}
         </h2>
         <p className="text-sm sm:text-base">{avgMessage.text} </p>
       </div>
 
-      <ChartContainer className="mt-4 min-h-50 w-full" config={chartConfig}>
+      <ChartContainer
+        data-testid="popularity-chart"
+        className="mt-4 min-h-50 w-full"
+        config={chartConfig}
+      >
         <BarChart data={chartData}>
           <XAxis
             dataKey="popularity"
