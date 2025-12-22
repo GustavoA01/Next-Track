@@ -26,19 +26,25 @@ export const SearchCards = ({
       />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">
-        {playlistsFiltered.map((playlist: SpotifyPlaylist) => {
-          const imageUrl = playlist.images?.[0]?.url || playlistFallbackImage;
+        {playlistsFiltered.length > 0 ? (
+          playlistsFiltered.map((playlist: SpotifyPlaylist) => {
+            const imageUrl = playlist.images?.[0]?.url || playlistFallbackImage;
 
-          return (
-            <PlaylistCard
-              key={playlist.id}
-              id={playlist.id}
-              playlistName={playlist.name}
-              playlistImage={imageUrl}
-              totalTracks={playlist.tracks.total}
-            />
-          );
-        })}
+            return (
+              <PlaylistCard
+                key={playlist.id}
+                id={playlist.id}
+                playlistName={playlist.name}
+                playlistImage={imageUrl}
+                totalTracks={playlist.tracks.total}
+              />
+            );
+          })
+        ) : (
+          <div className="col-span-full">
+            <p className="text-muted-foreground">Nenhuma playlist encontrada</p>
+          </div>
+        )}
       </div>
     </div>
   );

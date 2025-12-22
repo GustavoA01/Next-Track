@@ -5,8 +5,12 @@ import { ChartColumnDecreasing, Sparkles } from "lucide-react";
 import { SpotifyPlaylist } from "@/data/types/spotify";
 import { StatisticContent } from "./StatisticContent";
 import { DiscoverContent } from "./DiscoverContent";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  DiscoverContentSkeleton,
+  StatisticsContentSkeleton,
+} from "@/components/Skeletons";
 
 const tabs = [
   {
@@ -54,16 +58,20 @@ export const TabsMenu = ({
         ))}
       </TabsList>
 
-      <DiscoverContent
-        genresStatistics={genresStatistics}
-        artistsStatistics={artistsStatistics}
-      />
+      <Suspense fallback={<DiscoverContentSkeleton />}>
+        <DiscoverContent
+          genresStatistics={genresStatistics}
+          artistsStatistics={artistsStatistics}
+        />
+      </Suspense>
 
-      <StatisticContent
-        playlist={playlist}
-        genresStatistics={genresStatistics}
-        artistsStatistics={artistsStatistics}
-      />
+      <Suspense fallback={<StatisticsContentSkeleton />}>
+        <StatisticContent
+          playlist={playlist}
+          genresStatistics={genresStatistics}
+          artistsStatistics={artistsStatistics}
+        />
+      </Suspense>
     </Tabs>
   );
 };
