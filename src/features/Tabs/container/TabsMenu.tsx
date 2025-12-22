@@ -9,14 +9,14 @@ import { useState } from "react";
 
 const tabs = [
   {
+    label: "Descobrir",
     value: "discover",
     icon: Sparkles,
-    label: "Descobrir",
   },
   {
+    label: "Estatísticas",
     value: "statistics",
     icon: ChartColumnDecreasing,
-    label: "Estatísticas",
   },
 ];
 
@@ -29,12 +29,12 @@ export const TabsMenu = ({
 
   return (
     <Tabs className="w-full px-4" value={tabValue} onValueChange={setTabValue}>
-      <TabsList className="bg-transparent border-b rounded-none pb-0 w-full">
+      <TabsList className="bg-transparent rounded-none pb-0 w-full">
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}
             value={tab.value}
-            className={`border-none rounded-b-none bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary`}
+            className="border-none rounded-none"
           >
             <tab.icon
               className={`${

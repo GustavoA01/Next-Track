@@ -12,7 +12,13 @@ function Drawer({
 function DrawerTrigger({
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Trigger>) {
-  return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />;
+  return (
+    <DrawerPrimitive.Trigger
+      data-slot="drawer-trigger"
+      aria-controls="radix-_R_15inebn5rlb_"
+      {...props}
+    />
+  );
 }
 
 function DrawerPortal({

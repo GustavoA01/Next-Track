@@ -41,7 +41,7 @@ const PlaylistPage = async ({
     <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
       <PlaylistHeader playlist={playlist} profile={profile} />
 
-      <div className="mt-10 px-4 sm:px-8 flex flex-col items-center w-full 2xl:px-64">
+      <div className="mt-10 px-4 sm:px-8 flex flex-col items-center 2xl:px-64">
         <TabsMenu
           playlist={playlist}
           artistsStatistics={artistsStatistics}
