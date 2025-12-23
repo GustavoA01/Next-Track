@@ -1,5 +1,5 @@
 "use client";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList } from "@/components/ui/tabs";
 import { PlaylistStatistics } from "@/data/types/recommendations";
 import { ChartColumnDecreasing, Sparkles } from "lucide-react";
 import { SpotifyPlaylist } from "@/data/types/spotify";
@@ -7,10 +7,7 @@ import { StatisticContent } from "./StatisticContent";
 import { DiscoverContent } from "./DiscoverContent";
 import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  DiscoverContentSkeleton,
-  StatisticsContentSkeleton,
-} from "@/components/Skeletons";
+import { StatisticsContentSkeleton } from "@/components/Skeletons";
 
 const tabs = [
   {

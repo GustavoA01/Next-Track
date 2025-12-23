@@ -57,8 +57,9 @@ export const PlaylistHeader = async ({
           quality={100}
           src={imageUrl}
           loading="eager"
+          objectFit="cover"
           alt={playlist.name}
-          className="max-sm:m-auto rounded-lg aspect-square lg:w-[23%] sm:h-auto shadow-lg object-cover"
+          className="max-sm:m-auto rounded-lg aspect-square lg:w-[23%] sm:h-auto shadow-lg"
         />
 
         <div className="flex flex-col max-sm:items-center">

@@ -26,6 +26,7 @@ export const ArtistCard = ({
           color: palleteColor,
           textShadow: `0 0 10px ${palleteColor}`,
         }}
+        data-testid="artist-counter"
         className="absolute z-10 left-5 top-2 text-lg sm:text-xl font-semibold "
       >
         {index + 1}
@@ -42,6 +43,7 @@ export const ArtistCard = ({
         style={{
           background: `linear-gradient(to top, ${palleteColor} 60%, transparent 100%)`,
         }}
+        data-testid="header-bg-color"
         className="w-full h-15 absolute bottom-1.5 rounded-b-lg flex items-center justify-center"
       ></div>
 
