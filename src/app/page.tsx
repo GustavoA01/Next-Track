@@ -10,12 +10,11 @@ async function LoginPage() {
   if (hasrefreshToken) redirect("/home");
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-black/80 ">
+    <div className="flex justify-center items-center min-h-screen bg-black/80">
       <Image
         fill
         preload
-        objectFit="cover"
-        className="-z-30"
+        className="-z-30 object-cover"
         src={"/bgLogin.webp"}
         alt="imagem de fundo"
       />

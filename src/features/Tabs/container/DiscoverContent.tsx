@@ -7,7 +7,12 @@ import { Card } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { geminiRquest } from "@/actions/geminiRequest";
 import { PlaylistStatistics } from "@/data/types/recommendations";
-import { useEffect } from "react";
+import { ReactNode } from "react";
+import { Spinner } from "@/components/ui/spinner";
+
+type DiscoverContentProps = {
+  chatContent: ReactNode;
+};
 
 type DiscoverPromptType = {
   prompt: string;
@@ -16,8 +21,13 @@ type DiscoverPromptType = {
 export const DiscoverContent = ({
   genresStatistics,
   artistsStatistics,
-}: PlaylistStatistics) => {
-  const { handleSubmit, register } = useForm<DiscoverPromptType>();
+  chatContent,
+}: PlaylistStatistics & DiscoverContentProps) => {
+  const {
+    handleSubmit,
+    register,
+    formState: { isLoading },
+  } = useForm<DiscoverPromptType>();
 
   const handleChatRequest = async (data: DiscoverPromptType) => {
     await geminiRquest({
@@ -39,8 +49,12 @@ export const DiscoverContent = ({
           placeholder="Músicas do artista mais tocado da playlist..."
         />
 
-        <Button type="submit">
-          <Sparkles />
+        <Button className="group" type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <Sparkles className="text-black group-hover:text-white transition-all duration-200" />
+          )}
         </Button>
       </form>
 
@@ -54,6 +68,8 @@ export const DiscoverContent = ({
         <SliderVibe leftLabel="TRISTE" rightLabel="FELIZ" />
         <SliderVibe leftLabel="VOCAL" rightLabel="INSTRUMENTAL" />
       </Card>
+
+      {chatContent}
     </TabsContent>
   );
 };

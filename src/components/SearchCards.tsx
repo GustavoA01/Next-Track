@@ -20,7 +20,7 @@ export const SearchCards = ({
   return (
     <div className="space-y-4 container mx-auto px-4 sm:px-8 ">
       <Input
-        className="w-full sm:w-[40%]"
+        className="w-full md:w-[40%]"
         placeholder="Buscar por nome"
         onChange={(e) => setQueryText(e.target.value)}
       />

@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "github.com",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "image-cdn-fa.spotifycdn.com",
         port: "",
       },

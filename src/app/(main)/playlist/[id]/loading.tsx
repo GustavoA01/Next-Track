@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const Loading = () => {
   return (
-    <div className="px-4 container mx-auto sm:px-8 pt-4 pb-8 2xl:px-64 overflow-y-auto overflow-x-hidden">
-      <header className="flex justify-between mb-8">
+    <div className="px-4  pt-4 pb-8  overflow-y-auto overflow-x-hidden">
+      <header className="flex justify-between mb-8 container mx-auto sm:px-8">
         <Skeleton className="h-10 w-10" />
         <Skeleton className="h-10 w-10 rounded-full" />
       </header>
@@ -17,12 +17,12 @@ const Loading = () => {
         </div>
       </div>
 
-      <div className="flex flex-col mt-20 2xl:px-64">
-        <div className="flex gap-2">
+      <div className="flex flex-col mt-20 container mx-auto sm:px-8">
+        <div className="flex gap-2 container mx-auto">
           <Skeleton className="w-full h-6 mb-4" />
           <Skeleton className="w-full h-6 mb-4" />
         </div>
-        <Skeleton className="w-full h-62" />
+        <Skeleton className="w-full h-62 container mx-auto" />
       </div>
     </div>
   );

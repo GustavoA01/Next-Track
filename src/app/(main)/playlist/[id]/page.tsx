@@ -1,10 +1,12 @@
 import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify";
-import { PlaylistHeader } from "@/components/Header/PlaylistHeader";
 import { getPlaylistStatistic } from "@/services/getPlaylistStatistic";
+import { PlaylistHeader } from "@/components/Header/PlaylistHeader";
+import { ChatContent } from "@/features/Chat/container/ChatContent";
+import { DiscoverContentSkeleton } from "@/components/Skeletons";
 import { TabsMenu } from "@/features/Tabs/container/TabsMenu";
 import { getCurrentToken } from "@/lib/getCurrentToken";
 import { fetchProfile } from "@/lib/spotify";
-import { geminiRquest } from "@/actions/geminiRequest";
+import { Suspense } from "react";
 
 const PlaylistPage = async ({
   params,
@@ -30,13 +32,6 @@ const PlaylistPage = async ({
   const { artistsStatistics, genresStatistics, tracks } =
     await getPlaylistStatistic(accessToken, id, playlist.tracks.total);
 
-  // await geminiRquest({
-  //   artistsStatistics: artistsStatistics.slice(0, 5),
-  //   genresStatistics: genresStatistics.slice(0, 5),
-  //   tracks,
-  //   prompt: "",
-  // })
-
   return (
     <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
       <PlaylistHeader playlist={playlist} profile={profile} />
@@ -46,6 +41,15 @@ const PlaylistPage = async ({
           playlist={playlist}
           artistsStatistics={artistsStatistics}
           genresStatistics={genresStatistics}
+          chatContent={
+            <Suspense fallback={<DiscoverContentSkeleton />}>
+              <ChatContent
+                artistsStatistics={artistsStatistics}
+                genresStatistics={genresStatistics}
+                tracks={tracks}
+              />
+            </Suspense>
+          }
         />
       </div>
     </div>
