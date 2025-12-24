@@ -1,7 +1,7 @@
 import { SpotifyPlaylistTracks } from "@/data/types/spotify";
 import { getTrackPopularity } from "../getTrackPopulartity";
 
-export const mockTracks: SpotifyPlaylistTracks = {
+const mockTracks: SpotifyPlaylistTracks = {
   href: "https://api.spotify.com/v1/playlists/1/tracks",
   total: 4,
   primary_color: "#000000",

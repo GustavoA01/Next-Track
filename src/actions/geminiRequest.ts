@@ -1,5 +1,5 @@
 "use server";
-import { PlaylistStatistics } from "@/data/types/recommendations";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { ai } from "@/services/googelGemini";
 
 export async function geminiRquest({
@@ -7,7 +7,7 @@ export async function geminiRquest({
   genresStatistics,
   prompt,
   tracks,
-}: PlaylistStatistics & { prompt: string }) {
+}: PlaylistStatisticsType & { prompt: string }) {
   const initialPrompt = `
   Você será usada na minha aplicação web que usa a api do spotify para recomendação de músicas de acordo com a playlist.
   Irei enviar toda a playlist e os 5 artistas mais presentes junto com os 5 gêneros mais presentes, para você gerar as músicas que aparecerão inicialmente na tela de descobrir.

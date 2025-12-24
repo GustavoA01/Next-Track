@@ -1,4 +1,4 @@
-import { PlaylistStatistics } from "@/data/types/recommendations";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import {
   SpotifyArtist,
   SpotifyPlaylistTrack,
@@ -9,7 +9,7 @@ export const getPlaylistStatistic = async (
   accessToken: string,
   playlistId: string,
   totalTracks: number,
-): Promise<PlaylistStatistics> => {
+): Promise<PlaylistStatisticsType> => {
   const tracks: SpotifyPlaylistTracks["items"] = [];
   let totalCopy = totalTracks;
   let offSetCount = 0;

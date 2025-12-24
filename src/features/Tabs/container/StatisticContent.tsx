@@ -1,5 +1,5 @@
 import { MostListenGenreBar } from "../components/MostListenGenreBar";
-import { PlaylistStatistics } from "@/data/types/recommendations";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { PopularityChart } from "../components/PoupularityChart";
 import { StatisticSubTitle } from "../components/StatSubTitle";
 import { SpotifyPlaylist } from "@/data/types/spotify";
@@ -11,7 +11,7 @@ export const StatisticContent = ({
   playlist,
   artistsStatistics,
   genresStatistics,
-}: PlaylistStatistics & { playlist: SpotifyPlaylist }) => {
+}: PlaylistStatisticsType & { playlist: SpotifyPlaylist }) => {
   const formatName = (name: string) =>
     name.charAt(0).toUpperCase() + name.slice(1);
 

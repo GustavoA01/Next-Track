@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { Card } from "./ui/card";
 import { Circle, Sparkles } from "lucide-react";
+import { Card } from "./ui/card";
+import Image from "next/image";
 import Link from "next/link";
 
 type PlaylistCardProps = {

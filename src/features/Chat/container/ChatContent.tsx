@@ -1,13 +1,13 @@
 import { geminiRquest } from "@/actions/geminiRequest";
-import { PlaylistStatistics } from "@/data/types/recommendations";
-import { MusicCard } from "../components/MusicCard";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
+import { MusicCard } from "../../MusicCard/container/MusicCard";
 import { Music2 } from "lucide-react";
 
 export const ChatContent = async ({
   artistsStatistics,
   genresStatistics,
   tracks,
-}: PlaylistStatistics) => {
+}: PlaylistStatisticsType) => {
   // await geminiRquest({
   //   artistsStatistics: artistsStatistics.slice(0, 5),
   //   genresStatistics: genresStatistics.slice(0, 5),

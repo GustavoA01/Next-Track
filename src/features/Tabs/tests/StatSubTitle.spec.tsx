@@ -10,7 +10,7 @@ describe("StatSubTitle", () => {
     expect(screen.getByText(mockText)).toBeInTheDocument();
   });
 
-  it("Renders component eith correct className", () => {
+  it("Renders component with correct className", () => {
     const mockText = "Test Subtitle";
     const correctClassName = "md:text-xl sm:text-lg font-bold mb-6";
 

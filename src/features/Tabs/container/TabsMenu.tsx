@@ -1,6 +1,6 @@
 "use client";
 import { Tabs, TabsList } from "@/components/ui/tabs";
-import { PlaylistStatistics } from "@/data/types/recommendations";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { ChartColumnDecreasing, Sparkles } from "lucide-react";
 import { SpotifyPlaylist } from "@/data/types/spotify";
 import { StatisticContent } from "./StatisticContent";
@@ -22,7 +22,7 @@ const tabs = [
   },
 ];
 
-type TabsMenuType = PlaylistStatistics & {
+type TabsMenuType = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;
   chatContent: ReactNode;
 };

@@ -1,5 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { ArtistCard } from "../components/ArtistCard";
+import { NextImgProps } from "@/globalTestsMocks";
+
+jest.mock("next/image", () => ({ src, alt, width, height }: NextImgProps) => (
+  <img src={src} alt={alt} width={width} height={height} />
+));
 
 const mockArtist = {
   id: "1",
@@ -9,13 +14,6 @@ const mockArtist = {
   image: "https://spotify/image-artist-mock",
   spotifyUrl: "https://api.spotify.com/v1/artists/1",
 };
-
-jest.mock("next/image", () => {
-  const mockImage = ({ src, alt, ...props }: { src: string; alt: string }) => {
-    return <img src={src} alt={alt} {...props} />;
-  };
-  return mockImage;
-});
 
 describe("ArtistCard", () => {
   beforeEach(() => {

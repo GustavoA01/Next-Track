@@ -6,7 +6,7 @@ import { Sparkles, Zap } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { geminiRquest } from "@/actions/geminiRequest";
-import { PlaylistStatistics } from "@/data/types/recommendations";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { ReactNode } from "react";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -22,7 +22,7 @@ export const DiscoverContent = ({
   genresStatistics,
   artistsStatistics,
   chatContent,
-}: PlaylistStatistics & DiscoverContentProps) => {
+}: PlaylistStatisticsType & DiscoverContentProps) => {
   const {
     handleSubmit,
     register,
