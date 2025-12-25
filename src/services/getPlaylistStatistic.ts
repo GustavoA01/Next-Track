@@ -14,6 +14,8 @@ export const getPlaylistStatistic = async (
   let totalCopy = totalTracks;
   let offSetCount = 0;
 
+  let totalDuration = 0;
+
   while (totalCopy > 50) {
     const tracksResponse = await fetch(
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=50`,
@@ -25,6 +27,12 @@ export const getPlaylistStatistic = async (
       .then((data) => data);
 
     tracks.push(...tracksResponse.items);
+
+    totalDuration += tracksResponse.items.reduce(
+      (sum: number, item: { track: SpotifyPlaylistTrack }) =>
+        sum + item.track.duration_ms,
+      0,
+    );
     offSetCount += 50;
     totalCopy -= 50;
   }
@@ -41,6 +49,11 @@ export const getPlaylistStatistic = async (
       .then((data) => data);
 
     tracks.push(...tracksResponse.items);
+    totalDuration += tracksResponse.items.reduce(
+      (sum: number, item: { track: SpotifyPlaylistTrack }) =>
+        sum + item.track.duration_ms,
+      0,
+    );
   }
 
   const artistCount: Record<string, number> = {};
@@ -58,7 +71,7 @@ export const getPlaylistStatistic = async (
   const unifiquedIds: string[] = [];
 
   for (let i = 0; i < unifiquedIdsArray.length; i += 50) {
-    unifiquedIds.push(unifiquedIdsArray.splice(i, i + 50).join(","));
+    unifiquedIds.push(unifiquedIdsArray.slice(i, i + 50).join(","));
   }
 
   const promises = unifiquedIds.map(async (uniqueIds) => {
@@ -76,22 +89,28 @@ export const getPlaylistStatistic = async (
   const genresCount: Record<string, number> = {};
   let totalGenres = 0;
 
-  const artistsStatistics = artists.map((artist: SpotifyArtist) => {
-    if (!artists) return;
+  const validArtists = artists.filter(
+    (artist: SpotifyArtist) =>
+      artist && artist.genres && artist.genres.length > 0,
+  );
+  const artistsStatistics = validArtists
+    .filter((artist: SpotifyArtist) => artist && artist.genres)
+    .map((artist: SpotifyArtist) => {
+      if (artist.genres.length === 0) return;
 
-    artist.genres.forEach((genre: string) => {
-      genresCount[genre] = (genresCount[genre] || 0) + 1;
-      totalGenres++;
-    });
+      artist.genres.forEach((genre: string) => {
+        genresCount[genre] = (genresCount[genre] || 0) + 1;
+        totalGenres++;
+      });
 
-    return {
-      id: artist.id,
-      name: artist.name,
-      count: artistCount[artist.id],
-      image: artist.images[0]?.url || "",
-      spotifyUrl: artist.external_urls.spotify,
-    };
-  }) as {
+      return {
+        id: artist.id,
+        name: artist.name,
+        count: artistCount[artist.id],
+        image: artist.images[0]?.url || "",
+        spotifyUrl: artist.external_urls.spotify,
+      };
+    }) as {
     id: string;
     name: string;
     count: number;
@@ -112,6 +131,7 @@ export const getPlaylistStatistic = async (
   return {
     artistsStatistics,
     genresStatistics,
+    totalDuration,
     tracks,
   };
 };

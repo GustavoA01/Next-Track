@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
 
 export const doLogout = async () => {
   const cookiesStore = await cookies();
@@ -8,5 +8,5 @@ export const doLogout = async () => {
   cookiesStore.delete("spotifyRefreshToken");
   cookiesStore.delete("spotifyAccessToken");
 
-  redirect("/");
+  redirect("/", RedirectType.replace);
 };

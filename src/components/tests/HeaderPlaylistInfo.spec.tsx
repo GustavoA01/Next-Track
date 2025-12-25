@@ -49,4 +49,29 @@ describe("HeaderPlaylistInfo", () => {
     expect(totalTracks).toHaveClass("text-muted-foreground");
     expect(timeText).toHaveClass("text-muted-foreground");
   });
+
+  it("renders with minutes-only timeText", () => {
+    render(<HeaderPlaylistInfo playlist={mockPlaylist} timeText="45min" />);
+
+    expect(screen.getByText("45min")).toBeInTheDocument();
+  });
+
+  it("renders with large track count", () => {
+    const bigPlaylist = {
+      ...mockPlaylist,
+      tracks: { ...mockTracks, total: 12345 },
+    };
+    render(<HeaderPlaylistInfo playlist={bigPlaylist} timeText="12h 00min" />);
+
+    expect(screen.getByText("12345 músicas")).toBeInTheDocument();
+  });
+
+  it("renders two separator icons", () => {
+    const { container } = render(
+      <HeaderPlaylistInfo playlist={mockPlaylist} timeText="10min" />,
+    );
+    const svgs = container.querySelectorAll("svg");
+
+    expect(svgs.length).toBeGreaterThanOrEqual(2);
+  });
 });

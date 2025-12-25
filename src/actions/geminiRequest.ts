@@ -1,6 +1,7 @@
 "use server";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { ai } from "@/services/googelGemini";
+import { searchTrack } from "@/services/searchTrack";
 
 export async function geminiRquest({
   artistsStatistics,
@@ -22,7 +23,15 @@ export async function geminiRquest({
   ${tracks?.map((track) => `Nome:  ${track.track.name}, Album: ${track.track.album.name}; \n`).join("\n")}.
 
   Siga essas instuções à risca:
-  RESPONDA SOMENTE COM O NOME DA MÚSICA E DO ARTISTA.
+  RESPONDA SOMENTE EM JSON, NO FORMATO 
+  {
+    "reccomendations": [
+      {
+        "song": "Nome da música",
+        "artist": "Nome do artista"
+      }
+    ]
+  }
   ANALISE A "VIBE" DA PLAYLIST E SUGIRA MÚSICAS BASEADO NISSO 
   GERE 5 MÚSICAS INICIALMENTE, PARA CASO O USUÁRIO ACABOU DE ENTRAR NA PÁGINA E AINDA NÃO DIGITOU NADA NO PROMPT.
   NÃO GERE MÚSICAS QUE JÁ EXISTEM NA PLAYLIST DO USUÁRIO.
@@ -35,5 +44,13 @@ export async function geminiRquest({
     model: "gemini-2.5-flash",
     contents: `${initialPrompt}`,
   });
-  console.log(response.text);
+
+  const formatedText = response.text
+    ?.replace(/```json/g, "")
+    .replace(/```/g, "");
+  const reccomendationsTracks = await searchTrack(
+    JSON.parse(formatedText || "{}").reccomendations,
+  );
+
+  return reccomendationsTracks;
 }

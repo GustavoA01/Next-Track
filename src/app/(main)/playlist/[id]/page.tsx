@@ -29,20 +29,24 @@ const PlaylistPage = async ({
     .then((res) => res.json())
     .then((data) => data);
 
-  const { artistsStatistics, genresStatistics, tracks } =
+  const { artistsStatistics, genresStatistics, tracks, totalDuration } =
     await getPlaylistStatistic(accessToken, id, playlist.tracks.total);
 
   return (
     <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
-      <PlaylistHeader playlist={playlist} profile={profile} />
+      <PlaylistHeader
+        playlist={playlist}
+        profile={profile}
+        totalDuration={totalDuration}
+      />
 
-      <div className="mt-10 px-4 container mx-auto sm:px-8 flex flex-col items-center 2xl:px-64">
+      <div className="mt-10 px-4 container mx-auto sm:px-8 flex flex-col items-center">
         <TabsMenu
           playlist={playlist}
           artistsStatistics={artistsStatistics}
           genresStatistics={genresStatistics}
           chatContent={
-            <Suspense fallback={<DiscoverContentSkeleton />}>
+            <Suspense fallback={<DiscoverContentSkeleton key={id} />}>
               <ChatContent
                 artistsStatistics={artistsStatistics}
                 genresStatistics={genresStatistics}

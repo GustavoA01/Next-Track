@@ -5,9 +5,19 @@ import { Card } from "@/components/ui/card";
 
 type MusicCardProps = {
   index: number;
+  imageUrl: string;
+  musicName: string;
+  artistName: string;
+  duration: string;
 };
 
-export const MusicCard = ({ index }: MusicCardProps) => {
+export const MusicCard = ({
+  index,
+  imageUrl,
+  musicName,
+  artistName,
+  duration,
+}: MusicCardProps) => {
   return (
     <Card className="group/card w-full px-4 sm:px-8 bg-transparent border-none cursor-pointer hover:bg-surface-hover/40 transition-all duration-200 shadow-none">
       <div className="flex justify-between items-center gap-2">
@@ -16,11 +26,11 @@ export const MusicCard = ({ index }: MusicCardProps) => {
             {index + 1}
           </p>
 
-          <AlbumImg src="https://github.com/shadcn.png" />
-          <MusicInfo musicName="Música" artistName="Artista" />
+          <AlbumImg src={imageUrl} />
+          <MusicInfo musicName={musicName} artistName={artistName} />
         </div>
 
-        <RightInfo />
+        <RightInfo duration={duration} />
       </div>
     </Card>
   );

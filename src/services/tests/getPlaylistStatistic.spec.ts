@@ -1,5 +1,5 @@
 import { mockTracks } from "@/globalTestsMocks";
-import { getPlaylistStatistic } from "./getPlaylistStatistic";
+import { getPlaylistStatistic } from "../getPlaylistStatistic";
 
 const mockArtistsResponse = {
   artists: [
@@ -47,5 +47,6 @@ describe("getPlaylistStatistic", () => {
       ]),
     );
     expect(result.tracks).toHaveLength(2);
+    expect(result.totalDuration).toBe(410000);
   });
 });

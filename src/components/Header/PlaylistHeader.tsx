@@ -5,22 +5,20 @@ import { HeaderPlaylistInfo } from "./HeaderPlaylistInfo";
 import { getAverageColor } from "fast-average-color-node";
 import { GoBack } from "@/components/GoBack";
 import Image from "next/image";
+import { msFormatter } from "@/utils/msFormatter";
 
 type PlaylistHeaderProps = {
   playlist: SpotifyPlaylist;
   profile: SpotifyUserProfile;
+  totalDuration?: number;
 };
 
 export const PlaylistHeader = async ({
   playlist,
   profile,
+  totalDuration,
 }: PlaylistHeaderProps) => {
-  const totalDuration = playlist.tracks.items.reduce((acc, item) => {
-    return acc + item.track.duration_ms;
-  }, 0);
-
-  const hours = Math.floor(totalDuration / 3600000);
-  const minutes = Math.floor((totalDuration % 3600000) / 60000);
+  const { hours, minutes } = msFormatter(totalDuration || 0);
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
 
   let colorHex = "#121212";
@@ -50,24 +48,23 @@ export const PlaylistHeader = async ({
         <MenuOptions profile={profile} />
       </div>
 
-      <div className="flex flex-col sm:flex-row max-sm:items-center items-end justify-center gap-4">
+      <div className="flex flex-col px-4 sm:px-8 sm:flex-row max-sm:items-center items-end justify-center gap-4">
         <Image
           width={250}
           height={250}
           quality={100}
           src={imageUrl}
           loading="eager"
-          objectFit="cover"
           alt={playlist.name}
-          className="max-sm:m-auto rounded-lg aspect-square lg:w-[23%] sm:h-auto shadow-lg"
+          className="max-sm:m-auto rounded-lg aspect-square lg:w-[23%] sm:h-auto shadow-lg object-cover"
         />
 
-        <div className="flex flex-col max-sm:items-center">
-          <p className="text-muted-foreground md:text-lg font-semibold">
+        <div className="flex flex-col max-sm:items-center max-w-2xl">
+          <p className="text-muted-foreground md:text-lg font-semibold drop-shadow-lg">
             PLAYLIST
           </p>
           <HeaderPlaylistInfo playlist={playlist} timeText={timeText} />
-          <h1 className="text-3xl font-bold font-montserrat mt-4 line-clamp-2 sm:text-4xl lg:text-5xl pb-2">
+          <h1 className="text-3xl font-bold max-w-lg font-montserrat mt-4 line-clamp-2 sm:text-4xl lg:text-5xl">
             {playlist.name}
           </h1>
         </div>

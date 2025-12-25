@@ -10,6 +10,7 @@ export type PlaylistStatisticsType = {
   }[];
   genresStatistics: { name: string; value: number; percentage: number }[];
   tracks?: SpotifyPlaylistTracks["items"];
+  totalDuration?: number;
 };
 
 export type AverageMessageType = {

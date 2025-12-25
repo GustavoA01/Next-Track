@@ -21,7 +21,7 @@ export const PlaylistCard = ({
       className="group"
       href={`playlist/${id}?name=${encodeURIComponent(playlistName)}`}
     >
-      <Card className=" px-4 cursor-pointer hover:bg-surface-hover transition-all duration-400 hover:-translate-y-1.5">
+      <Card className="px-4 cursor-pointer hover:bg-surface-hover transition-all duration-400 hover:-translate-y-1.5">
         <div className="overflow-hidden rounded-md relative w-auto h-auto">
           <div className="absolute inset-0 flex items-center justify-center text-black bg-primary opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10 p-2 rounded-full w-10 h-10 m-auto">
             <Sparkles size={20} />
@@ -31,7 +31,7 @@ export const PlaylistCard = ({
             height={150}
             alt={playlistName}
             src={playlistImage}
-            className="rounded-md w-full h-auto group-hover:scale-110 group-hover:blur-xs transition-all duration-300 object-cover"
+            className="rounded-md aspect-square w-full h-auto  group-hover:scale-110 group-hover:blur-xs transition-all duration-300 object-cover"
           />
         </div>
 
