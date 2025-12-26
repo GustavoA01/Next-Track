@@ -1,8 +1,8 @@
 import { geminiRquest } from "@/actions/geminiRequest";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
-import { MusicCard } from "../../MusicCard/container/MusicCard";
 import { Music2 } from "lucide-react";
-import { msFormatter } from "@/utils/msFormatter";
+import { getCurrentToken } from "@/lib/getCurrentToken";
+import { ChatCards } from "../../components/ChatCards";
 
 export const ChatContent = async ({
   artistsStatistics,
@@ -16,6 +16,8 @@ export const ChatContent = async ({
   //   prompt: "",
   // })
 
+  const accessToken = await getCurrentToken();
+
   const reccomendationsTracks = [];
 
   return (
@@ -25,23 +27,10 @@ export const ChatContent = async ({
         <h1 className="sm:text-xl font-semibold">Músicas sugeridas</h1>
       </div>
 
-      <div className="space-y-2 mt-4 w-full">
-        {reccomendationsTracks.map((track, index) => {
-          const { minutes, seconds } = msFormatter(track.duration_ms);
-          const duration = `${minutes}:${seconds}`;
-
-          return (
-            <MusicCard
-              key={track.id}
-              index={index}
-              musicName={track.name}
-              artistName={track.artists[0].name}
-              imageUrl={track.album.images[0].url}
-              duration={duration}
-            />
-          );
-        })}
-      </div>
+      <ChatCards
+        reccomendationsTracks={reccomendationsTracks}
+        accessToken={accessToken}
+      />
     </div>
   );
 };

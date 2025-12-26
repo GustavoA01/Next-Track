@@ -18,10 +18,13 @@ export async function redirectToAuthCodeFlow(clientId: string) {
   cookiesStore.set("verifier", verifier);
 
   const scopes = [
-    "user-read-email",
+    "user-read-playback-state",
+    "user-modify-playback-state",
     "user-read-private",
+    "user-read-email",
+    "streaming",
     "playlist-read-private",
-    // "playlist-read-collaborative",
+    "playlist-read-collaborative",
   ].join(" ");
 
   const params = new URLSearchParams();

@@ -15,7 +15,7 @@ async function LoginPage() {
         fill
         preload
         className="-z-30 object-cover"
-        src={"/bgLogin.webp"}
+        src={"/bgLogin.jpg"}
         alt="imagem de fundo"
       />
       <div className="flex flex-col gap-4 items-center px-4 text-center">
