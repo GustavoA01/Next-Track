@@ -58,6 +58,11 @@ export const DiscoverContent = ({
         </Button>
       </form>
 
+      <h2 className="text-sm text-muted-foreground">
+        Observação: Só é possível reproduzir músicas com uma conta Spotify
+        premium
+      </h2>
+
       <div className="flex items-center gap-2">
         <Zap className="w-6 h-6 text-primary" />
         <h2 className="sm:text-lg font-semibold">Ajustar Vibe</h2>

@@ -2,7 +2,7 @@ import { geminiRquest } from "@/actions/geminiRequest";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { Music2 } from "lucide-react";
 import { getCurrentToken } from "@/lib/getCurrentToken";
-import { ChatCards } from "../../components/ChatCards";
+import { ChatCards } from "../components/ChatCards";
 
 export const ChatContent = async ({
   artistsStatistics,

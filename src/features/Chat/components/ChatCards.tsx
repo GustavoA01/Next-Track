@@ -1,7 +1,7 @@
 "use client";
 import { Player } from "@/components/Player";
 import { useState } from "react";
-import { MusicCard } from "../MusicCard/container/MusicCard";
+import { MusicCard } from "../../MusicCard/container/MusicCard";
 import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 import { msFormatter } from "@/utils/msFormatter";
 
