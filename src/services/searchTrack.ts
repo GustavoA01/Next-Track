@@ -1,11 +1,12 @@
-import { getCurrentToken } from "@/lib/getCurrentToken";
+import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 
 export const searchTrack = async (
-  reccomendations: { song: string; artist: string }[],
-) => {
-  const accessToken = await getCurrentToken();
+  accessToken: string,
+  recommendations: { song: string; artist: string }[],
+): Promise<SpotifyPlaylistTrack[]> => {
+  if (recommendations.length === 0) return [];
 
-  const promises = reccomendations.map(async (recommendation) => {
+  const promises = recommendations.map(async (recommendation) => {
     const query = `track:${recommendation.song} artist:${recommendation.artist}`;
     const response = await fetch(
       `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`,
@@ -15,9 +16,8 @@ export const searchTrack = async (
         },
       },
     );
-    if (!response.ok) {
-      return;
-    }
+
+    if (!response.ok) return;
 
     return response.json().then((data) => data.tracks.items);
   });

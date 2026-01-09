@@ -3,11 +3,11 @@ import { Tabs, TabsList } from "@/components/ui/tabs";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { ChartColumnDecreasing, Sparkles } from "lucide-react";
 import { SpotifyPlaylist } from "@/data/types/spotify";
-import { StatisticContent } from "./StatisticContent";
-import { DiscoverContent } from "./DiscoverContent";
-import { ReactNode, Suspense, useState } from "react";
+import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { StatisticsContentSkeleton } from "@/components/Skeletons";
+import { DiscoverContent } from "./DiscoverTab/container/DiscoverContent";
+import { StatisticContent } from "./StatisticTab/container/StatisticContent";
 
 const tabs = [
   {
@@ -22,17 +22,17 @@ const tabs = [
   },
 ];
 
-type TabsMenuType = PlaylistStatisticsType & {
+type TabsMenuProps = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;
-  chatContent: ReactNode;
 };
 
 export const TabsMenu = ({
   playlist,
   genresStatistics,
   artistsStatistics,
-  chatContent,
-}: TabsMenuType) => {
+  tracks,
+  accessToken,
+}: TabsMenuProps & { accessToken: string }) => {
   const [tabValue, setTabValue] = useState("discover");
 
   return (
@@ -64,7 +64,8 @@ export const TabsMenu = ({
       <DiscoverContent
         genresStatistics={genresStatistics}
         artistsStatistics={artistsStatistics}
-        chatContent={chatContent}
+        tracks={tracks}
+        accessToken={accessToken}
       />
 
       <Suspense fallback={<StatisticsContentSkeleton />}>

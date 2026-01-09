@@ -1,30 +1,20 @@
 import { MostListenGenreBar } from "../components/MostListenGenreBar";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
-import { PopularityChart } from "../components/PoupularityChart";
+import { PopularityChart } from "../components/PopularityChart";
 import { StatisticSubTitle } from "../components/StatSubTitle";
 import { SpotifyPlaylist } from "@/data/types/spotify";
 import { ArtistCard } from "../components/ArtistCard";
 import { TabsContent } from "@/components/ui/tabs";
-import { extractColors } from "extract-colors";
+import { useStatisticTab } from "../hook/useStatisticTab";
 
 export const StatisticContent = ({
   playlist,
   artistsStatistics,
   genresStatistics,
 }: PlaylistStatisticsType & { playlist: SpotifyPlaylist }) => {
-  const formatName = (name: string) =>
-    name.charAt(0).toUpperCase() + name.slice(1);
-
-  const getHexaColor = async (imageUrl: string) => {
-    try {
-      const colors = await extractColors(imageUrl, {
-        crossOrigin: "anonymous",
-      });
-      return colors[0].hex;
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const { avgMessage, chartData, formatName, getHexaColor } = useStatisticTab(
+    playlist.tracks,
+  );
 
   return (
     <TabsContent className="flex flex-col gap-10" value="statistics">
@@ -63,7 +53,7 @@ export const StatisticContent = ({
 
       <div>
         <StatisticSubTitle text="Nível de popularidade das músicas" />
-        <PopularityChart tracks={playlist.tracks} />
+        <PopularityChart avgMessage={avgMessage} chartData={chartData} />
       </div>
     </TabsContent>
   );

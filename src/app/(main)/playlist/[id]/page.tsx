@@ -1,12 +1,8 @@
-import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify";
+import { SpotifyPlaylist } from "@/data/types/spotify";
 import { getPlaylistStatistic } from "@/services/getPlaylistStatistic";
 import { PlaylistHeader } from "@/components/Header/PlaylistHeader";
-import { ChatContent } from "@/features/Chat/container/ChatContent";
-import { DiscoverContentSkeleton } from "@/components/Skeletons";
-import { TabsMenu } from "@/features/Tabs/container/TabsMenu";
 import { getCurrentToken } from "@/lib/getCurrentToken";
-import { fetchProfile } from "@/lib/spotify";
-import { Suspense } from "react";
+import { TabsMenu } from "@/features/Tabs/TabsMenu";
 
 const PlaylistPage = async ({
   params,
@@ -15,7 +11,6 @@ const PlaylistPage = async ({
 }) => {
   const { id } = await params;
   const accessToken = await getCurrentToken();
-  const profile: SpotifyUserProfile = await fetchProfile(accessToken);
 
   const playlist: SpotifyPlaylist = await fetch(
     `https://api.spotify.com/v1/playlists/${id}`,
@@ -36,7 +31,7 @@ const PlaylistPage = async ({
     <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
       <PlaylistHeader
         playlist={playlist}
-        profile={profile}
+        accessToken={accessToken}
         totalDuration={totalDuration}
       />
 
@@ -45,15 +40,8 @@ const PlaylistPage = async ({
           playlist={playlist}
           artistsStatistics={artistsStatistics}
           genresStatistics={genresStatistics}
-          chatContent={
-            <Suspense fallback={<DiscoverContentSkeleton key={id} />}>
-              <ChatContent
-                artistsStatistics={artistsStatistics}
-                genresStatistics={genresStatistics}
-                tracks={tracks}
-              />
-            </Suspense>
-          }
+          tracks={tracks}
+          accessToken={accessToken}
         />
       </div>
     </div>

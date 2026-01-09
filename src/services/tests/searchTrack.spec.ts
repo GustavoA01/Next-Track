@@ -35,7 +35,7 @@ describe("searchTrack", () => {
         json: () => Promise.resolve({ tracks: { items: [{ id: "2" }] } }),
       });
 
-    const result = await searchTrack(recommendations);
+    const result = await searchTrack("token", recommendations);
 
     expect(global.fetch).toHaveBeenCalledTimes(2);
     expect((global.fetch as jest.Mock).mock.calls[0][0]).toContain(

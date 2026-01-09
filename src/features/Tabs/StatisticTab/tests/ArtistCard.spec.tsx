@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ArtistCard } from "../components/ArtistCard";
 import { NextImgProps } from "@/globalTestsMocks";
+import { ArtistCard } from "../components/ArtistCard";
 
 jest.mock("next/image", () => ({ src, alt, width, height }: NextImgProps) => (
   <img src={src} alt={alt} width={width} height={height} />

@@ -6,18 +6,20 @@ import { getAverageColor } from "fast-average-color-node";
 import { GoBack } from "@/components/GoBack";
 import Image from "next/image";
 import { msFormatter } from "@/utils/msFormatter";
+import { fetchProfile } from "@/lib/spotify";
 
 type PlaylistHeaderProps = {
   playlist: SpotifyPlaylist;
-  profile: SpotifyUserProfile;
+  accessToken: string;
   totalDuration?: number;
 };
 
 export const PlaylistHeader = async ({
   playlist,
-  profile,
+  accessToken,
   totalDuration,
 }: PlaylistHeaderProps) => {
+  const profile: SpotifyUserProfile = await fetchProfile(accessToken);
   const { hours, minutes } = msFormatter(totalDuration || 0);
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
 
@@ -39,7 +41,7 @@ export const PlaylistHeader = async ({
   return (
     <div
       style={{
-        background: `linear-gradient(to bottom, ${colorHex} 80%, transparent 100%)`,
+        background: `linear-gradient(to bottom, ${colorHex} 50%, transparent 100%)`,
       }}
       className="py-4 select-none"
     >

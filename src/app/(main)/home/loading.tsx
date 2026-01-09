@@ -14,8 +14,11 @@ const Loading = () => {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">
-        {Array.from({ length: 8 }).map((_, index) => (
-          <Skeleton key={index} className="w-full h-62.5" />
+        {Array.from({ length: 10 }).map((_, index) => (
+          <Skeleton
+            key={index}
+            className="w-full max-sm:h-62 sm:h-72 md:h-82 xl:h-92"
+          />
         ))}
       </div>
     </div>

@@ -38,9 +38,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: var(--color-surface-hover);
     border-radius: 10px;
     cursor: pointer;
+
+    &:hover {
+      background: var(--primary);
+    }
   }
 
   @media (max-width: 640px) {
@@ -48,6 +52,7 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
+
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
     }

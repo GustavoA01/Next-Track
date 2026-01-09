@@ -1,17 +1,16 @@
-"use client";
 import { Player } from "@/components/Player";
 import { useState } from "react";
-import { MusicCard } from "../../MusicCard/container/MusicCard";
+import { MusicCard } from "../../../MusicCard/container/MusicCard";
 import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 import { msFormatter } from "@/utils/msFormatter";
 
 type ChatCardsProps = {
-  reccomendationsTracks: SpotifyPlaylistTrack[];
+  recommendationsTracks: SpotifyPlaylistTrack[];
   accessToken: string;
 };
 
 export const ChatCards = ({
-  reccomendationsTracks,
+  recommendationsTracks,
   accessToken,
 }: ChatCardsProps) => {
   const [uris, setUris] = useState<string[]>([]);
@@ -19,7 +18,7 @@ export const ChatCards = ({
   return (
     <>
       <div className="space-y-2 mt-4 w-full">
-        {reccomendationsTracks.map((track, index) => {
+        {recommendationsTracks.map((track, index) => {
           const { minutes, seconds } = msFormatter(track.duration_ms);
           const duration = `${minutes}:${seconds}`;
 
@@ -38,7 +37,7 @@ export const ChatCards = ({
         })}
       </div>
 
-      <Player token={accessToken} uris={uris} />
+      {uris.length > 0 && <Player token={accessToken} uris={uris} />}
     </>
   );
 };

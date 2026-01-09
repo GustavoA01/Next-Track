@@ -1,2 +1,2 @@
-export { DiscoverContentSkeleton } from "./DiscoverContentSkeleton";
+export { MusicCardsSkeleton } from "./MusicCardsSkeleton";
 export { StatisticsContentSkeleton } from "./StatisticsContentSkeleton";

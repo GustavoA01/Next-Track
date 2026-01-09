@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Montserrat, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,7 +40,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

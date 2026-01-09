@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { SliderVibe } from "../components/SliderVibe";
 import { resizeObserverMock } from "@/globalTestsMocks";
+import { SliderVibe } from "../components/SliderVibe";
 
 describe("SliderVibe", () => {
   beforeAll(() => {
@@ -12,7 +12,12 @@ describe("SliderVibe", () => {
     const mockRightLabel = "AGITADO TESTE";
 
     render(
-      <SliderVibe leftLabel={mockLeftLabel} rightLabel={mockRightLabel} />,
+      <SliderVibe
+        value={20}
+        setValue={jest.fn()}
+        leftLabel={mockLeftLabel}
+        rightLabel={mockRightLabel}
+      />,
     );
 
     expect(screen.getByText(mockLeftLabel)).toBeInTheDocument();

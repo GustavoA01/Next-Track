@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function StatisticsContentSkeleton() {
+export const StatisticsContentSkeleton = () => {
   return (
     <div className="flex flex-col gap-10">
       <div className="mt-4">
@@ -40,4 +40,4 @@ export function StatisticsContentSkeleton() {
       </div>
     </div>
   );
-}
+};

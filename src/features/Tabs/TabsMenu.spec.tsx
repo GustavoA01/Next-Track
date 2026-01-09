@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { TabsMenu } from "../container/TabsMenu";
+import { TabsMenu } from "./TabsMenu";
 import { SpotifyPlaylist } from "@/data/types/spotify";
 
-jest.mock("../container/DiscoverContent", () => ({
+jest.mock("./DiscoverTab/container/DiscoverContent", () => ({
   DiscoverContent: () => <div data-testid="discover-content" />,
 }));
 
-jest.mock("../container/StatisticContent", () => ({
+jest.mock("./StatisticTab/container/StatisticContent", () => ({
   StatisticContent: () => <div data-testid="statistics-content" />,
 }));
 
@@ -49,7 +49,7 @@ const baseProps = {
 
 describe("TabsMenu", () => {
   it("renders both tabs and default active is Descobrir", () => {
-    render(<TabsMenu {...baseProps} />);
+    render(<TabsMenu accessToken="mock_token" {...baseProps} />);
     const discoverBtn = screen.getByRole("button", { name: /Descobrir/i });
     const statsBtn = screen.getByRole("button", { name: /Estatísticas/i });
 
@@ -63,7 +63,7 @@ describe("TabsMenu", () => {
   });
 
   it("changes active tab styles when clicking Estatísticas", () => {
-    render(<TabsMenu {...baseProps} />);
+    render(<TabsMenu accessToken="mock_token" {...baseProps} />);
     const discoverBtn = screen.getByRole("button", { name: /Descobrir/i });
     const statsBtn = screen.getByRole("button", { name: /Estatísticas/i });
 
