@@ -39,7 +39,7 @@ export const AccordionVibe = ({
             <h2
               className={`${isVibesChanged ? "text-primary" : ""} sm:text-lg font-semibold`}
             >
-              Ajustar Vibe
+              Ajustar Energia
             </h2>
           </div>
         </AccordionTrigger>

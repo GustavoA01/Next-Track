@@ -7,3 +7,9 @@ export type ChatResponseType = {
 };
 
 export type MessageType = { role: "user" | "assistant"; content: string };
+
+export type VibesType = {
+  emotionalVibe: number;
+  energyVibe: number;
+  instrumentalVibe: number;
+};

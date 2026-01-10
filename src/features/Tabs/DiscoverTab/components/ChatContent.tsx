@@ -13,13 +13,13 @@ const defaultCardClassName = "p-2 px-0 w-fit max-md:text-sm";
 const cardsProps = {
   user: {
     index: "user",
-    cardClassName: "bg-primary ml-auto rounded-tr-xs",
+    cardClassName: "bg-primary ml-auto rounded-tr-xs max-w-[60%]",
     textClassName: "text-background",
   },
   assistant: {
     index: "assistant",
     textClassName: "",
-    cardClassName: "sm:mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs",
+    cardClassName: "sm:mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs max-w-[80%]",
   },
 };
 
@@ -33,7 +33,7 @@ export const ChatContent = ({
       {messages.map((message, index) => (
         <Card
           key={` ${cardsProps[message.role].index}-${index}`}
-          className={`max-w-[60%] ${cardsProps[message.role].cardClassName} ${defaultCardClassName}`}
+          className={`${cardsProps[message.role].cardClassName} ${defaultCardClassName}`}
         >
           <CardContent>
             <p className={cardsProps[message.role].textClassName}>

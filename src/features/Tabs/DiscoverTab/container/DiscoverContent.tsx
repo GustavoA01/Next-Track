@@ -26,7 +26,7 @@ export const DiscoverContent = ({
     setEnergyVibe,
     setInstrumentalVibe,
     onResetVibes,
-    setSelectedBadge,
+    onSelectBadge,
     messages,
     isResponseLoading,
     handleChatRequest,
@@ -54,7 +54,7 @@ export const DiscoverContent = ({
         isVibesChanged={isVibesChanged}
       />
 
-      <BadgesGroup setSelectedBadge={setSelectedBadge} />
+      <BadgesGroup onSelectBadge={onSelectBadge} />
 
       {messages.length > 0 && (
         <ChatContent

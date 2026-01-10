@@ -74,7 +74,7 @@ export const getPlaylistStatistic = async (
     unifiquedIds.push(unifiquedIdsArray.slice(i, i + 50).join(","));
   }
 
-  const promises = unifiquedIds.map(async (uniqueIds) => {
+  const artistsPromises = unifiquedIds.map(async (uniqueIds) => {
     return await fetch(`https://api.spotify.com/v1/artists?ids=${uniqueIds}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -83,8 +83,8 @@ export const getPlaylistStatistic = async (
     }).then((res) => res.json());
   });
 
-  const responses = await Promise.all(promises);
-  const artists = responses.flatMap((response) => response.artists);
+  const artistsResponses = await Promise.all(artistsPromises);
+  const artists = artistsResponses.flatMap((response) => response.artists);
 
   const genresCount: Record<string, number> = {};
   let totalGenres = 0;

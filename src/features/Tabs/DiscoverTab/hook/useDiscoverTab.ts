@@ -6,7 +6,7 @@ import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 import { searchTrack } from "@/services/searchTrack";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -31,12 +31,19 @@ export const useDiscoverTab = ({
   const [emotionalVibe, setEmotionalVibe] = useState<number>(50);
   const [energyVibe, setEnergyVibe] = useState<number>(50);
   const [instrumentalVibe, setInstrumentalVibe] = useState<number>(50);
-  const [selectedBadge, setSelectedBadge] = useState<string | null>(null);
 
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const isVibesChanged =
     emotionalVibe !== 50 || energyVibe !== 50 || instrumentalVibe !== 50;
+
+  const onResetVibes = () => {
+    setEmotionalVibe(50);
+    setEnergyVibe(50);
+    setInstrumentalVibe(50);
+  };
+
+  const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
   const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } =
     useMutation({
@@ -52,9 +59,9 @@ export const useDiscoverTab = ({
 
   const handleChatRequest = async (data: { prompt: string }) => {
     const vibes = {
-      emotionalVibe,
-      energyVibe,
-      instrumentalVibe,
+      emotionalVibe: emotionalVibe / 100,
+      energyVibe: energyVibe / 100,
+      instrumentalVibe: instrumentalVibe / 100,
     };
 
     try {
@@ -70,6 +77,8 @@ export const useDiscoverTab = ({
         genresStatistics,
         tracks,
         prompt: data.prompt,
+        vibes,
+        isVibesChanged,
       });
       const response = await geminiRequestFn(initialPrompt);
 
@@ -91,16 +100,6 @@ export const useDiscoverTab = ({
     }
   };
 
-  const onResetVibes = () => {
-    setEmotionalVibe(50);
-    setEnergyVibe(50);
-    setInstrumentalVibe(50);
-  };
-
-  useEffect(() => {
-    if (selectedBadge) reset({ prompt: selectedBadge });
-  }, [selectedBadge]);
-
   return {
     methods,
     handleChatRequest,
@@ -115,7 +114,7 @@ export const useDiscoverTab = ({
     instrumentalVibe,
     setInstrumentalVibe,
     onResetVibes,
-    setSelectedBadge,
+    onSelectBadge,
     errorMessage,
     isVibesChanged,
   };
