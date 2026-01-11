@@ -16,7 +16,7 @@ export const getContextPrompt = ({
   isVibesChanged,
 }: getContextPromptProps) => `
 Você será usada na minha aplicação web que usa a api do spotify para recomendação de músicas de acordo com a playlist.
-Irei enviar toda a playlist e os 5 artistas mais presentes junto com os 5 gêneros mais presentes, para você gerar as músicas que aparecerão inicialmente na tela de descobrir.
+Irei enviar toda a playlist e os 5 artistas mais presentes junto com os 5 gêneros mais presentes, para você gerar as músicas que aparecerão na tela de descobrir.
 
 Aqui estão os artistas mais ouvidos:
 ${artistsStatistics.map((artist) => `${artist.name}: ${artist.count} músicas \n`)}
@@ -35,13 +35,13 @@ O USUÁRIO PODE FAZER PERGUNTAS SOBRE A PLAYLIST COMO "MEU ARTISTA FAVORITO DA P
 ${
   isVibesChanged
     ? `
-IMPORTANTE: O usuário definiu ajustes finos de energia para a recomendação. 
-Use esses valores como guia principal para o estilo das músicas sugeridas (Escala de 0 a 1):
-**Se qualquer um dos valores for igual a 0.5, considere como neutro e não influencie as recomendações baseado nesse valor específico.
-- Nível de Energia: ${vibes.energyVibe} (0.0 = Muito Calmo/Lento, 1.0 = Muito Agitado/Rápido)
-- Humor (Valência): ${vibes.emotionalVibe} (0.0 = Triste/Melancólico, 1.0 = Feliz/Eufórico)
-- Foco em Voz/Instrumento: ${vibes.instrumentalVibe} (0.0 = Focado em Vocais/Letra, 1.0 = Totalmente Instrumental)
-Na resposta, não precisa mencionar os valores dos números nem aqueles que estão neutros (0.5). Apenas adapte o estilo das músicas sugeridas conforme os ajustes feitos pelo usuário.
+  IMPORTANTE: O usuário definiu ajustes finos de energia para a recomendação. 
+  Use esses valores como guia principal para o estilo das músicas sugeridas (Escala de 0 a 1):
+  **Se qualquer um dos valores for igual a 0.5, considere como neutro e não influencie as recomendações baseado nesse valor específico.
+  - Nível de Energia: ${vibes.energyVibe} (0.0 = Muito Calmo/Lento, 1.0 = Muito Agitado/Rápido)
+  - Humor (Valência): ${vibes.emotionalVibe} (0.0 = Triste/Melancólico, 1.0 = Feliz/Eufórico)
+  - Foco em Voz/Instrumento: ${vibes.instrumentalVibe} (0.0 = Focado em Vocais/Letra, 1.0 = Totalmente Instrumental)
+  Na resposta, não precisa mencionar os valores dos números nem aqueles que estão neutros (0.5). Apenas adapte o estilo das músicas sugeridas conforme os ajustes feitos pelo usuário.
 `
     : ""
 }
@@ -60,6 +60,9 @@ RESPONDA SOMENTE EM JSON, NO FORMATO
 ANALISE A "VIBE" DA PLAYLIST E SUGIRA MÚSICAS BASEADO NISSO 
 GERE SEMPRE SOMENTE 5 MÚSICAS BASEADO NO PROMPT DO USUÁRIO.
 NÃO GERE MÚSICAS QUE JÁ EXISTEM NA PLAYLIST DO USUÁRIO.
+
+Se o usuário escrever algo sem sentido com a propsta como gerar imagens, vídeos ou perguntas não relacionadas à playlist ou música,
+responda que não pode ajudar com isso.
 
 Aqui está o prompt do usuário:
 

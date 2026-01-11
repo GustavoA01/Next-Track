@@ -25,6 +25,8 @@ export async function redirectToAuthCodeFlow(clientId: string) {
     "streaming",
     "playlist-read-private",
     "playlist-read-collaborative",
+    "playlist-modify-public",
+    "playlist-modify-private",
   ].join(" ");
 
   const params = new URLSearchParams();

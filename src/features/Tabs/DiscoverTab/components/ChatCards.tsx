@@ -7,11 +7,13 @@ import { msFormatter } from "@/utils/msFormatter";
 type ChatCardsProps = {
   recommendationsTracks: SpotifyPlaylistTrack[];
   accessToken: string;
+  onAddToPlaylist: (trackUri: string) => void;
 };
 
 export const ChatCards = ({
   recommendationsTracks,
   accessToken,
+  onAddToPlaylist,
 }: ChatCardsProps) => {
   const [uris, setUris] = useState<string[]>([]);
 
@@ -24,7 +26,6 @@ export const ChatCards = ({
 
           return (
             <MusicCard
-              id={track.id}
               key={`music-card-${track.id}`}
               onClick={() => setUris([track.uri])}
               index={index}
@@ -32,6 +33,12 @@ export const ChatCards = ({
               artistName={track.artists[0].name}
               imageUrl={track.album.images[0].url}
               duration={duration}
+              onAddToPlaylist={(
+                e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+              ) => {
+                e.stopPropagation();
+                onAddToPlaylist(track.uri);
+              }}
             />
           );
         })}

@@ -9,6 +9,9 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams } from "next/navigation";
+import { addToPlaylist } from "@/actions/addToPlaylist";
+import { toast } from "sonner";
 
 export const useDiscoverTab = ({
   artistsStatistics,
@@ -16,6 +19,7 @@ export const useDiscoverTab = ({
   tracks,
   accessToken,
 }: PlaylistStatisticsType & { accessToken: string }) => {
+  const { id: playlistId } = useParams();
   const methods = useForm<ChatFormType>({
     resolver: zodResolver(chatSchema),
   });
@@ -100,6 +104,17 @@ export const useDiscoverTab = ({
     }
   };
 
+  const onAddToPlaylist = async (trackUri: string) => {
+    const jsonUris = {
+      uris: [trackUri],
+    };
+
+    const success = await addToPlaylist({ jsonUris, playlistId, accessToken });
+
+    if (success) toast.success("Música adicionada à playlist!");
+    else toast.error("Erro ao adicionar música à playlist.");
+  };
+
   return {
     methods,
     handleChatRequest,
@@ -117,5 +132,6 @@ export const useDiscoverTab = ({
     onSelectBadge,
     errorMessage,
     isVibesChanged,
+    onAddToPlaylist,
   };
 };

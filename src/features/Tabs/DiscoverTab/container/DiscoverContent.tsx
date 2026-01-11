@@ -34,6 +34,7 @@ export const DiscoverContent = ({
     isRecommendationsLoading,
     errorMessage,
     isVibesChanged,
+    onAddToPlaylist,
   } = useDiscoverTab({
     accessToken,
     artistsStatistics,
@@ -72,7 +73,7 @@ export const DiscoverContent = ({
           <Input
             {...methods.register("prompt")}
             className="w-full rounded-full max-sm:text-sm"
-            placeholder="Músicas do artista mais tocado da playlist..."
+            placeholder="Peça músicas..."
           />
 
           <Button className="group" type="submit" disabled={isResponseLoading}>
@@ -100,6 +101,7 @@ export const DiscoverContent = ({
         <MusicCardsSkeleton />
       ) : (
         <ChatCards
+          onAddToPlaylist={onAddToPlaylist}
           accessToken={accessToken}
           recommendationsTracks={recommendationsTracks}
         />

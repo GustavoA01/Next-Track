@@ -6,22 +6,22 @@ import { Card } from "@/components/ui/card";
 
 type MusicCardProps = {
   index: number;
-  id: string;
   imageUrl: string;
   musicName: string;
   artistName: string;
   duration: string;
   onClick: () => void;
+  onAddToPlaylist: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
 export const MusicCard = ({
-  id,
   index,
   imageUrl,
   musicName,
   artistName,
   duration,
   onClick,
+  onAddToPlaylist,
 }: MusicCardProps) => {
   return (
     <Card
@@ -38,7 +38,7 @@ export const MusicCard = ({
           <MusicInfo musicName={musicName} artistName={artistName} />
         </div>
 
-        <RightInfo duration={duration} />
+        <RightInfo onAddToPlaylist={onAddToPlaylist} duration={duration} />
       </div>
     </Card>
   );

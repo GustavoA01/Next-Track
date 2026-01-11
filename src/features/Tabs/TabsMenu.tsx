@@ -24,6 +24,7 @@ const tabs = [
 
 type TabsMenuProps = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;
+  accessToken: string;
 };
 
 export const TabsMenu = ({
@@ -32,7 +33,7 @@ export const TabsMenu = ({
   artistsStatistics,
   tracks,
   accessToken,
-}: TabsMenuProps & { accessToken: string }) => {
+}: TabsMenuProps) => {
   const [tabValue, setTabValue] = useState("discover");
 
   return (
