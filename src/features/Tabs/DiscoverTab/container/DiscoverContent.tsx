@@ -57,7 +57,7 @@ export const DiscoverContent = ({
 
       <BadgesGroup onSelectBadge={onSelectBadge} />
 
-      {messages.length > 0 && (
+      {messages && messages.length > 0 && (
         <ChatContent
           errorMessage={errorMessage}
           messages={messages}
@@ -74,6 +74,7 @@ export const DiscoverContent = ({
             {...methods.register("prompt")}
             className="w-full rounded-full max-sm:text-sm"
             placeholder="Peça músicas..."
+            disabled={isResponseLoading}
           />
 
           <Button className="group" type="submit" disabled={isResponseLoading}>

@@ -2,7 +2,6 @@ import { VibesType } from "@/data/types";
 import { PlaylistStatisticsType } from "../data/types/recommendations";
 
 type getContextPromptProps = PlaylistStatisticsType & {
-  prompt: string;
   vibes: VibesType;
   isVibesChanged: boolean;
 };
@@ -11,7 +10,6 @@ export const getContextPrompt = ({
   artistsStatistics,
   genresStatistics,
   tracks,
-  prompt,
   vibes,
   isVibesChanged,
 }: getContextPromptProps) => `
@@ -57,7 +55,7 @@ RESPONDA SOMENTE EM JSON, NO FORMATO
   ]
 }
 
-ANALISE A "VIBE" DA PLAYLIST E SUGIRA MÚSICAS BASEADO NISSO 
+ANALISE A "ENERGIA" DA PLAYLIST E SUGIRA MÚSICAS BASEADO NISSO 
 GERE SEMPRE 5 MÚSICAS COMO PADRÃO E NO MÁXIMO 10 SE O USUÁRIO PEDIR BASEADO NO PROMPT DO USUÁRIO.
 CASO ELE PEÇA MAIS DE 10, INFORME QUE SÓ PODE ATÉ 10.
 NÃO GERE MÚSICAS QUE JÁ EXISTEM NA PLAYLIST DO USUÁRIO.
@@ -65,7 +63,5 @@ NÃO GERE MÚSICAS QUE JÁ EXISTEM NA PLAYLIST DO USUÁRIO.
 Se o usuário escrever algo sem sentido com a propsta como gerar imagens, vídeos ou perguntas não relacionadas à playlist ou música,
 responda que não pode ajudar com isso.
 
-Aqui está o prompt do usuário:
-
-${prompt}
+Será enviado também o histórico de conversa de vocês dois.
 `;

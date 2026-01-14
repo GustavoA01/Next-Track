@@ -1,18 +1,56 @@
 "use server";
-import { ChatResponseType } from "@/data/types";
+import { ChatPromptType, ChatResponseType } from "@/data/types";
+import { getMessages } from "@/services/firebase/getMessages";
 import { ai } from "@/services/googelGemini";
 import { HarmBlockThreshold, HarmCategory } from "@google/genai";
 
+type historyType = {
+  role: "user" | "model";
+  parts: {
+    text: string;
+  }[];
+};
+
 export async function geminiRequest({
-  prompt,
-}: {
-  prompt: string;
-}): Promise<ChatResponseType> {
+  systemMessage,
+  userMessage,
+  playlistId,
+}: ChatPromptType & { playlistId: string }): Promise<ChatResponseType> {
   try {
+    const messageHistory = await getMessages(playlistId);
+    let historyContent: historyType[] = [];
+
+    if (messageHistory.length > 0) {
+      historyContent = messageHistory.flatMap((message) => [
+        {
+          role: "user",
+          parts: [{ text: message.userMessage }],
+        },
+        {
+          role: "model",
+          parts: [
+            {
+              text: JSON.stringify({
+                chatResponse: message.chatResponse,
+                lastRecommendations: message.recommendations,
+              }),
+            },
+          ],
+        },
+      ]);
+    }
+
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: `${prompt}`,
+      contents: [
+        ...historyContent,
+        { role: "user", parts: [{ text: userMessage.content }] },
+      ],
       config: {
+        systemInstruction: {
+          role: "system",
+          parts: [{ text: systemMessage.content }],
+        },
         responseMimeType: "application/json",
         safetySettings: [
           {

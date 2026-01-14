@@ -1,17 +1,19 @@
 import { geminiRequest } from "@/actions/geminiRequest";
 import { getContextPrompt } from "@/utils/getContextPrompt";
 import { ChatFormType, chatSchema } from "@/data/schemas/chatSchema";
-import { MessageType } from "@/data/types";
+import { ChatPromptType, LastRecommendationsType } from "@/data/types";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 import { searchTrack } from "@/services/searchTrack";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { addToPlaylist } from "@/actions/addToPlaylist";
 import { toast } from "sonner";
+import { getMessages } from "@/services/firebase/getMessages";
+import { postMessages } from "@/services/firebase/postMessages";
 
 export const useDiscoverTab = ({
   artistsStatistics,
@@ -20,6 +22,7 @@ export const useDiscoverTab = ({
   accessToken,
 }: PlaylistStatisticsType & { accessToken: string }) => {
   const { id: playlistId } = useParams();
+  const queryClient = useQueryClient();
   const methods = useForm<ChatFormType>({
     resolver: zodResolver(chatSchema),
   });
@@ -28,7 +31,6 @@ export const useDiscoverTab = ({
   const [recommendationsTracks, setRecommendationsTracks] = useState<
     SpotifyPlaylistTrack[]
   >([]);
-  const [messages, setMessages] = useState<MessageType[]>([]);
   const [isRecommendationsLoading, setIsRecommendationsLoading] =
     useState(false);
 
@@ -49,10 +51,36 @@ export const useDiscoverTab = ({
 
   const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
+  const { data: messages } = useQuery({
+    queryKey: ["messages", playlistId],
+    queryFn: () => getMessages(playlistId as string),
+  });
+
+  const { mutateAsync: postMessageFn } = useMutation({
+    mutationFn: async (params: {
+      userMessageContent: string;
+      chatResponse: string;
+      recommendations: LastRecommendationsType[];
+    }) =>
+      postMessages({
+        playlistId: playlistId as string,
+        userMessageContent: params.userMessageContent,
+        chatResponse: params.chatResponse,
+        recommendations: params.recommendations,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["messages", playlistId] });
+    },
+  });
+
   const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } =
     useMutation({
-      mutationFn: (initialPrompt: string) =>
-        geminiRequest({ prompt: initialPrompt }),
+      mutationFn: (prompt: ChatPromptType) =>
+        geminiRequest({
+          systemMessage: prompt.systemMessage,
+          userMessage: prompt.userMessage,
+          playlistId: playlistId as string,
+        }),
       onError: (error) => {
         console.log("Error ao chamar gemini", error);
         setErrorMessage(
@@ -68,23 +96,28 @@ export const useDiscoverTab = ({
       instrumentalVibe: instrumentalVibe / 100,
     };
 
-    try {
-      setErrorMessage("");
-      reset({ prompt: "" });
-      setMessages((state) => [
-        ...state,
-        { role: "user", content: data.prompt },
-      ]);
-
-      const initialPrompt = getContextPrompt({
+    const systemMessage = {
+      role: "system",
+      content: getContextPrompt({
         artistsStatistics,
         genresStatistics,
         tracks,
-        prompt: data.prompt,
         vibes,
         isVibesChanged,
-      });
-      const response = await geminiRequestFn(initialPrompt);
+      }),
+    };
+
+    const userMessage = {
+      role: "user",
+      content: data.prompt,
+    };
+
+    try {
+      setErrorMessage("");
+      reset({ prompt: "" });
+
+      const prompt = { systemMessage, userMessage };
+      const response = await geminiRequestFn(prompt);
 
       setIsRecommendationsLoading(true);
       const recommendationsResponse = await searchTrack(
@@ -93,10 +126,19 @@ export const useDiscoverTab = ({
       );
       setRecommendationsTracks(recommendationsResponse);
 
-      setMessages((state) => [
-        ...state,
-        { role: "assistant", content: response.chatResponse },
-      ]);
+      const lastRecommendations = recommendationsResponse.map((track) => ({
+        id: track.id,
+        name: track.name,
+        artists: track.artists.map((artist) => artist.name).join(", "),
+        album: track.album.name,
+        duration: track.duration_ms,
+      }));
+
+      await postMessageFn({
+        chatResponse: response.chatResponse,
+        userMessageContent: data.prompt,
+        recommendations: lastRecommendations as LastRecommendationsType[],
+      });
     } catch (error) {
       console.log("Error ao chamar gemini", error);
     } finally {
