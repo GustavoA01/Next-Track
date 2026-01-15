@@ -1,15 +1,16 @@
-import { TabsContent } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Sparkles } from "lucide-react";
-import { PlaylistStatisticsType } from "@/data/types/recommendations";
-import { Spinner } from "@/components/ui/spinner";
-import { ChatCards } from "@/features/Tabs/DiscoverTab/components/ChatCards";
-import { AccordionVibe } from "../components/AccordionVibe";
-import { BadgesGroup } from "../components/BadgesGroup";
-import { ChatContent } from "../components/ChatContent";
-import { useDiscoverTab } from "../hook/useDiscoverTab";
-import { MusicCardsSkeleton } from "@/components/Skeletons";
+import { TabsContent } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Sparkles } from "lucide-react"
+import { PlaylistStatisticsType } from "@/data/types/recommendations"
+import { Spinner } from "@/components/ui/spinner"
+import { ChatCards } from "@/features/Tabs/DiscoverTab/components/ChatCards"
+import { AccordionVibe } from "../components/AccordionVibe"
+import { BadgesGroup } from "../components/BadgesGroup"
+import { ChatContent } from "../components/ChatContent"
+import { useDiscoverTab } from "../hook/useDiscoverTab"
+import { MusicCardsSkeleton } from "@/components/Skeletons"
+import { Textarea } from "@/components/ui/textarea"
 
 export const DiscoverContent = ({
   genresStatistics,
@@ -35,12 +36,14 @@ export const DiscoverContent = ({
     errorMessage,
     isVibesChanged,
     onAddToPlaylist,
+    temporaryMessage,
+    deleteChatFn,
   } = useDiscoverTab({
     accessToken,
     artistsStatistics,
     genresStatistics,
     tracks,
-  });
+  })
 
   return (
     <TabsContent className="sm:px-8 pt-4 flex flex-col gap-6" value="discover">
@@ -62,6 +65,8 @@ export const DiscoverContent = ({
           errorMessage={errorMessage}
           messages={messages}
           isLoading={isResponseLoading}
+          temporaryMessage={temporaryMessage}
+          deleteChat={deleteChatFn}
         />
       )}
 
@@ -69,10 +74,13 @@ export const DiscoverContent = ({
         className="space-y-2"
         onSubmit={methods.handleSubmit(handleChatRequest)}
       >
-        <div className="flex items-center gap-2">
-          <Input
+        <div className="flex items-end gap-2">
+          {/* <Input
+          /> */}
+
+          <Textarea
             {...methods.register("prompt")}
-            className="w-full rounded-full max-sm:text-sm"
+            className="w-full rounded-xl hide-scrollbar max-sm:text-sm resize-none min-h-10 max-h-20"
             placeholder="Peça músicas..."
             disabled={isResponseLoading}
           />
@@ -108,5 +116,5 @@ export const DiscoverContent = ({
         />
       )}
     </TabsContent>
-  );
-};
+  )
+}

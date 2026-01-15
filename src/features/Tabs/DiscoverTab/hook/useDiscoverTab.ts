@@ -14,6 +14,7 @@ import { addToPlaylist } from "@/actions/addToPlaylist";
 import { toast } from "sonner";
 import { getMessages } from "@/services/firebase/getMessages";
 import { postMessages } from "@/services/firebase/postMessages";
+import { deleteChat } from "@/services/firebase/deleteChat";
 
 export const useDiscoverTab = ({
   artistsStatistics,
@@ -33,6 +34,7 @@ export const useDiscoverTab = ({
   >([]);
   const [isRecommendationsLoading, setIsRecommendationsLoading] =
     useState(false);
+    const [temporaryMessage,setTemporaryMessage] = useState<string>("");
 
   const [emotionalVibe, setEmotionalVibe] = useState<number>(50);
   const [energyVibe, setEnergyVibe] = useState<number>(50);
@@ -69,6 +71,7 @@ export const useDiscoverTab = ({
         recommendations: params.recommendations,
       }),
     onSuccess: () => {
+      setTemporaryMessage("")
       queryClient.invalidateQueries({ queryKey: ["messages", playlistId] });
     },
   });
@@ -89,7 +92,16 @@ export const useDiscoverTab = ({
       },
     });
 
+    const { mutateAsync: deleteChatFn } = useMutation({
+      mutationFn: ()=> deleteChat(playlistId as string),
+      onSuccess: ()=>{
+        queryClient.invalidateQueries({ queryKey: ["messages", playlistId] });
+        toast.success("Chat deletado com sucesso")
+      }
+    })
+
   const handleChatRequest = async (data: { prompt: string }) => {
+    setTemporaryMessage(data.prompt);
     const vibes = {
       emotionalVibe: emotionalVibe / 100,
       energyVibe: energyVibe / 100,
@@ -175,5 +187,7 @@ export const useDiscoverTab = ({
     errorMessage,
     isVibesChanged,
     onAddToPlaylist,
+    temporaryMessage,
+    deleteChatFn
   };
 };

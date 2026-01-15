@@ -5,8 +5,7 @@ import { ChatContentResponse } from "@/data/types";
 export const getMessages = async (playlistId: string) => {
   try {
     const queryWhere = query(
-      collection(db, chatMessageCollection),
-      where("playlistId", "==", playlistId),
+      collection(db,"playlists", playlistId, chatMessageCollection),
       orderBy("createdAt", "asc"),
     );
     const querySnapshot = await getDocs(queryWhere);

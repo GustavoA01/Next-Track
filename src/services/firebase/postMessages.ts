@@ -15,8 +15,7 @@ export const postMessages = async ({
   chatResponse,
   recommendations,
 }: PostMessagesParams) => {
-  await addDoc(collection(db, chatMessageCollection), {
-    playlistId,
+  await addDoc(collection(db,"playlists",playlistId, chatMessageCollection), {
     userMessage: userMessageContent,
     chatResponse: chatResponse,
     recommendations,
