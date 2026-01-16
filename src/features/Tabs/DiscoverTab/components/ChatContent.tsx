@@ -10,7 +10,7 @@ type ChatContentProps = {
   isLoading: boolean
   errorMessage: string
   temporaryMessage: string
-  deleteChat: () => void
+  setOpenConfirmDialog: (open: boolean) => void
 }
 
 const defaultCardClassName = "p-2 px-0 w-fit max-md:text-sm"
@@ -20,12 +20,12 @@ export const ChatContent = ({
   isLoading,
   errorMessage,
   temporaryMessage,
-  deleteChat,
+  setOpenConfirmDialog,
 }: ChatContentProps) => (
   <Card className="max-h-150 animate-fade-in-up-down">
     <CardHeader className="flex max-h-5 justify-between items-center py-0">
-      <h2>Chat</h2>
-      <Button variant="destructive" onClick={deleteChat}>
+      <CardTitle>Chat</CardTitle>
+      <Button variant="destructive" onClick={() => setOpenConfirmDialog(true)}>
         <Trash />
       </Button>
     </CardHeader>

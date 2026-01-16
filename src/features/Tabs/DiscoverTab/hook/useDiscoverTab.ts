@@ -42,6 +42,8 @@ export const useDiscoverTab = ({
 
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
+
   const isVibesChanged =
     emotionalVibe !== 50 || energyVibe !== 50 || instrumentalVibe !== 50;
 
@@ -95,6 +97,7 @@ export const useDiscoverTab = ({
     const { mutateAsync: deleteChatFn } = useMutation({
       mutationFn: ()=> deleteChat(playlistId as string),
       onSuccess: ()=>{
+        setOpenConfirmDialog(false);
         queryClient.invalidateQueries({ queryKey: ["messages", playlistId] });
         toast.success("Chat deletado com sucesso")
       }
@@ -188,6 +191,8 @@ export const useDiscoverTab = ({
     isVibesChanged,
     onAddToPlaylist,
     temporaryMessage,
-    deleteChatFn
+    deleteChatFn,
+    openConfirmDialog,
+    setOpenConfirmDialog,
   };
 };

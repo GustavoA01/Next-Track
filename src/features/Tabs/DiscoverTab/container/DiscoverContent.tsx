@@ -1,16 +1,17 @@
 import { TabsContent } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Sparkles } from "lucide-react"
 import { PlaylistStatisticsType } from "@/data/types/recommendations"
 import { Spinner } from "@/components/ui/spinner"
-import { ChatCards } from "@/features/Tabs/DiscoverTab/components/ChatCards"
+import { Recommendations } from "@/features/Tabs/DiscoverTab/components/Recommendations"
 import { AccordionVibe } from "../components/AccordionVibe"
 import { BadgesGroup } from "../components/BadgesGroup"
 import { ChatContent } from "../components/ChatContent"
 import { useDiscoverTab } from "../hook/useDiscoverTab"
 import { MusicCardsSkeleton } from "@/components/Skeletons"
 import { Textarea } from "@/components/ui/textarea"
+import { ConfirmClearChat } from "../components/ConfirmClearChat"
+import { Dialog } from "@/components/ui/dialog"
 
 export const DiscoverContent = ({
   genresStatistics,
@@ -38,6 +39,8 @@ export const DiscoverContent = ({
     onAddToPlaylist,
     temporaryMessage,
     deleteChatFn,
+    openConfirmDialog,
+    setOpenConfirmDialog,
   } = useDiscoverTab({
     accessToken,
     artistsStatistics,
@@ -66,7 +69,7 @@ export const DiscoverContent = ({
           messages={messages}
           isLoading={isResponseLoading}
           temporaryMessage={temporaryMessage}
-          deleteChat={deleteChatFn}
+          setOpenConfirmDialog={setOpenConfirmDialog}
         />
       )}
 
@@ -75,9 +78,6 @@ export const DiscoverContent = ({
         onSubmit={methods.handleSubmit(handleChatRequest)}
       >
         <div className="flex items-end gap-2">
-          {/* <Input
-          /> */}
-
           <Textarea
             {...methods.register("prompt")}
             className="w-full rounded-xl hide-scrollbar max-sm:text-sm resize-none min-h-10 max-h-20"
@@ -102,19 +102,25 @@ export const DiscoverContent = ({
       </form>
 
       <h2 className="text-sm text-muted-foreground">
-        Observação: Só é possível reproduzir músicas com uma conta Spotify
-        premium
+        * Só é possível reproduzir músicas com uma conta Spotify premium
       </h2>
 
       {isRecommendationsLoading ? (
         <MusicCardsSkeleton />
       ) : (
-        <ChatCards
+        <Recommendations
           onAddToPlaylist={onAddToPlaylist}
           accessToken={accessToken}
           recommendationsTracks={recommendationsTracks}
         />
       )}
+
+      <Dialog
+        open={openConfirmDialog}
+        onOpenChange={() => setOpenConfirmDialog(false)}
+      >
+        <ConfirmClearChat onConfirm={deleteChatFn} />
+      </Dialog>
     </TabsContent>
   )
 }

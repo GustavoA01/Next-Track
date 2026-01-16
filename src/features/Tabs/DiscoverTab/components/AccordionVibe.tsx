@@ -3,22 +3,22 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card";
-import { Zap } from "lucide-react";
-import { SliderVibe } from "./SliderVibe";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/accordion"
+import { Card } from "@/components/ui/card"
+import { Zap } from "lucide-react"
+import { SliderVibe } from "./SliderVibe"
+import { Button } from "@/components/ui/button"
 
 type AccordionVibeProps = {
-  emotionalVibe: number;
-  energyVibe: number;
-  instrumentalVibe: number;
-  setEmotionalVibe: React.Dispatch<React.SetStateAction<number>>;
-  setEnergyVibe: React.Dispatch<React.SetStateAction<number>>;
-  setInstrumentalVibe: React.Dispatch<React.SetStateAction<number>>;
-  onReset: () => void;
-  isVibesChanged: boolean;
-};
+  emotionalVibe: number
+  energyVibe: number
+  instrumentalVibe: number
+  setEmotionalVibe: React.Dispatch<React.SetStateAction<number>>
+  setEnergyVibe: React.Dispatch<React.SetStateAction<number>>
+  setInstrumentalVibe: React.Dispatch<React.SetStateAction<number>>
+  onReset: () => void
+  isVibesChanged: boolean
+}
 
 export const AccordionVibe = ({
   emotionalVibe,
@@ -30,6 +30,27 @@ export const AccordionVibe = ({
   onReset,
   isVibesChanged,
 }: AccordionVibeProps) => {
+  const slideVibes = [
+    {
+      value: energyVibe,
+      setValue: setEnergyVibe,
+      leftLabel: "CALMO",
+      rightLabel: "AGITADO",
+    },
+    {
+      value: emotionalVibe,
+      setValue: setEmotionalVibe,
+      leftLabel: "TRISTE",
+      rightLabel: "FELIZ",
+    },
+    {
+      value: instrumentalVibe,
+      setValue: setInstrumentalVibe,
+      leftLabel: "VOCAL",
+      rightLabel: "INSTRUMENTAL",
+    },
+  ]
+  
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="adjust-vibe">
@@ -52,27 +73,18 @@ export const AccordionVibe = ({
           </div>
 
           <Card className="p-4 space-y-2">
-            <SliderVibe
-              value={energyVibe}
-              setValue={setEnergyVibe}
-              leftLabel="CALMO"
-              rightLabel="AGITADO"
-            />
-            <SliderVibe
-              value={emotionalVibe}
-              setValue={setEmotionalVibe}
-              leftLabel="TRISTE"
-              rightLabel="FELIZ"
-            />
-            <SliderVibe
-              value={instrumentalVibe}
-              setValue={setInstrumentalVibe}
-              leftLabel="VOCAL"
-              rightLabel="INSTRUMENTAL"
-            />
+            {slideVibes.map((slideVibe, index) => (
+              <SliderVibe
+                key={`slider-vibe-${index}`}
+                value={slideVibe.value}
+                setValue={slideVibe.setValue}
+                leftLabel={slideVibe.leftLabel}
+                rightLabel={slideVibe.rightLabel}
+              />
+            ))}
           </Card>
         </AccordionContent>
       </AccordionItem>
     </Accordion>
-  );
-};
+  )
+}

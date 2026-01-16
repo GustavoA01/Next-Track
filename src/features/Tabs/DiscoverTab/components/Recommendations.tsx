@@ -4,17 +4,17 @@ import { MusicCard } from "../../../MusicCard/container/MusicCard";
 import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 import { msFormatter } from "@/utils/msFormatter";
 
-type ChatCardsProps = {
+type RecommendationsProps = {
   recommendationsTracks: SpotifyPlaylistTrack[];
   accessToken: string;
   onAddToPlaylist: (trackUri: string) => void;
 };
 
-export const ChatCards = ({
+export const Recommendations = ({
   recommendationsTracks,
   accessToken,
   onAddToPlaylist,
-}: ChatCardsProps) => {
+}: RecommendationsProps) => {
   const [uris, setUris] = useState<string[]>([]);
 
   return (
