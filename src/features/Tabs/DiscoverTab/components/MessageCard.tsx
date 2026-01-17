@@ -1,11 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card";
 
 type MessageCardProps = {
-  cardClassName: string
-  cardContentClassName?: string
-  textClassName?: string
-  content: string
-}
+  cardClassName: string;
+  cardContentClassName?: string;
+  textClassName?: string;
+  content: string;
+};
 
 export const MessageCard = ({
   cardClassName,
@@ -18,4 +18,4 @@ export const MessageCard = ({
       <p className={textClassName}>{content}</p>
     </CardContent>
   </Card>
-)
+);

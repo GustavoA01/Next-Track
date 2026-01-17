@@ -1,13 +1,13 @@
-import { ConectAccountButton } from "@/components/ConectAccountButton"
-import { redirect } from "next/navigation"
-import { cookies } from "next/headers"
-import Image from "next/image"
+import { ConectAccountButton } from "@/components/ConectAccountButton";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import Image from "next/image";
 
 async function LoginPage() {
-  const cookiesStore = await cookies()
-  const hasrefreshToken = cookiesStore.has("spotifyRefreshToken")
+  const cookiesStore = await cookies();
+  const hasrefreshToken = cookiesStore.has("spotifyRefreshToken");
 
-  if (hasrefreshToken) redirect("/home")
+  if (hasrefreshToken) redirect("/home");
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-black/80">
@@ -40,7 +40,7 @@ async function LoginPage() {
         <ConectAccountButton />
       </div>
     </div>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

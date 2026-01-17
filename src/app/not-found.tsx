@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 
 const NotFound = () => (
   <div className="flex flex-col items-center justify-center h-screen text-center px-4">
@@ -6,7 +6,7 @@ const NotFound = () => (
     <p className="mb-8">
       A página que você está procurando não existe ou foi movida.
     </p>
-    
+
     <Link
       href="/"
       className="px-4 py-2 bg-primary text-black rounded-md hover:bg-primary/70 transition"
@@ -14,6 +14,6 @@ const NotFound = () => (
       Voltar para a Página Inicial
     </Link>
   </div>
-)
+);
 
-export default NotFound
+export default NotFound;

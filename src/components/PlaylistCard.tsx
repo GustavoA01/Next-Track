@@ -1,14 +1,14 @@
-import { Circle, Sparkles } from "lucide-react"
-import { Card } from "./ui/card"
-import Image from "next/image"
-import Link from "next/link"
+import { Circle, Sparkles } from "lucide-react";
+import { Card } from "./ui/card";
+import Image from "next/image";
+import Link from "next/link";
 
 type PlaylistCardProps = {
-  id: string
-  playlistName: string
-  playlistImage: string
-  totalTracks: number
-}
+  id: string;
+  playlistName: string;
+  playlistImage: string;
+  totalTracks: number;
+};
 
 export const PlaylistCard = ({
   id,
@@ -45,4 +45,4 @@ export const PlaylistCard = ({
       </div>
     </Card>
   </Link>
-)
+);

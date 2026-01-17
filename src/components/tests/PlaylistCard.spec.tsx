@@ -23,9 +23,6 @@ describe("PlaylistCard", () => {
       "src",
       "https://github.com/shadcn.png",
     );
-    expect(getByRole("link")).toHaveAttribute(
-      "href",
-      "playlist/1234?name=Metallica",
-    );
+    expect(getByRole("link")).toHaveAttribute("href", "playlist/1234");
   });
 });

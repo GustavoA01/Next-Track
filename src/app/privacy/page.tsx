@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 
 const PrivacyPage = () => (
   <div className="p-8 space-y-8">
@@ -11,7 +11,7 @@ const PrivacyPage = () => (
       permanentemente ou compartilhado com terceiros. Dados utilizados
       exclusivamente para contexto, sem uso em treinamento de modelos.
     </p>
-    
+
     <Link
       href="/"
       className="px-4 py-2 bg-primary text-black rounded-md hover:bg-primary/70 transition"
@@ -19,6 +19,6 @@ const PrivacyPage = () => (
       Voltar para a Página Inicial
     </Link>
   </div>
-)
+);
 
-export default PrivacyPage
+export default PrivacyPage;

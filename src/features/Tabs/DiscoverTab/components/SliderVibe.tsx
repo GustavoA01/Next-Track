@@ -1,11 +1,11 @@
-import { Slider } from "@/components/ui/slider"
+import { Slider } from "@/components/ui/slider";
 
 type SliderVibeProps = {
-  leftLabel: string
-  rightLabel: string
-  value: number
-  setValue: (value: number) => void
-}
+  leftLabel: string;
+  rightLabel: string;
+  value: number;
+  setValue: (value: number) => void;
+};
 
 export const SliderVibe = ({
   leftLabel,
@@ -25,4 +25,4 @@ export const SliderVibe = ({
       onValueChange={(val) => setValue(val[0])}
     />
   </div>
-)
+);

@@ -1,5 +1,5 @@
-import { collection, getDocs, writeBatch } from "firebase/firestore"
-import { chatMessageCollection, db } from "./firebaseConfig"
+import { collection, getDocs, writeBatch } from "firebase/firestore";
+import { chatMessageCollection, db } from "./firebaseConfig";
 
 export const deleteChat = async (playlistId: string) => {
   try {
@@ -7,17 +7,17 @@ export const deleteChat = async (playlistId: string) => {
       db,
       "playlists",
       playlistId,
-      chatMessageCollection
-    )
-    const querySnapshot = await getDocs(messagesRef)
+      chatMessageCollection,
+    );
+    const querySnapshot = await getDocs(messagesRef);
 
-    const batch = writeBatch(db)
+    const batch = writeBatch(db);
     querySnapshot.forEach((doc) => {
-      batch.delete(doc.ref)
-    })
+      batch.delete(doc.ref);
+    });
 
-    await batch.commit()
+    await batch.commit();
   } catch (error) {
-    console.error("Error deleting chat messages: ", error)
+    console.error("Error deleting chat messages: ", error);
   }
-}
+};

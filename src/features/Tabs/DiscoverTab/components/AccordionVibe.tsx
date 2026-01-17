@@ -3,22 +3,22 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Card } from "@/components/ui/card"
-import { Zap } from "lucide-react"
-import { SliderVibe } from "./SliderVibe"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/accordion";
+import { Card } from "@/components/ui/card";
+import { Zap } from "lucide-react";
+import { SliderVibe } from "./SliderVibe";
+import { Button } from "@/components/ui/button";
 
 type AccordionVibeProps = {
-  emotionalVibe: number
-  energyVibe: number
-  instrumentalVibe: number
-  setEmotionalVibe: React.Dispatch<React.SetStateAction<number>>
-  setEnergyVibe: React.Dispatch<React.SetStateAction<number>>
-  setInstrumentalVibe: React.Dispatch<React.SetStateAction<number>>
-  onReset: () => void
-  isVibesChanged: boolean
-}
+  emotionalVibe: number;
+  energyVibe: number;
+  instrumentalVibe: number;
+  setEmotionalVibe: React.Dispatch<React.SetStateAction<number>>;
+  setEnergyVibe: React.Dispatch<React.SetStateAction<number>>;
+  setInstrumentalVibe: React.Dispatch<React.SetStateAction<number>>;
+  onReset: () => void;
+  isVibesChanged: boolean;
+};
 
 export const AccordionVibe = ({
   emotionalVibe,
@@ -49,8 +49,8 @@ export const AccordionVibe = ({
       leftLabel: "VOCAL",
       rightLabel: "INSTRUMENTAL",
     },
-  ]
-  
+  ];
+
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="adjust-vibe">
@@ -86,5 +86,5 @@ export const AccordionVibe = ({
         </AccordionContent>
       </AccordionItem>
     </Accordion>
-  )
-}
+  );
+};

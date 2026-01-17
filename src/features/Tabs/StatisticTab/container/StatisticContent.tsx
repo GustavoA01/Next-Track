@@ -1,11 +1,11 @@
-import { MostListenGenreBar } from "../components/MostListenGenreBar"
-import { PlaylistStatisticsType } from "@/data/types/recommendations"
-import { PopularityChart } from "../components/PopularityChart"
-import { StatisticSubTitle } from "../components/StatSubTitle"
-import { SpotifyPlaylist } from "@/data/types/spotify"
-import { ArtistCard } from "../components/ArtistCard"
-import { TabsContent } from "@/components/ui/tabs"
-import { useStatisticTab } from "../hook/useStatisticTab"
+import { MostListenGenreBar } from "../components/MostListenGenreBar";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
+import { PopularityChart } from "../components/PopularityChart";
+import { StatisticSubTitle } from "../components/StatSubTitle";
+import { SpotifyPlaylist } from "@/data/types/spotify";
+import { ArtistCard } from "../components/ArtistCard";
+import { TabsContent } from "@/components/ui/tabs";
+import { useStatisticTab } from "../hook/useStatisticTab";
 
 export const StatisticContent = ({
   playlist,
@@ -13,16 +13,14 @@ export const StatisticContent = ({
   genresStatistics,
 }: PlaylistStatisticsType & { playlist: SpotifyPlaylist }) => {
   const { avgMessage, chartData, formatName, getHexaColor } = useStatisticTab(
-    playlist.tracks
-  )
+    playlist.tracks,
+  );
 
   return (
     <TabsContent className="flex flex-col gap-10" value="statistics">
       {playlist.tracks.total === 0 ? (
         <div className="animate-fade-in-up-down w-full flex flex-col items-center justify-center py-10">
-          <p className="text-muted-foreground">
-            A playlist não contém músicas
-          </p>
+          <p className="text-muted-foreground">A playlist não contém músicas</p>
         </div>
       ) : (
         <>
@@ -31,7 +29,7 @@ export const StatisticContent = ({
 
             <div className="flex gap-2 overflow-x-auto md:grid sm:grid-cols-5 sm:overflow-hidden hide-scrollbar">
               {artistsStatistics.slice(0, 5).map(async (artist, index) => {
-                const palleteColor = await getHexaColor(artist.image)
+                const palleteColor = await getHexaColor(artist.image);
 
                 return (
                   <ArtistCard
@@ -40,7 +38,7 @@ export const StatisticContent = ({
                     index={index}
                     palleteColor={palleteColor || "#121212"}
                   />
-                )
+                );
               })}
             </div>
           </div>
@@ -66,5 +64,5 @@ export const StatisticContent = ({
         </>
       )}
     </TabsContent>
-  )
-}
+  );
+};

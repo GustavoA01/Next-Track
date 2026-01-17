@@ -1,17 +1,17 @@
-import { TabsContent } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Sparkles } from "lucide-react"
-import { PlaylistStatisticsType } from "@/data/types/recommendations"
-import { Spinner } from "@/components/ui/spinner"
-import { Recommendations } from "@/features/Tabs/DiscoverTab/components/Recommendations"
-import { AccordionVibe } from "../components/AccordionVibe"
-import { BadgesGroup } from "../components/BadgesGroup"
-import { ChatContent } from "../components/ChatContent"
-import { useDiscoverTab } from "../hook/useDiscoverTab"
-import { MusicCardsSkeleton } from "@/components/Skeletons"
-import { Textarea } from "@/components/ui/textarea"
-import { ConfirmClearChat } from "../components/ConfirmClearChat"
-import { Dialog } from "@/components/ui/dialog"
+import { TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
+import { PlaylistStatisticsType } from "@/data/types/recommendations";
+import { Spinner } from "@/components/ui/spinner";
+import { Recommendations } from "@/features/Tabs/DiscoverTab/components/Recommendations";
+import { AccordionVibe } from "../components/AccordionVibe";
+import { BadgesGroup } from "../components/BadgesGroup";
+import { ChatContent } from "../components/ChatContent";
+import { useDiscoverTab } from "../hook/useDiscoverTab";
+import { MusicCardsSkeleton } from "@/components/Skeletons";
+import { Textarea } from "@/components/ui/textarea";
+import { ConfirmClearChat } from "../components/ConfirmClearChat";
+import { Dialog } from "@/components/ui/dialog";
 
 export const DiscoverContent = ({
   genresStatistics,
@@ -46,7 +46,7 @@ export const DiscoverContent = ({
     artistsStatistics,
     genresStatistics,
     tracks,
-  })
+  });
 
   return (
     <TabsContent className="sm:px-8 pt-4 flex flex-col gap-6" value="discover">
@@ -122,5 +122,5 @@ export const DiscoverContent = ({
         <ConfirmClearChat onConfirm={deleteChatFn} />
       </Dialog>
     </TabsContent>
-  )
-}
+  );
+};

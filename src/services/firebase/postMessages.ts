@@ -1,13 +1,13 @@
-import { addDoc, collection, Timestamp } from "firebase/firestore"
-import { chatMessageCollection, db } from "./firebaseConfig"
-import { LastRecommendationsType } from "@/data/types"
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { chatMessageCollection, db } from "./firebaseConfig";
+import { LastRecommendationsType } from "@/data/types";
 
 type PostMessagesParams = {
-  playlistId: string
-  userMessageContent: string
-  chatResponse: string
-  recommendations: LastRecommendationsType[]
-}
+  playlistId: string;
+  userMessageContent: string;
+  chatResponse: string;
+  recommendations: LastRecommendationsType[];
+};
 
 export const postMessages = async ({
   playlistId,
@@ -23,9 +23,9 @@ export const postMessages = async ({
         chatResponse: chatResponse,
         recommendations,
         createdAt: Timestamp.fromDate(new Date()),
-      }
-    )
+      },
+    );
   } catch (error) {
-    console.error("Error adding document: ", error)
+    console.error("Error adding document: ", error);
   }
-}
+};
