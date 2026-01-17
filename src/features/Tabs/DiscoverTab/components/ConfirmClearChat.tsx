@@ -13,7 +13,7 @@ export const ConfirmClearChat = ({ onConfirm }: { onConfirm: () => void }) => (
     <DialogHeader>
       <DialogTitle>Limpar chat</DialogTitle>
       <DialogDescription>
-        Tem certeza que deseja limpar o chat? Esta ação não pode ser desfeita.
+        Tem certeza que deseja excluir o histórico de conversa? Esta ação não pode ser desfeita.
       </DialogDescription>
     </DialogHeader>
 

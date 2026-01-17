@@ -1,13 +1,13 @@
-import { ConectAccountButton } from "@/components/ConectAccountButton";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import Image from "next/image";
+import { ConectAccountButton } from "@/components/ConectAccountButton"
+import { redirect } from "next/navigation"
+import { cookies } from "next/headers"
+import Image from "next/image"
 
 async function LoginPage() {
-  const cookiesStore = await cookies();
-  const hasrefreshToken = cookiesStore.has("spotifyRefreshToken");
+  const cookiesStore = await cookies()
+  const hasrefreshToken = cookiesStore.has("spotifyRefreshToken")
 
-  if (hasrefreshToken) redirect("/home");
+  if (hasrefreshToken) redirect("/home")
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-black/80">
@@ -15,10 +15,19 @@ async function LoginPage() {
         fill
         preload
         className="-z-30 object-cover"
-        src={"/bgLogin.jpg"}
+        src="/bgLogin.jpg"
         alt="imagem de fundo"
       />
       <div className="flex flex-col gap-4 items-center px-4 text-center">
+        <Image
+          preload
+          src="/icon.jpg"
+          className="rounded-lg max-sm:h-16 max-sm:w-16"
+          alt="Next Track Icon"
+          width={80}
+          height={80}
+        />
+
         <h1 className="text-3xl md:text-5xl font-bold animate-fade-in-up-down ">
           Next Track
         </h1>
@@ -31,7 +40,7 @@ async function LoginPage() {
         <ConectAccountButton />
       </div>
     </div>
-  );
+  )
 }
 
-export default LoginPage;
+export default LoginPage

@@ -89,16 +89,9 @@ export const getPlaylistStatistic = async (
   const genresCount: Record<string, number> = {};
   let totalGenres = 0;
 
-  // const validArtists = artists.filter(
-  //   (artist: SpotifyArtist) =>
-  //     artist && artist.genres && artist.genres.length > 0,
-  // );
-
   const artistsStatistics = artists
-    // .filter((artist: SpotifyArtist) => artist && artist.genres)
+    .filter((artist: SpotifyArtist) => artist && artist.genres)
     .map((artist: SpotifyArtist) => {
-      // if (artist.genres.length === 0) return;
-
       artist.genres.forEach((genre: string) => {
         genresCount[genre] = (genresCount[genre] || 0) + 1;
         totalGenres++;

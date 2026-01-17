@@ -1,5 +1,4 @@
 "use server";
-
 import { getCurrentToken } from "@/lib/getCurrentToken";
 
 export const playMusic = async (trackId: string) => {
