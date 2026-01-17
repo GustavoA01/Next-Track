@@ -22,7 +22,7 @@ async function LoginPage() {
         <Image
           preload
           src="/icon.jpg"
-          className="rounded-lg max-sm:h-16 max-sm:w-16"
+          className="rounded-lg max-sm:h-16 max-sm:w-16 animate-fade-in-up-down"
           alt="Next Track Icon"
           width={80}
           height={80}
