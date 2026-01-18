@@ -1,5 +1,5 @@
+import { Montserrat, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import type { Metadata } from "next";
-import { Geist, Montserrat, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
@@ -20,14 +20,34 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Next Track",
-  description: "Recommends music according to your taste.",
+  description:
+    "Descubra novas músicas com inteligência artificial baseada nas suas playlists do Spotify.",
+  authors: [{ name: "Gustavo Aguiar" }],
+  keywords: [
+    "next track",
+    "músicas",
+    "recomendações musicais",
+    "inteligência artificial",
+    "spotify",
+    "playlist",
+    "descoberta musical",
+  ],
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
+  openGraph: {
+    title: "Next Track - Recomendações com IA",
+    description:
+      "Conecte seu Spotify e descubra músicas novas baseadas no que você já ouve.",
+    // url: "https://next-track.vercel.app",
+    siteName: "Next Track",
+    locale: "pt_BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -38,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
+        className={`${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
       >
         <Providers>{children}</Providers>
       </body>

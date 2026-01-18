@@ -18,9 +18,8 @@ export const ConectAccountButton = () => {
 
   return (
     <Button
-      size={"lg"}
       onClick={handleAction}
-      className="rounded-full text-md font-semibold text-black"
+      className="rounded-full sm:text-md font-semibold text-black"
     >
       Conectar
     </Button>

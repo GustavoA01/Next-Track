@@ -3,9 +3,8 @@ import { Tabs, TabsList } from "@/components/ui/tabs";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { ChartColumnDecreasing, Sparkles } from "lucide-react";
 import { SpotifyPlaylist } from "@/data/types/spotify";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { StatisticsContentSkeleton } from "@/components/Skeletons";
 import { DiscoverContent } from "./DiscoverTab/container/DiscoverContent";
 import { StatisticContent } from "./StatisticTab/container/StatisticContent";
 
@@ -69,13 +68,11 @@ export const TabsMenu = ({
         accessToken={accessToken}
       />
 
-      <Suspense fallback={<StatisticsContentSkeleton />}>
-        <StatisticContent
-          playlist={playlist}
-          genresStatistics={genresStatistics}
-          artistsStatistics={artistsStatistics}
-        />
-      </Suspense>
+      <StatisticContent
+        playlist={playlist}
+        genresStatistics={genresStatistics}
+        artistsStatistics={artistsStatistics}
+      />
     </Tabs>
   );
 };
