@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const PrivacyPolicyPage = () => (
-  <div className="max-w-2xl space-y-8 flex flex-col items-center justify-center min-h-screen m-auto">
+  <div className="max-w-2xl space-y-8 p-4 flex flex-col items-center justify-center min-h-screen m-auto">
     <h1 className="text-2xl font-bold mb-4">
       Política de Privacidade e Termos de Uso
     </h1>

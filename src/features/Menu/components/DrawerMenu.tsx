@@ -4,12 +4,12 @@ import { LogOut } from "lucide-react";
 import {
   DrawerTrigger,
   DrawerContent,
-  DrawerHeader,
   DrawerFooter,
   DrawerClose,
-  DrawerTitle,
   Drawer,
 } from "@/components/ui/drawer";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type DrawerMenuProps = {
   profile: {
@@ -18,7 +18,10 @@ type DrawerMenuProps = {
   };
   setIsOpen: (isOpen: boolean) => void;
 };
+
 export const DrawerMenu = ({ profile, setIsOpen }: DrawerMenuProps) => {
+  const pathname = usePathname();
+
   return (
     <Drawer>
       <DrawerTrigger>
@@ -26,11 +29,15 @@ export const DrawerMenu = ({ profile, setIsOpen }: DrawerMenuProps) => {
       </DrawerTrigger>
 
       <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Menu</DrawerTitle>
-        </DrawerHeader>
-
         <DrawerFooter>
+          {pathname !== "/home" && (
+            <DrawerClose asChild>
+              <Button>
+                <Link href="/">Voltar ao início</Link>
+              </Button>
+            </DrawerClose>
+          )}
+
           <DrawerClose asChild>
             <Button variant="outline" onClick={() => setIsOpen(true)}>
               <LogOut className="text-red-400" />

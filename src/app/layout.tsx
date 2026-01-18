@@ -35,9 +35,9 @@ export const metadata: Metadata = {
     "descoberta musical",
   ],
   icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    icon: "/icon.jpg",
+    shortcut: "/icon.jpg",
+    apple: "/icon.jpg",
   },
   openGraph: {
     title: "Next Track - Recomendações com IA",

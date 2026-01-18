@@ -89,7 +89,7 @@ export const DiscoverContent = ({
             {isResponseLoading ? (
               <Spinner />
             ) : (
-              <Sparkles className="text-black group-hover:text-white transition-all duration-200" />
+              <Sparkles className="group-hover:text-white transition-all duration-200" />
             )}
           </Button>
         </div>

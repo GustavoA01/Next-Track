@@ -12,7 +12,7 @@ const badgesText = [
 ];
 
 export const BadgesGroup = ({ onSelectBadge }: BadgesGroupProps) => (
-  <div className="flex sm:flex-wrap max-sm:overflow-x-auto gap-2 hide-scrollbar">
+  <div className="flex select-none sm:flex-wrap max-sm:overflow-x-auto gap-2 hide-scrollbar">
     {badgesText.map((badgeText) => (
       <Badge
         key={badgeText}

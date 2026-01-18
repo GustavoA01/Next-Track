@@ -53,7 +53,7 @@ export const AccordionVibe = ({
 
   return (
     <Accordion type="single" collapsible>
-      <AccordionItem value="adjust-vibe">
+      <AccordionItem value="adjust-vibe" className="select-none">
         <AccordionTrigger>
           <div className="flex items-center gap-2">
             <Zap className="w-6 h-6 text-primary" />
