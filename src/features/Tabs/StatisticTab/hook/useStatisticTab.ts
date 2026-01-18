@@ -10,6 +10,8 @@ const formatName = (name: string) =>
 
 export const useStatisticTab = (tracks: SpotifyPlaylistTracks) => {
   const getHexaColor = useCallback(async (imageUrl: string) => {
+    if (!imageUrl) return "#121212";
+
     try {
       const colors = await extractColors(imageUrl, {
         crossOrigin: "anonymous",

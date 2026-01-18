@@ -1,6 +1,6 @@
 import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { HomeIcon, LogOut } from "lucide-react";
 import {
   DrawerTrigger,
   DrawerContent,
@@ -32,8 +32,11 @@ export const DrawerMenu = ({ profile, setIsOpen }: DrawerMenuProps) => {
         <DrawerFooter>
           {pathname !== "/home" && (
             <DrawerClose asChild>
-              <Button>
-                <Link href="/">Voltar ao início</Link>
+              <Button asChild>
+                <Link href="/">
+                  <HomeIcon />
+                  Voltar ao início
+                </Link>
               </Button>
             </DrawerClose>
           )}

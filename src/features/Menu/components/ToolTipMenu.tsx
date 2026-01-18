@@ -38,6 +38,7 @@ export const ToolTipMenu = ({ profile, setIsOpen }: ToolTipMenuProps) => {
             </Link>
           </Button>
         )}
+
         <Button
           variant="ghost"
           onClick={() => setIsOpen(true)}
