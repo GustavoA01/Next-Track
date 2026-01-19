@@ -2,7 +2,7 @@
 import { redirectToAuthCodeFlow } from "@/actions/redirectFlow";
 import { Button } from "./ui/button";
 
-export const ConectAccountButton = () => {
+export const ConnectAccountButton = () => {
   const handleAction = async () => {
     try {
       const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;

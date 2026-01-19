@@ -23,6 +23,7 @@ export const RightInfo = ({ duration, onAddToPlaylist }: RightInfoProps) => {
     <div className="flex items-center gap-2">
       <p className="text-sm text-muted-foreground">{duration}</p>
       <div
+        data-testid="add-to-playlist-button"
         onClick={(e) => handleCLick(e)}
         className={`border border-primary transition-all duration-200 rounded-full p-2 
         ${isClicked ? "bg-primary" : "group/add hover:bg-primary"}`}

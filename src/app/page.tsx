@@ -1,4 +1,4 @@
-import { ConectAccountButton } from "@/components/ConectAccountButton";
+import { ConnectAccountButton } from "@/components/ConnectAccountButton";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -38,7 +38,7 @@ async function LoginPage() {
           recomendações de músicas
         </p>
 
-        <ConectAccountButton />
+        <ConnectAccountButton />
 
         <Link
           href="/privacy-policy"
