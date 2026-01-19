@@ -6,16 +6,20 @@ import { Card } from "@/components/ui/card";
 
 type MusicCardProps = {
   index: number;
+  id: string;
   imageUrl: string;
   musicName: string;
   artistName: string;
   duration: string;
   onClick: () => void;
-  onAddToPlaylist: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onAddToPlaylist: (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => Promise<void>;
 };
 
 export const MusicCard = ({
   index,
+  id,
   imageUrl,
   musicName,
   artistName,
@@ -38,7 +42,11 @@ export const MusicCard = ({
         <MusicInfo musicName={musicName} artistName={artistName} />
       </div>
 
-      <RightInfo onAddToPlaylist={onAddToPlaylist} duration={duration} />
+      <RightInfo
+        id={id}
+        onAddToPlaylist={onAddToPlaylist}
+        duration={duration}
+      />
     </div>
   </Card>
 );

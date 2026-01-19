@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { getMessages } from "@/services/firebase/getMessages";
 import { postMessages } from "@/services/firebase/postMessages";
 import { deleteChat } from "@/services/firebase/deleteChat";
+import { clientKeys, localStorageKeys } from "@/services/constantsKeys";
 
 export const useDiscoverTab = ({
   artistsStatistics,
@@ -63,7 +64,7 @@ export const useDiscoverTab = ({
   const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
   const { data: messages } = useQuery({
-    queryKey: ["messages", playlistId],
+    queryKey: [clientKeys.chatMessages, playlistId],
     queryFn: () => getMessages(playlistId as string),
   });
 
@@ -81,7 +82,9 @@ export const useDiscoverTab = ({
       }),
     onSuccess: () => {
       setTemporaryMessage("");
-      queryClient.invalidateQueries({ queryKey: ["messages", playlistId] });
+      queryClient.invalidateQueries({
+        queryKey: [clientKeys.chatMessages, playlistId],
+      });
     },
   });
 
@@ -105,9 +108,12 @@ export const useDiscoverTab = ({
     mutationFn: () => deleteChat(playlistId as string),
     onSuccess: () => {
       setOpenConfirmDialog(false);
-      localStorage.removeItem("lastRecommendations");
+      localStorage.removeItem(playlistId as string);
+      localStorage.removeItem(localStorageKeys.musicsIds);
       setRecommendationsTracks([]);
-      queryClient.invalidateQueries({ queryKey: ["messages", playlistId] });
+      queryClient.invalidateQueries({
+        queryKey: [clientKeys.chatMessages, playlistId],
+      });
       toast.success("Chat deletado com sucesso");
     },
   });
@@ -177,15 +183,26 @@ export const useDiscoverTab = ({
     }
   };
 
-  const onAddToPlaylist = async (trackUri: string) => {
+  const onAddToPlaylist = async (trackUri: string, musicId: string) => {
     const jsonUris = {
       uris: [trackUri],
     };
 
     const success = await addToPlaylist({ jsonUris, playlistId, accessToken });
 
-    if (success) toast.success("Música adicionada à playlist!");
-    else toast.error("Erro ao adicionar música à playlist.");
+    if (success) {
+      const data = localStorage.getItem(localStorageKeys.musicsIds);
+      const previousIds = data ? JSON.parse(data) : [];
+      const updatedIds = [...previousIds, musicId];
+
+      localStorage.setItem(
+        localStorageKeys.musicsIds,
+        JSON.stringify(updatedIds),
+      );
+      toast.success("Música adicionada à playlist!");
+    } else {
+      toast.error("Erro ao adicionar música à playlist.");
+    }
   };
 
   return {

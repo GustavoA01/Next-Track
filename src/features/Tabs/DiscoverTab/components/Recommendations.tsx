@@ -7,7 +7,7 @@ import { msFormatter } from "@/utils/msFormatter";
 type RecommendationsProps = {
   recommendationsTracks: SpotifyPlaylistTrack[];
   accessToken: string;
-  onAddToPlaylist: (trackUri: string) => void;
+  onAddToPlaylist: (trackUri: string, musicId: string) => Promise<void>;
 };
 
 export const Recommendations = ({
@@ -27,17 +27,18 @@ export const Recommendations = ({
           return (
             <MusicCard
               key={`music-card-${track.id}`}
+              id={track.id}
               onClick={() => setUris([track.uri])}
               index={index}
               musicName={track.name}
               artistName={track.artists[0].name}
               imageUrl={track.album.images[0].url}
               duration={duration}
-              onAddToPlaylist={(
+              onAddToPlaylist={async (
                 e: React.MouseEvent<HTMLDivElement, MouseEvent>,
               ) => {
                 e.stopPropagation();
-                onAddToPlaylist(track.uri);
+                onAddToPlaylist(track.uri, track.id);
               }}
             />
           );
