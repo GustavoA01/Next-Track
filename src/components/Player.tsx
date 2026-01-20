@@ -17,6 +17,7 @@ export const Player = ({ token, uris }: { token: string; uris: string[] }) => (
         sliderColor: "#1cb954",
         trackNameColor: "#fff",
         errorColor: "#f00",
+        sliderHandleColor: "#fff",
       }}
     />
   </div>
