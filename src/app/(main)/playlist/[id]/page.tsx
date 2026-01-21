@@ -18,7 +18,7 @@ const PlaylistPage = async ({
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      next: { revalidate: 3600 },
+      next: { revalidate: 3600, tags: [`playlist-${id}`] },
     },
   )
     .then((res) => res.json())

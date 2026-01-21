@@ -10,7 +10,7 @@
 ## 📱 Demonstração
 
 [COLOQUE AQUI UM GIF OU LINK PARA O VÍDEO DO YOUTUBE MOSTRANDO O APP EM AÇÃO]
-*Veja o projeto rodando em tempo real.*
+_Veja o projeto rodando em tempo real._
 
 ---
 
@@ -18,7 +18,7 @@
 
 Ao observar a repetição e falha do algoritmo do spotify de recomendar músicas variadas que agradam o usuário, o **Next Track** resolve isso integrando a API do Spotify com a IA do Google (Gemini).
 
-O usuário conversa com a IA pedindo recomendações baseadas em sentimentos, situações ou gêneros abstratos (ex: *"Músicas para programar em um dia chuvoso"*), e a aplicação não apenas sugere as faixas, mas permite **salvar a playlist diretamente na conta do usuário** e visualizar estatísticas de áudio. O usuário consegue uma experiência e precisão muito melhor ao especificar para a IA artistas que não gosta ou estilos que prefere ouvir.
+O usuário conversa com a IA pedindo recomendações baseadas em sentimentos, situações ou gêneros abstratos (ex: _"Músicas para programar em um dia chuvoso"_), e a aplicação não apenas sugere as faixas, mas permite **salvar a playlist diretamente na conta do usuário** e visualizar estatísticas de áudio. O usuário consegue uma experiência e precisão muito melhor ao especificar para a IA artistas que não gosta ou estilos que prefere ouvir.
 
 ---
 
@@ -37,15 +37,15 @@ O usuário conversa com a IA pedindo recomendações baseadas em sentimentos, si
 
 Este projeto foi desenvolvido com as melhores práticas de Engenharia de Software atuais usando:
 
-* **Frontend & Fullstack Framwork:** [React](https://reactjs.org/) e [Next.js 14](https://nextjs.org/)
-* **Backend e Banco de dados**: [Firebase](https://firebase.google.com/?hl=pt-br) (Firestore)
-* **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
-* **Estilização:** [Tailwind CSS](https://tailwindcss.com/) e [Shadcn/UI](https://ui.shadcn.com/)
-* **Integrações/APIs:**
-    * Spotify Web API
-    * Google Gemini AI (Generative AI)
-* **Controle de Qualidade / Testes:** Jest
-* **Deploy:** Vercel
+- **Frontend & Fullstack Framwork:** [React](https://reactjs.org/) e [Next.js 14](https://nextjs.org/)
+- **Backend e Banco de dados**: [Firebase](https://firebase.google.com/?hl=pt-br) (Firestore)
+- **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com/) e [Shadcn/UI](https://ui.shadcn.com/)
+- **Integrações/APIs:**
+  - Spotify Web API
+  - Google Gemini AI (Generative AI)
+- **Controle de Qualidade / Testes:** Jest
+- **Deploy:** Vercel
 
 ---
 
@@ -54,24 +54,30 @@ Este projeto foi desenvolvido com as melhores práticas de Engenharia de Softwar
 Devido às políticas recentes da API do Spotify (Criadas em 2025), apenas grandes organizações podem permitir acesso de qualquer usuário ao site, aplicações em modo de desenvolvimento possuem limite de usuários cadastrados manualmente.
 
 **Para testar a aplicação:**
+
 1.  Entre em contato comigo para eu adicionar seu e-mail à lista de emails autorizados.
 2.  Ou clone o repositório e rode localmente com suas próprias credenciais (instruções abaixo).
 
-Link do site: https://next-track-gustavo.vercel.app/
----
+## Link do site: https://next-track-gustavo.vercel.app/
 
 ## 🚀 Como Rodar Localmente
 
 Pré-requisitos: Node.js instalado e chaves de API do Spotify, Google Gemini e Firebase.
 
 1. **Clone o repositório**
+
    ```bash
    git clone https://github.com/GustavoA01/Next-Track.git
    cd Next-Track
 
+   ```
+
 2. **Instale as dependências**
+
    ```bash
    npm install
+
+   ```
 
 3. **Configure as Variáveis de Ambiente:** Crie um arquivo chamado .env.local na raiz do projeto e cole o conteúdo abaixo, preenchendo com suas chaves
 
@@ -91,4 +97,5 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=seu_project_id
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=seu_projeto.appspot.com
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=seu_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=seu_app_id
-   
+
+```
