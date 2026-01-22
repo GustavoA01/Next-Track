@@ -1,5 +1,4 @@
 "use server";
-import { revalidateTag } from "next/cache";
 import { ParamValue } from "next/dist/server/request/params";
 
 type AddToPlaylistProps = {
@@ -25,12 +24,12 @@ export const addToPlaylist = async ({
         body: JSON.stringify(jsonUris),
       },
     );
+
     if (!response.ok) {
       const errorData = await response.json();
       console.error("Erro Spotify:", errorData);
       return { success: false, error: "Falha ao adicionar música" };
     }
-    revalidateTag(`playlist-${playlistId}`, "layout");
 
     return { success: true };
   } catch (error) {
