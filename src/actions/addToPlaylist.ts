@@ -30,7 +30,7 @@ export const addToPlaylist = async ({
       console.error("Erro Spotify:", errorData);
       return { success: false, error: "Falha ao adicionar música" };
     }
-    revalidateTag(`playlist-${playlistId}`);
+    revalidateTag(`playlist-${playlistId}`, "layout");
 
     return { success: true };
   } catch (error) {
