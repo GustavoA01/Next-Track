@@ -9,8 +9,9 @@
 
 ## 📱 Demonstração
 
-[COLOQUE AQUI UM GIF OU LINK PARA O VÍDEO DO YOUTUBE MOSTRANDO O APP EM AÇÃO]
 _Veja o projeto rodando em tempo real._
+
+https://github.com/user-attachments/assets/2afa0066-0e8b-4b83-81ee-8015c6a5d084
 
 ---
 
