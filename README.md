@@ -40,7 +40,7 @@ O usuário conversa com a IA pedindo recomendações baseadas em sentimentos, si
 
 Este projeto foi desenvolvido com as melhores práticas de Engenharia de Software atuais usando:
 
-- **Frontend & Fullstack Framwork:** [React](https://reactjs.org/) e [Next.js 14](https://nextjs.org/)
+- **Frontend & Fullstack Framwork:** [React](https://reactjs.org/) e [Next.js](https://nextjs.org/)
 - **Backend e Banco de dados**: [Firebase](https://firebase.google.com/?hl=pt-br) (Firestore)
 - **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
 - **Estilização:** [Tailwind CSS](https://tailwindcss.com/) e [Shadcn/UI](https://ui.shadcn.com/)
@@ -52,7 +52,7 @@ Este projeto foi desenvolvido com as melhores práticas de Engenharia de Softwar
 
 ---
 
-## ⚠️ Nota sobre o Acesso (Spotify Mode)
+## ⚠️ Nota sobre o Acesso
 
 Devido às políticas recentes da API do Spotify (Criadas em 2025), apenas grandes organizações podem permitir acesso de qualquer usuário ao site, aplicações em modo de desenvolvimento possuem limite de usuários cadastrados manualmente.
 
