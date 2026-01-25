@@ -102,3 +102,9 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=seu_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=seu_app_id
 
 ```
+
+## 📬 Contato
+
+Caso queira entrar em contato comigo, esse é o meu LinkedIn:
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aguiar-gustavo/)
