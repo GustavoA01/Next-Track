@@ -13,6 +13,7 @@ _Veja o projeto rodando em tempo real._
 
 https://github.com/user-attachments/assets/2afa0066-0e8b-4b83-81ee-8015c6a5d084
 
+Link da demonstração completa no youtube: https://youtu.be/2Qgd_q-ggZY
 ---
 
 ## 💡 Sobre o Projeto
