@@ -30,7 +30,7 @@ export const ChatContent = ({
       </Button>
     </CardHeader>
 
-    <CardContent className="h-auto overflow-y-auto overflow-x-hidden flex flex-col gap-4">
+    <CardContent className="h-auto overflow-y-auto overflow-x-hidden flex flex-col-reverse gap-4">
       {messages.map((message, index) => (
         <div key={`message-${index}`}>
           <MessageCard
