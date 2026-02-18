@@ -31,7 +31,7 @@ export const ChatContent = ({
     </CardHeader>
 
     <CardContent className="h-auto overflow-y-auto overflow-x-hidden flex flex-col-reverse gap-4">
-      {messages.map((message, index) => (
+      {[...messages].reverse().map((message, index) => (
         <div key={`message-${index}`}>
           <MessageCard
             key={`ia-${index}`}
