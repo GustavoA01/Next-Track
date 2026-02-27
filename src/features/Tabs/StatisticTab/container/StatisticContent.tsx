@@ -30,7 +30,7 @@ export const StatisticContent = ({
         ) : (
           <>
             <div className="mt-4">
-              <StatisticSubTitle text="Os 5 artistias mais presentes" />
+              <StatisticSubTitle text="Os 5 artistas mais presentes" />
 
               <div className="flex gap-2 overflow-x-auto md:grid sm:grid-cols-5 sm:overflow-hidden hide-scrollbar">
                 {artistsStatistics.slice(0, 5).map(async (artist, index) => {

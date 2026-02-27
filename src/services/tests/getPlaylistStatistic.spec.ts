@@ -1,16 +1,12 @@
 import { mockTracks } from "@/globalTestsMocks";
 import { getPlaylistStatistic } from "../getPlaylistStatistic";
 
-const mockArtistsResponse = {
-  artists: [
-    {
-      id: "artist1",
-      name: "Mock Artist 1",
-      genres: ["pop", "rock"],
-      images: [{ url: "img1.jpg" }],
-      external_urls: { spotify: "https://open.spotify.com/artist/artist1" },
-    },
-  ],
+const mockArtistResponse = {
+  id: "artist1",
+  name: "Mock Artist 1",
+  genres: ["pop", "rock"],
+  images: [{ url: "img1.jpg" }],
+  external_urls: { spotify: "https://open.spotify.com/artist/artist1" },
 };
 
 global.fetch = jest.fn();
@@ -23,10 +19,12 @@ describe("getPlaylistStatistic", () => {
   it("returns correct statistics value", async () => {
     (fetch as jest.Mock)
       .mockResolvedValueOnce({
+        ok: true,
         json: () => Promise.resolve({ items: mockTracks.items }),
       })
       .mockResolvedValueOnce({
-        json: () => Promise.resolve(mockArtistsResponse),
+        ok: true,
+        json: () => Promise.resolve(mockArtistResponse),
       });
 
     const result = await getPlaylistStatistic("token", "playlistId", 2);

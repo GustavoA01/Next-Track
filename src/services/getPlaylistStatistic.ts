@@ -68,23 +68,35 @@ export const getPlaylistStatistic = async (
   });
 
   const unifiquedIdsArray = Array.from(artistIds);
-  const unifiquedIds: string[] = [];
 
-  for (let i = 0; i < unifiquedIdsArray.length; i += 50) {
-    unifiquedIds.push(unifiquedIdsArray.slice(i, i + 50).join(","));
-  }
+  const artistsPromises = unifiquedIdsArray.map(async (uniqueId) => {
+    try {
+      const cleanId = uniqueId.trim();
 
-  const artistsPromises = unifiquedIds.map(async (uniqueIds) => {
-    return await fetch(`https://api.spotify.com/v1/artists?ids=${uniqueIds}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      next: { revalidate: 3600 },
-    }).then((res) => res.json());
+      const url = `https://api.spotify.com/v1/artists/${cleanId}`;
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        next: { revalidate: 3600 },
+      });
+
+      if (!response.ok) {
+        console.error(
+          `Erro Spotify (Artista ${cleanId}): Status ${response.status}`,
+        );
+        return null;
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(`Falha no fetch do artista ${uniqueId}:`, error);
+      return null;
+    }
   });
 
-  const artistsResponses = await Promise.all(artistsPromises);
-  const artists = artistsResponses.flatMap((response) => response.artists);
+  const rawArtistsData = await Promise.all(artistsPromises);
+  const artists = rawArtistsData.filter((artist) => artist !== null);
 
   const genresCount: Record<string, number> = {};
   let totalGenres = 0;
