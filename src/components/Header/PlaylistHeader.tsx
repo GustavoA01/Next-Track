@@ -40,6 +40,7 @@ export const PlaylistHeader = async ({
 
   return (
     <div
+      id="playlist-header"
       style={{
         background: `linear-gradient(to bottom, ${colorHex} 50%, transparent 100%)`,
       }}

@@ -1,6 +1,6 @@
 import { TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
+import { ChevronUp, Sparkles } from "lucide-react";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { Spinner } from "@/components/ui/spinner";
 import { Recommendations } from "@/features/Tabs/DiscoverTab/components/Recommendations";
@@ -12,6 +12,7 @@ import { MusicCardsSkeleton } from "@/components/Skeletons";
 import { Textarea } from "@/components/ui/textarea";
 import { ConfirmClearChat } from "../components/ConfirmClearChat";
 import { Dialog } from "@/components/ui/dialog";
+import Link from "next/link";
 
 export const DiscoverContent = ({
   genresStatistics,
@@ -113,6 +114,15 @@ export const DiscoverContent = ({
           accessToken={accessToken}
           recommendationsTracks={recommendationsTracks}
         />
+      )}
+
+      {recommendationsTracks.length > 0 && (
+        <Link
+          href="#playlist-header"
+          className="my-5 flex justify-center items-center rounded-full border-2 border-muted p-2 cursor-pointer w-10 h-10 self-center"
+        >
+          <ChevronUp className="text-primary" />
+        </Link>
       )}
 
       <Dialog

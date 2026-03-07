@@ -1,6 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { ChatContent } from "../components/ChatContent";
 import { Timestamp } from "firebase/firestore";
+import { mockTracks } from "@/globalTestsMocks";
+
+HTMLElement.prototype.scrollTo = jest.fn();
 
 describe("ChatContent", () => {
   const mockMessages = [
@@ -9,15 +12,7 @@ describe("ChatContent", () => {
       userMessage: "Faça recomendações",
       chatResponse: "Resposta do chat",
       createdAt: Timestamp.now(),
-      recommendations: [
-        {
-          id: "r1",
-          name: "Música Recomendada",
-          artists: "Artista Recomendado",
-          album: "Álbum Recomendado",
-          duration: 200000,
-        },
-      ],
+      recommendations: mockTracks.items.map((item) => item.track),
     },
   ];
 

@@ -28,7 +28,7 @@ const PlaylistPage = async ({
     await getPlaylistStatistic(accessToken, id, playlist.tracks.total);
 
   return (
-    <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar">
+    <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar scroll-smooth">
       <PlaylistHeader
         playlist={playlist}
         accessToken={accessToken}

@@ -1,11 +1,12 @@
 import { Timestamp } from "firebase/firestore";
+import { SpotifyPlaylistTrack } from "./spotify";
 
 export interface ChatContentResponse {
   playlistId: string;
   chatResponse: string;
   userMessage: string;
   createdAt: Timestamp;
-  recommendations: LastRecommendationsType[];
+  recommendations: SpotifyPlaylistTrack[];
 }
 
 export interface ChatResponseType {
@@ -25,12 +26,4 @@ export type VibesType = {
 export type ChatPromptType = {
   systemMessage: { role: string; content: string };
   userMessage: { role: string; content: string };
-};
-
-export type LastRecommendationsType = {
-  id: string;
-  name: string;
-  artists: string;
-  album: string;
-  duration: number;
 };

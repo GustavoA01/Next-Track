@@ -1,12 +1,12 @@
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { chatMessageCollection, db } from "./firebaseConfig";
-import { LastRecommendationsType } from "@/data/types";
+import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 
 type PostMessagesParams = {
   playlistId: string;
   userMessageContent: string;
   chatResponse: string;
-  recommendations: LastRecommendationsType[];
+  recommendations: SpotifyPlaylistTrack[];
 };
 
 export const postMessages = async ({

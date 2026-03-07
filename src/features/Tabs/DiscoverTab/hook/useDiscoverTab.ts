@@ -1,7 +1,7 @@
 import { geminiRequest } from "@/actions/geminiRequest";
 import { getContextPrompt } from "@/utils/getContextPrompt";
 import { ChatFormType, chatSchema } from "@/data/schemas/chatSchema";
-import { ChatPromptType, LastRecommendationsType } from "@/data/types";
+import { ChatPromptType } from "@/data/types";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 import { searchTrack } from "@/services/searchTrack";
@@ -52,7 +52,17 @@ export const useDiscoverTab = ({
     const savedRecommendations = localStorage.getItem(playlistId as string);
     if (savedRecommendations) {
       setRecommendationsTracks(JSON.parse(savedRecommendations));
+      return;
     }
+
+    const getLastRecommendations = async () => {
+      const response = await getMessages(playlistId as string);
+      if (!response || !response[response.length - 1]) return;
+      const lastRecommendations = response[response.length - 1].recommendations;
+      lastRecommendations.length > 0 ? lastRecommendations : [];
+      setRecommendationsTracks(lastRecommendations);
+    };
+    getLastRecommendations();
   }, []);
 
   const onResetVibes = () => {
@@ -72,7 +82,7 @@ export const useDiscoverTab = ({
     mutationFn: async (params: {
       userMessageContent: string;
       chatResponse: string;
-      recommendations: LastRecommendationsType[];
+      recommendations: SpotifyPlaylistTrack[];
     }) =>
       postMessages({
         playlistId: playlistId as string,
@@ -156,25 +166,14 @@ export const useDiscoverTab = ({
       );
       setRecommendationsTracks(recommendationsResponse);
 
-      if (localStorage.getItem(playlistId as string))
+      if (localStorage.getItem(playlistId as string)) {
         localStorage.removeItem(playlistId as string);
-      localStorage.setItem(
-        playlistId as string,
-        JSON.stringify(recommendationsResponse),
-      );
-
-      const lastRecommendations = recommendationsResponse.map((track) => ({
-        id: track.id,
-        name: track.name,
-        artists: track.artists.map((artist) => artist.name).join(", "),
-        album: track.album.name,
-        duration: track.duration_ms,
-      }));
+      }
 
       await postMessageFn({
         chatResponse: response.chatResponse,
         userMessageContent: data.prompt,
-        recommendations: lastRecommendations as LastRecommendationsType[],
+        recommendations: recommendationsResponse,
       });
     } catch (error) {
       console.log("Error ao chamar gemini", error);
