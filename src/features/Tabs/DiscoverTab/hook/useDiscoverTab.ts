@@ -114,10 +114,6 @@ export const useDiscoverTab = ({
       );
       setRecommendationsTracks(recommendationsResponse);
 
-      if (localStorage.getItem(playlistId as string)) {
-        localStorage.removeItem(playlistId as string);
-      }
-
       await postMessageFn({
         chatResponse: response.chatResponse,
         userMessageContent: data.prompt,
