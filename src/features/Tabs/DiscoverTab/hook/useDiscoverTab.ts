@@ -63,10 +63,7 @@ export const useDiscoverTab = ({
 
   useEffect(() => {
     const savedRecommendations = localStorage.getItem(playlistId as string);
-    if (savedRecommendations) {
-      setRecommendationsTracks(JSON.parse(savedRecommendations));
-      return;
-    }
+    if (savedRecommendations) localStorage.removeItem(playlistId as string);
 
     const getLastRecommendations = async () => {
       const response = await getMessages(playlistId as string);
