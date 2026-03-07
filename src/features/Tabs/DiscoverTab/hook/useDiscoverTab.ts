@@ -1,11 +1,8 @@
-import { geminiRequest } from "@/actions/geminiRequest";
 import { getContextPrompt } from "@/utils/getContextPrompt";
 import { ChatFormType, chatSchema } from "@/data/schemas/chatSchema";
-import { ChatPromptType } from "@/data/types";
 import { PlaylistStatisticsType } from "@/data/types/recommendations";
 import { SpotifyPlaylistTrack } from "@/data/types/spotify";
 import { searchTrack } from "@/services/searchTrack";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,9 +10,9 @@ import { useParams } from "next/navigation";
 import { addToPlaylist } from "@/actions/addToPlaylist";
 import { toast } from "sonner";
 import { getMessages } from "@/services/firebase/getMessages";
-import { postMessages } from "@/services/firebase/postMessages";
-import { deleteChat } from "@/services/firebase/deleteChat";
-import { clientKeys, localStorageKeys } from "@/services/constantsKeys";
+import { localStorageKeys } from "@/services/constantsKeys";
+import { useDiscoverMutation } from "./useDiscoverMutation";
+import { useDiscoverVibe } from "./useDiscoverVibe";
 
 export const useDiscoverTab = ({
   artistsStatistics,
@@ -24,11 +21,20 @@ export const useDiscoverTab = ({
   accessToken,
 }: PlaylistStatisticsType & { accessToken: string }) => {
   const { id: playlistId } = useParams();
-  const queryClient = useQueryClient();
   const methods = useForm<ChatFormType>({
     resolver: zodResolver(chatSchema),
   });
   const { reset } = methods;
+  const {
+    emotionalVibe,
+    energyVibe,
+    instrumentalVibe,
+    onResetVibes,
+    isVibesChanged,
+    setEmotionalVibe,
+    setEnergyVibe,
+    setInstrumentalVibe,
+  } = useDiscoverVibe();
 
   const [recommendationsTracks, setRecommendationsTracks] = useState<
     SpotifyPlaylistTrack[]
@@ -36,17 +42,24 @@ export const useDiscoverTab = ({
   const [isRecommendationsLoading, setIsRecommendationsLoading] =
     useState(false);
   const [temporaryMessage, setTemporaryMessage] = useState<string>("");
-
-  const [emotionalVibe, setEmotionalVibe] = useState<number>(50);
-  const [energyVibe, setEnergyVibe] = useState<number>(50);
-  const [instrumentalVibe, setInstrumentalVibe] = useState<number>(50);
-
   const [errorMessage, setErrorMessage] = useState<string>("");
-
   const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
 
-  const isVibesChanged =
-    emotionalVibe !== 50 || energyVibe !== 50 || instrumentalVibe !== 50;
+  const {
+    deleteChatFn,
+    geminiRequestFn,
+    isResponseLoading,
+    messages,
+    postMessageFn,
+  } = useDiscoverMutation(
+    playlistId as string,
+    setTemporaryMessage,
+    setErrorMessage,
+    setOpenConfirmDialog,
+    setRecommendationsTracks,
+  );
+
+  const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
   useEffect(() => {
     const savedRecommendations = localStorage.getItem(playlistId as string);
@@ -58,75 +71,13 @@ export const useDiscoverTab = ({
     const getLastRecommendations = async () => {
       const response = await getMessages(playlistId as string);
       if (!response || !response[response.length - 1]) return;
+
       const lastRecommendations = response[response.length - 1].recommendations;
       lastRecommendations.length > 0 ? lastRecommendations : [];
       setRecommendationsTracks(lastRecommendations);
     };
     getLastRecommendations();
   }, []);
-
-  const onResetVibes = () => {
-    setEmotionalVibe(50);
-    setEnergyVibe(50);
-    setInstrumentalVibe(50);
-  };
-
-  const onSelectBadge = (badge: string) => reset({ prompt: badge });
-
-  const { data: messages } = useQuery({
-    queryKey: [clientKeys.chatMessages, playlistId],
-    queryFn: () => getMessages(playlistId as string),
-  });
-
-  const { mutateAsync: postMessageFn } = useMutation({
-    mutationFn: async (params: {
-      userMessageContent: string;
-      chatResponse: string;
-      recommendations: SpotifyPlaylistTrack[];
-    }) =>
-      postMessages({
-        playlistId: playlistId as string,
-        userMessageContent: params.userMessageContent,
-        chatResponse: params.chatResponse,
-        recommendations: params.recommendations,
-      }),
-    onSuccess: () => {
-      setTemporaryMessage("");
-      queryClient.invalidateQueries({
-        queryKey: [clientKeys.chatMessages, playlistId],
-      });
-    },
-  });
-
-  const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } =
-    useMutation({
-      mutationFn: (prompt: ChatPromptType) =>
-        geminiRequest({
-          systemMessage: prompt.systemMessage,
-          userMessage: prompt.userMessage,
-          playlistId: playlistId as string,
-        }),
-      onError: (error) => {
-        console.log("Error ao chamar gemini", error);
-        setErrorMessage(
-          "Erro ao processar a solicitação. Tente novamente mais tarde.",
-        );
-      },
-    });
-
-  const { mutateAsync: deleteChatFn } = useMutation({
-    mutationFn: () => deleteChat(playlistId as string),
-    onSuccess: () => {
-      setOpenConfirmDialog(false);
-      localStorage.removeItem(playlistId as string);
-      localStorage.removeItem(localStorageKeys.musicsIds);
-      setRecommendationsTracks([]);
-      queryClient.invalidateQueries({
-        queryKey: [clientKeys.chatMessages, playlistId],
-      });
-      toast.success("Chat deletado com sucesso");
-    },
-  });
 
   const handleChatRequest = async (data: { prompt: string }) => {
     setTemporaryMessage(data.prompt);
