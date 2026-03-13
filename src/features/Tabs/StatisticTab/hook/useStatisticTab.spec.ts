@@ -1,6 +1,5 @@
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useStatisticTab } from "./useStatisticTab";
-import { act } from "react-dom/test-utils";
 
 jest.mock("extract-colors", () => ({
   extractColors: jest.fn(async () => [{ hex: "#abcdef" }]),
@@ -50,7 +49,7 @@ describe("useStatisticTab", () => {
     });
 
     let color;
-    await act(async () => {
+    act(async () => {
       color = await result.current.getHexaColor("fake-url");
     });
 

@@ -12,17 +12,17 @@ const PlaylistPage = async ({
   const { id } = await params;
   const accessToken = await getCurrentToken();
 
-  const playlist: SpotifyPlaylist = await fetch(
-    `https://api.spotify.com/v1/playlists/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      next: { revalidate: 3600, tags: [`playlist-${id}`] },
+  const response = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
-  )
-    .then((res) => res.json())
-    .then((data) => data);
+    next: { tags: [`playlist-${id}`] },
+  });
+
+  if (!response.ok) throw new Error("Failed to fetch playlist");
+
+  const playlist: SpotifyPlaylist = await response.json();
 
   const { artistsStatistics, genresStatistics, tracks, totalDuration } =
     await getPlaylistStatistic(accessToken, id, playlist.tracks.total);

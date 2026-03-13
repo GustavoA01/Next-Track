@@ -1,4 +1,5 @@
 "use server";
+import { updateTag } from "next/cache";
 import { ParamValue } from "next/dist/server/request/params";
 
 type AddToPlaylistProps = {
@@ -31,8 +32,9 @@ export const addToPlaylist = async ({
       return { success: false, error: "Falha ao adicionar música" };
     }
 
+    updateTag(`playlist-${playlistId}`);
     return { success: true };
   } catch (error) {
-    console.log("Ocorreu um erro ao adicionar à playlist: ", error);
+    console.error("Ocorreu um erro ao adicionar à playlist: ", error);
   }
 };

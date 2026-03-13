@@ -21,10 +21,21 @@ export const useDiscoverTab = ({
   accessToken,
 }: PlaylistStatisticsType & { accessToken: string }) => {
   const { id: playlistId } = useParams();
+
   const methods = useForm<ChatFormType>({
     resolver: zodResolver(chatSchema),
   });
   const { reset } = methods;
+
+  const [recommendationsTracks, setRecommendationsTracks] = useState<
+    SpotifyPlaylistTrack[]
+  >([]);
+  const [isRecommendationsLoading, setIsRecommendationsLoading] =
+    useState(false);
+  const [temporaryMessage, setTemporaryMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
+
   const {
     emotionalVibe,
     energyVibe,
@@ -35,15 +46,6 @@ export const useDiscoverTab = ({
     setEnergyVibe,
     setInstrumentalVibe,
   } = useDiscoverVibe();
-
-  const [recommendationsTracks, setRecommendationsTracks] = useState<
-    SpotifyPlaylistTrack[]
-  >([]);
-  const [isRecommendationsLoading, setIsRecommendationsLoading] =
-    useState(false);
-  const [temporaryMessage, setTemporaryMessage] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
 
   const {
     deleteChatFn,
@@ -63,7 +65,10 @@ export const useDiscoverTab = ({
 
   useEffect(() => {
     const savedRecommendations = localStorage.getItem(playlistId as string);
-    if (savedRecommendations) localStorage.removeItem(playlistId as string);
+    if (savedRecommendations) {
+      setRecommendationsTracks(JSON.parse(savedRecommendations));
+      return;
+    }
 
     const getLastRecommendations = async () => {
       const response = await getMessages(playlistId as string);
@@ -119,8 +124,9 @@ export const useDiscoverTab = ({
         userMessageContent: data.prompt,
         recommendations: recommendationsResponse,
       });
+      localStorage.removeItem(playlistId as string);
     } catch (error) {
-      console.log("Error ao chamar gemini", error);
+      console.error("Error ao chamar gemini", error);
     } finally {
       setIsRecommendationsLoading(false);
     }
@@ -134,8 +140,8 @@ export const useDiscoverTab = ({
     const success = await addToPlaylist({ jsonUris, playlistId, accessToken });
 
     if (success) {
-      const data = localStorage.getItem(localStorageKeys.musicsIds);
-      const previousIds = data ? JSON.parse(data) : [];
+      const localStorageData = localStorage.getItem(localStorageKeys.musicsIds);
+      const previousIds = localStorageData ? JSON.parse(localStorageData) : [];
       const updatedIds = [...previousIds, musicId];
 
       localStorage.setItem(

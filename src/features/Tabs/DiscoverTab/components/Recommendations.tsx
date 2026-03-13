@@ -23,7 +23,7 @@ export const Recommendations = ({
         {recommendationsTracks.map((track, index) => {
           const { minutes, seconds } = msFormatter(track.duration_ms);
           const duration = `${minutes}:${seconds}`;
-          console.log(track);
+
           return (
             <MusicCard
               key={`music-card-${track.id}`}

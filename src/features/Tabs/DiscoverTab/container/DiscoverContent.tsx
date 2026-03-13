@@ -7,7 +7,7 @@ import { Recommendations } from "@/features/Tabs/DiscoverTab/components/Recommen
 import { AccordionVibe } from "../components/AccordionVibe";
 import { BadgesGroup } from "../components/BadgesGroup";
 import { ChatContent } from "../components/ChatContent";
-import { useDiscoverTab } from "../hook/useDiscoverTab";
+import { useDiscoverTab } from "../hooks/useDiscoverTab";
 import { MusicCardsSkeleton } from "@/components/Skeletons";
 import { Textarea } from "@/components/ui/textarea";
 import { ConfirmClearChat } from "../components/ConfirmClearChat";
