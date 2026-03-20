@@ -84,6 +84,12 @@ export const DiscoverContent = ({
             className="w-full rounded-xl hide-scrollbar max-sm:text-sm resize-none min-h-10 max-h-20"
             placeholder="Peça músicas..."
             disabled={isResponseLoading}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                methods.handleSubmit(handleChatRequest)();
+              }
+            }}
           />
 
           <Button className="group" type="submit" disabled={isResponseLoading}>
