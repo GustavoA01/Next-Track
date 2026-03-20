@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Next Track - Recomendações com IA",
     description:
       "Conecte seu Spotify e descubra músicas novas baseadas no que você já ouve.",
-    // url: "https://next-track.vercel.app",
+    url: "/",
     siteName: "Next Track",
     locale: "pt_BR",
     type: "website",

@@ -54,14 +54,14 @@ export const ChatContent = ({
           <div key={`message-${index}`}>
             <MessageCard
               key={`ia-${index}`}
-              cardClassName={`bg-primary ml-auto rounded-tr-xs max-w-[75%] ${defaultCardClassName}`}
+              cardClassName={`bg-primary ml-auto rounded-tr-xs sm:max-w-[75%] ${defaultCardClassName}`}
               textClassName="text-background"
               content={message.userMessage}
             />
 
             <MessageCard
               key={`user-${index}`}
-              cardClassName={`mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs max-w-[80%] ${defaultCardClassName}`}
+              cardClassName={`mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs sm:max-w-[80%] ${defaultCardClassName}`}
               content={message.chatResponse}
             />
           </div>
