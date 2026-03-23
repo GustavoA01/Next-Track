@@ -85,7 +85,7 @@ export const DiscoverContent = ({
             placeholder="Peça músicas..."
             disabled={isResponseLoading}
             onKeyDown={(event) => {
-              if (event.key === "Enter") {
+              if (event.key === "Enter" && !event.shiftKey) {
                 event.preventDefault();
                 methods.handleSubmit(handleChatRequest)();
               }
