@@ -17,7 +17,6 @@ export const ConfirmClearChat = ({ onConfirm }: { onConfirm: () => void }) => (
         pode ser desfeita.
       </DialogDescription>
     </DialogHeader>
-
     <DialogFooter>
       <DialogClose asChild>
         <Button variant="outline">Cancelar</Button>

@@ -9,7 +9,6 @@ export const AlbumImg = ({ src }: { src: string }) => (
         className="w-6 h-6 text-primary hidden group-hover/card:block opacity-0 group-hover/card:opacity-100 transition-all duration-300"
       />
     </div>
-
     <Image
       src={src}
       alt="Foto do álbum"

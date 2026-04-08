@@ -1,6 +1,6 @@
 import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
 import { Button } from "../../../components/ui/button";
-import { Home, HomeIcon, LogOut } from "lucide-react";
+import { HomeIcon, LogOut } from "lucide-react";
 import {
   TooltipContent,
   TooltipTrigger,
@@ -38,7 +38,6 @@ export const ToolTipMenu = ({ profile, setIsOpen }: ToolTipMenuProps) => {
             </Link>
           </Button>
         )}
-
         <Button
           variant="ghost"
           onClick={() => setIsOpen(true)}

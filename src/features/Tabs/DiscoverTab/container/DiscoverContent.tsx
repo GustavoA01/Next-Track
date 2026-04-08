@@ -6,13 +6,12 @@ import { Spinner } from "@/components/ui/spinner";
 import { Recommendations } from "@/features/Tabs/DiscoverTab/components/Recommendations";
 import { AccordionVibe } from "../components/AccordionVibe";
 import { BadgesGroup } from "../components/BadgesGroup";
-import { ChatContent } from "../components/ChatContent";
+import { ChatContent } from "./ChatContent";
 import { useDiscoverTab } from "../hooks/useDiscoverTab";
 import { MusicCardsSkeleton } from "@/components/Skeletons";
 import { Textarea } from "@/components/ui/textarea";
 import { ConfirmClearChat } from "../components/ConfirmClearChat";
 import { Dialog } from "@/components/ui/dialog";
-import Link from "next/link";
 
 export const DiscoverContent = ({
   genresStatistics,
@@ -42,6 +41,7 @@ export const DiscoverContent = ({
     deleteChatFn,
     openConfirmDialog,
     setOpenConfirmDialog,
+    handleScrollToTop,
   } = useDiscoverTab({
     accessToken,
     artistsStatistics,
@@ -61,9 +61,7 @@ export const DiscoverContent = ({
         onReset={onResetVibes}
         isVibesChanged={isVibesChanged}
       />
-
       <BadgesGroup onSelectBadge={onSelectBadge} />
-
       {messages && messages.length > 0 && (
         <ChatContent
           errorMessage={errorMessage}
@@ -73,7 +71,6 @@ export const DiscoverContent = ({
           setOpenConfirmDialog={setOpenConfirmDialog}
         />
       )}
-
       <form
         className="space-y-2"
         onSubmit={methods.handleSubmit(handleChatRequest)}
@@ -123,12 +120,13 @@ export const DiscoverContent = ({
       )}
 
       {recommendationsTracks.length > 0 && (
-        <Link
-          href="#playlist-header"
+        <Button
+          variant="ghost"
+          onClick={handleScrollToTop}
           className="my-5 flex justify-center items-center rounded-full border-2 border-muted p-2 cursor-pointer w-10 h-10 self-center"
         >
           <ChevronUp className="text-primary" />
-        </Link>
+        </Button>
       )}
 
       <Dialog

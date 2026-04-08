@@ -33,10 +33,9 @@ export const RightInfo = ({
       toast.info("Música já adicionada à playlist");
       return;
     }
-
-    setisMusicAdded(true);
     try {
       await onAddToPlaylist(e);
+      setisMusicAdded(true);
     } catch (error) {
       setisMusicAdded(false);
       console.error("Ocorreu um erro", error);

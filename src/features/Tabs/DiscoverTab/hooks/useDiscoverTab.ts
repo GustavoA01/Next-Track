@@ -81,6 +81,11 @@ export const useDiscoverTab = ({
     getLastRecommendations();
   }, []);
 
+  const handleScrollToTop = () => {
+    const header = document.getElementById("playlist-header");
+    if (header) header.scrollIntoView({ behavior: "smooth" });
+  };
+
   const handleChatRequest = async (data: { prompt: string }) => {
     setTemporaryMessage(data.prompt);
     const vibes = {
@@ -176,5 +181,6 @@ export const useDiscoverTab = ({
     deleteChatFn,
     openConfirmDialog,
     setOpenConfirmDialog,
+    handleScrollToTop,
   };
 };

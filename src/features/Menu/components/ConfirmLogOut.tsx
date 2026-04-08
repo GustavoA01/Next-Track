@@ -17,7 +17,6 @@ export const ConfirmLogOut = () => (
         Deseja mesmo fazer logout da sua conta Spotify?
       </DialogDescription>
     </DialogHeader>
-
     <DialogFooter>
       <DialogClose asChild>
         <Button variant="outline">Cancelar</Button>

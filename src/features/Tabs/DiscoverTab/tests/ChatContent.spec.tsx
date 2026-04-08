@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { ChatContent } from "../components/ChatContent";
+import { ChatContent } from "../container/ChatContent";
 import { Timestamp } from "firebase/firestore";
 import { mockTracks } from "@/globalTestsMocks";
 

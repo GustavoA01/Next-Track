@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChatContentResponse } from "@/data/types";
 import { Trash } from "lucide-react";
-import { MessageCard } from "./MessageCard";
+import { MessageCard } from "../components/MessageCard";
 import { useEffect, useRef } from "react";
 
 type ChatContentProps = {
@@ -58,7 +58,6 @@ export const ChatContent = ({
               textClassName="text-background"
               content={message.userMessage}
             />
-
             <MessageCard
               key={`user-${index}`}
               cardClassName={`mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs sm:max-w-[80%] ${defaultCardClassName}`}

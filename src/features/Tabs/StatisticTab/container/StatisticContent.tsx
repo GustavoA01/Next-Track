@@ -31,7 +31,6 @@ export const StatisticContent = ({
           <>
             <div className="mt-4">
               <StatisticSubTitle text="Os 5 artistas mais presentes" />
-
               <div className="flex gap-2 overflow-x-auto md:grid sm:grid-cols-5 sm:overflow-hidden hide-scrollbar">
                 {artistsStatistics.slice(0, 5).map(async (artist, index) => {
                   const palleteColor = await getHexaColor(artist.image);
@@ -50,7 +49,6 @@ export const StatisticContent = ({
 
             <div>
               <StatisticSubTitle text="Top 5 gêneros mais presentes" />
-
               <div className="space-y-4">
                 {genresStatistics.slice(0, 5).map((genre) => (
                   <MostListenGenreBar
