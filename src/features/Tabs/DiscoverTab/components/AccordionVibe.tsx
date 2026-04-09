@@ -1,13 +1,8 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card";
-import { Zap } from "lucide-react";
-import { SliderVibe } from "./SliderVibe";
-import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card } from '@/components/ui/card';
+import { Zap } from 'lucide-react';
+import { SliderVibe } from './SliderVibe';
+import { Button } from '@/components/ui/button';
 
 type AccordionVibeProps = {
   emotionalVibe: number;
@@ -34,20 +29,20 @@ export const AccordionVibe = ({
     {
       value: energyVibe,
       setValue: setEnergyVibe,
-      leftLabel: "CALMO",
-      rightLabel: "AGITADO",
+      leftLabel: 'CALMO',
+      rightLabel: 'AGITADO',
     },
     {
       value: emotionalVibe,
       setValue: setEmotionalVibe,
-      leftLabel: "TRISTE",
-      rightLabel: "FELIZ",
+      leftLabel: 'TRISTE',
+      rightLabel: 'FELIZ',
     },
     {
       value: instrumentalVibe,
       setValue: setInstrumentalVibe,
-      leftLabel: "VOCAL",
-      rightLabel: "INSTRUMENTAL",
+      leftLabel: 'VOCAL',
+      rightLabel: 'INSTRUMENTAL',
     },
   ];
 
@@ -57,11 +52,7 @@ export const AccordionVibe = ({
         <AccordionTrigger>
           <div className="flex items-center gap-2">
             <Zap className="w-6 h-6 text-primary" />
-            <h2
-              className={`${isVibesChanged ? "text-primary" : ""} sm:text-lg font-semibold`}
-            >
-              Ajustar Energia
-            </h2>
+            <h2 className={`${isVibesChanged ? 'text-primary' : ''} sm:text-lg font-semibold`}>Ajustar Energia</h2>
           </div>
         </AccordionTrigger>
 

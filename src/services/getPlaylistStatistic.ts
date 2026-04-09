@@ -1,16 +1,12 @@
-import { PlaylistStatisticsType } from "@/data/types/recommendations";
-import {
-  SpotifyArtist,
-  SpotifyPlaylistTrack,
-  SpotifyPlaylistTracks,
-} from "@/data/types/spotify";
+import { PlaylistStatisticsType } from '@/data/types/recommendations';
+import { SpotifyArtist, SpotifyPlaylistTrack, SpotifyPlaylistTracks } from '@/data/types/spotify';
 
 export const getPlaylistStatistic = async (
   accessToken: string,
   playlistId: string,
-  totalTracks: number,
+  totalTracks: number
 ): Promise<PlaylistStatisticsType> => {
-  const tracks: SpotifyPlaylistTracks["items"] = [];
+  const tracks: SpotifyPlaylistTracks['items'] = [];
   let totalCopy = totalTracks;
   let offSetCount = 0;
 
@@ -21,7 +17,7 @@ export const getPlaylistStatistic = async (
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=50`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => data);
@@ -29,9 +25,8 @@ export const getPlaylistStatistic = async (
     tracks.push(...tracksResponse.items);
 
     totalDuration += tracksResponse.items.reduce(
-      (sum: number, item: { track: SpotifyPlaylistTrack }) =>
-        sum + item.track.duration_ms,
-      0,
+      (sum: number, item: { track: SpotifyPlaylistTrack }) => sum + item.track.duration_ms,
+      0
     );
     offSetCount += 50;
     totalCopy -= 50;
@@ -43,16 +38,15 @@ export const getPlaylistStatistic = async (
       {
         headers: { Authorization: `Bearer ${accessToken}` },
         next: { revalidate: 3600 },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => data);
 
     tracks.push(...tracksResponse.items);
     totalDuration += tracksResponse.items.reduce(
-      (sum: number, item: { track: SpotifyPlaylistTrack }) =>
-        sum + item.track.duration_ms,
-      0,
+      (sum: number, item: { track: SpotifyPlaylistTrack }) => sum + item.track.duration_ms,
+      0
     );
   }
 
@@ -71,8 +65,7 @@ export const getPlaylistStatistic = async (
   const rawArtistsData = [];
   const chunkSize = 15;
 
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
   for (let i = 0; i < unifiquedIdsArray.length; i += chunkSize) {
     const chunk = unifiquedIdsArray.slice(i, i + chunkSize);
@@ -88,7 +81,7 @@ export const getPlaylistStatistic = async (
         });
 
         if (response.status === 429) {
-          const retryAfter = response.headers.get("Retry-After") || "1";
+          const retryAfter = response.headers.get('Retry-After') || '1';
           console.warn(`Rate limit atingido. Pausa de ${retryAfter}s.`);
           await delay(parseInt(retryAfter) * 1000);
           return null;
@@ -123,7 +116,7 @@ export const getPlaylistStatistic = async (
         id: artist.id,
         name: artist.name,
         count: artistCount[artist.id],
-        image: artist.images[0]?.url || "",
+        image: artist.images[0]?.url || '',
         spotifyUrl: artist.external_urls.spotify,
       };
     }) as {

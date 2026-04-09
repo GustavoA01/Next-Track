@@ -1,17 +1,17 @@
-import { render, screen } from "@testing-library/react";
-import { resizeObserverMock } from "@/globalTestsMocks";
-import { PopularityChart } from "../components/PopularityChart";
+import { render, screen } from '@testing-library/react';
+import { resizeObserverMock } from '@/globalTestsMocks';
+import { PopularityChart } from '../components/PopularityChart';
 
-describe("PopularityChart", () => {
+describe('PopularityChart', () => {
   beforeAll(() => {
     resizeObserverMock();
   });
 
-  it("should render PopularityChart component correctly", () => {
+  it('should render PopularityChart component correctly', () => {
     const mockAvgMessage = {
-      title: "Popularidade Média",
-      text: "Popularidade média das músicas da sua playlist",
-      textColor: "text-green-500",
+      title: 'Popularidade Média',
+      text: 'Popularidade média das músicas da sua playlist',
+      textColor: 'text-green-500',
     };
 
     const mockChartData = [
@@ -22,11 +22,9 @@ describe("PopularityChart", () => {
       { popularity: 100 },
     ];
 
-    render(
-      <PopularityChart avgMessage={mockAvgMessage} chartData={mockChartData} />,
-    );
+    render(<PopularityChart avgMessage={mockAvgMessage} chartData={mockChartData} />);
 
-    const chart = screen.getByTestId("popularity-chart");
+    const chart = screen.getByTestId('popularity-chart');
 
     expect(chart).toBeInTheDocument();
   });

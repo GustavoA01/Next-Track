@@ -1,15 +1,9 @@
-import { ProfileMenuTrigger } from "./ProfileMenuTrigger";
-import { Button } from "@/components/ui/button";
-import { HomeIcon, LogOut } from "lucide-react";
-import {
-  DrawerTrigger,
-  DrawerContent,
-  DrawerFooter,
-  DrawerClose,
-  Drawer,
-} from "@/components/ui/drawer";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { ProfileMenuTrigger } from './ProfileMenuTrigger';
+import { Button } from '@/components/ui/button';
+import { HomeIcon, LogOut } from 'lucide-react';
+import { DrawerTrigger, DrawerContent, DrawerFooter, DrawerClose, Drawer } from '@/components/ui/drawer';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 type DrawerMenuProps = {
   profile: {
@@ -30,7 +24,7 @@ export const DrawerMenu = ({ profile, setIsOpen }: DrawerMenuProps) => {
 
       <DrawerContent>
         <DrawerFooter>
-          {pathname !== "/home" && (
+          {pathname !== '/home' && (
             <DrawerClose asChild>
               <Button asChild>
                 <Link href="/">

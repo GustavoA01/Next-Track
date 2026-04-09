@@ -1,21 +1,19 @@
-import { geminiRequest } from "@/actions/geminiRequest";
-import { ChatPromptType } from "@/data/types";
-import { SpotifyPlaylistTrack } from "@/data/types/spotify";
-import { clientKeys, localStorageKeys } from "@/services/constantsKeys";
-import { deleteChat } from "@/services/firebase/deleteChat";
-import { getMessages } from "@/services/firebase/getMessages";
-import { postMessages } from "@/services/firebase/postMessages";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { geminiRequest } from '@/actions/geminiRequest';
+import { ChatPromptType } from '@/data/types';
+import { SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { clientKeys, localStorageKeys } from '@/services/constantsKeys';
+import { deleteChat } from '@/services/firebase/deleteChat';
+import { getMessages } from '@/services/firebase/getMessages';
+import { postMessages } from '@/services/firebase/postMessages';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 export const useDiscoverMutation = (
   playlistId: string,
   setTemporaryMessage: React.Dispatch<React.SetStateAction<string>>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   setOpenConfirmDialog: React.Dispatch<React.SetStateAction<boolean>>,
-  setRecommendationsTracks: React.Dispatch<
-    React.SetStateAction<SpotifyPlaylistTrack[]>
-  >,
+  setRecommendationsTracks: React.Dispatch<React.SetStateAction<SpotifyPlaylistTrack[]>>
 ) => {
   const queryClient = useQueryClient();
 
@@ -37,28 +35,25 @@ export const useDiscoverMutation = (
         recommendations: params.recommendations,
       }),
     onSuccess: () => {
-      setTemporaryMessage("");
+      setTemporaryMessage('');
       queryClient.invalidateQueries({
         queryKey: [clientKeys.chatMessages, playlistId],
       });
     },
   });
 
-  const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } =
-    useMutation({
-      mutationFn: (prompt: ChatPromptType) =>
-        geminiRequest({
-          systemMessage: prompt.systemMessage,
-          userMessage: prompt.userMessage,
-          playlistId: playlistId,
-        }),
-      onError: (error) => {
-        console.log("Error ao chamar gemini", error);
-        setErrorMessage(
-          "Erro ao processar a solicitação. Tente novamente mais tarde.",
-        );
-      },
-    });
+  const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } = useMutation({
+    mutationFn: (prompt: ChatPromptType) =>
+      geminiRequest({
+        systemMessage: prompt.systemMessage,
+        userMessage: prompt.userMessage,
+        playlistId: playlistId,
+      }),
+    onError: (error) => {
+      console.log('Error ao chamar gemini', error);
+      setErrorMessage('Erro ao processar a solicitação. Tente novamente mais tarde.');
+    },
+  });
 
   const { mutateAsync: deleteChatFn } = useMutation({
     mutationFn: () => deleteChat(playlistId),
@@ -70,7 +65,7 @@ export const useDiscoverMutation = (
       queryClient.invalidateQueries({
         queryKey: [clientKeys.chatMessages, playlistId],
       });
-      toast.success("Chat deletado com sucesso");
+      toast.success('Chat deletado com sucesso');
     },
   });
 

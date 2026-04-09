@@ -1,8 +1,8 @@
-import { SpotifyPlaylistTrack } from "@/data/types/spotify";
+import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 
 export const searchTrack = async (
   accessToken: string,
-  recommendations: { song: string; artist: string }[],
+  recommendations: { song: string; artist: string }[]
 ): Promise<SpotifyPlaylistTrack[]> => {
   if (recommendations.length === 0) return [];
 
@@ -15,7 +15,7 @@ export const searchTrack = async (
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        },
+        }
       );
 
       if (!response.ok) return;
@@ -26,7 +26,7 @@ export const searchTrack = async (
     const data = await Promise.all(promises);
     return data.flat().filter((item) => item !== null);
   } catch (error) {
-    console.log("Erro ao buscar faixas no Spotify", error);
+    console.log('Erro ao buscar faixas no Spotify', error);
     return [];
   }
 };

@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const StatisticsContentSkeleton = () => (
   <div className="flex flex-col gap-10">
@@ -7,10 +7,7 @@ export const StatisticsContentSkeleton = () => (
 
       <div className="flex gap-2 overflow-x-auto md:grid sm:grid-cols-5 sm:overflow-hidden hide-scrollbar">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div
-            key={`artist-card-skeleton-${index}`}
-            className="shrink-0 sm:w-auto"
-          >
+          <div key={`artist-card-skeleton-${index}`} className="shrink-0 sm:w-auto">
             <div className="rounded-xl overflow-hidden">
               <Skeleton className="w-55 h-55 sm:w-full sm:h-60" />
             </div>

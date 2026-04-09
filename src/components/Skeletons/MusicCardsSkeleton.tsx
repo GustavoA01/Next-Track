@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const MusicCardsSkeleton = () => (
   <div className=" pt-4 flex flex-col gap-6">

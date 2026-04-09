@@ -1,9 +1,9 @@
-"use client";
-import { ConfirmLogOut } from "../components/ConfirmLogOut";
-import { ToolTipMenu } from "../components/ToolTipMenu";
-import { DrawerMenu } from "../components/DrawerMenu";
-import { Dialog } from "@/components/ui/dialog";
-import { useState } from "react";
+'use client';
+import { ConfirmLogOut } from '../components/ConfirmLogOut';
+import { ToolTipMenu } from '../components/ToolTipMenu';
+import { DrawerMenu } from '../components/DrawerMenu';
+import { Dialog } from '@/components/ui/dialog';
+import { useState } from 'react';
 
 type MenuOptionsProps = {
   profile: {

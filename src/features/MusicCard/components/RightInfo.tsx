@@ -1,21 +1,15 @@
-import { localStorageKeys } from "@/services/constantsKeys";
-import { Check, Plus } from "lucide-react";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { localStorageKeys } from '@/services/constantsKeys';
+import { Check, Plus } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 type RightInfoProps = {
   id: string;
   duration: string;
-  onAddToPlaylist: (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => Promise<void>;
+  onAddToPlaylist: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => Promise<void>;
 };
 
-export const RightInfo = ({
-  id,
-  duration,
-  onAddToPlaylist,
-}: RightInfoProps) => {
+export const RightInfo = ({ id, duration, onAddToPlaylist }: RightInfoProps) => {
   const [isMusicAdded, setisMusicAdded] = useState(false);
 
   useEffect(() => {
@@ -26,11 +20,9 @@ export const RightInfo = ({
     }
   }, []);
 
-  const handleCLick = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => {
+  const handleCLick = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (isMusicAdded) {
-      toast.info("Música já adicionada à playlist");
+      toast.info('Música já adicionada à playlist');
       return;
     }
     try {
@@ -38,8 +30,8 @@ export const RightInfo = ({
       setisMusicAdded(true);
     } catch (error) {
       setisMusicAdded(false);
-      console.error("Ocorreu um erro", error);
-      toast.error("Ocorreu um erro ao adicionar a música");
+      console.error('Ocorreu um erro', error);
+      toast.error('Ocorreu um erro ao adicionar a música');
     }
   };
 
@@ -50,7 +42,7 @@ export const RightInfo = ({
         data-testid="add-to-playlist-button"
         onClick={(e) => handleCLick(e)}
         className={`border border-primary transition-all duration-200 rounded-full p-2 
-        ${isMusicAdded ? "bg-primary" : "group/add hover:bg-primary"}`}
+        ${isMusicAdded ? 'bg-primary' : 'group/add hover:bg-primary'}`}
       >
         {isMusicAdded ? (
           <Check className="animate-scale-appear text-black m-auto md:w-6 md:h-6 w-4 h-4" />

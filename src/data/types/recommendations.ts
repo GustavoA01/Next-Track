@@ -1,4 +1,4 @@
-import { SpotifyPlaylistTracks } from "./spotify";
+import { SpotifyPlaylistTracks } from './spotify';
 
 export type PlaylistStatisticsType = {
   artistsStatistics: {
@@ -9,7 +9,7 @@ export type PlaylistStatisticsType = {
     spotifyUrl: string;
   }[];
   genresStatistics: { name: string; value: number; percentage: number }[];
-  tracks?: SpotifyPlaylistTracks["items"];
+  tracks?: SpotifyPlaylistTracks['items'];
   totalDuration?: number;
 };
 

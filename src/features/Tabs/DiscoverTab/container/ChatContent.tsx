@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ChatContentResponse } from "@/data/types";
-import { Trash } from "lucide-react";
-import { MessageCard } from "../components/MessageCard";
-import { useEffect, useRef } from "react";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ChatContentResponse } from '@/data/types';
+import { Trash } from 'lucide-react';
+import { MessageCard } from '../components/MessageCard';
+import { useEffect, useRef } from 'react';
 
 type ChatContentProps = {
   messages: ChatContentResponse[];
@@ -14,7 +14,7 @@ type ChatContentProps = {
   setOpenConfirmDialog: (open: boolean) => void;
 };
 
-const defaultCardClassName = "p-2 px-0 w-fit max-md:text-sm";
+const defaultCardClassName = 'p-2 px-0 w-fit max-md:text-sm';
 
 export const ChatContent = ({
   messages,
@@ -29,7 +29,7 @@ export const ChatContent = ({
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
         top: scrollRef.current.scrollHeight,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   }, [messages, isLoading, temporaryMessage]);
@@ -38,18 +38,12 @@ export const ChatContent = ({
     <Card className="max-h-150 animate-fade-in-up-down">
       <CardHeader className="flex max-h-5 justify-between items-center py-0">
         <CardTitle>Chat</CardTitle>
-        <Button
-          variant="destructive"
-          onClick={() => setOpenConfirmDialog(true)}
-        >
+        <Button variant="destructive" onClick={() => setOpenConfirmDialog(true)}>
           <Trash />
         </Button>
       </CardHeader>
 
-      <CardContent
-        ref={scrollRef}
-        className="flex flex-col h-auto overflow-y-auto overflow-x-hidden gap-4"
-      >
+      <CardContent ref={scrollRef} className="flex flex-col h-auto overflow-y-auto overflow-x-hidden gap-4">
         {messages.map((message, index) => (
           <div key={`message-${index}`}>
             <MessageCard
@@ -66,7 +60,7 @@ export const ChatContent = ({
           </div>
         ))}
 
-        {temporaryMessage !== "" && (
+        {temporaryMessage !== '' && (
           <MessageCard
             cardClassName={`bg-primary ml-auto rounded-tr-xs max-w-[75%] ${defaultCardClassName}`}
             textClassName="text-background"

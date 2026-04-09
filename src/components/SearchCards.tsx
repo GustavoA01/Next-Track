@@ -1,16 +1,12 @@
-"use client";
-import { SpotifyPlaylist } from "@/data/types/spotify";
-import { Input } from "./ui/input";
-import { PlaylistCard } from "./PlaylistCard";
-import playlistFallbackImage from "@/assets/playlistFallback.svg";
-import { useState } from "react";
+'use client';
+import { SpotifyPlaylist } from '@/data/types/spotify';
+import { Input } from './ui/input';
+import { PlaylistCard } from './PlaylistCard';
+import playlistFallbackImage from '@/assets/playlistFallback.svg';
+import { useState } from 'react';
 
-export const SearchCards = ({
-  playlistsData,
-}: {
-  playlistsData: SpotifyPlaylist[];
-}) => {
-  const [queryText, setQueryText] = useState("");
+export const SearchCards = ({ playlistsData }: { playlistsData: SpotifyPlaylist[] }) => {
+  const [queryText, setQueryText] = useState('');
 
   const playlistsFiltered = playlistsData.filter((playlist) => {
     const playlistName = playlist.name.toLowerCase();

@@ -1,12 +1,12 @@
-import { SpotifyPlaylist, SpotifyUserProfile } from "@/data/types/spotify";
-import { MenuOptions } from "@/features/Menu/container/MenuOptions";
-import playlistFallbackImage from "@/assets/playlistFallback.svg";
-import { HeaderPlaylistInfo } from "./HeaderPlaylistInfo";
-import { getAverageColor } from "fast-average-color-node";
-import { GoBack } from "@/components/GoBack";
-import Image from "next/image";
-import { msFormatter } from "@/utils/msFormatter";
-import { fetchProfile } from "@/lib/spotify";
+import { SpotifyPlaylist, SpotifyUserProfile } from '@/data/types/spotify';
+import { MenuOptions } from '@/features/Menu/container/MenuOptions';
+import playlistFallbackImage from '@/assets/playlistFallback.svg';
+import { HeaderPlaylistInfo } from './HeaderPlaylistInfo';
+import { getAverageColor } from 'fast-average-color-node';
+import { GoBack } from '@/components/GoBack';
+import Image from 'next/image';
+import { msFormatter } from '@/utils/msFormatter';
+import { fetchProfile } from '@/lib/spotify';
 
 type PlaylistHeaderProps = {
   playlist: SpotifyPlaylist;
@@ -14,16 +14,12 @@ type PlaylistHeaderProps = {
   totalDuration?: number;
 };
 
-export const PlaylistHeader = async ({
-  playlist,
-  accessToken,
-  totalDuration,
-}: PlaylistHeaderProps) => {
+export const PlaylistHeader = async ({ playlist, accessToken, totalDuration }: PlaylistHeaderProps) => {
   const profile: SpotifyUserProfile = await fetchProfile(accessToken);
   const { hours, minutes } = msFormatter(totalDuration || 0);
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
 
-  let colorHex = "#121212";
+  let colorHex = '#121212';
   let imageUrl = playlistFallbackImage;
 
   if (playlist.images !== null) {
@@ -63,9 +59,7 @@ export const PlaylistHeader = async ({
         />
 
         <div className="flex flex-col max-sm:items-center max-w-2xl">
-          <p className="text-muted-foreground md:text-lg font-semibold drop-shadow-lg">
-            PLAYLIST
-          </p>
+          <p className="text-muted-foreground md:text-lg font-semibold drop-shadow-lg">PLAYLIST</p>
           <HeaderPlaylistInfo playlist={playlist} timeText={timeText} />
           <h1 className="text-3xl font-bold max-w-lg font-montserrat mt-4 line-clamp-2 sm:text-4xl lg:text-5xl">
             {playlist.name}

@@ -1,8 +1,8 @@
-"use client";
-import { RightInfo } from "../components/RightInfo";
-import { MusicInfo } from "../components/MusicInfo";
-import { AlbumImg } from "../components/AlbumImg";
-import { Card } from "@/components/ui/card";
+'use client';
+import { RightInfo } from '../components/RightInfo';
+import { MusicInfo } from '../components/MusicInfo';
+import { AlbumImg } from '../components/AlbumImg';
+import { Card } from '@/components/ui/card';
 
 type MusicCardProps = {
   index: number;
@@ -12,9 +12,7 @@ type MusicCardProps = {
   artistName: string;
   duration: string;
   onClick: () => void;
-  onAddToPlaylist: (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => Promise<void>;
+  onAddToPlaylist: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => Promise<void>;
 };
 
 export const MusicCard = ({
@@ -34,18 +32,12 @@ export const MusicCard = ({
   >
     <div className="flex justify-between items-center gap-2">
       <div className="flex items-center gap-4 md:gap-8">
-        <p className="text-sm sm:text-base font-montserrat text-muted-foreground">
-          {index + 1}
-        </p>
+        <p className="text-sm sm:text-base font-montserrat text-muted-foreground">{index + 1}</p>
         <AlbumImg src={imageUrl} />
         <MusicInfo musicName={musicName} artistName={artistName} />
       </div>
 
-      <RightInfo
-        id={id}
-        onAddToPlaylist={onAddToPlaylist}
-        duration={duration}
-      />
+      <RightInfo id={id} onAddToPlaylist={onAddToPlaylist} duration={duration} />
     </div>
   </Card>
 );

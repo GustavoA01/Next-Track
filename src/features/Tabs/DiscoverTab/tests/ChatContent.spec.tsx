@@ -1,22 +1,22 @@
-import { render, screen } from "@testing-library/react";
-import { ChatContent } from "../container/ChatContent";
-import { Timestamp } from "firebase/firestore";
-import { mockTracks } from "@/globalTestsMocks";
+import { render, screen } from '@testing-library/react';
+import { ChatContent } from '../container/ChatContent';
+import { Timestamp } from 'firebase/firestore';
+import { mockTracks } from '@/globalTestsMocks';
 
 HTMLElement.prototype.scrollTo = jest.fn();
 
-describe("ChatContent", () => {
+describe('ChatContent', () => {
   const mockMessages = [
     {
-      playlistId: "1",
-      userMessage: "Faça recomendações",
-      chatResponse: "Resposta do chat",
+      playlistId: '1',
+      userMessage: 'Faça recomendações',
+      chatResponse: 'Resposta do chat',
       createdAt: Timestamp.now(),
       recommendations: mockTracks.items.map((item) => item.track),
     },
   ];
 
-  it("renders message correctly", () => {
+  it('renders message correctly', () => {
     render(
       <ChatContent
         errorMessage=""
@@ -24,14 +24,14 @@ describe("ChatContent", () => {
         messages={mockMessages}
         setOpenConfirmDialog={jest.fn()}
         temporaryMessage=""
-      />,
+      />
     );
 
-    expect(screen.getByText("Faça recomendações")).toBeInTheDocument();
-    expect(screen.getByText("Resposta do chat")).toBeInTheDocument();
+    expect(screen.getByText('Faça recomendações')).toBeInTheDocument();
+    expect(screen.getByText('Resposta do chat')).toBeInTheDocument();
   });
 
-  it("renders temporary message if provided", () => {
+  it('renders temporary message if provided', () => {
     render(
       <ChatContent
         errorMessage=""
@@ -39,13 +39,13 @@ describe("ChatContent", () => {
         messages={mockMessages}
         setOpenConfirmDialog={jest.fn()}
         temporaryMessage="Mensagem temporária"
-      />,
+      />
     );
 
-    expect(screen.getByText("Mensagem temporária")).toBeInTheDocument();
+    expect(screen.getByText('Mensagem temporária')).toBeInTheDocument();
   });
 
-  it("renders loading skeleton when isLoading is true", () => {
+  it('renders loading skeleton when isLoading is true', () => {
     render(
       <ChatContent
         errorMessage=""
@@ -53,13 +53,13 @@ describe("ChatContent", () => {
         messages={mockMessages}
         setOpenConfirmDialog={jest.fn()}
         temporaryMessage=""
-      />,
+      />
     );
 
-    expect(screen.getByText("Buscando músicas...")).toBeInTheDocument();
+    expect(screen.getByText('Buscando músicas...')).toBeInTheDocument();
   });
 
-  it("renders error message when errorMessage is provided", () => {
+  it('renders error message when errorMessage is provided', () => {
     render(
       <ChatContent
         errorMessage="Erro ao buscar"
@@ -67,13 +67,13 @@ describe("ChatContent", () => {
         messages={mockMessages}
         setOpenConfirmDialog={jest.fn()}
         temporaryMessage=""
-      />,
+      />
     );
 
-    expect(screen.getByText("Erro ao buscar")).toBeInTheDocument();
+    expect(screen.getByText('Erro ao buscar')).toBeInTheDocument();
   });
 
-  it("calls setOpenConfirmDialog when trash button is clicked", () => {
+  it('calls setOpenConfirmDialog when trash button is clicked', () => {
     const mockSetOpen = jest.fn();
     render(
       <ChatContent
@@ -82,10 +82,10 @@ describe("ChatContent", () => {
         messages={mockMessages}
         setOpenConfirmDialog={mockSetOpen}
         temporaryMessage=""
-      />,
+      />
     );
 
-    const button = screen.getByRole("button");
+    const button = screen.getByRole('button');
     button.click();
 
     expect(mockSetOpen).toHaveBeenCalledWith(true);

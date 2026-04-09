@@ -1,17 +1,17 @@
-import { TabsContent } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { ChevronUp, Sparkles } from "lucide-react";
-import { PlaylistStatisticsType } from "@/data/types/recommendations";
-import { Spinner } from "@/components/ui/spinner";
-import { Recommendations } from "@/features/Tabs/DiscoverTab/components/Recommendations";
-import { AccordionVibe } from "../components/AccordionVibe";
-import { BadgesGroup } from "../components/BadgesGroup";
-import { ChatContent } from "./ChatContent";
-import { useDiscoverTab } from "../hooks/useDiscoverTab";
-import { MusicCardsSkeleton } from "@/components/Skeletons";
-import { Textarea } from "@/components/ui/textarea";
-import { ConfirmClearChat } from "../components/ConfirmClearChat";
-import { Dialog } from "@/components/ui/dialog";
+import { TabsContent } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { ChevronUp, Sparkles } from 'lucide-react';
+import { PlaylistStatisticsType } from '@/data/types/recommendations';
+import { Spinner } from '@/components/ui/spinner';
+import { Recommendations } from '@/features/Tabs/DiscoverTab/components/Recommendations';
+import { AccordionVibe } from '../components/AccordionVibe';
+import { BadgesGroup } from '../components/BadgesGroup';
+import { ChatContent } from './ChatContent';
+import { useDiscoverTab } from '../hooks/useDiscoverTab';
+import { MusicCardsSkeleton } from '@/components/Skeletons';
+import { Textarea } from '@/components/ui/textarea';
+import { ConfirmClearChat } from '../components/ConfirmClearChat';
+import { Dialog } from '@/components/ui/dialog';
 
 export const DiscoverContent = ({
   genresStatistics,
@@ -71,18 +71,15 @@ export const DiscoverContent = ({
           setOpenConfirmDialog={setOpenConfirmDialog}
         />
       )}
-      <form
-        className="space-y-2"
-        onSubmit={methods.handleSubmit(handleChatRequest)}
-      >
+      <form className="space-y-2" onSubmit={methods.handleSubmit(handleChatRequest)}>
         <div className="flex items-end gap-2">
           <Textarea
-            {...methods.register("prompt")}
+            {...methods.register('prompt')}
             className="w-full rounded-xl hide-scrollbar max-sm:text-sm resize-none min-h-10 max-h-20"
             placeholder="Peça músicas..."
             disabled={isResponseLoading}
             onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
+              if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault();
                 methods.handleSubmit(handleChatRequest)();
               }
@@ -99,9 +96,7 @@ export const DiscoverContent = ({
         </div>
 
         {methods.formState.errors.prompt && (
-          <p className="text-sm text-red-500">
-            {methods.formState.errors.prompt.message}
-          </p>
+          <p className="text-sm text-red-500">{methods.formState.errors.prompt.message}</p>
         )}
       </form>
 
@@ -129,10 +124,7 @@ export const DiscoverContent = ({
         </Button>
       )}
 
-      <Dialog
-        open={openConfirmDialog}
-        onOpenChange={() => setOpenConfirmDialog(false)}
-      >
+      <Dialog open={openConfirmDialog} onOpenChange={() => setOpenConfirmDialog(false)}>
         <ConfirmClearChat onConfirm={deleteChatFn} />
       </Dialog>
     </TabsContent>

@@ -1,18 +1,18 @@
-import { getContextPrompt } from "@/utils/getContextPrompt";
-import { ChatFormType, chatSchema } from "@/data/schemas/chatSchema";
-import { PlaylistStatisticsType } from "@/data/types/recommendations";
-import { SpotifyPlaylistTrack } from "@/data/types/spotify";
-import { searchTrack } from "@/services/searchTrack";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams } from "next/navigation";
-import { addToPlaylist } from "@/actions/addToPlaylist";
-import { toast } from "sonner";
-import { getMessages } from "@/services/firebase/getMessages";
-import { localStorageKeys } from "@/services/constantsKeys";
-import { useDiscoverMutation } from "./useDiscoverMutation";
-import { useDiscoverVibe } from "./useDiscoverVibe";
+import { getContextPrompt } from '@/utils/getContextPrompt';
+import { ChatFormType, chatSchema } from '@/data/schemas/chatSchema';
+import { PlaylistStatisticsType } from '@/data/types/recommendations';
+import { SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { searchTrack } from '@/services/searchTrack';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useParams } from 'next/navigation';
+import { addToPlaylist } from '@/actions/addToPlaylist';
+import { toast } from 'sonner';
+import { getMessages } from '@/services/firebase/getMessages';
+import { localStorageKeys } from '@/services/constantsKeys';
+import { useDiscoverMutation } from './useDiscoverMutation';
+import { useDiscoverVibe } from './useDiscoverVibe';
 
 export const useDiscoverTab = ({
   artistsStatistics,
@@ -27,13 +27,10 @@ export const useDiscoverTab = ({
   });
   const { reset } = methods;
 
-  const [recommendationsTracks, setRecommendationsTracks] = useState<
-    SpotifyPlaylistTrack[]
-  >([]);
-  const [isRecommendationsLoading, setIsRecommendationsLoading] =
-    useState(false);
-  const [temporaryMessage, setTemporaryMessage] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [recommendationsTracks, setRecommendationsTracks] = useState<SpotifyPlaylistTrack[]>([]);
+  const [isRecommendationsLoading, setIsRecommendationsLoading] = useState(false);
+  const [temporaryMessage, setTemporaryMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
 
   const {
@@ -47,18 +44,12 @@ export const useDiscoverTab = ({
     setInstrumentalVibe,
   } = useDiscoverVibe();
 
-  const {
-    deleteChatFn,
-    geminiRequestFn,
-    isResponseLoading,
-    messages,
-    postMessageFn,
-  } = useDiscoverMutation(
+  const { deleteChatFn, geminiRequestFn, isResponseLoading, messages, postMessageFn } = useDiscoverMutation(
     playlistId as string,
     setTemporaryMessage,
     setErrorMessage,
     setOpenConfirmDialog,
-    setRecommendationsTracks,
+    setRecommendationsTracks
   );
 
   const onSelectBadge = (badge: string) => reset({ prompt: badge });
@@ -82,8 +73,8 @@ export const useDiscoverTab = ({
   }, []);
 
   const handleScrollToTop = () => {
-    const header = document.getElementById("playlist-header");
-    if (header) header.scrollIntoView({ behavior: "smooth" });
+    const header = document.getElementById('playlist-header');
+    if (header) header.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleChatRequest = async (data: { prompt: string }) => {
@@ -95,7 +86,7 @@ export const useDiscoverTab = ({
     };
 
     const systemMessage = {
-      role: "system",
+      role: 'system',
       content: getContextPrompt({
         artistsStatistics,
         genresStatistics,
@@ -106,22 +97,19 @@ export const useDiscoverTab = ({
     };
 
     const userMessage = {
-      role: "user",
+      role: 'user',
       content: data.prompt,
     };
 
     try {
-      setErrorMessage("");
-      reset({ prompt: "" });
+      setErrorMessage('');
+      reset({ prompt: '' });
 
       const prompt = { systemMessage, userMessage };
       const response = await geminiRequestFn(prompt);
 
       setIsRecommendationsLoading(true);
-      const recommendationsResponse = await searchTrack(
-        accessToken,
-        response.recommendations,
-      );
+      const recommendationsResponse = await searchTrack(accessToken, response.recommendations);
       setRecommendationsTracks(recommendationsResponse);
 
       await postMessageFn({
@@ -131,7 +119,7 @@ export const useDiscoverTab = ({
       });
       localStorage.removeItem(playlistId as string);
     } catch (error) {
-      console.error("Error ao chamar gemini", error);
+      console.error('Error ao chamar gemini', error);
     } finally {
       setIsRecommendationsLoading(false);
     }
@@ -149,13 +137,10 @@ export const useDiscoverTab = ({
       const previousIds = localStorageData ? JSON.parse(localStorageData) : [];
       const updatedIds = [...previousIds, musicId];
 
-      localStorage.setItem(
-        localStorageKeys.musicsIds,
-        JSON.stringify(updatedIds),
-      );
-      toast.success("Música adicionada à playlist!");
+      localStorage.setItem(localStorageKeys.musicsIds, JSON.stringify(updatedIds));
+      toast.success('Música adicionada à playlist!');
     } else {
-      toast.error("Erro ao adicionar música à playlist.");
+      toast.error('Erro ao adicionar música à playlist.');
     }
   };
 

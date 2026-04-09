@@ -1,8 +1,8 @@
-import { Player } from "@/components/Player";
-import { useState } from "react";
-import { MusicCard } from "../../../MusicCard/container/MusicCard";
-import { SpotifyPlaylistTrack } from "@/data/types/spotify";
-import { msFormatter } from "@/utils/msFormatter";
+import { Player } from '@/components/Player';
+import { useState } from 'react';
+import { MusicCard } from '../../../MusicCard/container/MusicCard';
+import { SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { msFormatter } from '@/utils/msFormatter';
 
 type RecommendationsProps = {
   recommendationsTracks: SpotifyPlaylistTrack[];
@@ -10,11 +10,7 @@ type RecommendationsProps = {
   onAddToPlaylist: (trackUri: string, musicId: string) => Promise<void>;
 };
 
-export const Recommendations = ({
-  recommendationsTracks,
-  accessToken,
-  onAddToPlaylist,
-}: RecommendationsProps) => {
+export const Recommendations = ({ recommendationsTracks, accessToken, onAddToPlaylist }: RecommendationsProps) => {
   const [uris, setUris] = useState<string[]>([]);
 
   return (
@@ -34,9 +30,7 @@ export const Recommendations = ({
               artistName={track.artists[0].name}
               imageUrl={track.album.images[0].url}
               duration={duration}
-              onAddToPlaylist={async (
-                e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-              ) => {
+              onAddToPlaylist={async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
                 e.stopPropagation();
                 onAddToPlaylist(track.uri, track.id);
               }}

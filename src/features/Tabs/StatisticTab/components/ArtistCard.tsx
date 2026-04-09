@@ -1,6 +1,6 @@
-import playlistFallbackImage from "@/assets/playlistFallback.svg";
-import Image from "next/image";
-import Link from "next/link";
+import playlistFallbackImage from '@/assets/playlistFallback.svg';
+import Image from 'next/image';
+import Link from 'next/link';
 
 type ArtistCardProps = {
   index: number;
@@ -14,11 +14,7 @@ type ArtistCardProps = {
   };
 };
 
-export const ArtistCard = ({
-  artist,
-  index,
-  palleteColor,
-}: ArtistCardProps) => (
+export const ArtistCard = ({ artist, index, palleteColor }: ArtistCardProps) => (
   <Link className="group" href={artist.spotifyUrl} target="_blank">
     <div className="relative overflow-hidden rounded-lg min-w-37.5 min-h-37.5 sm:w-full md:h-auto border-b-rounded-lg">
       <p
@@ -49,9 +45,7 @@ export const ArtistCard = ({
 
       <div className="flex items-center justify-center w-full h-12 backdrop-blur-md absolute bottom-0 rounded-b-lg">
         <div className="text-center">
-          <p className="text-white max-sm:text-sm font-semibold font-jakarta line-clamp-1 ">
-            {artist.name}
-          </p>
+          <p className="text-white max-sm:text-sm font-semibold font-jakarta line-clamp-1 ">{artist.name}</p>
           <p className="text-white text-xs">{artist.count} músicas</p>
         </div>
       </div>

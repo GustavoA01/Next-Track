@@ -1,14 +1,14 @@
-import { Badge } from "@/components/ui/badge";
+import { Badge } from '@/components/ui/badge';
 
 type BadgesGroupProps = {
   onSelectBadge: (badge: string) => void;
 };
 
 const badgesText = [
-  "Faça recomendações",
-  "Recomendações do artista mais presente",
-  "Recomendações do gênero mais presente",
-  "Músicas fáceis de tocar no violão",
+  'Faça recomendações',
+  'Recomendações do artista mais presente',
+  'Recomendações do gênero mais presente',
+  'Músicas fáceis de tocar no violão',
 ];
 
 export const BadgesGroup = ({ onSelectBadge }: BadgesGroupProps) => (

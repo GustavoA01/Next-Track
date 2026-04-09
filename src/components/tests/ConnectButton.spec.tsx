@@ -1,29 +1,29 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { ConnectAccountButton } from "../ConnectAccountButton";
-import { redirectToAuthCodeFlow } from "../../actions/redirectFlow";
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { ConnectAccountButton } from '../ConnectAccountButton';
+import { redirectToAuthCodeFlow } from '../../actions/redirectFlow';
 
-jest.mock("../../actions/redirectFlow", () => ({
+jest.mock('../../actions/redirectFlow', () => ({
   redirectToAuthCodeFlow: jest.fn(),
 }));
 
-describe("ConnectButton", () => {
+describe('ConnectButton', () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
-    process.env = { ...originalEnv, NEXT_PUBLIC_SPOTIFY_CLIENT_ID: "test-id" };
+    process.env = { ...originalEnv, NEXT_PUBLIC_SPOTIFY_CLIENT_ID: 'test-id' };
   });
 
-  it("should render correctly", () => {
+  it('should render correctly', () => {
     render(<ConnectAccountButton />);
-    expect(screen.getByText("Conectar")).toBeInTheDocument();
+    expect(screen.getByText('Conectar')).toBeInTheDocument();
   });
 
-  it("should calls handleAction on click", async () => {
+  it('should calls handleAction on click', async () => {
     render(<ConnectAccountButton />);
 
-    const button = screen.getByRole("button");
+    const button = screen.getByRole('button');
     fireEvent.click(button);
 
     await waitFor(() => {

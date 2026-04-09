@@ -1,15 +1,9 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useEffect } from "react";
+'use client';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { useEffect } from 'react';
 
-const PlaylistErrorPage = ({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) => {
+const PlaylistErrorPage = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   useEffect(() => {
     console.error(error);
   }, [error]);

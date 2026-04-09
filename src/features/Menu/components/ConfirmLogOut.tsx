@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { doLogout } from "@/actions/doLogout";
+import { Button } from '@/components/ui/button';
+import { doLogout } from '@/actions/doLogout';
 import {
   DialogDescription,
   DialogContent,
@@ -7,15 +7,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogClose,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 export const ConfirmLogOut = () => (
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Sair da conta</DialogTitle>
-      <DialogDescription>
-        Deseja mesmo fazer logout da sua conta Spotify?
-      </DialogDescription>
+      <DialogDescription>Deseja mesmo fazer logout da sua conta Spotify?</DialogDescription>
     </DialogHeader>
     <DialogFooter>
       <DialogClose asChild>

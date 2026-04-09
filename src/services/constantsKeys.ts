@@ -1,7 +1,7 @@
 export const localStorageKeys = {
-  musicsIds: "addedMusics",
+  musicsIds: 'addedMusics',
 };
 
 export const clientKeys = {
-  chatMessages: "messages",
+  chatMessages: 'messages',
 };

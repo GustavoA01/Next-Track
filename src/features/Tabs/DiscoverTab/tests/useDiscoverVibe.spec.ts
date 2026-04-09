@@ -1,11 +1,10 @@
-import { act, renderHook } from "@testing-library/react";
-import { useDiscoverVibe } from "../hooks/useDiscoverVibe";
+import { act, renderHook } from '@testing-library/react';
+import { useDiscoverVibe } from '../hooks/useDiscoverVibe';
 
-describe("useDiscoverVibre", () => {
-  it("onResetVibes should reset vibes to 50", () => {
+describe('useDiscoverVibre', () => {
+  it('onResetVibes should reset vibes to 50', () => {
     const { result } = renderHook(() => useDiscoverVibe());
-    const { emotionalVibe, energyVibe, instrumentalVibe, onResetVibes } =
-      result.current;
+    const { emotionalVibe, energyVibe, instrumentalVibe, onResetVibes } = result.current;
 
     onResetVibes();
     expect(emotionalVibe).toBe(50);
@@ -13,10 +12,9 @@ describe("useDiscoverVibre", () => {
     expect(instrumentalVibe).toBe(50);
   });
 
-  it("isVibesChanged should be false when vibes are at default values", () => {
+  it('isVibesChanged should be false when vibes are at default values', () => {
     const { result } = renderHook(() => useDiscoverVibe());
-    const { setEmotionalVibe, setEnergyVibe, setInstrumentalVibe } =
-      result.current;
+    const { setEmotionalVibe, setEnergyVibe, setInstrumentalVibe } = result.current;
 
     act(() => {
       setEmotionalVibe(50);

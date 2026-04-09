@@ -1,14 +1,11 @@
-import { Progress } from "@/components/ui/progress";
+import { Progress } from '@/components/ui/progress';
 
 type MostListenGenreBarProps = {
   name: string;
   value: number;
 };
 
-export const MostListenGenreBar = ({
-  name,
-  value,
-}: MostListenGenreBarProps) => (
+export const MostListenGenreBar = ({ name, value }: MostListenGenreBarProps) => (
   <div className="space-y-2" data-testid="genre-bar">
     <div className="flex justify-between items-center max-sm:text-sm">
       <p className="font-montserrat">{name}</p>

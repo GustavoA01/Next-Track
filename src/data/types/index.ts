@@ -1,5 +1,5 @@
-import { Timestamp } from "firebase/firestore";
-import { SpotifyPlaylistTrack } from "./spotify";
+import { Timestamp } from 'firebase/firestore';
+import { SpotifyPlaylistTrack } from './spotify';
 
 export interface ChatContentResponse {
   playlistId: string;

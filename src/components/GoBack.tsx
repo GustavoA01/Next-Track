@@ -1,7 +1,7 @@
-"use client";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
+'use client';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 export const GoBack = () => {
   const { back } = useRouter();

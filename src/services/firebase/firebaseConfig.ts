@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,4 +13,4 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
-export const chatMessageCollection = "chatMessages";
+export const chatMessageCollection = 'chatMessages';

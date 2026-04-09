@@ -5,16 +5,15 @@ import {
   DialogClose,
   DialogDescription,
   DialogHeader,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 export const ConfirmClearChat = ({ onConfirm }: { onConfirm: () => void }) => (
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Limpar chat</DialogTitle>
       <DialogDescription>
-        Tem certeza que deseja excluir o histórico de conversa? Esta ação não
-        pode ser desfeita.
+        Tem certeza que deseja excluir o histórico de conversa? Esta ação não pode ser desfeita.
       </DialogDescription>
     </DialogHeader>
     <DialogFooter>

@@ -1,5 +1,5 @@
-import { VibesType } from "@/data/types";
-import { PlaylistStatisticsType } from "../data/types/recommendations";
+import { VibesType } from '@/data/types';
+import { PlaylistStatisticsType } from '../data/types/recommendations';
 
 type getContextPromptProps = PlaylistStatisticsType & {
   vibes: VibesType;
@@ -23,7 +23,7 @@ Aqui estão os gêneros mais ouvidos:
 ${genresStatistics.map((genre) => `${genre.name}: ${genre.percentage}%; \n`)}
 
 Aqui a playlist completa: 
-${tracks?.map((track) => `Nome:  ${track.track.name}, Album: ${track.track.album.name}; \n`).join("\n")}.
+${tracks?.map((track) => `Nome:  ${track.track.name}, Album: ${track.track.album.name}; \n`).join('\n')}.
 
 Siga essas instuções à risca:
 
@@ -41,7 +41,7 @@ ${
   - Foco em Voz/Instrumento: ${vibes.instrumentalVibe} (0.0 = Focado em Vocais/Letra, 1.0 = Totalmente Instrumental)
   Na resposta, não precisa mencionar os valores dos números nem aqueles que estão neutros (0.5). Apenas adapte o estilo das músicas sugeridas conforme os ajustes feitos pelo usuário.
 `
-    : ""
+    : ''
 }
 
 RESPONDA SOMENTE EM JSON, NO FORMATO 

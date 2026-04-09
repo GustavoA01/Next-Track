@@ -1,17 +1,17 @@
-import { connectSpotifyAccount } from "@/lib/spotify";
-import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { connectSpotifyAccount } from '@/lib/spotify';
+import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;
-  const code = searchParams.get("code");
-  const error = searchParams.get("error");
+  const code = searchParams.get('code');
+  const error = searchParams.get('error');
 
-  const redirectToHome = new URL("/home", request.url);
-  const redirectLogin = new URL("/", request.url);
+  const redirectToHome = new URL('/home', request.url);
+  const redirectLogin = new URL('/', request.url);
 
   if (error || !code) {
-    console.error("Spotify Authorization Error:", error);
+    console.error('Spotify Authorization Error:', error);
     return NextResponse.redirect(redirectLogin);
   }
 
@@ -19,30 +19,30 @@ export const GET = async (request: NextRequest) => {
 
   try {
     if (!accessToken) {
-      throw new Error("Access token não encontrado");
+      throw new Error('Access token não encontrado');
     }
 
     const cookiesStore = await cookies();
 
-    cookiesStore.set("spotifyAccessToken", accessToken, {
+    cookiesStore.set('spotifyAccessToken', accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60,
-      path: "/",
+      path: '/',
     });
 
     if (refreshToken) {
-      cookiesStore.set("spotifyRefreshToken", refreshToken, {
+      cookiesStore.set('spotifyRefreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === 'production',
         maxAge: 60 * 60 * 24 * 7,
-        path: "/",
+        path: '/',
       });
     }
 
     return NextResponse.redirect(redirectToHome);
   } catch (error) {
-    console.error("Erro ao conectar à conta do Spotify:", error);
+    console.error('Erro ao conectar à conta do Spotify:', error);
     return NextResponse.redirect(redirectLogin);
   }
 };
