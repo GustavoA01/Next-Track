@@ -16,7 +16,7 @@ export const ProfileMenuTrigger = ({
     data-testid="profile-menu-trigger"
     className={`cursor-pointer ${className}`}
   >
-    <AvatarImage src={profile.images[0]?.url || ""} />
+    <AvatarImage src={profile.images[0]?.url ?? ""} />
     <AvatarFallback className="p-4 bg-primary text-black font-semibold select-none">
       {profile.display_name?.charAt(0).toUpperCase() || ""}
     </AvatarFallback>

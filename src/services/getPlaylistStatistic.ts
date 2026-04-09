@@ -68,34 +68,44 @@ export const getPlaylistStatistic = async (
   });
 
   const unifiquedIdsArray = Array.from(artistIds);
+  const rawArtistsData = [];
+  const chunkSize = 15;
 
-  const artistsPromises = unifiquedIdsArray.map(async (uniqueId) => {
-    try {
-      const cleanId = uniqueId.trim();
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
-      const url = `https://api.spotify.com/v1/artists/${cleanId}`;
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        next: { revalidate: 3600 },
-      });
+  for (let i = 0; i < unifiquedIdsArray.length; i += chunkSize) {
+    const chunk = unifiquedIdsArray.slice(i, i + chunkSize);
 
-      if (!response.ok) {
-        console.error(
-          `Erro Spotify (Artista ${cleanId}): Status ${response.status}`,
-        );
+    const chunkPromises = chunk.map(async (uniqueId) => {
+      try {
+        const cleanId = uniqueId.trim();
+        const url = `https://api.spotify.com/v1/artists/${cleanId}`;
+
+        const response = await fetch(url, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          next: { revalidate: 3600 },
+        });
+
+        if (response.status === 429) {
+          const retryAfter = response.headers.get("Retry-After") || "1";
+          console.warn(`Rate limit atingido. Pausa de ${retryAfter}s.`);
+          await delay(parseInt(retryAfter) * 1000);
+          return null;
+        }
+
+        if (!response.ok) return null;
+        return await response.json();
+      } catch (error) {
         return null;
       }
+    });
 
-      return await response.json();
-    } catch (error) {
-      console.error(`Falha no fetch do artista ${uniqueId}:`, error);
-      return null;
-    }
-  });
+    const chunkResults = await Promise.all(chunkPromises);
+    rawArtistsData.push(...chunkResults);
 
-  const rawArtistsData = await Promise.all(artistsPromises);
+    if (i + chunkSize < unifiquedIdsArray.length) await delay(300);
+  }
   const artists = rawArtistsData.filter((artist) => artist !== null);
 
   const genresCount: Record<string, number> = {};

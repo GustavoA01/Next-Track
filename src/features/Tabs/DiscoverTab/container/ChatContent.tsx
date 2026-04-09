@@ -50,7 +50,7 @@ export const ChatContent = ({
         ref={scrollRef}
         className="flex flex-col h-auto overflow-y-auto overflow-x-hidden gap-4"
       >
-        {[...messages].map((message, index) => (
+        {messages.map((message, index) => (
           <div key={`message-${index}`}>
             <MessageCard
               key={`ia-${index}`}
@@ -89,8 +89,6 @@ export const ChatContent = ({
             content={errorMessage}
           />
         )}
-
-        <div id="scroll-anchor" />
       </CardContent>
     </Card>
   );
