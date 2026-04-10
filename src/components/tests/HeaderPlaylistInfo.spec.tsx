@@ -67,7 +67,9 @@ describe('HeaderPlaylistInfo', () => {
   });
 
   it('renders two separator icons', () => {
-    const { container } = render(<HeaderPlaylistInfo playlist={mockPlaylist} timeText="10min" />);
+    const { container } = render(
+      <HeaderPlaylistInfo playlist={mockPlaylist} timeText="10min" />
+    );
     const svgs = container.querySelectorAll('svg');
 
     expect(svgs.length).toBeGreaterThanOrEqual(2);

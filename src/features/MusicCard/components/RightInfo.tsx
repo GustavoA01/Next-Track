@@ -6,10 +6,16 @@ import { toast } from 'sonner';
 type RightInfoProps = {
   id: string;
   duration: string;
-  onAddToPlaylist: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => Promise<void>;
+  onAddToPlaylist: (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => Promise<void>;
 };
 
-export const RightInfo = ({ id, duration, onAddToPlaylist }: RightInfoProps) => {
+export const RightInfo = ({
+  id,
+  duration,
+  onAddToPlaylist,
+}: RightInfoProps) => {
   const [isMusicAdded, setisMusicAdded] = useState(false);
 
   useEffect(() => {
@@ -20,7 +26,9 @@ export const RightInfo = ({ id, duration, onAddToPlaylist }: RightInfoProps) => 
     }
   }, []);
 
-  const handleCLick = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleCLick = async (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if (isMusicAdded) {
       toast.info('Música já adicionada à playlist');
       return;

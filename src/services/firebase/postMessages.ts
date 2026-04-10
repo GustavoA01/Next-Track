@@ -16,12 +16,15 @@ export const postMessages = async ({
   recommendations,
 }: PostMessagesParams) => {
   try {
-    await addDoc(collection(db, 'playlists', playlistId, chatMessageCollection), {
-      userMessage: userMessageContent,
-      chatResponse: chatResponse,
-      recommendations,
-      createdAt: Timestamp.fromDate(new Date()),
-    });
+    await addDoc(
+      collection(db, 'playlists', playlistId, chatMessageCollection),
+      {
+        userMessage: userMessageContent,
+        chatResponse: chatResponse,
+        recommendations,
+        createdAt: Timestamp.fromDate(new Date()),
+      }
+    );
   } catch (error) {
     console.error('Error adding document: ', error);
   }

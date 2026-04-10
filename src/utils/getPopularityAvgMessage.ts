@@ -1,8 +1,14 @@
 import { AverageMessageType } from '@/data/types/recommendations';
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
 
-export const getPopularityAvgMessage = (tracks: SpotifyPlaylistTracks, playlistLength: number): AverageMessageType => {
-  const sum = tracks.items.reduce((sum, item) => sum + item.track.popularity, 0);
+export const getPopularityAvgMessage = (
+  tracks: SpotifyPlaylistTracks,
+  playlistLength: number
+): AverageMessageType => {
+  const sum = tracks.items.reduce(
+    (sum, item) => sum + item.track.popularity,
+    0
+  );
   const average = Math.floor(sum / playlistLength);
 
   let message: AverageMessageType;

@@ -42,7 +42,10 @@ export async function geminiRequest({
 
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
-      contents: [...historyContent, { role: 'user', parts: [{ text: userMessage.content }] }],
+      contents: [
+        ...historyContent,
+        { role: 'user', parts: [{ text: userMessage.content }] },
+      ],
       config: {
         systemInstruction: {
           role: 'system',

@@ -13,7 +13,9 @@ describe('ConfirmLogout', () => {
 
   it('renders dialog correctly', () => {
     const title = screen.getByText('Sair da conta');
-    const description = screen.getByText('Deseja mesmo fazer logout da sua conta Spotify?');
+    const description = screen.getByText(
+      'Deseja mesmo fazer logout da sua conta Spotify?'
+    );
 
     expect(title).toBeInTheDocument();
     expect(description).toBeInTheDocument();

@@ -5,7 +5,11 @@ import { PlaylistCard } from './PlaylistCard';
 import playlistFallbackImage from '@/assets/playlistFallback.svg';
 import { useState } from 'react';
 
-export const SearchCards = ({ playlistsData }: { playlistsData: SpotifyPlaylist[] }) => {
+export const SearchCards = ({
+  playlistsData,
+}: {
+  playlistsData: SpotifyPlaylist[];
+}) => {
   const [queryText, setQueryText] = useState('');
 
   const playlistsFiltered = playlistsData.filter((playlist) => {

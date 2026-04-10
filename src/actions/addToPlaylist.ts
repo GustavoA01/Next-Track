@@ -8,16 +8,23 @@ type AddToPlaylistProps = {
   accessToken: string;
 };
 
-export const addToPlaylist = async ({ jsonUris, playlistId, accessToken }: AddToPlaylistProps) => {
+export const addToPlaylist = async ({
+  jsonUris,
+  playlistId,
+  accessToken,
+}: AddToPlaylistProps) => {
   try {
-    const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(jsonUris),
-    });
+    const response = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(jsonUris),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();

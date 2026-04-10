@@ -1,48 +1,43 @@
 import { ProfileMenuTrigger } from './ProfileMenuTrigger';
 import { Button } from '@/components/ui/button';
 import { HomeIcon, LogOut } from 'lucide-react';
-import { DrawerTrigger, DrawerContent, DrawerFooter, DrawerClose, Drawer } from '@/components/ui/drawer';
+import {
+  DrawerTrigger,
+  DrawerContent,
+  DrawerFooter,
+  DrawerClose,
+  Drawer,
+} from '@/components/ui/drawer';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-type DrawerMenuProps = {
-  profile: {
-    images: { url: string }[];
-    display_name: string | null;
-  };
+export const DrawerMenu = ({
+  setIsOpen,
+}: {
   setIsOpen: (isOpen: boolean) => void;
-};
-
-export const DrawerMenu = ({ profile, setIsOpen }: DrawerMenuProps) => {
+}) => {
   const pathname = usePathname();
 
   return (
-    <Drawer>
-      <DrawerTrigger>
-        <ProfileMenuTrigger profile={profile} className="sm:hidden" />
-      </DrawerTrigger>
-
-      <DrawerContent>
-        <DrawerFooter>
-          {pathname !== '/home' && (
-            <DrawerClose asChild>
-              <Button asChild>
-                <Link href="/">
-                  <HomeIcon />
-                  Voltar ao início
-                </Link>
-              </Button>
-            </DrawerClose>
-          )}
-
+    <DrawerContent>
+      <DrawerFooter>
+        {pathname !== '/home' && (
           <DrawerClose asChild>
-            <Button variant="outline" onClick={() => setIsOpen(true)}>
-              <LogOut className="text-red-400" />
-              Sair da conta
+            <Button asChild>
+              <Link href="/">
+                <HomeIcon />
+                Voltar ao início
+              </Link>
             </Button>
           </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        )}
+        <DrawerClose asChild>
+          <Button variant="outline" onClick={() => setIsOpen(true)}>
+            <LogOut className="text-red-400" />
+            Sair da conta
+          </Button>
+        </DrawerClose>
+      </DrawerFooter>
+    </DrawerContent>
   );
 };

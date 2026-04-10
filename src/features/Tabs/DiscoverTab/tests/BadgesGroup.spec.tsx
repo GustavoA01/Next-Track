@@ -6,9 +6,15 @@ describe('BadgesGroup', () => {
     render(<BadgesGroup onSelectBadge={jest.fn()} />);
 
     expect(screen.getByText('Faça recomendações')).toBeInTheDocument();
-    expect(screen.getByText('Recomendações do artista mais presente')).toBeInTheDocument();
-    expect(screen.getByText('Recomendações do gênero mais presente')).toBeInTheDocument();
-    expect(screen.getByText('Músicas fáceis de tocar no violão')).toBeInTheDocument();
+    expect(
+      screen.getByText('Recomendações do artista mais presente')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Recomendações do gênero mais presente')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Músicas fáceis de tocar no violão')
+    ).toBeInTheDocument();
   });
 
   it('calls onSelectBadge when a badge is clicked', () => {

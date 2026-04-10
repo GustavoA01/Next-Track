@@ -4,6 +4,9 @@ import { ToolTipMenu } from '../components/ToolTipMenu';
 import { DrawerMenu } from '../components/DrawerMenu';
 import { Dialog } from '@/components/ui/dialog';
 import { useState } from 'react';
+import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
+import { ProfileMenuTrigger } from '../components/ProfileMenuTrigger';
+import { Drawer, DrawerTrigger } from '@/components/ui/drawer';
 
 type MenuOptionsProps = {
   profile: {
@@ -18,8 +21,19 @@ export const MenuOptions = ({ profile }: MenuOptionsProps) => {
   return (
     <>
       <div className="flex items-center">
-        <ToolTipMenu profile={profile} setIsOpen={setIsConfirmLogoutOpen} />
-        <DrawerMenu profile={profile} setIsOpen={setIsConfirmLogoutOpen} />
+        <Tooltip>
+          <TooltipTrigger>
+            <ProfileMenuTrigger profile={profile} className="hidden sm:block" />
+          </TooltipTrigger>
+          <ToolTipMenu setIsOpen={setIsConfirmLogoutOpen} />
+        </Tooltip>
+
+        <Drawer>
+          <DrawerTrigger>
+            <ProfileMenuTrigger profile={profile} className="sm:hidden" />
+          </DrawerTrigger>
+          <DrawerMenu setIsOpen={setIsConfirmLogoutOpen} />
+        </Drawer>
       </div>
 
       <Dialog open={isConfirmLogoutOpen} onOpenChange={setIsConfirmLogoutOpen}>

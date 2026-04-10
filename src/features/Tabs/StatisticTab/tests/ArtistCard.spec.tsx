@@ -24,7 +24,10 @@ describe('ArtistCard', () => {
     expect(screen.getByText('Test Artist')).toBeInTheDocument();
     expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
     expect(screen.getByText(`${mockArtist.count} músicas`)).toBeInTheDocument();
-    expect(screen.getByRole('link')).toHaveAttribute('href', mockArtist.spotifyUrl);
+    expect(screen.getByRole('link')).toHaveAttribute(
+      'href',
+      mockArtist.spotifyUrl
+    );
   });
 
   it('renders image with correct attirbutes', () => {
@@ -39,7 +42,9 @@ describe('ArtistCard', () => {
   it('should render background color with correct pallete attributes', () => {
     const bg = screen.getByTestId('header-bg-color');
 
-    expect(bg).toHaveStyle('background: linear-gradient(to top, #121212 60%, transparent 100%)');
+    expect(bg).toHaveStyle(
+      'background: linear-gradient(to top, #121212 60%, transparent 100%)'
+    );
   });
 
   it('renders the correct artist position counter', () => {

@@ -22,7 +22,8 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: 'Next Track',
-  description: 'Descubra novas músicas com inteligência artificial baseada nas suas playlists do Spotify.',
+  description:
+    'Descubra novas músicas com inteligência artificial baseada nas suas playlists do Spotify.',
   authors: [{ name: 'Gustavo Aguiar' }],
   keywords: [
     'next track',
@@ -40,7 +41,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Next Track - Recomendações com IA',
-    description: 'Conecte seu Spotify e descubra músicas novas baseadas no que você já ouve.',
+    description:
+      'Conecte seu Spotify e descubra músicas novas baseadas no que você já ouve.',
     url: '/',
     siteName: 'Next Track',
     locale: 'pt_BR',
@@ -55,7 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}>
+      <body
+        className={`${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

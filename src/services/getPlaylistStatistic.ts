@@ -1,5 +1,9 @@
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
-import { SpotifyArtist, SpotifyPlaylistTrack, SpotifyPlaylistTracks } from '@/data/types/spotify';
+import {
+  SpotifyArtist,
+  SpotifyPlaylistTrack,
+  SpotifyPlaylistTracks,
+} from '@/data/types/spotify';
 
 export const getPlaylistStatistic = async (
   accessToken: string,
@@ -25,7 +29,8 @@ export const getPlaylistStatistic = async (
     tracks.push(...tracksResponse.items);
 
     totalDuration += tracksResponse.items.reduce(
-      (sum: number, item: { track: SpotifyPlaylistTrack }) => sum + item.track.duration_ms,
+      (sum: number, item: { track: SpotifyPlaylistTrack }) =>
+        sum + item.track.duration_ms,
       0
     );
     offSetCount += 50;
@@ -45,7 +50,8 @@ export const getPlaylistStatistic = async (
 
     tracks.push(...tracksResponse.items);
     totalDuration += tracksResponse.items.reduce(
-      (sum: number, item: { track: SpotifyPlaylistTrack }) => sum + item.track.duration_ms,
+      (sum: number, item: { track: SpotifyPlaylistTrack }) =>
+        sum + item.track.duration_ms,
       0
     );
   }
@@ -65,7 +71,8 @@ export const getPlaylistStatistic = async (
   const rawArtistsData = [];
   const chunkSize = 15;
 
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   for (let i = 0; i < unifiquedIdsArray.length; i += chunkSize) {
     const chunk = unifiquedIdsArray.slice(i, i + chunkSize);

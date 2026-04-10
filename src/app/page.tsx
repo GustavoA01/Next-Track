@@ -11,7 +11,13 @@ async function LoginPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-black/80">
-      <Image fill preload className="-z-30 object-cover" src="/bgLogin.jpg" alt="imagem de fundo" />
+      <Image
+        fill
+        preload
+        className="-z-30 object-cover"
+        src="/bgLogin.jpg"
+        alt="imagem de fundo"
+      />
       <div className="flex flex-col gap-4 items-center px-4 text-center">
         <Image
           preload
@@ -22,10 +28,13 @@ async function LoginPage() {
           height={80}
         />
 
-        <h1 className="text-3xl md:text-5xl font-bold animate-fade-in-up-down ">Next Track</h1>
+        <h1 className="text-3xl md:text-5xl font-bold animate-fade-in-up-down ">
+          Next Track
+        </h1>
 
         <p className="text-sm md:text-lg text-muted-foreground animate-fade-in-up-down">
-          Conecte-se ao Spotify para selecionar uma playlist e obter recomendações de músicas
+          Conecte-se ao Spotify para selecionar uma playlist e obter
+          recomendações de músicas
         </p>
 
         <ConnectAccountButton />

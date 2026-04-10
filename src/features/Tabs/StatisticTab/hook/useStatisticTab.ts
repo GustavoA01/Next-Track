@@ -5,7 +5,8 @@ import { extractColors } from 'extract-colors';
 import { traceGlobals } from 'next/dist/trace/shared';
 import { useCallback, useMemo } from 'react';
 
-const formatName = (name: string) => name.charAt(0).toUpperCase() + name.slice(1);
+const formatName = (name: string) =>
+  name.charAt(0).toUpperCase() + name.slice(1);
 
 export const useStatisticTab = (tracks: SpotifyPlaylistTracks) => {
   const getHexaColor = useCallback(async (imageUrl: string) => {

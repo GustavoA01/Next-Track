@@ -10,7 +10,10 @@ describe('AlbumImg', () => {
   it('renders component with correct attributes', () => {
     render(<AlbumImg src="https://github.com/shadcn.png" />);
 
-    expect(screen.getByAltText('Foto do álbum')).toHaveAttribute('src', 'https://github.com/shadcn.png');
+    expect(screen.getByAltText('Foto do álbum')).toHaveAttribute(
+      'src',
+      'https://github.com/shadcn.png'
+    );
     expect(screen.getByTestId('svg-play')).toHaveClass('lucide', 'lucide-play');
   });
 });

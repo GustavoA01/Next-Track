@@ -10,7 +10,12 @@ type PlaylistCardProps = {
   totalTracks: number;
 };
 
-export const PlaylistCard = ({ id, playlistName, playlistImage, totalTracks }: PlaylistCardProps) => (
+export const PlaylistCard = ({
+  id,
+  playlistName,
+  playlistImage,
+  totalTracks,
+}: PlaylistCardProps) => (
   <Link className="group" href={`playlist/${id}`}>
     <Card className="px-4 cursor-pointer hover:bg-surface-hover transition-all duration-400 hover:-translate-y-1.5">
       <div className="overflow-hidden rounded-md relative w-auto h-auto">
@@ -33,7 +38,9 @@ export const PlaylistCard = ({ id, playlistName, playlistImage, totalTracks }: P
 
         <div className="flex items-center gap-2 line-clamp-1 mt-auto">
           <Circle className="fill-primary text-primary" size={8} />
-          <span className="text-muted-foreground text-xs sm:text-sm">{totalTracks} músicas</span>
+          <span className="text-muted-foreground text-xs sm:text-sm">
+            {totalTracks} músicas
+          </span>
         </div>
       </div>
     </Card>

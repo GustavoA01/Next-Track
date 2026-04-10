@@ -11,7 +11,8 @@ export async function GET() {
   let success = false;
 
   try {
-    const { accessToken, refreshToken: newRefreshToken } = await refreshAccessToken(refreshToken);
+    const { accessToken, refreshToken: newRefreshToken } =
+      await refreshAccessToken(refreshToken);
 
     cookieStore.set('spotifyAccessToken', accessToken, {
       httpOnly: true,

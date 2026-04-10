@@ -26,7 +26,9 @@ describe('useStatisticTab', () => {
   });
 
   it('getHexaColor returns default color when no URL is provided', async () => {
-    const { result } = renderHook(() => useStatisticTab({ items: [], total: 0, href: '', primary_color: '' }));
+    const { result } = renderHook(() =>
+      useStatisticTab({ items: [], total: 0, href: '', primary_color: '' })
+    );
 
     let color;
     await act(async () => {
@@ -37,7 +39,9 @@ describe('useStatisticTab', () => {
   });
 
   it('getHexaColor handles error and does not throw exception', async () => {
-    const { result } = renderHook(() => useStatisticTab({ items: [], total: 0, href: '', primary_color: '' }));
+    const { result } = renderHook(() =>
+      useStatisticTab({ items: [], total: 0, href: '', primary_color: '' })
+    );
 
     const { extractColors } = require('extract-colors');
     extractColors.mockImplementationOnce(() => {

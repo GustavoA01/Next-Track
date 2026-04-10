@@ -38,12 +38,18 @@ export const ChatContent = ({
     <Card className="max-h-150 animate-fade-in-up-down">
       <CardHeader className="flex max-h-5 justify-between items-center py-0">
         <CardTitle>Chat</CardTitle>
-        <Button variant="destructive" onClick={() => setOpenConfirmDialog(true)}>
+        <Button
+          variant="destructive"
+          onClick={() => setOpenConfirmDialog(true)}
+        >
           <Trash />
         </Button>
       </CardHeader>
 
-      <CardContent ref={scrollRef} className="flex flex-col h-auto overflow-y-auto overflow-x-hidden gap-4">
+      <CardContent
+        ref={scrollRef}
+        className="flex flex-col h-auto overflow-y-auto overflow-x-hidden gap-4"
+      >
         {messages.map((message, index) => (
           <div key={`message-${index}`}>
             <MessageCard

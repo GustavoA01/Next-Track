@@ -58,7 +58,9 @@ describe('getContextPrompt', () => {
       isVibesChanged: false,
     });
     expect(prompt).toContain('Você será usada na minha aplicação web');
-    expect(prompt).not.toContain('IMPORTANTE: O usuário definiu ajustes finos de energia');
+    expect(prompt).not.toContain(
+      'IMPORTANTE: O usuário definiu ajustes finos de energia'
+    );
     expect(prompt).toContain('Artista 1: 3 músicas');
     expect(prompt).toContain('Pop: 50%');
     expect(prompt).toContain('Rock: 70%');
@@ -71,7 +73,9 @@ describe('getContextPrompt', () => {
       vibes: baseVibes,
       isVibesChanged: true,
     });
-    expect(prompt).toContain('IMPORTANTE: O usuário definiu ajustes finos de energia');
+    expect(prompt).toContain(
+      'IMPORTANTE: O usuário definiu ajustes finos de energia'
+    );
     expect(prompt).toContain('Nível de Energia: 0.3');
     expect(prompt).toContain('Humor (Valência): 0.7');
     expect(prompt).toContain('Foco em Voz/Instrumento: 0.5');

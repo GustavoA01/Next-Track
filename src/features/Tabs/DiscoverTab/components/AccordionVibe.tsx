@@ -1,4 +1,9 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { Card } from '@/components/ui/card';
 import { Zap } from 'lucide-react';
 import { SliderVibe } from './SliderVibe';
@@ -52,7 +57,11 @@ export const AccordionVibe = ({
         <AccordionTrigger>
           <div className="flex items-center gap-2">
             <Zap className="w-6 h-6 text-primary" />
-            <h2 className={`${isVibesChanged ? 'text-primary' : ''} sm:text-lg font-semibold`}>Ajustar Energia</h2>
+            <h2
+              className={`${isVibesChanged ? 'text-primary' : ''} sm:text-lg font-semibold`}
+            >
+              Ajustar Energia
+            </h2>
           </div>
         </AccordionTrigger>
 

@@ -10,7 +10,11 @@ type RecommendationsProps = {
   onAddToPlaylist: (trackUri: string, musicId: string) => Promise<void>;
 };
 
-export const Recommendations = ({ recommendationsTracks, accessToken, onAddToPlaylist }: RecommendationsProps) => {
+export const Recommendations = ({
+  recommendationsTracks,
+  accessToken,
+  onAddToPlaylist,
+}: RecommendationsProps) => {
   const [uris, setUris] = useState<string[]>([]);
 
   const handleMusicCardClick = (uri: string) => {
@@ -36,7 +40,9 @@ export const Recommendations = ({ recommendationsTracks, accessToken, onAddToPla
               artistName={track.artists[0].name}
               imageUrl={track.album.images[0].url}
               duration={duration}
-              onAddToPlaylist={async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+              onAddToPlaylist={async (
+                e: React.MouseEvent<HTMLDivElement, MouseEvent>
+              ) => {
                 e.stopPropagation();
                 onAddToPlaylist(track.uri, track.id);
               }}

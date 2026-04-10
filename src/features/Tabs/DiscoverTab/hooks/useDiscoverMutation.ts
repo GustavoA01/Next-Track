@@ -13,7 +13,9 @@ export const useDiscoverMutation = (
   setTemporaryMessage: React.Dispatch<React.SetStateAction<string>>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   setOpenConfirmDialog: React.Dispatch<React.SetStateAction<boolean>>,
-  setRecommendationsTracks: React.Dispatch<React.SetStateAction<SpotifyPlaylistTrack[]>>
+  setRecommendationsTracks: React.Dispatch<
+    React.SetStateAction<SpotifyPlaylistTrack[]>
+  >
 ) => {
   const queryClient = useQueryClient();
 
@@ -42,18 +44,21 @@ export const useDiscoverMutation = (
     },
   });
 
-  const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } = useMutation({
-    mutationFn: (prompt: ChatPromptType) =>
-      geminiRequest({
-        systemMessage: prompt.systemMessage,
-        userMessage: prompt.userMessage,
-        playlistId: playlistId,
-      }),
-    onError: (error) => {
-      console.log('Error ao chamar gemini', error);
-      setErrorMessage('Erro ao processar a solicitação. Tente novamente mais tarde.');
-    },
-  });
+  const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } =
+    useMutation({
+      mutationFn: (prompt: ChatPromptType) =>
+        geminiRequest({
+          systemMessage: prompt.systemMessage,
+          userMessage: prompt.userMessage,
+          playlistId: playlistId,
+        }),
+      onError: (error) => {
+        console.log('Error ao chamar gemini', error);
+        setErrorMessage(
+          'Erro ao processar a solicitação. Tente novamente mais tarde.'
+        );
+      },
+    });
 
   const { mutateAsync: deleteChatFn } = useMutation({
     mutationFn: () => deleteChat(playlistId),

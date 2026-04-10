@@ -13,7 +13,9 @@ export const ConfirmLogOut = () => (
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Sair da conta</DialogTitle>
-      <DialogDescription>Deseja mesmo fazer logout da sua conta Spotify?</DialogDescription>
+      <DialogDescription>
+        Deseja mesmo fazer logout da sua conta Spotify?
+      </DialogDescription>
     </DialogHeader>
     <DialogFooter>
       <DialogClose asChild>

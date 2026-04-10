@@ -11,7 +11,14 @@ describe('SliderVibe', () => {
     const mockLeftLabel = 'CALMO TESTE';
     const mockRightLabel = 'AGITADO TESTE';
 
-    render(<SliderVibe value={20} setValue={jest.fn()} leftLabel={mockLeftLabel} rightLabel={mockRightLabel} />);
+    render(
+      <SliderVibe
+        value={20}
+        setValue={jest.fn()}
+        leftLabel={mockLeftLabel}
+        rightLabel={mockRightLabel}
+      />
+    );
 
     expect(screen.getByText(mockLeftLabel)).toBeInTheDocument();
     expect(screen.getByText(mockRightLabel)).toBeInTheDocument();

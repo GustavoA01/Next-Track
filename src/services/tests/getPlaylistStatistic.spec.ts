@@ -39,7 +39,10 @@ describe('getPlaylistStatistic', () => {
       }),
     ]);
     expect(result.genresStatistics).toEqual(
-      expect.arrayContaining([expect.objectContaining({ name: 'pop' }), expect.objectContaining({ name: 'rock' })])
+      expect.arrayContaining([
+        expect.objectContaining({ name: 'pop' }),
+        expect.objectContaining({ name: 'rock' }),
+      ])
     );
     expect(result.tracks).toHaveLength(2);
     expect(result.totalDuration).toBe(410000);

@@ -11,7 +11,8 @@ export const playMusic = async (trackId: string) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    if (!response.ok) throw new Error(`Failed to play music: ${response.statusText}`);
+    if (!response.ok)
+      throw new Error(`Failed to play music: ${response.statusText}`);
     return response.json();
   } catch (error) {
     console.error('Failed to play music', error);

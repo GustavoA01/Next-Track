@@ -71,7 +71,10 @@ export const DiscoverContent = ({
           setOpenConfirmDialog={setOpenConfirmDialog}
         />
       )}
-      <form className="space-y-2" onSubmit={methods.handleSubmit(handleChatRequest)}>
+      <form
+        className="space-y-2"
+        onSubmit={methods.handleSubmit(handleChatRequest)}
+      >
         <div className="flex items-end gap-2">
           <Textarea
             {...methods.register('prompt')}
@@ -96,7 +99,9 @@ export const DiscoverContent = ({
         </div>
 
         {methods.formState.errors.prompt && (
-          <p className="text-sm text-red-500">{methods.formState.errors.prompt.message}</p>
+          <p className="text-sm text-red-500">
+            {methods.formState.errors.prompt.message}
+          </p>
         )}
       </form>
 

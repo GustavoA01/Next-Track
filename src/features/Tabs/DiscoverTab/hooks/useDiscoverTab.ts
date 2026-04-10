@@ -27,8 +27,11 @@ export const useDiscoverTab = ({
   });
   const { reset } = methods;
 
-  const [recommendationsTracks, setRecommendationsTracks] = useState<SpotifyPlaylistTrack[]>([]);
-  const [isRecommendationsLoading, setIsRecommendationsLoading] = useState(false);
+  const [recommendationsTracks, setRecommendationsTracks] = useState<
+    SpotifyPlaylistTrack[]
+  >([]);
+  const [isRecommendationsLoading, setIsRecommendationsLoading] =
+    useState(false);
   const [temporaryMessage, setTemporaryMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
@@ -44,7 +47,13 @@ export const useDiscoverTab = ({
     setInstrumentalVibe,
   } = useDiscoverVibe();
 
-  const { deleteChatFn, geminiRequestFn, isResponseLoading, messages, postMessageFn } = useDiscoverMutation(
+  const {
+    deleteChatFn,
+    geminiRequestFn,
+    isResponseLoading,
+    messages,
+    postMessageFn,
+  } = useDiscoverMutation(
     playlistId as string,
     setTemporaryMessage,
     setErrorMessage,
@@ -109,7 +118,10 @@ export const useDiscoverTab = ({
       const response = await geminiRequestFn(prompt);
 
       setIsRecommendationsLoading(true);
-      const recommendationsResponse = await searchTrack(accessToken, response.recommendations);
+      const recommendationsResponse = await searchTrack(
+        accessToken,
+        response.recommendations
+      );
       setRecommendationsTracks(recommendationsResponse);
 
       await postMessageFn({
@@ -137,7 +149,10 @@ export const useDiscoverTab = ({
       const previousIds = localStorageData ? JSON.parse(localStorageData) : [];
       const updatedIds = [...previousIds, musicId];
 
-      localStorage.setItem(localStorageKeys.musicsIds, JSON.stringify(updatedIds));
+      localStorage.setItem(
+        localStorageKeys.musicsIds,
+        JSON.stringify(updatedIds)
+      );
       toast.success('Música adicionada à playlist!');
     } else {
       toast.error('Erro ao adicionar música à playlist.');

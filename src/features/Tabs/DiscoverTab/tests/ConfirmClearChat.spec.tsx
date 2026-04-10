@@ -16,7 +16,9 @@ describe('ConfirmClearChat', () => {
 
     expect(screen.getByText('Limpar chat')).toBeInTheDocument();
     expect(
-      screen.getByText('Tem certeza que deseja excluir o histórico de conversa? Esta ação não pode ser desfeita.')
+      screen.getByText(
+        'Tem certeza que deseja excluir o histórico de conversa? Esta ação não pode ser desfeita.'
+      )
     ).toBeInTheDocument();
     expect(screen.getByText('Limpar')).toBeInTheDocument();
     expect(screen.getByText('Cancelar')).toBeInTheDocument();

@@ -20,6 +20,8 @@ describe('ProfileTrigger', () => {
     };
 
     render(<ProfileMenuTrigger profile={mockProfile} className="test-class" />);
-    expect(screen.getByTestId('profile-menu-trigger')).toHaveClass('test-class');
+    expect(screen.getByTestId('profile-menu-trigger')).toHaveClass(
+      'test-class'
+    );
   });
 });

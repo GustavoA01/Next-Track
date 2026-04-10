@@ -3,7 +3,12 @@ import { chatMessageCollection, db } from './firebaseConfig';
 
 export const deleteChat = async (playlistId: string) => {
   try {
-    const messagesRef = collection(db, 'playlists', playlistId, chatMessageCollection);
+    const messagesRef = collection(
+      db,
+      'playlists',
+      playlistId,
+      chatMessageCollection
+    );
     const querySnapshot = await getDocs(messagesRef);
 
     const batch = writeBatch(db);

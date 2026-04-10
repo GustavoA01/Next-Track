@@ -41,7 +41,9 @@ const mockPlaylist: SpotifyPlaylist = {
 const baseProps = {
   playlist: mockPlaylist,
   genresStatistics: [{ name: 'rock', value: 10, percentage: 50 }],
-  artistsStatistics: [{ id: 'a1', name: 'Artist 1', count: 2, image: '', spotifyUrl: '' }],
+  artistsStatistics: [
+    { id: 'a1', name: 'Artist 1', count: 2, image: '', spotifyUrl: '' },
+  ],
   chatContent: <div data-testid="chat-content" />,
 };
 

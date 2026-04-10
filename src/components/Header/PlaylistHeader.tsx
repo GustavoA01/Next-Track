@@ -14,7 +14,11 @@ type PlaylistHeaderProps = {
   totalDuration?: number;
 };
 
-export const PlaylistHeader = async ({ playlist, accessToken, totalDuration }: PlaylistHeaderProps) => {
+export const PlaylistHeader = async ({
+  playlist,
+  accessToken,
+  totalDuration,
+}: PlaylistHeaderProps) => {
   const profile: SpotifyUserProfile = await fetchProfile(accessToken);
   const { hours, minutes } = msFormatter(totalDuration || 0);
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
@@ -59,7 +63,9 @@ export const PlaylistHeader = async ({ playlist, accessToken, totalDuration }: P
         />
 
         <div className="flex flex-col max-sm:items-center max-w-2xl">
-          <p className="text-muted-foreground md:text-lg font-semibold drop-shadow-lg">PLAYLIST</p>
+          <p className="text-muted-foreground md:text-lg font-semibold drop-shadow-lg">
+            PLAYLIST
+          </p>
           <HeaderPlaylistInfo playlist={playlist} timeText={timeText} />
           <h1 className="text-3xl font-bold max-w-lg font-montserrat mt-4 line-clamp-2 sm:text-4xl lg:text-5xl">
             {playlist.name}

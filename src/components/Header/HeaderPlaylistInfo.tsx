@@ -6,17 +6,30 @@ type HeaderPlaylistInfoProps = {
   timeText: string;
 };
 
-export const HeaderPlaylistInfo = ({ playlist, timeText }: HeaderPlaylistInfoProps) => (
+export const HeaderPlaylistInfo = ({
+  playlist,
+  timeText,
+}: HeaderPlaylistInfoProps) => (
   <div className="flex space-x-1.5 items-center text-sm md:text-base drop-shadow-lg">
     <span className="text-muted-foreground ">Criada por </span>
     <span className="font-semibold md:text-lg max-md:max-w-20 line-clamp-1 truncate">
       {playlist.owner.display_name}
     </span>
 
-    <Circle size={4} color="muted-foreground" className="fill-muted-foreground drop-shadow-lg" />
-    <span className="text-muted-foreground">{playlist.tracks.total} músicas</span>
+    <Circle
+      size={4}
+      color="muted-foreground"
+      className="fill-muted-foreground drop-shadow-lg"
+    />
+    <span className="text-muted-foreground">
+      {playlist.tracks.total} músicas
+    </span>
 
-    <Circle size={4} color="muted-foreground" className="fill-muted-foreground drop-shadow-lg" />
+    <Circle
+      size={4}
+      color="muted-foreground"
+      className="fill-muted-foreground drop-shadow-lg"
+    />
     <span className="text-muted-foreground">{timeText}</span>
   </div>
 );

@@ -3,7 +3,12 @@ import { MusicInfo } from '../components/MusicInfo';
 
 describe('MusicInfo', () => {
   beforeEach(() => {
-    render(<MusicInfo musicName="Nome música teste" artistName="Nome artista teste" />);
+    render(
+      <MusicInfo
+        musicName="Nome música teste"
+        artistName="Nome artista teste"
+      />
+    );
   });
 
   it('renders component with correct props', () => {

@@ -26,7 +26,13 @@ type TabsMenuProps = PlaylistStatisticsType & {
   accessToken: string;
 };
 
-export const TabsMenu = ({ playlist, genresStatistics, artistsStatistics, tracks, accessToken }: TabsMenuProps) => {
+export const TabsMenu = ({
+  playlist,
+  genresStatistics,
+  artistsStatistics,
+  tracks,
+  accessToken,
+}: TabsMenuProps) => {
   const [tabValue, setTabValue] = useState('discover');
 
   return (
@@ -38,10 +44,15 @@ export const TabsMenu = ({ playlist, genresStatistics, artistsStatistics, tracks
             variant="ghost"
             onClick={() => setTabValue(tab.value)}
             className={`flex-1 rounded-none ${
-              tabValue === tab.value ? 'border-b-2 border-primary text-white/80' : 'border-b-2 border-transparent'
+              tabValue === tab.value
+                ? 'border-b-2 border-primary text-white/80'
+                : 'border-b-2 border-transparent'
             }`}
           >
-            <tab.icon className={`${tabValue === tab.value ? 'text-primary' : 'text-muted-foreground'}`} /> {tab.label}
+            <tab.icon
+              className={`${tabValue === tab.value ? 'text-primary' : 'text-muted-foreground'}`}
+            />{' '}
+            {tab.label}
           </Button>
         ))}
       </TabsList>
@@ -53,7 +64,11 @@ export const TabsMenu = ({ playlist, genresStatistics, artistsStatistics, tracks
         accessToken={accessToken}
       />
 
-      <StatisticContent playlist={playlist} genresStatistics={genresStatistics} artistsStatistics={artistsStatistics} />
+      <StatisticContent
+        playlist={playlist}
+        genresStatistics={genresStatistics}
+        artistsStatistics={artistsStatistics}
+      />
     </Tabs>
   );
 };

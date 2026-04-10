@@ -38,8 +38,12 @@ describe('searchTrack', () => {
     const result = await searchTrack('token', recommendations);
 
     expect(global.fetch).toHaveBeenCalledTimes(2);
-    expect((global.fetch as jest.Mock).mock.calls[0][0]).toContain('q=track%3ATrack%201%20artist%3AArtist%20One');
-    expect((global.fetch as jest.Mock).mock.calls[0][1].headers.Authorization).toBe('Bearer token');
+    expect((global.fetch as jest.Mock).mock.calls[0][0]).toContain(
+      'q=track%3ATrack%201%20artist%3AArtist%20One'
+    );
+    expect(
+      (global.fetch as jest.Mock).mock.calls[0][1].headers.Authorization
+    ).toBe('Bearer token');
     expect(result).toEqual([{ id: '1' }, { id: '2' }]);
   });
 });

@@ -14,14 +14,18 @@ export const StatisticContent = ({
   artistsStatistics,
   genresStatistics,
 }: PlaylistStatisticsType & { playlist: SpotifyPlaylist }) => {
-  const { avgMessage, chartData, formatName, getHexaColor } = useStatisticTab(playlist.tracks);
+  const { avgMessage, chartData, formatName, getHexaColor } = useStatisticTab(
+    playlist.tracks
+  );
 
   return (
     <TabsContent className="flex flex-col gap-10" value="statistics">
       <Suspense fallback={<StatisticsContentSkeleton />}>
         {playlist.tracks.total === 0 ? (
           <div className="animate-fade-in-up-down w-full flex flex-col items-center justify-center py-10">
-            <p className="text-muted-foreground">A playlist não contém músicas</p>
+            <p className="text-muted-foreground">
+              A playlist não contém músicas
+            </p>
           </div>
         ) : (
           <>
@@ -47,7 +51,11 @@ export const StatisticContent = ({
               <StatisticSubTitle text="Top 5 gêneros mais presentes" />
               <div className="space-y-4">
                 {genresStatistics.slice(0, 5).map((genre) => (
-                  <MostListenGenreBar key={genre.name} name={formatName(genre.name)} value={genre.percentage} />
+                  <MostListenGenreBar
+                    key={genre.name}
+                    name={formatName(genre.name)}
+                    value={genre.percentage}
+                  />
                 ))}
               </div>
             </div>

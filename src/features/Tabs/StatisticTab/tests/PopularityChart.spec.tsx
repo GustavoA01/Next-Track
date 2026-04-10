@@ -22,7 +22,9 @@ describe('PopularityChart', () => {
       { popularity: 100 },
     ];
 
-    render(<PopularityChart avgMessage={mockAvgMessage} chartData={mockChartData} />);
+    render(
+      <PopularityChart avgMessage={mockAvgMessage} chartData={mockChartData} />
+    );
 
     const chart = screen.getByTestId('popularity-chart');
 

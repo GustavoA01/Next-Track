@@ -13,7 +13,9 @@ describe('RightInfo', () => {
   });
 
   it('renders Plus icon inside interactive wrapper', () => {
-    const { container } = render(<RightInfo duration="0:59" onAddToPlaylist={onAddToPLaylistMock} />);
+    const { container } = render(
+      <RightInfo duration="0:59" onAddToPlaylist={onAddToPLaylistMock} />
+    );
     const wrapper = container.querySelector('.group\\/add');
     const icon = container.querySelector('svg');
 
@@ -21,6 +23,12 @@ describe('RightInfo', () => {
     expect(screen.getByText('0:59')).toBeInTheDocument();
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveClass('w-4', 'h-4');
-    expect(wrapper).toHaveClass('hover:bg-primary', 'border', 'border-primary', 'rounded-full', 'p-2');
+    expect(wrapper).toHaveClass(
+      'hover:bg-primary',
+      'border',
+      'border-primary',
+      'rounded-full',
+      'p-2'
+    );
   });
 });

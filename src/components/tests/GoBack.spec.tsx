@@ -15,7 +15,9 @@ describe('GoBack', () => {
 
   it('renders component correctly', () => {
     expect(screen.getByTestId('arrow-left-icon')).toBeInTheDocument();
-    expect(screen.getByTestId('arrow-left-icon')).toHaveClass('lucide lucide-arrow-left text-primary');
+    expect(screen.getByTestId('arrow-left-icon')).toHaveClass(
+      'lucide lucide-arrow-left text-primary'
+    );
   });
 
   it('call back function when clicks the button', () => {
