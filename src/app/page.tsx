@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 
-async function LoginPage() {
+const LoginPage = async () => {
   const cookiesStore = await cookies();
   const hasrefreshToken = cookiesStore.has('spotifyRefreshToken');
 
@@ -14,9 +14,9 @@ async function LoginPage() {
       <Image
         fill
         preload
-        className="-z-30 object-cover"
-        src="/bgLogin.jpg"
         alt="imagem de fundo"
+        src="/bgLogin.jpg"
+        className="-z-30 object-cover"
       />
       <div className="flex flex-col gap-4 items-center px-4 text-center">
         <Image
@@ -41,6 +41,6 @@ async function LoginPage() {
       </div>
     </div>
   );
-}
+};
 
 export default LoginPage;

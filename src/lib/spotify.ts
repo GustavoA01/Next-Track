@@ -7,10 +7,10 @@ export const connectSpotifyAccount = async (code: string) => {
   return { accessToken, refreshToken };
 };
 
-export async function getAccessToken(
+export const getAccessToken = async (
   clientId: string,
   code: string
-): Promise<{ accessToken: string; refreshToken: string }> {
+): Promise<{ accessToken: string; refreshToken: string }> => {
   const cookiesStore = cookies();
   const verifier = (await cookiesStore).get('verifier')?.value;
   const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
@@ -35,7 +35,7 @@ export async function getAccessToken(
   }
 
   return { accessToken: data.access_token, refreshToken: data.refresh_token };
-}
+};
 
 export const refreshAccessToken = async (
   refreshToken: string
@@ -72,11 +72,11 @@ export const refreshAccessToken = async (
   };
 };
 
-export async function fetchProfile(token: string) {
+export const fetchProfile = async (token: string) => {
   const result = await fetch('https://api.spotify.com/v1/me', {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });
 
   return await result.json();
-}
+};

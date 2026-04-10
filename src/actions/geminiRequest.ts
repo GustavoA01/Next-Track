@@ -11,11 +11,13 @@ type historyType = {
   }[];
 };
 
-export async function geminiRequest({
+type GeminiRequestParams = ChatPromptType & { playlistId: string };
+
+export const geminiRequest = async ({
   systemMessage,
   userMessage,
   playlistId,
-}: ChatPromptType & { playlistId: string }): Promise<ChatResponseType> {
+}: GeminiRequestParams): Promise<ChatResponseType> => {
   try {
     const messageHistory = await getMessages(playlistId);
     let historyContent: historyType[] = [];
@@ -78,4 +80,4 @@ export async function geminiRequest({
     console.error('Gemini request error:', error);
     throw new Error('Failed to fetch Gemini ', error as any);
   }
-}
+};

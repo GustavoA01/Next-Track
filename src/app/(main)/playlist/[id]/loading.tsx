@@ -1,10 +1,11 @@
+import { GoBack } from '@/components/GoBack';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const PlaylistLoadingPage = () => (
   <div className="pb-8 h-screen overflow-y-auto overflow-x-hidden custom-scrollbar hide-scrollbar">
     <div className="py-4">
       <div className="flex justify-between mb-10 items-center px-4 container mx-auto sm:px-8">
-        <Skeleton className="h-10 w-10 rounded-full" />
+        <GoBack />
         <Skeleton className="h-10 w-10 rounded-full" />
       </div>
 

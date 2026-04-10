@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 import { cookies } from 'next/headers';
 import { redirect, RedirectType } from 'next/navigation';
 
-export async function redirectToAuthCodeFlow(clientId: string) {
+export const redirectToAuthCodeFlow = async (clientId: string) => {
   const cookiesStore = await cookies();
   const settedCookies =
     cookiesStore.has('spotifyRefreshToken') ||
@@ -41,7 +41,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
     `https://accounts.spotify.com/authorize?${params.toString()}`,
     RedirectType.push
   );
-}
+};
 
 function generateCodeVerifier(length: number) {
   let text = '';
