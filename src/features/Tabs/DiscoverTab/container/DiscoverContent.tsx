@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronUp, Sparkles } from 'lucide-react';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { Spinner } from '@/components/ui/spinner';
-import { Recommendations } from '@/features/Tabs/DiscoverTab/components/Recommendations';
+import { Recommendations } from '@/features/Tabs/DiscoverTab/container/Recommendations';
 import { AccordionVibe } from '../components/AccordionVibe';
 import { BadgesGroup } from '../components/BadgesGroup';
 import { ChatContent } from './ChatContent';
@@ -124,9 +124,11 @@ export const DiscoverContent = ({
         </Button>
       )}
 
-      <Dialog open={openConfirmDialog} onOpenChange={() => setOpenConfirmDialog(false)}>
+      <Dialog open={openConfirmDialog} onOpenChange={setOpenConfirmDialog}>
         <ConfirmClearChat onConfirm={deleteChatFn} />
       </Dialog>
+
+      <div id="spotify-player-anchor" />
     </TabsContent>
   );
 };

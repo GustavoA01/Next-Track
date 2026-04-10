@@ -1,4 +1,4 @@
-import { Player } from '@/components/Player';
+import { Player } from '@/features/Tabs/DiscoverTab/components/Player';
 import { useState } from 'react';
 import { MusicCard } from '../../../MusicCard/container/MusicCard';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
@@ -13,6 +13,12 @@ type RecommendationsProps = {
 export const Recommendations = ({ recommendationsTracks, accessToken, onAddToPlaylist }: RecommendationsProps) => {
   const [uris, setUris] = useState<string[]>([]);
 
+  const handleMusicCardClick = (uri: string) => {
+    setUris([uri]);
+    const playerComponent = document.getElementById('spotify-player-anchor');
+    if (playerComponent) playerComponent.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <div className="space-y-2 mt-4 w-full">
@@ -24,7 +30,7 @@ export const Recommendations = ({ recommendationsTracks, accessToken, onAddToPla
             <MusicCard
               key={`music-card-${track.id}`}
               id={track.id}
-              onClick={() => setUris([track.uri])}
+              onClick={() => handleMusicCardClick(track.uri)}
               index={index}
               musicName={track.name}
               artistName={track.artists[0].name}

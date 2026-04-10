@@ -2,7 +2,6 @@ import { ConnectAccountButton } from '@/components/ConnectAccountButton';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
-import Link from 'next/link';
 
 async function LoginPage() {
   const cookiesStore = await cookies();
@@ -30,13 +29,6 @@ async function LoginPage() {
         </p>
 
         <ConnectAccountButton />
-
-        <Link
-          href="/privacy-policy"
-          className="text-muted-foreground hover:text-white transition underline duration-150 text-sm mt-8"
-        >
-          Ver termos de privacidade
-        </Link>
       </div>
     </div>
   );
