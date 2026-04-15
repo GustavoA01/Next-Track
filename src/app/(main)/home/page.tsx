@@ -7,9 +7,11 @@ const HomePage = async () => {
   const accessToken = await getCurrentToken();
 
   const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
+    next: { revalidate: 3600 },
   });
 
   if (!response.ok) {

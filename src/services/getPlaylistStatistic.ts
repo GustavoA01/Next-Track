@@ -20,7 +20,9 @@ export const getPlaylistStatistic = async (
     const tracksResponse = await fetch(
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=50`,
       {
+        method: 'GET',
         headers: { Authorization: `Bearer ${accessToken}` },
+        next: { revalidate: 3600 },
       }
     )
       .then((res) => res.json())
@@ -41,6 +43,7 @@ export const getPlaylistStatistic = async (
     const tracksResponse = await fetch(
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=${totalCopy}`,
       {
+        method: 'GET',
         headers: { Authorization: `Bearer ${accessToken}` },
         next: { revalidate: 3600 },
       }
@@ -83,6 +86,7 @@ export const getPlaylistStatistic = async (
         const url = `https://api.spotify.com/v1/artists/${cleanId}`;
 
         const response = await fetch(url, {
+          method: 'GET',
           headers: { Authorization: `Bearer ${accessToken}` },
           next: { revalidate: 3600 },
         });

@@ -17,7 +17,7 @@ const PlaylistPage = async ({
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-    next: { tags: [`playlist-${id}`] },
+    next: { tags: [`playlist-${id}`], revalidate: 3600 },
   });
 
   if (!response.ok) throw new Error('Failed to fetch playlist');

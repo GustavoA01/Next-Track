@@ -12,9 +12,11 @@ export const searchTrack = async (
       const response = await fetch(
         `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`,
         {
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
+          next: { revalidate: 604800 },
         }
       );
 
