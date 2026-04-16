@@ -3,6 +3,19 @@ import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { Recommendations } from '../container/Recommendations';
 import { NextImgProps } from '@/globalTestsMocks';
 
+type MusicCardProps = {
+  index: number;
+  id: string;
+  imageUrl: string;
+  musicName: string;
+  artistName: string;
+  duration: string;
+  onClick: () => void;
+  onAddToPlaylist: (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => Promise<void>;
+};
+
 jest.mock('next/image', () => ({ src, alt, width, height }: NextImgProps) => (
   <img src={src} alt={alt} width={width} height={height} />
 ));
@@ -17,7 +30,7 @@ jest.mock('../../../MusicCard/container/MusicCard', () => ({
     duration,
     onClick,
     onAddToPlaylist,
-  }: any) => (
+  }: MusicCardProps) => (
     <div data-testid={`music-card-${id}`} data-index={index} onClick={onClick}>
       <div data-testid="music-name">{musicName}</div>
       <div data-testid="artist-name">{artistName}</div>
@@ -25,7 +38,10 @@ jest.mock('../../../MusicCard/container/MusicCard', () => ({
       <div data-testid="image-url">{imageUrl}</div>
       <button
         data-testid={`add-button-${id}`}
-        onClick={(e) => onAddToPlaylist(e)}
+        onClick={async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+          e.stopPropagation();
+          await onAddToPlaylist(e);
+        }}
       >
         Add to playlist
       </button>

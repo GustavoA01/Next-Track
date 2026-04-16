@@ -30,9 +30,7 @@ export const getAccessToken = async (
 
   const data = await result.json();
 
-  if (data.error) {
-    throw new Error(`Falha ao obter token: ${data.error}`);
-  }
+  if (data.error) throw new Error(`Falha ao obter token: ${data.error}`);
 
   return { accessToken: data.access_token, refreshToken: data.refresh_token };
 };

@@ -1,12 +1,9 @@
-import { ProfileMenuTrigger } from './ProfileMenuTrigger';
 import { Button } from '@/components/ui/button';
 import { HomeIcon, LogOut } from 'lucide-react';
 import {
-  DrawerTrigger,
   DrawerContent,
   DrawerFooter,
   DrawerClose,
-  Drawer,
 } from '@/components/ui/drawer';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

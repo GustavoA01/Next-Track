@@ -1,4 +1,3 @@
-import { ProfileMenuTrigger } from './ProfileMenuTrigger';
 import { Button } from '../../../components/ui/button';
 import { HomeIcon, LogOut } from 'lucide-react';
 import { TooltipContent } from '../../../components/ui/tooltip';
