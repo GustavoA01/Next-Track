@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { RightInfo } from '../components/RightInfo';
+import { RightInfo } from '../container/RightInfo';
 
 describe('RightInfo', () => {
   const onAddToPLaylistMock = jest.fn();

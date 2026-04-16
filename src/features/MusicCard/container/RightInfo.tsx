@@ -30,6 +30,7 @@ export const RightInfo = ({
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     if (isMusicAdded) {
+      e.stopPropagation();
       toast.info('Música já adicionada à playlist');
       return;
     }

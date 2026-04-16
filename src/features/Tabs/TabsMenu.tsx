@@ -1,25 +1,12 @@
 'use client';
 import { Tabs, TabsList } from '@/components/ui/tabs';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
-import { ChartColumnDecreasing, Sparkles } from 'lucide-react';
 import { SpotifyPlaylist } from '@/data/types/spotify';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DiscoverContent } from './DiscoverTab/container/DiscoverContent';
 import { StatisticContent } from './StatisticTab/container/StatisticContent';
-
-const tabs = [
-  {
-    label: 'Descobrir',
-    value: 'discover',
-    icon: Sparkles,
-  },
-  {
-    label: 'Estatísticas',
-    value: 'statistics',
-    icon: ChartColumnDecreasing,
-  },
-];
+import { useState } from 'react';
+import { tabs } from '@/data/constants';
 
 type TabsMenuProps = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;

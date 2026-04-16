@@ -26,4 +26,9 @@ describe('GoBack', () => {
     fireEvent.click(button);
     expect(goBackFn).toHaveBeenCalled();
   });
+
+  it('should have correct classes for styling', () => {
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('rounded-full w-10 h-10');
+  });
 });

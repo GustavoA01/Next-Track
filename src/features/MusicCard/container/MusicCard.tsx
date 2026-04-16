@@ -1,5 +1,5 @@
 'use client';
-import { RightInfo } from '../components/RightInfo';
+import { RightInfo } from './RightInfo';
 import { MusicInfo } from '../components/MusicInfo';
 import { AlbumImg } from '../components/AlbumImg';
 import { Card } from '@/components/ui/card';

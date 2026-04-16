@@ -1,5 +1,5 @@
 import { getContextPrompt } from '@/utils/getContextPrompt';
-import { ChatFormType, chatSchema } from '@/data/schemas/chatSchema';
+import { ChatFormType, chatSchema } from '@/data/chatSchema';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { searchTrack } from '@/services/searchTrack';

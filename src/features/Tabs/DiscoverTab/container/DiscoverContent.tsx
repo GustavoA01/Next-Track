@@ -71,6 +71,7 @@ export const DiscoverContent = ({
           setOpenConfirmDialog={setOpenConfirmDialog}
         />
       )}
+
       <form
         className="space-y-2"
         onSubmit={methods.handleSubmit(handleChatRequest)}

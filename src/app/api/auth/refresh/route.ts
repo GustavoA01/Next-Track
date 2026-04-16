@@ -36,9 +36,6 @@ export async function GET() {
     success = false;
   }
 
-  if (success) {
-    redirect('/home');
-  } else {
-    redirect('/');
-  }
+  if (success) redirect('/home');
+  else redirect('/');
 }

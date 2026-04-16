@@ -6,14 +6,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { AverageMessageType } from '@/data/types/recommendations';
-
-const chartConfig = {
-  popularity: {
-    label: 'Popularidade das músicas (0 - 100)',
-    dataKey: 'popularity',
-    color: ' #1db954',
-  },
-};
+import { chartConfig } from '@/data/constants';
 
 type PopularityChartProps = {
   avgMessage: AverageMessageType;

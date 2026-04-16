@@ -37,10 +37,9 @@ export const redirectToAuthCodeFlow = async (clientId: string) => {
   params.append('code_challenge_method', 'S256');
   params.append('code_challenge', challenge);
 
-  redirect(
-    `https://accounts.spotify.com/authorize?${params.toString()}`,
-    RedirectType.push
-  );
+  const redirectUrl = `https://accounts.spotify.com/authorize?${params.toString()}`;
+
+  redirect(redirectUrl, RedirectType.push);
 };
 
 function generateCodeVerifier(length: number) {
@@ -51,6 +50,7 @@ function generateCodeVerifier(length: number) {
   for (let i = 0; i < length; i++) {
     text += possible.charAt(crypto.randomInt(0, possible.length));
   }
+
   return text;
 }
 

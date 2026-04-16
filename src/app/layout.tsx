@@ -54,16 +54,14 @@ const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) => {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
-      >
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  );
-};
+}>) => (
+  <html lang="en" suppressHydrationWarning>
+    <body
+      className={`${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
+    >
+      <Providers>{children}</Providers>
+    </body>
+  </html>
+);
 
 export default RootLayout;

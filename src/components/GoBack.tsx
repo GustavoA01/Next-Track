@@ -8,9 +8,9 @@ export const GoBack = () => {
 
   return (
     <Button
-      className="rounded-full w-10 h-10"
       variant="outline"
       onClick={() => back()}
+      className="rounded-full w-10 h-10"
     >
       <ArrowLeft
         data-testid="arrow-left-icon"
