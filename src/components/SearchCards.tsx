@@ -12,10 +12,12 @@ export const SearchCards = ({
 }) => {
   const [queryText, setQueryText] = useState('');
 
-  const playlistsFiltered = playlistsData.filter((playlist) => {
-    const playlistName = playlist.name.toLowerCase();
-    return playlistName.includes(queryText.toLocaleLowerCase());
-  });
+  const playlistsFiltered = playlistsData
+    .filter((playlist) => {
+      const playlistName = playlist.name.toLowerCase();
+      return playlistName.includes(queryText.toLocaleLowerCase());
+    })
+    .sort((a, b) => b.tracks.total - a.tracks.total);
 
   return (
     <div className="space-y-4 container mx-auto px-4 sm:px-8 ">
