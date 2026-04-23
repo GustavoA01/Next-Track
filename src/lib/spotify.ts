@@ -1,3 +1,4 @@
+import { baseSpotifyUrl } from '@/services/constantsKeys';
 import { cookies } from 'next/headers';
 
 export const connectSpotifyAccount = async (code: string) => {
@@ -71,7 +72,7 @@ export const refreshAccessToken = async (
 };
 
 export const fetchProfile = async (token: string) => {
-  const result = await fetch('https://api.spotify.com/v1/me', {
+  const result = await fetch(`${baseSpotifyUrl}/me`, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
   });

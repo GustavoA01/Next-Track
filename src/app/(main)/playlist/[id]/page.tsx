@@ -3,6 +3,7 @@ import { getPlaylistStatistic } from '@/services/getPlaylistStatistic';
 import { PlaylistHeader } from '@/components/Header/PlaylistHeader';
 import { getCurrentToken } from '@/lib/getCurrentToken';
 import { TabsMenu } from '@/features/Tabs/TabsMenu';
+import { baseSpotifyUrl } from '@/services/constantsKeys';
 
 const PlaylistPage = async ({
   params,
@@ -12,7 +13,7 @@ const PlaylistPage = async ({
   const { id } = await params;
   const accessToken = await getCurrentToken();
 
-  const response = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
+  const response = await fetch(`${baseSpotifyUrl}/playlists/${id}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`,

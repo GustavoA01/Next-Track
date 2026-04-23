@@ -1,4 +1,5 @@
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { baseSpotifyUrl } from './constantsKeys';
 
 export const searchTrack = async (
   accessToken: string,
@@ -10,7 +11,7 @@ export const searchTrack = async (
     const promises = recommendations.map(async (recommendation) => {
       const query = `track:${recommendation.song} artist:${recommendation.artist}`;
       const response = await fetch(
-        `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`,
+        `${baseSpotifyUrl}/search?q=${encodeURIComponent(query)}&type=track&limit=1`,
         {
           method: 'GET',
           headers: {

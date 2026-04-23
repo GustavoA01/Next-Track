@@ -1,11 +1,12 @@
 'use server';
 import { getCurrentToken } from '@/lib/getCurrentToken';
+import { baseSpotifyUrl } from '@/services/constantsKeys';
 
 export const playMusic = async (trackId: string) => {
   const accessToken = await getCurrentToken();
 
   try {
-    const response = await fetch(`https://api.spotify.com/v1/me/player/play`, {
+    const response = await fetch(`${baseSpotifyUrl}/me/player/play`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${accessToken}`,

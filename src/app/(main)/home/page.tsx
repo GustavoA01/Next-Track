@@ -2,11 +2,12 @@ import { getCurrentToken } from '@/lib/getCurrentToken';
 import { SpotifyPlaylist } from '@/data/types/spotify';
 import { SearchCards } from '@/components/SearchCards';
 import { Header } from '@/components/Header';
+import { baseSpotifyUrl } from '@/services/constantsKeys';
 
 const HomePage = async () => {
   const accessToken = await getCurrentToken();
 
-  const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+  const response = await fetch(`${baseSpotifyUrl}/me/playlists`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`,

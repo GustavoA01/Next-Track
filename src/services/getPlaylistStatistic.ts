@@ -4,6 +4,7 @@ import {
   SpotifyPlaylistTrack,
   SpotifyPlaylistTracks,
 } from '@/data/types/spotify';
+import { baseSpotifyUrl } from './constantsKeys';
 
 export const getPlaylistStatistic = async (
   accessToken: string,
@@ -18,7 +19,7 @@ export const getPlaylistStatistic = async (
 
   while (totalCopy > 50) {
     const tracksResponse = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=50`,
+      `${baseSpotifyUrl}/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=50`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -41,7 +42,7 @@ export const getPlaylistStatistic = async (
 
   if (totalCopy > 0) {
     const tracksResponse = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=${totalCopy}`,
+      `${baseSpotifyUrl}/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=${totalCopy}`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -83,7 +84,7 @@ export const getPlaylistStatistic = async (
     const chunkPromises = chunk.map(async (uniqueId) => {
       try {
         const cleanId = uniqueId.trim();
-        const url = `https://api.spotify.com/v1/artists/${cleanId}`;
+        const url = `${baseSpotifyUrl}/artists/${cleanId}`;
 
         const response = await fetch(url, {
           method: 'GET',

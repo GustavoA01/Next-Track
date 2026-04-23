@@ -1,4 +1,5 @@
 'use server';
+import { baseSpotifyUrl } from '@/services/constantsKeys';
 import { updateTag } from 'next/cache';
 import { ParamValue } from 'next/dist/server/request/params';
 
@@ -15,7 +16,7 @@ export const addToPlaylist = async ({
 }: AddToPlaylistProps) => {
   try {
     const response = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      `${baseSpotifyUrl}/playlists/${playlistId}/tracks`,
       {
         method: 'POST',
         headers: {
