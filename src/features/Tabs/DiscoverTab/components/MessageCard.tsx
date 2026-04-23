@@ -1,11 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
-
-type MessageCardProps = {
-  cardClassName: string;
-  cardContentClassName?: string;
-  textClassName?: string;
-  content: string;
-};
+import { MessageCardProps } from '../types';
 
 export const MessageCard = ({
   cardClassName,

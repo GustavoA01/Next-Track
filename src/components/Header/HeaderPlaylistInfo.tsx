@@ -1,10 +1,5 @@
-import { SpotifyPlaylist } from '@/data/types/spotify';
+import { HeaderPlaylistInfoProps } from '@/data/types/components';
 import { Circle } from 'lucide-react';
-
-type HeaderPlaylistInfoProps = {
-  playlist: SpotifyPlaylist;
-  timeText: string;
-};
 
 export const HeaderPlaylistInfo = ({
   playlist,

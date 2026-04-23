@@ -1,7 +1,4 @@
-type StatisticSubTitleProps = {
-  className?: string;
-  text: string;
-};
+import { StatisticSubTitleProps } from '../types';
 
 export const StatisticSubTitle = ({
   className,

@@ -8,17 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Zap } from 'lucide-react';
 import { SliderVibe } from './SliderVibe';
 import { Button } from '@/components/ui/button';
-
-type AccordionVibeProps = {
-  emotionalVibe: number;
-  energyVibe: number;
-  instrumentalVibe: number;
-  setEmotionalVibe: React.Dispatch<React.SetStateAction<number>>;
-  setEnergyVibe: React.Dispatch<React.SetStateAction<number>>;
-  setInstrumentalVibe: React.Dispatch<React.SetStateAction<number>>;
-  onReset: () => void;
-  isVibesChanged: boolean;
-};
+import { AccordionVibeProps } from '../types';
 
 export const AccordionVibe = ({
   emotionalVibe,

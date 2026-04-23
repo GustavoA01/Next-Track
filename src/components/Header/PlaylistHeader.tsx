@@ -1,4 +1,4 @@
-import { SpotifyPlaylist, SpotifyUserProfile } from '@/data/types/spotify';
+import { SpotifyUserProfile } from '@/data/types/spotify';
 import { MenuOptions } from '@/features/Menu/container/MenuOptions';
 import playlistFallbackImage from '@/assets/playlistFallback.svg';
 import { HeaderPlaylistInfo } from './HeaderPlaylistInfo';
@@ -7,12 +7,7 @@ import { GoBack } from '@/components/GoBack';
 import Image from 'next/image';
 import { msFormatter } from '@/utils/msFormatter';
 import { fetchProfile } from '@/lib/spotify';
-
-type PlaylistHeaderProps = {
-  playlist: SpotifyPlaylist;
-  accessToken: string;
-  totalDuration?: number;
-};
+import { PlaylistHeaderProps } from '@/data/types/components';
 
 export const PlaylistHeader = async ({
   playlist,

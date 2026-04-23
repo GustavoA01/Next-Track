@@ -1,17 +1,9 @@
 'use server';
-import { ChatPromptType, ChatResponseType } from '@/data/types';
+import { ChatResponseType } from '@/data/types';
+import { GeminiRequestParams, historyType } from '@/data/types/actions';
 import { getMessages } from '@/services/firebase/getMessages';
 import { ai } from '@/services/googelGemini';
 import { HarmBlockThreshold, HarmCategory } from '@google/genai';
-
-type historyType = {
-  role: 'user' | 'model';
-  parts: {
-    text: string;
-  }[];
-};
-
-type GeminiRequestParams = ChatPromptType & { playlistId: string };
 
 export const geminiRequest = async ({
   systemMessage,

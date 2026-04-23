@@ -1,12 +1,6 @@
 'use server';
+import { AddToPlaylistProps } from '@/data/types/actions';
 import { updateTag } from 'next/cache';
-import { ParamValue } from 'next/dist/server/request/params';
-
-type AddToPlaylistProps = {
-  jsonUris: { uris: string[] };
-  playlistId: ParamValue;
-  accessToken: string;
-};
 
 export const addToPlaylist = async ({
   jsonUris,

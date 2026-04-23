@@ -1,14 +1,8 @@
 import { Player } from '@/features/Tabs/DiscoverTab/components/Player';
 import { useState } from 'react';
 import { MusicCard } from '../../../MusicCard/container/MusicCard';
-import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { msFormatter } from '@/utils/msFormatter';
-
-type RecommendationsProps = {
-  recommendationsTracks: SpotifyPlaylistTrack[];
-  accessToken: string;
-  onAddToPlaylist: (trackUri: string, musicId: string) => Promise<void>;
-};
+import { RecommendationsProps } from '../types';
 
 export const Recommendations = ({
   recommendationsTracks,

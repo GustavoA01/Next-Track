@@ -1,19 +1,18 @@
 import { MostListenGenreBar } from '../components/MostListenGenreBar';
-import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { PopularityChart } from '../components/PopularityChart';
 import { StatisticSubTitle } from '../components/StatSubTitle';
-import { SpotifyPlaylist } from '@/data/types/spotify';
 import { ArtistCard } from '../components/ArtistCard';
 import { TabsContent } from '@/components/ui/tabs';
 import { useStatisticTab } from '../hook/useStatisticTab';
 import { Suspense } from 'react';
 import { StatisticsContentSkeleton } from '@/components/Skeletons';
+import { StatisticContentProps } from '../types';
 
 export const StatisticContent = ({
   playlist,
   artistsStatistics,
   genresStatistics,
-}: PlaylistStatisticsType & { playlist: SpotifyPlaylist }) => {
+}: StatisticContentProps) => {
   const { avgMessage, chartData, formatName, getHexaColor } = useStatisticTab(
     playlist.tracks
   );

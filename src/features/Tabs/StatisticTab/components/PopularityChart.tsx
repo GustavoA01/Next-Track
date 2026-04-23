@@ -5,13 +5,8 @@ import {
   ChartLegendContent,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { AverageMessageType } from '@/data/types/recommendations';
 import { chartConfig } from '@/data/constants';
-
-type PopularityChartProps = {
-  avgMessage: AverageMessageType;
-  chartData: { popularity: number }[];
-};
+import { PopularityChartProps } from '../types';
 
 export const PopularityChart = ({
   avgMessage,

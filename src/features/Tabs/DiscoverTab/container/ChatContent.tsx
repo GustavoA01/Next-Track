@@ -1,18 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ChatContentResponse } from '@/data/types';
 import { Trash } from 'lucide-react';
 import { MessageCard } from '../components/MessageCard';
 import { useEffect, useRef } from 'react';
-
-type ChatContentProps = {
-  messages: ChatContentResponse[];
-  isLoading: boolean;
-  errorMessage: string;
-  temporaryMessage: string;
-  setOpenConfirmDialog: (open: boolean) => void;
-};
+import { ChatContentProps } from '../types';
 
 const defaultCardClassName = 'p-2 px-0 w-fit max-md:text-sm';
 

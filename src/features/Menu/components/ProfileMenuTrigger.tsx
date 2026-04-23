@@ -1,12 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-
-type ProfileMenuTriggerProps = {
-  profile: {
-    images: { url: string }[];
-    display_name: string | null;
-  };
-  className?: string;
-};
+import { ProfileMenuTriggerProps } from '../types';
 
 export const ProfileMenuTrigger = ({
   profile,

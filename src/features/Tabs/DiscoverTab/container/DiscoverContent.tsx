@@ -1,7 +1,6 @@
 import { TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { ChevronUp, Sparkles } from 'lucide-react';
-import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { Spinner } from '@/components/ui/spinner';
 import { Recommendations } from '@/features/Tabs/DiscoverTab/container/Recommendations';
 import { AccordionVibe } from '../components/AccordionVibe';
@@ -12,13 +11,14 @@ import { MusicCardsSkeleton } from '@/components/Skeletons';
 import { Textarea } from '@/components/ui/textarea';
 import { ConfirmClearChat } from '../components/ConfirmClearChat';
 import { Dialog } from '@/components/ui/dialog';
+import { DiscoverContentProps } from '../types';
 
 export const DiscoverContent = ({
   genresStatistics,
   artistsStatistics,
   tracks,
   accessToken,
-}: PlaylistStatisticsType & { accessToken: string }) => {
+}: DiscoverContentProps) => {
   const {
     methods,
     emotionalVibe,

@@ -1,7 +1,4 @@
-type MusicInfoProps = {
-  musicName: string;
-  artistName: string;
-};
+import { MusicInfoProps } from '../types';
 
 export const MusicInfo = ({ musicName, artistName }: MusicInfoProps) => (
   <div className="flex flex-col">
