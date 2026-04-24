@@ -18,9 +18,7 @@ export const GET = async (request: NextRequest) => {
   const { accessToken, refreshToken } = await connectSpotifyAccount(code);
 
   try {
-    if (!accessToken) {
-      throw new Error('Access token não encontrado');
-    }
+    if (!accessToken) throw new Error('Access token não encontrado');
 
     const cookiesStore = await cookies();
 

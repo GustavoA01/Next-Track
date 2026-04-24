@@ -3,19 +3,7 @@ import { RightInfo } from './RightInfo';
 import { MusicInfo } from '../components/MusicInfo';
 import { AlbumImg } from '../components/AlbumImg';
 import { Card } from '@/components/ui/card';
-
-type MusicCardProps = {
-  index: number;
-  id: string;
-  imageUrl: string;
-  musicName: string;
-  artistName: string;
-  duration: string;
-  onClick: () => void;
-  onAddToPlaylist: (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => Promise<void>;
-};
+import { MusicCardProps } from '../types';
 
 export const MusicCard = ({
   index,

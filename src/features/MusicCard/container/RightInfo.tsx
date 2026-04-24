@@ -2,14 +2,7 @@ import { localStorageKeys } from '@/services/constantsKeys';
 import { Check, Plus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-
-type RightInfoProps = {
-  id: string;
-  duration: string;
-  onAddToPlaylist: (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => Promise<void>;
-};
+import { RightInfoProps } from '../types';
 
 export const RightInfo = ({
   id,
@@ -34,6 +27,7 @@ export const RightInfo = ({
       toast.info('Música já adicionada à playlist');
       return;
     }
+
     try {
       await onAddToPlaylist(e);
       setisMusicAdded(true);

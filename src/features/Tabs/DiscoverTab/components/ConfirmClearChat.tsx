@@ -7,8 +7,9 @@ import {
   DialogHeader,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { ConfirmClearChatProps } from '../types';
 
-export const ConfirmClearChat = ({ onConfirm }: { onConfirm: () => void }) => (
+export const ConfirmClearChat = ({ onConfirm }: ConfirmClearChatProps) => (
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Limpar chat</DialogTitle>

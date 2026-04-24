@@ -1,6 +1,7 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
+import { PlayerProps } from '../types';
 
-export const Player = ({ token, uris }: { token: string; uris: string[] }) => (
+export const Player = ({ token, uris }: PlayerProps) => (
   <div className="w-full h-auto bg-black/30 rounded-lg p-2 mt-4">
     <SpotifyPlayer
       token={token}

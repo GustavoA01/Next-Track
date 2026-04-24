@@ -1,9 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { badgesText } from '@/data/constants';
-
-type BadgesGroupProps = {
-  onSelectBadge: (badge: string) => void;
-};
+import { BadgesGroupProps } from '../types';
 
 export const BadgesGroup = ({ onSelectBadge }: BadgesGroupProps) => (
   <div className="flex select-none sm:flex-wrap max-sm:overflow-x-auto gap-2 hide-scrollbar">

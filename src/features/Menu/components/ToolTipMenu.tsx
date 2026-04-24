@@ -3,10 +3,7 @@ import { HomeIcon, LogOut } from 'lucide-react';
 import { TooltipContent } from '../../../components/ui/tooltip';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-type ToolTipMenuProps = {
-  setIsOpen: (isOpen: boolean) => void;
-};
+import { ToolTipMenuProps } from '../types';
 
 export const ToolTipMenu = ({ setIsOpen }: ToolTipMenuProps) => {
   const pathname = usePathname();

@@ -7,12 +7,9 @@ import {
 } from '@/components/ui/drawer';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { DrawerMenuProps } from '../types';
 
-export const DrawerMenu = ({
-  setIsOpen,
-}: {
-  setIsOpen: (isOpen: boolean) => void;
-}) => {
+export const DrawerMenu = ({ setIsOpen }: DrawerMenuProps) => {
   const pathname = usePathname();
 
   return (

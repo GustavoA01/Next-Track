@@ -1,18 +1,7 @@
 import playlistFallbackImage from '@/assets/playlistFallback.svg';
 import Image from 'next/image';
 import Link from 'next/link';
-
-type ArtistCardProps = {
-  index: number;
-  palleteColor: string;
-  artist: {
-    id: string;
-    name: string;
-    count: number;
-    image: string;
-    spotifyUrl: string;
-  };
-};
+import { ArtistCardProps } from '../types';
 
 export const ArtistCard = ({
   artist,

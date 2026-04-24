@@ -7,13 +7,7 @@ import { useState } from 'react';
 import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
 import { ProfileMenuTrigger } from '../components/ProfileMenuTrigger';
 import { Drawer, DrawerTrigger } from '@/components/ui/drawer';
-
-type MenuOptionsProps = {
-  profile: {
-    images: { url: string }[];
-    display_name: string | null;
-  };
-};
+import { MenuOptionsProps } from '../types';
 
 export const MenuOptions = ({ profile }: MenuOptionsProps) => {
   const [isConfirmLogoutOpen, setIsConfirmLogoutOpen] = useState(false);

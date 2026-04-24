@@ -1,6 +1,5 @@
 import { getContextPrompt } from '@/utils/getContextPrompt';
 import { ChatFormType, chatSchema } from '@/data/chatSchema';
-import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { searchTrack } from '@/services/searchTrack';
 import { useEffect, useState } from 'react';
@@ -13,13 +12,14 @@ import { getMessages } from '@/services/firebase/getMessages';
 import { localStorageKeys } from '@/services/constantsKeys';
 import { useDiscoverMutation } from './useDiscoverMutation';
 import { useDiscoverVibe } from './useDiscoverVibe';
+import { DiscoverContentProps } from '../types';
 
 export const useDiscoverTab = ({
   artistsStatistics,
   genresStatistics,
   tracks,
   accessToken,
-}: PlaylistStatisticsType & { accessToken: string }) => {
+}: DiscoverContentProps) => {
   const { id: playlistId } = useParams();
 
   const methods = useForm<ChatFormType>({
