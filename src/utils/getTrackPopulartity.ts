@@ -1,6 +1,9 @@
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
+import { getPopularityReturnType } from '@/data/types/utils';
 
-export const getTrackPopularity = (tracks: SpotifyPlaylistTracks) => {
+export const getTrackPopularity = (
+  tracks: SpotifyPlaylistTracks
+): getPopularityReturnType => {
   const popularityDictionary: Record<number, number> = {};
 
   tracks.items.forEach((item) => {

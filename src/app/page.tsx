@@ -14,18 +14,18 @@ const LoginPage = async () => {
       <Image
         fill
         preload
-        alt="imagem de fundo"
         src="/bgLogin.jpg"
+        alt="Imagem de fundo"
         className="-z-30 object-cover"
       />
       <div className="flex flex-col gap-4 items-center px-4 text-center">
         <Image
           preload
-          src="/icon.jpg"
-          className="rounded-lg max-sm:h-16 max-sm:w-16 animate-fade-in-up-down"
-          alt="Next Track Icon"
           width={80}
           height={80}
+          src="/icon.jpg"
+          alt="Ícone do Next Track"
+          className="rounded-lg max-sm:h-16 max-sm:w-16 animate-fade-in-up-down"
         />
 
         <h1 className="text-3xl md:text-5xl font-bold animate-fade-in-up-down ">

@@ -22,13 +22,12 @@ export const useStatisticTab = (tracks: SpotifyPlaylistTracks) => {
     }
   }, []);
 
-  const avgMessage = useMemo(() => {
-    return getPopularityAvgMessage(tracks, tracks.total);
-  }, [traceGlobals, tracks.total]);
+  const avgMessage = useMemo(
+    () => getPopularityAvgMessage(tracks, tracks.total),
+    [traceGlobals, tracks.total]
+  );
 
-  const chartData = useMemo(() => {
-    return getTrackPopularity(tracks);
-  }, [tracks]);
+  const chartData = useMemo(() => getTrackPopularity(tracks), [tracks]);
 
   return {
     formatName,

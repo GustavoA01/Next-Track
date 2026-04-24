@@ -1,10 +1,4 @@
-import { VibesType } from '@/data/types';
-import { PlaylistStatisticsType } from '../data/types/recommendations';
-
-type getContextPromptProps = PlaylistStatisticsType & {
-  vibes: VibesType;
-  isVibesChanged: boolean;
-};
+import { getContextPromptProps } from '@/data/types/utils';
 
 export const getContextPrompt = ({
   artistsStatistics,
@@ -12,7 +6,7 @@ export const getContextPrompt = ({
   tracks,
   vibes,
   isVibesChanged,
-}: getContextPromptProps) => `
+}: getContextPromptProps): string => `
 Você será usada na minha aplicação web que usa a api do spotify para recomendação de músicas de acordo com a playlist.
 Irei enviar toda a playlist e os 5 artistas mais presentes junto com os 5 gêneros mais presentes, para você gerar as músicas que aparecerão na tela de descobrir.
 
