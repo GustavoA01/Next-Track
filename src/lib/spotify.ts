@@ -58,9 +58,8 @@ export const refreshAccessToken = async (
     body: params.toString(),
   });
 
-  if (!response.ok) {
+  if (!response.ok)
     throw new Error(`Falha ao atualizar token: ${response.status}`);
-  }
 
   const data = await response.json();
 

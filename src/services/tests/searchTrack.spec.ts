@@ -19,7 +19,7 @@ describe('searchTrack', () => {
   });
 
   it('fetches tracks and returns a flattened items list', async () => {
-    const { searchTrack } = await import('../searchTrack');
+    const { searchTrack } = await import('../spotify/searchTrack');
     const recommendations = [
       { song: 'Track 1', artist: 'Artist One' },
       { song: 'Track 2', artist: 'Artist Two' },

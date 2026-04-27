@@ -1,7 +1,7 @@
 import { getContextPrompt } from '@/utils/getContextPrompt';
 import { ChatFormType, chatSchema } from '@/data/chatSchema';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
-import { searchTrack } from '@/services/searchTrack';
+import { searchTrack } from '@/services/spotify/searchTrack';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

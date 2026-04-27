@@ -1,5 +1,5 @@
 import { mockTracks } from '@/globalTestsMocks';
-import { getPlaylistStatistic } from '../getPlaylistStatistic';
+import { getPlaylistStatistic } from '../spotify/getPlaylistStatistic';
 
 const mockArtistResponse = {
   id: 'artist1',

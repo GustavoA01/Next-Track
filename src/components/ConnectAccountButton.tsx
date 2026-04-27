@@ -3,7 +3,7 @@ import { redirectToAuthCodeFlow } from '@/actions/redirectFlow';
 import { Button } from './ui/button';
 
 export const ConnectAccountButton = () => {
-  const handleAction = async () => {
+  const handleLogin = async () => {
     try {
       const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
       if (!clientId) throw new Error('Client ID não está definido');
@@ -16,7 +16,7 @@ export const ConnectAccountButton = () => {
 
   return (
     <Button
-      onClick={handleAction}
+      onClick={handleLogin}
       className="rounded-full sm:text-md font-semibold"
     >
       Conectar

@@ -1,9 +1,7 @@
-import { SpotifyPlaylist } from '@/data/types/spotify';
-import { getPlaylistStatistic } from '@/services/getPlaylistStatistic';
+import { getPlaylistStatistic } from '@/services/spotify/getPlaylistStatistic';
 import { PlaylistHeader } from '@/components/Header/PlaylistHeader';
-import { getCurrentToken } from '@/lib/getCurrentToken';
 import { TabsMenu } from '@/features/Tabs/TabsMenu';
-import { baseSpotifyUrl } from '@/services/constantsKeys';
+import { getPlaylistInfo } from '@/services/spotify/getPlaylistInfo';
 
 const PlaylistPage = async ({
   params,
@@ -11,19 +9,7 @@ const PlaylistPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  const accessToken = await getCurrentToken();
-
-  const response = await fetch(`${baseSpotifyUrl}/playlists/${id}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    next: { tags: [`playlist-${id}`], revalidate: 3600 },
-  });
-
-  if (!response.ok) throw new Error('Failed to fetch playlist');
-
-  const playlist: SpotifyPlaylist = await response.json();
+  const { accessToken, playlist } = await getPlaylistInfo(id);
 
   const { artistsStatistics, genresStatistics, tracks, totalDuration } =
     await getPlaylistStatistic(accessToken, id, playlist.tracks.total);

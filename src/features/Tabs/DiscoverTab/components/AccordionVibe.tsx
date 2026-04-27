@@ -48,7 +48,7 @@ export const AccordionVibe = ({
           <div className="flex items-center gap-2">
             <Zap className="w-6 h-6 text-primary" />
             <h2
-              className={`${isVibesChanged ? 'text-primary' : ''} sm:text-lg font-semibold`}
+              className={`sm:text-lg font-semibold ${isVibesChanged ? 'text-primary' : ''}`}
             >
               Ajustar Energia
             </h2>

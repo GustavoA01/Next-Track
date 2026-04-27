@@ -1,5 +1,5 @@
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
-import { baseSpotifyUrl } from './constantsKeys';
+import { baseSpotifyUrl } from '../constantsKeys';
 
 export const searchTrack = async (
   accessToken: string,

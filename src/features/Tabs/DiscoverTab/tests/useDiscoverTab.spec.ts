@@ -3,7 +3,7 @@ import { useParams } from 'next/navigation';
 import { addToPlaylist } from '@/actions/addToPlaylist';
 import { toast } from 'sonner';
 import { getMessages } from '@/services/firebase/getMessages';
-import { searchTrack } from '@/services/searchTrack';
+import { searchTrack } from '@/services/spotify/searchTrack';
 import { useForm } from 'react-hook-form';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
@@ -30,7 +30,7 @@ jest.mock('../../../../services/firebase/getMessages', () => ({
   getMessages: jest.fn(),
 }));
 
-jest.mock('../../../../services/searchTrack', () => ({
+jest.mock('../../../../services/spotify/searchTrack', () => ({
   searchTrack: jest.fn(),
 }));
 
