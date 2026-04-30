@@ -16,7 +16,7 @@ describe('GoBack', () => {
   it('renders component correctly', () => {
     expect(screen.getByTestId('arrow-left-icon')).toBeInTheDocument();
     expect(screen.getByTestId('arrow-left-icon')).toHaveClass(
-      'lucide lucide-arrow-left text-primary'
+      'lucide lucide-arrow-left'
     );
   });
 

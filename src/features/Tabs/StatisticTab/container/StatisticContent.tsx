@@ -1,12 +1,12 @@
 import { MostListenGenreBar } from '../components/MostListenGenreBar';
 import { PopularityChart } from '../components/PopularityChart';
 import { StatisticSubTitle } from '../components/StatSubTitle';
-import { ArtistCard } from '../components/ArtistCard';
 import { TabsContent } from '@/components/ui/tabs';
 import { useStatisticTab } from '../hook/useStatisticTab';
 import { Suspense } from 'react';
 import { StatisticsContentSkeleton } from '@/components/Skeletons';
 import { StatisticContentProps } from '../types';
+import { ArtistsCarousel } from './ArtistsCarousel';
 
 export const StatisticContent = ({
   playlist,
@@ -29,21 +29,11 @@ export const StatisticContent = ({
         ) : (
           <>
             <div className="mt-4">
-              <StatisticSubTitle text="Os 5 artistas mais presentes" />
-              <div className="flex gap-2 overflow-x-auto md:grid sm:grid-cols-5 sm:overflow-hidden hide-scrollbar">
-                {artistsStatistics.slice(0, 5).map(async (artist, index) => {
-                  const palleteColor = await getHexaColor(artist.image);
-
-                  return (
-                    <ArtistCard
-                      key={artist.id}
-                      artist={artist}
-                      index={index}
-                      palleteColor={palleteColor || '#121212'}
-                    />
-                  );
-                })}
-              </div>
+              <StatisticSubTitle text="Os 10 artistas mais presentes" />
+              <ArtistsCarousel
+                getHexaColor={getHexaColor}
+                artistsStatistics={artistsStatistics.slice(0, 10)}
+              />
             </div>
 
             <div>

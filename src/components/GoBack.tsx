@@ -8,14 +8,11 @@ export const GoBack = () => {
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       onClick={() => back()}
-      className="rounded-full w-10 h-10"
+      className="rounded-full w-10 h-10 bg-black/30 backdrop-blur-md border border-white/30 shadow-md"
     >
-      <ArrowLeft
-        data-testid="arrow-left-icon"
-        className="text-primary w-10 h-10"
-      />
+      <ArrowLeft data-testid="arrow-left-icon" className="w-5 h-5" />
     </Button>
   );
 };

@@ -34,3 +34,14 @@ export type ArtistCardProps = {
     spotifyUrl: string;
   };
 };
+
+export type CarouselProps = {
+  artistsStatistics: {
+    id: string;
+    name: string;
+    count: number;
+    image: string;
+    spotifyUrl: string;
+  }[];
+  getHexaColor: (imageUrl: string) => Promise<string | undefined>;
+};
