@@ -4,13 +4,18 @@ import {
 } from '@/data/types/recommendations';
 import { SpotifyPlaylist } from '@/data/types/spotify';
 
+export type TabsMenuProps = PlaylistStatisticsType & {
+  playlist: SpotifyPlaylist;
+  accessToken: string;
+};
+
 export type StatisticContentProps = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;
 };
 
 export type StatisticSubTitleProps = {
-  className?: string;
   text: string;
+  className?: string;
 };
 
 export type PopularityChartProps = {

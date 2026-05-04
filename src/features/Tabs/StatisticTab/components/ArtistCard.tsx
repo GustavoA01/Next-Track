@@ -36,14 +36,14 @@ export const ArtistCard = ({
         className="w-full h-15 absolute bottom-1.5 rounded-b-lg flex items-center justify-center"
       ></div>
 
-      <div className="flex items-center justify-center w-full h-12 backdrop-blur-md absolute bottom-0 rounded-b-lg">
+      <footer className="flex items-center justify-center w-full h-12 backdrop-blur-md absolute bottom-0 rounded-b-lg">
         <div className="text-center">
           <p className="text-white max-sm:text-sm font-semibold font-jakarta line-clamp-1 ">
             {artist.name}
           </p>
           <p className="text-white text-xs">{artist.count} músicas</p>
         </div>
-      </div>
+      </footer>
     </div>
   </Link>
 );

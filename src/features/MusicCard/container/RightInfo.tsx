@@ -1,45 +1,17 @@
-import { localStorageKeys } from '@/services/constantsKeys';
+'use client';
 import { Check, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 import { RightInfoProps } from '../types';
+import { useRightInfo } from '../hooks/useRightInfo';
 
 export const RightInfo = ({
   id,
   duration,
   onAddToPlaylist,
 }: RightInfoProps) => {
-  const [isMusicAdded, setisMusicAdded] = useState(false);
-
-  useEffect(() => {
-    const localStorageMusics = localStorage.getItem(localStorageKeys.musicsIds);
-    if (localStorageMusics) {
-      const added = JSON.parse(localStorageMusics).includes(id);
-      setisMusicAdded(added);
-    }
-  }, []);
-
-  const handleCLick = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (isMusicAdded) {
-      e.stopPropagation();
-      toast.info('Música já adicionada à playlist');
-      return;
-    }
-
-    try {
-      await onAddToPlaylist(e);
-      setisMusicAdded(true);
-    } catch (error) {
-      setisMusicAdded(false);
-      console.error('Ocorreu um erro', error);
-      toast.error('Ocorreu um erro ao adicionar a música');
-    }
-  };
+  const { handleCLick, isMusicAdded } = useRightInfo({ id, onAddToPlaylist });
 
   return (
-    <div className="flex items-center gap-2">
+    <section className="flex items-center gap-2">
       <p className="text-sm text-muted-foreground">{duration}</p>
       <div
         data-testid="add-to-playlist-button"
@@ -53,6 +25,6 @@ export const RightInfo = ({
           <Plus className="md:w-6 md:h-6 w-4 h-4 text-white m-auto group-hover/add:text-black" />
         )}
       </div>
-    </div>
+    </section>
   );
 };

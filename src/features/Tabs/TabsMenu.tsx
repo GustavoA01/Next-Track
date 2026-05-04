@@ -1,17 +1,11 @@
 'use client';
 import { Tabs, TabsList } from '@/components/ui/tabs';
-import { PlaylistStatisticsType } from '@/data/types/recommendations';
-import { SpotifyPlaylist } from '@/data/types/spotify';
 import { Button } from '@/components/ui/button';
 import { DiscoverContent } from './DiscoverTab/container/DiscoverContent';
 import { StatisticContent } from './StatisticTab/container/StatisticContent';
 import { useState } from 'react';
 import { tabs } from '@/data/constants';
-
-type TabsMenuProps = PlaylistStatisticsType & {
-  playlist: SpotifyPlaylist;
-  accessToken: string;
-};
+import { TabsMenuProps } from './StatisticTab/types';
 
 export const TabsMenu = ({
   playlist,
@@ -45,10 +39,10 @@ export const TabsMenu = ({
       </TabsList>
 
       <DiscoverContent
-        genresStatistics={genresStatistics}
-        artistsStatistics={artistsStatistics}
         tracks={tracks}
         accessToken={accessToken}
+        genresStatistics={genresStatistics}
+        artistsStatistics={artistsStatistics}
       />
 
       <StatisticContent

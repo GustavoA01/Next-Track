@@ -1,4 +1,3 @@
-'use client';
 import { RightInfo } from './RightInfo';
 import { MusicInfo } from '../components/MusicInfo';
 import { AlbumImg } from '../components/AlbumImg';
@@ -16,8 +15,8 @@ export const MusicCard = ({
   onAddToPlaylist,
 }: MusicCardProps) => (
   <Card
-    data-testid="music-card"
     onClick={onClick}
+    data-testid="music-card"
     className="group/card w-full px-4 sm:px-8 bg-transparent border-none cursor-pointer hover:bg-surface-hover/40 transition-all duration-200 shadow-none"
   >
     <div className="flex justify-between items-center gap-2">
@@ -31,8 +30,8 @@ export const MusicCard = ({
 
       <RightInfo
         id={id}
-        onAddToPlaylist={onAddToPlaylist}
         duration={duration}
+        onAddToPlaylist={onAddToPlaylist}
       />
     </div>
   </Card>

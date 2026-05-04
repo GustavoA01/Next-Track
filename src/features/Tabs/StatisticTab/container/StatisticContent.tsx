@@ -18,7 +18,7 @@ export const StatisticContent = ({
   );
 
   return (
-    <TabsContent className="flex flex-col gap-10" value="statistics">
+    <TabsContent value="statistics" className="flex flex-col gap-10">
       <Suspense fallback={<StatisticsContentSkeleton />}>
         {playlist.tracks.total === 0 ? (
           <div className="animate-fade-in-up-down w-full flex flex-col items-center justify-center py-10">
@@ -28,15 +28,15 @@ export const StatisticContent = ({
           </div>
         ) : (
           <>
-            <div className="mt-4">
+            <section className="mt-4">
               <StatisticSubTitle text="Os 10 artistas mais presentes" />
               <ArtistsCarousel
                 getHexaColor={getHexaColor}
                 artistsStatistics={artistsStatistics.slice(0, 10)}
               />
-            </div>
+            </section>
 
-            <div>
+            <section>
               <StatisticSubTitle text="Top 5 gêneros mais presentes" />
               <div className="space-y-4">
                 {genresStatistics.slice(0, 5).map((genre) => (
@@ -47,12 +47,12 @@ export const StatisticContent = ({
                   />
                 ))}
               </div>
-            </div>
+            </section>
 
-            <div>
+            <section>
               <StatisticSubTitle text="Nível de popularidade das músicas" />
               <PopularityChart avgMessage={avgMessage} chartData={chartData} />
-            </div>
+            </section>
           </>
         )}
       </Suspense>

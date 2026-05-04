@@ -25,7 +25,7 @@ export const PlaylistCard = ({
         />
       </div>
 
-      <div className="space-y-2">
+      <footer className="space-y-2">
         <h2 className="text-sm sm:text-lg font-bold font-inter group-hover:text-primary transition-colors duration-300 line-clamp-1 truncate">
           {playlistName}
         </h2>
@@ -36,7 +36,7 @@ export const PlaylistCard = ({
             {totalTracks} músicas
           </span>
         </div>
-      </div>
+      </footer>
     </Card>
   </Link>
 );

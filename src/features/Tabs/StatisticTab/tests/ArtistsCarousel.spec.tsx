@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 const artistCardMock = jest.fn();
 
-jest.mock('@/components/ui/carousel', () => ({
+jest.mock('../../../../components/ui/carousel', () => ({
   Carousel: ({ children }: { children: React.ReactNode }) => (
     <section data-testid="artists-carousel">{children}</section>
   ),

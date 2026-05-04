@@ -13,14 +13,14 @@ export const PopularityChart = ({
   chartData,
 }: PopularityChartProps) => (
   <div>
-    <div className="mb-4">
+    <header className="mb-4">
       <h2
         className={`sm:text-lg md:text-xl ${avgMessage.textColor} font-montserrat font-semibold mb-2`}
       >
         {avgMessage.title}
       </h2>
       <p className="text-sm sm:text-base">{avgMessage.text} </p>
-    </div>
+    </header>
 
     <ChartContainer
       data-testid="popularity-chart"

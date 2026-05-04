@@ -14,10 +14,10 @@ import { Dialog } from '@/components/ui/dialog';
 import { DiscoverContentProps } from '../types';
 
 export const DiscoverContent = ({
-  genresStatistics,
-  artistsStatistics,
   tracks,
   accessToken,
+  genresStatistics,
+  artistsStatistics,
 }: DiscoverContentProps) => {
   const {
     methods,
