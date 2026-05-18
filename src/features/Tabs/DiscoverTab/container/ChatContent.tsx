@@ -29,7 +29,9 @@ export const ChatContent = ({
   return (
     <Card className="max-h-150 animate-fade-in-up-down">
       <CardHeader className="flex max-h-5 justify-between items-center py-0">
-        <CardTitle>Chat</CardTitle>
+        <CardTitle className="font-montserrat text-muted-foreground tracking-widest">
+          CHAT
+        </CardTitle>
         <Button
           variant="destructive"
           onClick={() => setOpenConfirmDialog(true)}

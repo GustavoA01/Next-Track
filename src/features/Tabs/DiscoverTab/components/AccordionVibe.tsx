@@ -57,7 +57,11 @@ export const AccordionVibe = ({
 
         <AccordionContent>
           <div className="my-2 flex justify-end">
-            <Button onClick={onReset} variant="outline">
+            <Button
+              disabled={!isVibesChanged}
+              onClick={onReset}
+              variant="outline"
+            >
               Resetar
             </Button>
           </div>
