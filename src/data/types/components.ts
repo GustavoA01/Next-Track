@@ -1,4 +1,4 @@
-import { SpotifyPlaylist } from './spotify';
+import { SpotifyPlaylist, SpotifyUserProfile } from './spotify';
 
 export type HeaderPlaylistInfoProps = {
   playlist: SpotifyPlaylist;
@@ -7,7 +7,7 @@ export type HeaderPlaylistInfoProps = {
 
 export type PlaylistHeaderProps = {
   playlist: SpotifyPlaylist;
-  accessToken: string;
+  profile: SpotifyUserProfile;
   totalDuration?: number;
 };
 

@@ -2,10 +2,11 @@ import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { chatMessageCollection, db } from './firebaseConfig';
 import { ChatContentResponse } from '@/data/types';
 
-export const getMessages = async (playlistId: string) => {
+export const getMessages = async (playlistId: string, userId: string) => {
   try {
     const queryWhere = query(
       collection(db, 'playlists', playlistId, chatMessageCollection),
+      where('userId', '==', userId),
       orderBy('createdAt', 'asc')
     );
     const querySnapshot = await getDocs(queryWhere);

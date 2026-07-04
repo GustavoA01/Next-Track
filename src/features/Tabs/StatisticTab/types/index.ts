@@ -7,6 +7,7 @@ import { SpotifyPlaylist } from '@/data/types/spotify';
 export type TabsMenuProps = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;
   accessToken: string;
+  userId: string;
 };
 
 export type StatisticContentProps = PlaylistStatisticsType & {

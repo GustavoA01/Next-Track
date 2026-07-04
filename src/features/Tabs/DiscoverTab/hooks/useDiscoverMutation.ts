@@ -5,11 +5,13 @@ import { clientKeys } from '@/services/constantsKeys';
 import { deleteChat } from '@/services/firebase/deleteChat';
 import { getMessages } from '@/services/firebase/getMessages';
 import { postMessages } from '@/services/firebase/postMessages';
+import { getChatStorageKey } from '@/utils/getChatStorageKey';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 export const useDiscoverMutation = (
   playlistId: string,
+  userId: string,
   setTemporaryMessage: React.Dispatch<React.SetStateAction<string>>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   setOpenConfirmDialog: React.Dispatch<React.SetStateAction<boolean>>,
@@ -18,10 +20,11 @@ export const useDiscoverMutation = (
   >
 ) => {
   const queryClient = useQueryClient();
+  const chatStorageKey = getChatStorageKey(userId, playlistId);
 
   const { data: messages } = useQuery({
-    queryKey: [clientKeys.chatMessages, playlistId],
-    queryFn: () => getMessages(playlistId),
+    queryKey: [clientKeys.chatMessages, playlistId, userId],
+    queryFn: () => getMessages(playlistId, userId),
   });
 
   const { mutateAsync: postMessageFn } = useMutation({
@@ -31,7 +34,8 @@ export const useDiscoverMutation = (
       recommendations: SpotifyPlaylistTrack[];
     }) =>
       postMessages({
-        playlistId: playlistId,
+        playlistId,
+        userId,
         userMessageContent: params.userMessageContent,
         chatResponse: params.chatResponse,
         recommendations: params.recommendations,
@@ -39,7 +43,7 @@ export const useDiscoverMutation = (
     onSuccess: () => {
       setTemporaryMessage('');
       queryClient.invalidateQueries({
-        queryKey: [clientKeys.chatMessages, playlistId],
+        queryKey: [clientKeys.chatMessages, playlistId, userId],
       });
     },
   });
@@ -50,7 +54,8 @@ export const useDiscoverMutation = (
         geminiRequest({
           systemMessage: prompt.systemMessage,
           userMessage: prompt.userMessage,
-          playlistId: playlistId,
+          playlistId,
+          userId,
         }),
       onError: (error) => {
         console.log('Error ao chamar gemini', error);
@@ -61,13 +66,13 @@ export const useDiscoverMutation = (
     });
 
   const { mutateAsync: deleteChatFn } = useMutation({
-    mutationFn: () => deleteChat(playlistId),
+    mutationFn: () => deleteChat(playlistId, userId),
     onSuccess: () => {
       setOpenConfirmDialog(false);
-      localStorage.removeItem(playlistId);
+      localStorage.removeItem(chatStorageKey);
       setRecommendationsTracks([]);
       queryClient.invalidateQueries({
-        queryKey: [clientKeys.chatMessages, playlistId],
+        queryKey: [clientKeys.chatMessages, playlistId, userId],
       });
       toast.success('Chat deletado com sucesso');
     },

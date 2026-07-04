@@ -62,9 +62,14 @@ const localStorageMock = {
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 const mockPlaylistId = 'playlist-123';
+const mockUserId = 'user-123';
 const mockAccessToken = 'access-token-123';
+const mockChatStorageKey = `${mockUserId}:${mockPlaylistId}`;
 
-const mockProps: PlaylistStatisticsType & { accessToken: string } = {
+const mockProps: PlaylistStatisticsType & {
+  accessToken: string;
+  userId: string;
+} = {
   artistsStatistics: [
     {
       id: 'artist-1',
@@ -175,6 +180,7 @@ const mockProps: PlaylistStatisticsType & { accessToken: string } = {
   ],
   totalDuration: 380000,
   accessToken: mockAccessToken,
+  userId: mockUserId,
 };
 
 const mockMessages = [
@@ -409,7 +415,7 @@ describe('useDiscoverTab', () => {
 
     const { result } = renderHook(() => useDiscoverTab(mockProps));
 
-    expect(localStorageMock.getItem).toHaveBeenCalledWith(mockPlaylistId);
+    expect(localStorageMock.getItem).toHaveBeenCalledWith(mockChatStorageKey);
     expect(result.current.recommendationsTracks).toEqual(mockRecommendations);
   });
 
@@ -420,7 +426,7 @@ describe('useDiscoverTab', () => {
     renderHook(() => useDiscoverTab(mockProps));
 
     await waitFor(() => {
-      expect(getMessages).toHaveBeenCalledWith(mockPlaylistId);
+      expect(getMessages).toHaveBeenCalledWith(mockPlaylistId, mockUserId);
     });
   });
 
@@ -455,7 +461,9 @@ describe('useDiscoverTab', () => {
       mockGeminiResponse.recommendations
     );
     expect(mockPostMessageFn).toHaveBeenCalled();
-    expect(localStorageMock.removeItem).toHaveBeenCalledWith(mockPlaylistId);
+    expect(localStorageMock.removeItem).toHaveBeenCalledWith(
+      mockChatStorageKey
+    );
   });
 
   it('should handle chat request error', async () => {

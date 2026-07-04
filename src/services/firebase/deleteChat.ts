@@ -1,15 +1,19 @@
-import { collection, getDocs, writeBatch } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  writeBatch,
+} from 'firebase/firestore';
 import { chatMessageCollection, db } from './firebaseConfig';
 
-export const deleteChat = async (playlistId: string) => {
+export const deleteChat = async (playlistId: string, userId: string) => {
   try {
-    const messagesRef = collection(
-      db,
-      'playlists',
-      playlistId,
-      chatMessageCollection
+    const queryWhere = query(
+      collection(db, 'playlists', playlistId, chatMessageCollection),
+      where('userId', '==', userId)
     );
-    const querySnapshot = await getDocs(messagesRef);
+    const querySnapshot = await getDocs(queryWhere);
 
     const batch = writeBatch(db);
     querySnapshot.forEach((doc) => {

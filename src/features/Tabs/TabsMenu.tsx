@@ -13,6 +13,7 @@ export const TabsMenu = ({
   artistsStatistics,
   tracks,
   accessToken,
+  userId,
 }: TabsMenuProps) => {
   const [tabValue, setTabValue] = useState('discover');
 
@@ -41,6 +42,7 @@ export const TabsMenu = ({
       <DiscoverContent
         tracks={tracks}
         accessToken={accessToken}
+        userId={userId}
         genresStatistics={genresStatistics}
         artistsStatistics={artistsStatistics}
       />

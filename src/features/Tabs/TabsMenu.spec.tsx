@@ -45,6 +45,7 @@ const baseProps = {
     { id: 'a1', name: 'Artist 1', count: 2, image: '', spotifyUrl: '' },
   ],
   chatContent: <div data-testid="chat-content" />,
+  userId: 'user-123',
 };
 
 describe('TabsMenu', () => {

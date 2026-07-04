@@ -2,6 +2,7 @@ import { getPlaylistStatistic } from '@/services/spotify/getPlaylistStatistic';
 import { PlaylistHeader } from '@/components/Header/PlaylistHeader';
 import { TabsMenu } from '@/features/Tabs/TabsMenu';
 import { getPlaylistInfo } from '@/services/spotify/getPlaylistInfo';
+import { fetchProfile } from '@/lib/spotify';
 
 const PlaylistPage = async ({
   params,
@@ -10,6 +11,7 @@ const PlaylistPage = async ({
 }) => {
   const { id } = await params;
   const { accessToken, playlist } = await getPlaylistInfo(id);
+  const profile = await fetchProfile(accessToken);
 
   const { artistsStatistics, genresStatistics, tracks, totalDuration } =
     await getPlaylistStatistic(accessToken, id, playlist.tracks.total);
@@ -18,7 +20,7 @@ const PlaylistPage = async ({
     <div className="pb-8 h-screen overflow-y-auto custom-scrollbar hide-scrollbar scroll-smooth">
       <PlaylistHeader
         playlist={playlist}
-        accessToken={accessToken}
+        profile={profile}
         totalDuration={totalDuration}
       />
 
@@ -29,6 +31,7 @@ const PlaylistPage = async ({
           genresStatistics={genresStatistics}
           tracks={tracks}
           accessToken={accessToken}
+          userId={profile.id}
         />
       </div>
     </div>

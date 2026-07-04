@@ -2,6 +2,7 @@ import { SpotifyPlaylistTrack } from './spotify';
 import { Timestamp } from 'firebase/firestore';
 
 export interface ChatContentResponse {
+  userId: string;
   playlistId: string;
   chatResponse: string;
   userMessage: string;

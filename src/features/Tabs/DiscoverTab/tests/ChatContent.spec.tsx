@@ -8,6 +8,7 @@ HTMLElement.prototype.scrollTo = jest.fn();
 describe('ChatContent', () => {
   const mockMessages = [
     {
+      userId: 'user-1',
       playlistId: '1',
       userMessage: 'Faça recomendações',
       chatResponse: 'Resposta do chat',

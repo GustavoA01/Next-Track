@@ -38,9 +38,11 @@ jest.mock('../../../MusicCard/container/MusicCard', () => ({
       <div data-testid="image-url">{imageUrl}</div>
       <button
         data-testid={`add-button-${id}`}
-        onClick={async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        onClick={(e) => {
           e.stopPropagation();
-          await onAddToPlaylist(e);
+          void onAddToPlaylist(
+            e as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>
+          );
         }}
       >
         Add to playlist

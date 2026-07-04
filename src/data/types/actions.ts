@@ -14,4 +14,7 @@ export type historyType = {
   }[];
 };
 
-export type GeminiRequestParams = ChatPromptType & { playlistId: string };
+export type GeminiRequestParams = ChatPromptType & {
+  playlistId: string;
+  userId: string;
+};

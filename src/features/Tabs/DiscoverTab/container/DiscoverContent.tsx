@@ -16,6 +16,7 @@ import { DiscoverContentProps } from '../types';
 export const DiscoverContent = ({
   tracks,
   accessToken,
+  userId,
   genresStatistics,
   artistsStatistics,
 }: DiscoverContentProps) => {
@@ -45,6 +46,7 @@ export const DiscoverContent = ({
     handleScrollToTop,
   } = useDiscoverTab({
     accessToken,
+    userId,
     artistsStatistics,
     genresStatistics,
     tracks,

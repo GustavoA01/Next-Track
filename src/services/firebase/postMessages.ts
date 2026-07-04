@@ -4,6 +4,7 @@ import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 
 type PostMessagesParams = {
   playlistId: string;
+  userId: string;
   userMessageContent: string;
   chatResponse: string;
   recommendations: SpotifyPlaylistTrack[];
@@ -11,6 +12,7 @@ type PostMessagesParams = {
 
 export const postMessages = async ({
   playlistId,
+  userId,
   userMessageContent,
   chatResponse,
   recommendations,
@@ -19,6 +21,7 @@ export const postMessages = async ({
     await addDoc(
       collection(db, 'playlists', playlistId, chatMessageCollection),
       {
+        userId,
         userMessage: userMessageContent,
         chatResponse: chatResponse,
         recommendations,

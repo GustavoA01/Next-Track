@@ -10,6 +10,7 @@ export type useChatContentType = {
 
 export type DiscoverContentProps = PlaylistStatisticsType & {
   accessToken: string;
+  userId: string;
 };
 
 export type RecommendationsProps = {

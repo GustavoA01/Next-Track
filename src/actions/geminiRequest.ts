@@ -9,9 +9,10 @@ export const geminiRequest = async ({
   systemMessage,
   userMessage,
   playlistId,
+  userId,
 }: GeminiRequestParams): Promise<ChatResponseType> => {
   try {
-    const messageHistory = await getMessages(playlistId);
+    const messageHistory = await getMessages(playlistId, userId);
     let historyContent: historyType[] = [];
 
     if (messageHistory.length > 0) {

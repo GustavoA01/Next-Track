@@ -1,4 +1,3 @@
-import { SpotifyUserProfile } from '@/data/types/spotify';
 import { MenuOptions } from '@/features/Menu/container/MenuOptions';
 import playlistFallbackImage from '@/assets/playlistFallback.svg';
 import { HeaderPlaylistInfo } from './HeaderPlaylistInfo';
@@ -6,15 +5,13 @@ import { getAverageColor } from 'fast-average-color-node';
 import { GoBack } from '@/components/GoBack';
 import Image from 'next/image';
 import { msFormatter } from '@/utils/msFormatter';
-import { fetchProfile } from '@/lib/spotify';
 import { PlaylistHeaderProps } from '@/data/types/components';
 
 export const PlaylistHeader = async ({
   playlist,
-  accessToken,
+  profile,
   totalDuration,
 }: PlaylistHeaderProps) => {
-  const profile: SpotifyUserProfile = await fetchProfile(accessToken);
   const { hours, minutes } = msFormatter(totalDuration || 0);
   const timeText = hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
 

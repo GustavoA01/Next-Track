@@ -13,14 +13,17 @@ import { useDiscoverMutation } from './useDiscoverMutation';
 import { useDiscoverVibe } from './useDiscoverVibe';
 import { DiscoverContentProps } from '../types';
 import { syncPlaylistTrackIds } from '@/utils/getPlaylistTrackIds';
+import { getChatStorageKey } from '@/utils/getChatStorageKey';
 
 export const useDiscoverTab = ({
   artistsStatistics,
   genresStatistics,
   tracks,
   accessToken,
+  userId,
 }: DiscoverContentProps) => {
   const { id: playlistId } = useParams();
+  const chatStorageKey = getChatStorageKey(userId, playlistId as string);
 
   const methods = useForm<ChatFormType>({
     resolver: zodResolver(chatSchema),
@@ -77,6 +80,7 @@ export const useDiscoverTab = ({
     postMessageFn,
   } = useDiscoverMutation(
     playlistId as string,
+    userId,
     setTemporaryMessage,
     setErrorMessage,
     setOpenConfirmDialog,
@@ -86,21 +90,21 @@ export const useDiscoverTab = ({
   const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
   useEffect(() => {
-    const savedRecommendations = localStorage.getItem(playlistId as string);
+    const savedRecommendations = localStorage.getItem(chatStorageKey);
     if (savedRecommendations) {
       setRecommendationsTracks(JSON.parse(savedRecommendations));
       return;
     }
 
     const getLastRecommendations = async () => {
-      const response = await getMessages(playlistId as string);
+      const response = await getMessages(playlistId as string, userId);
       if (!response || !response[response.length - 1]) return;
 
       const lastRecommendations = response[response.length - 1].recommendations;
       setRecommendationsTracks(lastRecommendations);
     };
     getLastRecommendations();
-  }, [playlistId]);
+  }, [chatStorageKey, playlistId, userId]);
 
   const handleScrollToTop = () => {
     const header = document.getElementById('playlist-header');
@@ -150,7 +154,7 @@ export const useDiscoverTab = ({
         userMessageContent: data.prompt,
         recommendations: recommendationsResponse,
       });
-      localStorage.removeItem(playlistId as string);
+      localStorage.removeItem(chatStorageKey);
     } catch (error) {
       console.error('Error ao chamar gemini', error);
     } finally {
