@@ -31,5 +31,6 @@ export const addToPlaylist = async ({
     return { success: true };
   } catch (error) {
     console.error('Ocorreu um erro ao adicionar à playlist: ', error);
+    return { success: false, error: 'Falha ao adicionar música' };
   }
 };

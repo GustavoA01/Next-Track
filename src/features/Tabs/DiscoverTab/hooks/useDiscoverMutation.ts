@@ -1,7 +1,7 @@
 import { geminiRequest } from '@/actions/geminiRequest';
 import { ChatPromptType } from '@/data/types';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
-import { clientKeys, localStorageKeys } from '@/services/constantsKeys';
+import { clientKeys } from '@/services/constantsKeys';
 import { deleteChat } from '@/services/firebase/deleteChat';
 import { getMessages } from '@/services/firebase/getMessages';
 import { postMessages } from '@/services/firebase/postMessages';
@@ -65,7 +65,6 @@ export const useDiscoverMutation = (
     onSuccess: () => {
       setOpenConfirmDialog(false);
       localStorage.removeItem(playlistId);
-      localStorage.removeItem(localStorageKeys.musicsIds);
       setRecommendationsTracks([]);
       queryClient.invalidateQueries({
         queryKey: [clientKeys.chatMessages, playlistId],

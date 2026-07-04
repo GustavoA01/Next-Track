@@ -1,26 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { RightInfo } from '../container/RightInfo';
 
-const localStorageMock = (() => {
-  let store: Record<string, string> = {};
-  return {
-    getItem: jest.fn((key: string) => store[key] || null),
-    setItem: jest.fn((key: string, value: string) => {
-      store[key] = value;
-    }),
-    clear: jest.fn(() => {
-      store = {};
-    }),
-    removeItem: jest.fn((key: string) => {
-      delete store[key];
-    }),
-  };
-})();
-
-Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock,
-});
-
 jest.mock('sonner', () => ({
   toast: {
     info: jest.fn(),
@@ -33,12 +13,12 @@ const defaultProps = {
   id: '741',
   duration: '3:45',
   onAddToPlaylist: onAddToPlaylistMock,
+  isInPlaylist: false,
 };
 
 describe('RightInfo', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    localStorageMock.clear();
   });
 
   it('should render duration text correctly', () => {
@@ -50,9 +30,7 @@ describe('RightInfo', () => {
   });
 
   it('should render Plus icon when music is not added', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
-
-    render(<RightInfo {...defaultProps} />);
+    render(<RightInfo {...defaultProps} isInPlaylist={false} />);
 
     const plusIcon = document.querySelector('svg');
     expect(plusIcon).toBeInTheDocument();
@@ -60,9 +38,7 @@ describe('RightInfo', () => {
   });
 
   it('should render Check icon when music is already added', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
-
-    render(<RightInfo {...defaultProps} />);
+    render(<RightInfo {...defaultProps} isInPlaylist={true} />);
 
     const checkIcon = document.querySelector('svg');
     expect(checkIcon).toBeInTheDocument();
@@ -70,9 +46,9 @@ describe('RightInfo', () => {
   });
 
   it('should apply correct classes to wrapper div when music is not added', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
 
     const wrapper = container.querySelector('.border-primary');
     expect(wrapper).toHaveClass(
@@ -86,9 +62,9 @@ describe('RightInfo', () => {
   });
 
   it('should apply correct classes to wrapper div when music is added', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={true} />
+    );
 
     const wrapper = container.querySelector('.bg-primary');
     expect(wrapper).toHaveClass(
@@ -102,10 +78,9 @@ describe('RightInfo', () => {
   });
 
   it('should call onAddToPlaylist when clicked and music is not added', async () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
     onAddToPlaylistMock.mockResolvedValueOnce(undefined);
 
-    render(<RightInfo {...defaultProps} />);
+    render(<RightInfo {...defaultProps} isInPlaylist={false} />);
 
     const button = screen.getByTestId('add-to-playlist-button');
     fireEvent.click(button);
@@ -116,10 +91,13 @@ describe('RightInfo', () => {
   });
 
   it('should change from Plus to Check icon after successful addition', async () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
-    onAddToPlaylistMock.mockResolvedValueOnce(undefined);
+    onAddToPlaylistMock.mockImplementation(
+      () => new Promise((resolve) => setTimeout(resolve, 50))
+    );
 
-    const { container, rerender } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
 
     let plusIcon = container.querySelector('.lucide-plus');
     expect(plusIcon).toBeInTheDocument();
@@ -131,16 +109,96 @@ describe('RightInfo', () => {
       expect(onAddToPlaylistMock).toHaveBeenCalled();
     });
 
-    rerender(<RightInfo {...defaultProps} />);
+    await waitFor(() => {
+      const checkIcon = container.querySelector('.lucide-check');
+      expect(checkIcon).toBeInTheDocument();
+    });
+  });
 
-    const checkIcon = container.querySelector('.lucide-check');
-    expect(checkIcon).toBeInTheDocument();
+  it('should update UI before parent updates isInPlaylist prop', async () => {
+    onAddToPlaylistMock.mockImplementation(
+      () => new Promise((resolve) => setTimeout(resolve, 50))
+    );
+
+    const { container, rerender } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
+
+    fireEvent.click(screen.getByTestId('add-to-playlist-button'));
+
+    await waitFor(() => {
+      expect(container.querySelector('.lucide-check')).toBeInTheDocument();
+    });
+
+    expect(container.querySelector('.lucide-plus')).not.toBeInTheDocument();
+
+    rerender(<RightInfo {...defaultProps} isInPlaylist={false} />);
+
+    expect(container.querySelector('.lucide-check')).toBeInTheDocument();
+  });
+
+  it('should keep added state when parent updates isInPlaylist to true', async () => {
+    onAddToPlaylistMock.mockResolvedValueOnce(undefined);
+
+    const { container, rerender } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
+
+    fireEvent.click(screen.getByTestId('add-to-playlist-button'));
+
+    await waitFor(() => {
+      expect(container.querySelector('.lucide-check')).toBeInTheDocument();
+    });
+
+    rerender(<RightInfo {...defaultProps} isInPlaylist={true} />);
+
+    expect(container.querySelector('.lucide-check')).toBeInTheDocument();
+    expect(container.querySelector('.lucide-plus')).not.toBeInTheDocument();
+  });
+
+  it('should show plus icon when isInPlaylist changes from true to false', async () => {
+    onAddToPlaylistMock.mockResolvedValueOnce(undefined);
+
+    const { container, rerender } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
+
+    fireEvent.click(screen.getByTestId('add-to-playlist-button'));
+
+    await waitFor(() => {
+      expect(container.querySelector('.lucide-check')).toBeInTheDocument();
+    });
+
+    rerender(<RightInfo {...defaultProps} isInPlaylist={true} />);
+    expect(container.querySelector('.lucide-check')).toBeInTheDocument();
+
+    rerender(<RightInfo {...defaultProps} isInPlaylist={false} />);
+
+    expect(container.querySelector('.lucide-plus')).toBeInTheDocument();
+    expect(container.querySelector('.lucide-check')).not.toBeInTheDocument();
+  });
+
+  it('should reset local added state when track id changes', async () => {
+    onAddToPlaylistMock.mockResolvedValueOnce(undefined);
+
+    const { container, rerender } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
+
+    fireEvent.click(screen.getByTestId('add-to-playlist-button'));
+
+    await waitFor(() => {
+      expect(container.querySelector('.lucide-check')).toBeInTheDocument();
+    });
+
+    rerender(<RightInfo {...defaultProps} id="999" isInPlaylist={false} />);
+
+    expect(container.querySelector('.lucide-plus')).toBeInTheDocument();
+    expect(container.querySelector('.lucide-check')).not.toBeInTheDocument();
   });
 
   it('should not call onAddToPlaylist when clicked and music is already added', async () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
-
-    render(<RightInfo {...defaultProps} />);
+    render(<RightInfo {...defaultProps} isInPlaylist={true} />);
 
     const button = screen.getByTestId('add-to-playlist-button');
     fireEvent.click(button);
@@ -150,9 +208,8 @@ describe('RightInfo', () => {
 
   it('should show toast.info when trying to add already added music', () => {
     const { toast } = require('sonner');
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
 
-    render(<RightInfo {...defaultProps} />);
+    render(<RightInfo {...defaultProps} isInPlaylist={true} />);
 
     const button = screen.getByTestId('add-to-playlist-button');
     fireEvent.click(button);
@@ -162,10 +219,9 @@ describe('RightInfo', () => {
 
   it('should show toast.error when onAddToPlaylist fails', async () => {
     const { toast } = require('sonner');
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
     onAddToPlaylistMock.mockRejectedValueOnce(new Error('Network error'));
 
-    render(<RightInfo {...defaultProps} />);
+    render(<RightInfo {...defaultProps} isInPlaylist={false} />);
 
     const button = screen.getByTestId('add-to-playlist-button');
     fireEvent.click(button);
@@ -178,12 +234,10 @@ describe('RightInfo', () => {
   });
 
   it('should stop propagation when clicking already added music', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
-
     const onClickParent = jest.fn();
     render(
       <div onClick={onClickParent}>
-        <RightInfo {...defaultProps} />
+        <RightInfo {...defaultProps} isInPlaylist={true} />
       </div>
     );
 
@@ -194,13 +248,12 @@ describe('RightInfo', () => {
   });
 
   it('should not stop propagation when adding new music', async () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
     onAddToPlaylistMock.mockResolvedValueOnce(undefined);
 
     const onClickParent = jest.fn();
     render(
       <div onClick={onClickParent}>
-        <RightInfo {...defaultProps} />
+        <RightInfo {...defaultProps} isInPlaylist={false} />
       </div>
     );
 
@@ -212,75 +265,57 @@ describe('RightInfo', () => {
     });
   });
 
-  it('should load initial state from localStorage on mount', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+  it('should reflect isInPlaylist prop on mount', () => {
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={true} />
+    );
 
     const checkIcon = container.querySelector('.lucide-check');
     expect(checkIcon).toBeInTheDocument();
-    expect(localStorageMock.getItem).toHaveBeenCalledWith('addedMusics');
-  });
-
-  it('should handle localStorage with no data', () => {
-    localStorageMock.getItem.mockReturnValueOnce(null);
-
-    const { container } = render(<RightInfo {...defaultProps} />);
-
-    const plusIcon = container.querySelector('.lucide-plus');
-    expect(plusIcon).toBeInTheDocument();
-  });
-
-  it('should handle empty array in localStorage', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
-
-    const plusIcon = container.querySelector('.lucide-plus');
-    expect(plusIcon).toBeInTheDocument();
   });
 
   it('should apply animation class to Check icon', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={true} />
+    );
 
     const checkIcon = container.querySelector('.lucide-check');
     expect(checkIcon).toHaveClass('animate-scale-appear');
   });
 
   it('should apply correct size classes to icons', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
 
     const plusIcon = container.querySelector('.lucide-plus');
     expect(plusIcon).toHaveClass('md:w-6', 'md:h-6', 'w-4', 'h-4');
   });
 
   it('should apply correct text color to Plus icon', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
 
     const plusIcon = container.querySelector('.lucide-plus');
     expect(plusIcon).toHaveClass('text-white');
   });
 
   it('should apply correct text color to Check icon', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(['741']));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={true} />
+    );
 
     const checkIcon = container.querySelector('.lucide-check');
     expect(checkIcon).toHaveClass('text-black');
   });
 
   it('should update state after successful addition', async () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
     onAddToPlaylistMock.mockResolvedValueOnce(undefined);
 
-    const { container, rerender } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
 
     let wrapper = container.querySelector('.group\\/add');
     expect(wrapper).toBeInTheDocument();
@@ -292,18 +327,19 @@ describe('RightInfo', () => {
       expect(onAddToPlaylistMock).toHaveBeenCalled();
     });
 
-    rerender(<RightInfo {...defaultProps} />);
-
-    wrapper = container.querySelector('.bg-primary');
-    expect(wrapper).toBeInTheDocument();
+    await waitFor(() => {
+      wrapper = container.querySelector('.bg-primary');
+      expect(wrapper).toBeInTheDocument();
+    });
   });
 
   it('should revert state on error', async () => {
     const { toast } = require('sonner');
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
     onAddToPlaylistMock.mockRejectedValueOnce(new Error('Error'));
 
-    const { container, rerender } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
 
     let plusIcon = container.querySelector('.lucide-plus');
     expect(plusIcon).toBeInTheDocument();
@@ -314,8 +350,6 @@ describe('RightInfo', () => {
     await waitFor(() => {
       expect(toast.error).toHaveBeenCalled();
     });
-
-    rerender(<RightInfo {...defaultProps} />);
 
     plusIcon = container.querySelector('.lucide-plus');
     expect(plusIcon).toBeInTheDocument();
@@ -330,6 +364,7 @@ describe('RightInfo', () => {
           id="123"
           duration={duration}
           onAddToPlaylist={onAddToPlaylistMock}
+          isInPlaylist={false}
         />
       );
 
@@ -339,9 +374,9 @@ describe('RightInfo', () => {
   });
 
   it('should have correct transition classes on wrapper', () => {
-    localStorageMock.getItem.mockReturnValueOnce(JSON.stringify([]));
-
-    const { container } = render(<RightInfo {...defaultProps} />);
+    const { container } = render(
+      <RightInfo {...defaultProps} isInPlaylist={false} />
+    );
 
     const wrapper = container.querySelector('.border-primary');
     expect(wrapper).toHaveClass('transition-all', 'duration-200');

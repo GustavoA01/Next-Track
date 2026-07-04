@@ -2,17 +2,17 @@ import { getContextPrompt } from '@/utils/getContextPrompt';
 import { ChatFormType, chatSchema } from '@/data/chatSchema';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { searchTrack } from '@/services/spotify/searchTrack';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams } from 'next/navigation';
 import { addToPlaylist } from '@/actions/addToPlaylist';
 import { toast } from 'sonner';
 import { getMessages } from '@/services/firebase/getMessages';
-import { localStorageKeys } from '@/services/constantsKeys';
 import { useDiscoverMutation } from './useDiscoverMutation';
 import { useDiscoverVibe } from './useDiscoverVibe';
 import { DiscoverContentProps } from '../types';
+import { syncPlaylistTrackIds } from '@/utils/getPlaylistTrackIds';
 
 export const useDiscoverTab = ({
   artistsStatistics,
@@ -35,6 +35,28 @@ export const useDiscoverTab = ({
   const [temporaryMessage, setTemporaryMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
+  const pendingAddedTrackIds = useRef(new Set<string>());
+  const [playlistTrackIds, setPlaylistTrackIds] = useState<Set<string>>(() => {
+    const { syncedIds, pendingAddedIds } = syncPlaylistTrackIds(
+      tracks,
+      pendingAddedTrackIds.current
+    );
+    pendingAddedTrackIds.current = pendingAddedIds;
+    return syncedIds;
+  });
+
+  useEffect(() => {
+    pendingAddedTrackIds.current = new Set();
+  }, [playlistId]);
+
+  useEffect(() => {
+    const { syncedIds, pendingAddedIds } = syncPlaylistTrackIds(
+      tracks,
+      pendingAddedTrackIds.current
+    );
+    pendingAddedTrackIds.current = pendingAddedIds;
+    setPlaylistTrackIds(syncedIds);
+  }, [tracks]);
 
   const {
     emotionalVibe,
@@ -75,11 +97,10 @@ export const useDiscoverTab = ({
       if (!response || !response[response.length - 1]) return;
 
       const lastRecommendations = response[response.length - 1].recommendations;
-      lastRecommendations.length > 0 ? lastRecommendations : [];
       setRecommendationsTracks(lastRecommendations);
     };
     getLastRecommendations();
-  }, []);
+  }, [playlistId]);
 
   const handleScrollToTop = () => {
     const header = document.getElementById('playlist-header');
@@ -142,21 +163,16 @@ export const useDiscoverTab = ({
       uris: [trackUri],
     };
 
-    const success = await addToPlaylist({ jsonUris, playlistId, accessToken });
+    const result = await addToPlaylist({ jsonUris, playlistId, accessToken });
 
-    if (success) {
-      const localStorageData = localStorage.getItem(localStorageKeys.musicsIds);
-      const previousIds = localStorageData ? JSON.parse(localStorageData) : [];
-      const updatedIds = [...previousIds, musicId];
-
-      localStorage.setItem(
-        localStorageKeys.musicsIds,
-        JSON.stringify(updatedIds)
-      );
+    if (result?.success) {
+      pendingAddedTrackIds.current.add(musicId);
+      setPlaylistTrackIds((prev) => new Set([...prev, musicId]));
       toast.success('Música adicionada à playlist!');
-    } else {
-      toast.error('Erro ao adicionar música à playlist.');
+      return;
     }
+
+    throw new Error('Failed to add track to playlist');
   };
 
   return {
@@ -177,6 +193,7 @@ export const useDiscoverTab = ({
     errorMessage,
     isVibesChanged,
     onAddToPlaylist,
+    playlistTrackIds,
     temporaryMessage,
     deleteChatFn,
     openConfirmDialog,

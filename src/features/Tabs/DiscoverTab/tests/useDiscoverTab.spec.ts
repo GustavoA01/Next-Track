@@ -362,6 +362,44 @@ describe('useDiscoverTab', () => {
     expect(result.current.openConfirmDialog).toBe(false);
     expect(result.current.messages).toEqual(mockMessages);
     expect(result.current.isResponseLoading).toBe(false);
+    expect(result.current.playlistTrackIds.has('track-1')).toBe(true);
+    expect(result.current.playlistTrackIds.has('track-2')).toBe(true);
+  });
+
+  it('should sync playlistTrackIds when tracks prop changes', () => {
+    const { result, rerender } = renderHook(
+      (props: typeof mockProps) => useDiscoverTab(props),
+      { initialProps: mockProps }
+    );
+
+    expect(result.current.playlistTrackIds.has('track-2')).toBe(true);
+
+    rerender({
+      ...mockProps,
+      tracks: mockProps.tracks!.slice(0, 1),
+    });
+
+    expect(result.current.playlistTrackIds.has('track-1')).toBe(true);
+    expect(result.current.playlistTrackIds.has('track-2')).toBe(false);
+  });
+
+  it('should keep pending added track ids until server tracks include them', async () => {
+    (addToPlaylist as jest.Mock).mockResolvedValue({ success: true });
+
+    const { result, rerender } = renderHook(
+      (props: typeof mockProps) => useDiscoverTab(props),
+      { initialProps: mockProps }
+    );
+
+    await act(async () => {
+      await result.current.onAddToPlaylist('spotify:track:123', 'music-123');
+    });
+
+    expect(result.current.playlistTrackIds.has('music-123')).toBe(true);
+
+    rerender({ ...mockProps });
+
+    expect(result.current.playlistTrackIds.has('music-123')).toBe(true);
   });
 
   it('should load recommendations from localStorage if available', () => {
@@ -450,8 +488,7 @@ describe('useDiscoverTab', () => {
   });
 
   it('should add track to playlist successfully', async () => {
-    (addToPlaylist as jest.Mock).mockResolvedValue(true);
-    localStorageMock.getItem.mockReturnValue(JSON.stringify([]));
+    (addToPlaylist as jest.Mock).mockResolvedValue({ success: true });
 
     const { result } = renderHook(() => useDiscoverTab(mockProps));
 
@@ -465,7 +502,22 @@ describe('useDiscoverTab', () => {
       accessToken: mockAccessToken,
     });
     expect(toast.success).toHaveBeenCalledWith('Música adicionada à playlist!');
-    expect(localStorageMock.setItem).toHaveBeenCalled();
+    expect(result.current.playlistTrackIds.has('music-123')).toBe(true);
+  });
+
+  it('should throw when add to playlist fails', async () => {
+    (addToPlaylist as jest.Mock).mockResolvedValue({ success: false });
+
+    const { result } = renderHook(() => useDiscoverTab(mockProps));
+
+    await expect(
+      act(async () => {
+        await result.current.onAddToPlaylist('spotify:track:123', 'music-123');
+      })
+    ).rejects.toThrow('Failed to add track to playlist');
+
+    expect(toast.error).not.toHaveBeenCalled();
+    expect(result.current.playlistTrackIds.has('music-123')).toBe(false);
   });
 
   it('should handle loading states during chat request', async () => {

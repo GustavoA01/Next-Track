@@ -7,6 +7,7 @@ import { RecommendationsProps } from '../types';
 export const Recommendations = ({
   recommendationsTracks,
   accessToken,
+  playlistTrackIds,
   onAddToPlaylist,
 }: RecommendationsProps) => {
   const [uris, setUris] = useState<string[]>([]);
@@ -28,6 +29,7 @@ export const Recommendations = ({
             <MusicCard
               key={`music-card-${track.id}`}
               id={track.id}
+              isInPlaylist={playlistTrackIds.has(track.id)}
               onClick={() => handleMusicCardClick(track.uri)}
               index={index}
               musicName={track.name}
@@ -38,7 +40,7 @@ export const Recommendations = ({
                 e: React.MouseEvent<HTMLDivElement, MouseEvent>
               ) => {
                 e.stopPropagation();
-                onAddToPlaylist(track.uri, track.id);
+                await onAddToPlaylist(track.uri, track.id);
               }}
             />
           );

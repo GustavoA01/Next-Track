@@ -5,6 +5,7 @@ export type MusicCardProps = {
   musicName: string;
   artistName: string;
   duration: string;
+  isInPlaylist?: boolean;
   onClick: () => void;
   onAddToPlaylist: (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -14,6 +15,7 @@ export type MusicCardProps = {
 export type RightInfoProps = {
   id: string;
   duration: string;
+  isInPlaylist?: boolean;
   onAddToPlaylist: (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => Promise<void>;

@@ -2,6 +2,12 @@ import { ChatContentResponse } from '@/data/types';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 
+export type useChatContentType = {
+  messages: ChatContentResponse[];
+  isLoading: boolean;
+  temporaryMessage: string;
+};
+
 export type DiscoverContentProps = PlaylistStatisticsType & {
   accessToken: string;
 };
@@ -9,6 +15,7 @@ export type DiscoverContentProps = PlaylistStatisticsType & {
 export type RecommendationsProps = {
   recommendationsTracks: SpotifyPlaylistTrack[];
   accessToken: string;
+  playlistTrackIds: Set<string>;
   onAddToPlaylist: (trackUri: string, musicId: string) => Promise<void>;
 };
 

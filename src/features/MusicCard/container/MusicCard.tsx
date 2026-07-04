@@ -11,6 +11,7 @@ export const MusicCard = ({
   musicName,
   artistName,
   duration,
+  isInPlaylist,
   onClick,
   onAddToPlaylist,
 }: MusicCardProps) => (
@@ -31,6 +32,7 @@ export const MusicCard = ({
       <RightInfo
         id={id}
         duration={duration}
+        isInPlaylist={isInPlaylist}
         onAddToPlaylist={onAddToPlaylist}
       />
     </div>

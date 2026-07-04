@@ -37,6 +37,7 @@ export const DiscoverContent = ({
     errorMessage,
     isVibesChanged,
     onAddToPlaylist,
+    playlistTrackIds,
     temporaryMessage,
     deleteChatFn,
     openConfirmDialog,
@@ -117,6 +118,7 @@ export const DiscoverContent = ({
           onAddToPlaylist={onAddToPlaylist}
           accessToken={accessToken}
           recommendationsTracks={recommendationsTracks}
+          playlistTrackIds={playlistTrackIds}
         />
       )}
 

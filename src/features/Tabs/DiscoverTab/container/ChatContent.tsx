@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Trash } from 'lucide-react';
 import { MessageCard } from '../components/MessageCard';
-import { useEffect, useRef } from 'react';
 import { ChatContentProps } from '../types';
+import { useChatContent } from '../hooks/useChatContent';
 
 const defaultCardClassName = 'p-2 px-0 w-fit max-md:text-sm';
 
@@ -15,21 +15,16 @@ export const ChatContent = ({
   temporaryMessage,
   setOpenConfirmDialog,
 }: ChatContentProps) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        top: scrollRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
-    }
-  }, [messages, isLoading, temporaryMessage]);
+  const scrollRef = useChatContent({
+    messages,
+    isLoading,
+    temporaryMessage,
+  });
 
   return (
     <Card className="max-h-150 animate-fade-in-up-down">
       <CardHeader className="flex max-h-5 justify-between items-center py-0">
-        <CardTitle className="font-montserrat text-muted-foreground tracking-widest">
+        <CardTitle className="font-montserrat text-muted-foreground tracking-widest select-none">
           CHAT
         </CardTitle>
         <Button
@@ -48,39 +43,39 @@ export const ChatContent = ({
           <div key={`message-${index}`}>
             <MessageCard
               key={`ia-${index}`}
-              cardClassName={`bg-primary ml-auto rounded-tr-xs sm:max-w-[75%] ${defaultCardClassName}`}
-              textClassName="text-background"
               content={message.userMessage}
+              textClassName="text-background"
+              cardClassName={`bg-primary ml-auto rounded-tr-xs sm:max-w-[75%] ${defaultCardClassName}`}
             />
             <MessageCard
               key={`user-${index}`}
-              cardClassName={`mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs sm:max-w-[80%] ${defaultCardClassName}`}
               content={message.chatResponse}
+              cardClassName={`mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs sm:max-w-[80%] ${defaultCardClassName}`}
             />
           </div>
         ))}
 
         {temporaryMessage !== '' && (
           <MessageCard
-            cardClassName={`bg-primary ml-auto rounded-tr-xs max-w-[75%] ${defaultCardClassName}`}
-            textClassName="text-background"
             content={temporaryMessage}
+            textClassName="text-background"
+            cardClassName={`bg-primary ml-auto rounded-tr-xs max-w-[75%] ${defaultCardClassName}`}
           />
         )}
 
         {isLoading && (
           <Skeleton className={`md:mr-auto rounded-xl rounded-tl-xs w-fit`}>
             <MessageCard
-              cardClassName={`${defaultCardClassName} bg-transparent rounded-tl-xs`}
               content="Buscando músicas..."
+              cardClassName={`${defaultCardClassName} bg-transparent rounded-tl-xs`}
             />
           </Skeleton>
         )}
 
         {errorMessage && (
           <MessageCard
-            cardClassName={`bg-red-600/30 mr-auto rounded-tl-xs max-w-[80%] ${defaultCardClassName}`}
             content={errorMessage}
+            cardClassName={`bg-red-600/30 mr-auto rounded-tl-xs max-w-[80%] ${defaultCardClassName}`}
           />
         )}
       </CardContent>

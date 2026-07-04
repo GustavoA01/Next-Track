@@ -7,8 +7,13 @@ export const RightInfo = ({
   id,
   duration,
   onAddToPlaylist,
+  isInPlaylist,
 }: RightInfoProps) => {
-  const { handleCLick, isMusicAdded } = useRightInfo({ id, onAddToPlaylist });
+  const { handleCLick, isMusicAdded } = useRightInfo({
+    id,
+    onAddToPlaylist,
+    isInPlaylist,
+  });
 
   return (
     <section className="flex items-center gap-2">

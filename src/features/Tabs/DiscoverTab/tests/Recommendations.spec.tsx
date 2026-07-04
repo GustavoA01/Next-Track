@@ -64,6 +64,7 @@ jest.mock('../../../../features/Tabs/DiscoverTab/components/Player', () => ({
 const mockAccessToken = 'test-access-token';
 const mockOnAddToPlaylist = jest.fn();
 const mockScrollIntoView = jest.fn();
+const mockPlaylistTrackIds = new Set<string>();
 
 const mockRecommendationsTracks: SpotifyPlaylistTrack[] = [
   {
@@ -113,6 +114,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -128,6 +130,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -141,6 +144,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -159,6 +163,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -171,6 +176,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -188,6 +194,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -207,6 +214,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -225,6 +233,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
@@ -245,6 +254,7 @@ describe('Recommendations', () => {
         recommendationsTracks={mockRecommendationsTracks}
         accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
+        playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
