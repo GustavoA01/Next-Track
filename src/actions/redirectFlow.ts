@@ -2,12 +2,16 @@
 import crypto from 'node:crypto';
 import { cookies } from 'next/headers';
 import { redirect, RedirectType } from 'next/navigation';
+import {
+  SPOTIFY_ACCESS_TOKEN_COOKIE,
+  SPOTIFY_REFRESH_TOKEN_COOKIE,
+} from '@/lib/spotifyAuthCookies';
 
 export const redirectToAuthCodeFlow = async (clientId: string) => {
   const cookiesStore = await cookies();
   const settedCookies =
-    cookiesStore.has('spotifyRefreshToken') ||
-    cookiesStore.has('spotifyAccessToken');
+    cookiesStore.has(SPOTIFY_REFRESH_TOKEN_COOKIE) ||
+    cookiesStore.has(SPOTIFY_ACCESS_TOKEN_COOKIE);
 
   if (settedCookies) redirect('/home');
 

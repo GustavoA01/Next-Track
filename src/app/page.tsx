@@ -2,10 +2,11 @@ import { ConnectAccountButton } from '@/components/ConnectAccountButton';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
+import { SPOTIFY_REFRESH_TOKEN_COOKIE } from '@/lib/spotifyAuthCookies';
 
 const LoginPage = async () => {
   const cookiesStore = await cookies();
-  const hasrefreshToken = cookiesStore.has('spotifyRefreshToken');
+  const hasrefreshToken = cookiesStore.has(SPOTIFY_REFRESH_TOKEN_COOKIE);
 
   if (hasrefreshToken) redirect('/home');
 

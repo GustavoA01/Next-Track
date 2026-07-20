@@ -58,10 +58,15 @@ export const refreshAccessToken = async (
     body: params.toString(),
   });
 
-  if (!response.ok)
-    throw new Error(`Falha ao atualizar token: ${response.status}`);
-
   const data = await response.json();
+
+  if (data.error === 'invalid_grant') throw new Error('invalid_grant');
+
+  if (!response.ok || data.error) {
+    throw new Error(
+      `Falha ao atualizar token: ${data.error ?? response.status}`
+    );
+  }
 
   return {
     accessToken: data.access_token,

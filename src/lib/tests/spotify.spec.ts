@@ -99,10 +99,23 @@ describe('spotify lib', () => {
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: false,
         status: 401,
+        json: () => Promise.resolve({ error: 'invalid_request' }),
       });
 
       await expect(refreshAccessToken('invalid-refresh')).rejects.toThrow(
-        'Falha ao atualizar token: 401'
+        'Falha ao atualizar token: invalid_request'
+      );
+    });
+
+    it('should throw invalid_grant when refresh token expired', async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: () => Promise.resolve({ error: 'invalid_grant' }),
+      });
+
+      await expect(refreshAccessToken('expired-refresh')).rejects.toThrow(
+        'invalid_grant'
       );
     });
   });

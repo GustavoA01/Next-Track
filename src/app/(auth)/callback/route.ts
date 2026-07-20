@@ -1,4 +1,5 @@
 import { connectSpotifyAccount } from '@/lib/spotify';
+import { setSpotifyAuthCookies } from '@/lib/spotifyAuthCookies';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -22,21 +23,7 @@ export const GET = async (request: NextRequest) => {
 
     const cookiesStore = await cookies();
 
-    cookiesStore.set('spotifyAccessToken', accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60,
-      path: '/',
-    });
-
-    if (refreshToken) {
-      cookiesStore.set('spotifyRefreshToken', refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 60 * 60 * 24 * 7,
-        path: '/',
-      });
-    }
+    setSpotifyAuthCookies(cookiesStore, { accessToken, refreshToken });
 
     return NextResponse.redirect(redirectToHome);
   } catch (error) {
