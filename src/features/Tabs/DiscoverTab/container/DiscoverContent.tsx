@@ -44,6 +44,7 @@ export const DiscoverContent = ({
     openConfirmDialog,
     setOpenConfirmDialog,
     handleScrollToTop,
+    handleOnKeyDown,
   } = useDiscoverTab({
     accessToken,
     userId,
@@ -79,25 +80,25 @@ export const DiscoverContent = ({
         className="space-y-2"
         onSubmit={methods.handleSubmit(handleChatRequest)}
       >
-        <div className="flex items-end gap-2">
+        <div className="flex w-full items-end gap-2 rounded-3xl bg-input/30 p-2 pl-4">
           <Textarea
-            {...methods.register('prompt')}
-            className="w-full rounded-xl hide-scrollbar max-sm:text-sm resize-none min-h-10 max-h-20"
-            placeholder="Peça músicas..."
+            onKeyDown={handleOnKeyDown}
             disabled={isResponseLoading}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                methods.handleSubmit(handleChatRequest)();
-              }
-            }}
+            placeholder="Peça músicas..."
+            {...methods.register('prompt')}
+            className="min-h-9 max-h-20 w-full resize-none border-none bg-transparent px-0 py-2 shadow-none hide-scrollbar max-sm:text-sm focus-visible:ring-0 dark:bg-transparent"
           />
 
-          <Button className="group" type="submit" disabled={isResponseLoading}>
+          <Button
+            size="icon"
+            type="submit"
+            disabled={isResponseLoading}
+            className="group shrink-0 rounded-full"
+          >
             {isResponseLoading ? (
               <Spinner />
             ) : (
-              <Sparkles className="group-hover:text-white transition-all duration-200" />
+              <Sparkles className="transition-all duration-200 group-hover:text-white" />
             )}
           </Button>
         </div>

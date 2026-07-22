@@ -1,3 +1,4 @@
+import { SpotifyPlaylistTracks } from '@/data/types/spotify';
 import {
   getPlaylistTrackIds,
   syncPlaylistTrackIds,
@@ -12,7 +13,7 @@ const mockTracks = [
     added_at: new Date(),
     track: { id: 'track-2' },
   },
-] as any;
+] as SpotifyPlaylistTracks['items'];
 
 describe('getPlaylistTrackIds', () => {
   it('should extract track ids from playlist items', () => {
@@ -27,7 +28,7 @@ describe('getPlaylistTrackIds', () => {
     const ids = getPlaylistTrackIds([
       { added_at: new Date(), track: { id: 'track-1' } },
       { added_at: new Date(), track: {} },
-    ] as any);
+    ] as SpotifyPlaylistTracks['items']);
 
     expect(ids).toEqual(new Set(['track-1']));
   });

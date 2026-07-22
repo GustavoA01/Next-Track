@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RightInfoProps } from '../types';
 import { toast } from 'sonner';
 
@@ -8,16 +8,20 @@ export const useRightInfo = ({
   isInPlaylist = false,
 }: Omit<RightInfoProps, 'duration'>) => {
   const [addedLocally, setAddedLocally] = useState(false);
+  const [prevId, setPrevId] = useState(id);
+  const [prevIsInPlaylist, setPrevIsInPlaylist] = useState(isInPlaylist);
 
-  useEffect(() => {
+  if (id !== prevId) {
+    setPrevId(id);
     setAddedLocally(false);
-  }, [id]);
+  }
 
-  useEffect(() => {
+  if (isInPlaylist !== prevIsInPlaylist) {
+    setPrevIsInPlaylist(isInPlaylist);
     if (!isInPlaylist) {
       setAddedLocally(false);
     }
-  }, [isInPlaylist]);
+  }
 
   const isMusicAdded = isInPlaylist || addedLocally;
 

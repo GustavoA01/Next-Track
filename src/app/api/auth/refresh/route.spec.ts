@@ -5,6 +5,7 @@ import {
   setSpotifyAuthCookies,
   SPOTIFY_REFRESH_TOKEN_COOKIE,
 } from '@/lib/spotifyAuthCookies';
+import { cookies } from 'next/headers';
 
 jest.mock('next/headers', () => ({
   cookies: jest.fn(),
@@ -35,8 +36,7 @@ describe('GET /api/auth/refresh', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    const { cookies } = require('next/headers');
-    cookies.mockResolvedValue(mockCookieStore);
+    (cookies as jest.Mock).mockResolvedValue(mockCookieStore);
   });
 
   it('should redirect to login when refresh token is missing', async () => {

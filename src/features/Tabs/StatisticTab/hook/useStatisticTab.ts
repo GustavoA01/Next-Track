@@ -2,7 +2,6 @@ import { SpotifyPlaylistTracks } from '@/data/types/spotify';
 import { getPopularityAvgMessage } from '@/utils/getPopularityAvgMessage';
 import { getTrackPopularity } from '@/utils/getTrackPopulartity';
 import { extractColors } from 'extract-colors';
-import { traceGlobals } from 'next/dist/trace/shared';
 import { useCallback, useMemo } from 'react';
 
 const formatName = (name: string) =>
@@ -24,7 +23,7 @@ export const useStatisticTab = (tracks: SpotifyPlaylistTracks) => {
 
   const avgMessage = useMemo(
     () => getPopularityAvgMessage(tracks, tracks.total),
-    [traceGlobals, tracks.total]
+    [tracks]
   );
 
   const chartData = useMemo(() => getTrackPopularity(tracks), [tracks]);

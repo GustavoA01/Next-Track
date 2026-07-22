@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
+import { extractColors } from 'extract-colors';
 import { useStatisticTab } from '../hook/useStatisticTab';
 
 jest.mock('extract-colors', () => ({
@@ -43,8 +44,7 @@ describe('useStatisticTab', () => {
       useStatisticTab({ items: [], total: 0, href: '', primary_color: '' })
     );
 
-    const { extractColors } = require('extract-colors');
-    extractColors.mockImplementationOnce(() => {
+    (extractColors as jest.Mock).mockImplementationOnce(() => {
       throw new Error('fail');
     });
 

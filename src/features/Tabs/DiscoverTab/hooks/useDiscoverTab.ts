@@ -179,6 +179,13 @@ export const useDiscoverTab = ({
     throw new Error('Failed to add track to playlist');
   };
 
+  const handleOnKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      methods.handleSubmit(handleChatRequest)();
+    }
+  };
+
   return {
     methods,
     handleChatRequest,
@@ -203,5 +210,6 @@ export const useDiscoverTab = ({
     openConfirmDialog,
     setOpenConfirmDialog,
     handleScrollToTop,
+    handleOnKeyDown,
   };
 };

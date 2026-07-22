@@ -12,7 +12,7 @@ export const resizeObserverMock = () => {
     observe() {}
     unobserve() {}
     disconnect() {}
-  } as any;
+  };
 };
 
 export const mockTracks: SpotifyPlaylistTracks = {

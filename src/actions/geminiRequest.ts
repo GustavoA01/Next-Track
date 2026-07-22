@@ -71,6 +71,6 @@ export const geminiRequest = async ({
     return JSON.parse(response.text || '{}');
   } catch (error) {
     console.error('Gemini request error:', error);
-    throw new Error('Failed to fetch Gemini ', error as any);
+    throw new Error('Failed to fetch Gemini', { cause: error });
   }
 };

@@ -16,9 +16,12 @@ type MusicCardProps = {
   ) => Promise<void>;
 };
 
-jest.mock('next/image', () => ({ src, alt, width, height }: NextImgProps) => (
-  <img src={src} alt={alt} width={width} height={height} />
-));
+jest.mock('next/image', () => {
+  function MockImage({ src, alt, width, height }: NextImgProps) {
+    return <img src={src} alt={alt} width={width} height={height} />;
+  }
+  return MockImage;
+});
 
 jest.mock('../../../MusicCard/container/MusicCard', () => ({
   MusicCard: ({
@@ -72,8 +75,15 @@ const mockRecommendationsTracks: SpotifyPlaylistTrack[] = [
   {
     id: 'track-1',
     name: 'Song One',
-    artists: [{ id: 'artist-1', name: 'Artist One' } as any],
-    album: { images: [{ url: 'image-1.jpg' }] } as any,
+    artists: [
+      {
+        id: 'artist-1',
+        name: 'Artist One',
+      } as SpotifyPlaylistTrack['artists'][number],
+    ],
+    album: {
+      images: [{ url: 'image-1.jpg' }],
+    } as SpotifyPlaylistTrack['album'],
     duration_ms: 180000,
     preview_url: 'preview-url-1',
     explicit: false,
@@ -87,8 +97,15 @@ const mockRecommendationsTracks: SpotifyPlaylistTrack[] = [
   {
     id: 'track-2',
     name: 'Song Two',
-    artists: [{ id: 'artist-2', name: 'Artist Two' } as any],
-    album: { images: [{ url: 'image-2.jpg' }] } as any,
+    artists: [
+      {
+        id: 'artist-2',
+        name: 'Artist Two',
+      } as SpotifyPlaylistTrack['artists'][number],
+    ],
+    album: {
+      images: [{ url: 'image-2.jpg' }],
+    } as SpotifyPlaylistTrack['album'],
     duration_ms: 240000,
     preview_url: 'preview-url-2',
     explicit: false,
@@ -265,7 +282,7 @@ describe('Recommendations', () => {
 
     await waitFor(() => {
       const player = screen.getByTestId('player-component');
-      let uris = JSON.parse(player.getAttribute('data-uris') || '[]');
+      const uris = JSON.parse(player.getAttribute('data-uris') || '[]');
       expect(uris).toEqual(['spotify:track:1']);
     });
 
@@ -274,7 +291,7 @@ describe('Recommendations', () => {
 
     await waitFor(() => {
       const player = screen.getByTestId('player-component');
-      let uris = JSON.parse(player.getAttribute('data-uris') || '[]');
+      const uris = JSON.parse(player.getAttribute('data-uris') || '[]');
       expect(uris).toEqual(['spotify:track:2']);
     });
   });

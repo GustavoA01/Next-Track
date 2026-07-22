@@ -2,9 +2,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { NextImgProps } from '@/globalTestsMocks';
 import { ArtistCard } from '../components/ArtistCard';
 
-jest.mock('next/image', () => ({ src, alt, width, height }: NextImgProps) => (
-  <img src={src} alt={alt} width={width} height={height} />
-));
+jest.mock('next/image', () => {
+  function MockImage({ src, alt, width, height }: NextImgProps) {
+    return <img src={src} alt={alt} width={width} height={height} />;
+  }
+  return MockImage;
+});
 
 const mockArtist = {
   id: '1',

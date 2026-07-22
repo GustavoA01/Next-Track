@@ -19,7 +19,16 @@ const defaultProps: useChatContentType = {
   temporaryMessage: '',
 };
 
+const mockUseRef = (scrollRef: { current: HTMLDivElement | null }) => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  jest.spyOn(require('react'), 'useRef').mockReturnValue(scrollRef);
+};
+
 describe('useChatContent', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('should scroll to bottom when messages change', () => {
     const scrollTo = jest.fn();
     const scrollRef = {
@@ -29,7 +38,7 @@ describe('useChatContent', () => {
       } as unknown as HTMLDivElement,
     };
 
-    jest.spyOn(require('react'), 'useRef').mockReturnValue(scrollRef);
+    mockUseRef(scrollRef);
 
     const { rerender } = renderHook(
       (props: useChatContentType) => useChatContent(props),
@@ -56,7 +65,7 @@ describe('useChatContent', () => {
       } as unknown as HTMLDivElement,
     };
 
-    jest.spyOn(require('react'), 'useRef').mockReturnValue(scrollRef);
+    mockUseRef(scrollRef);
 
     const { rerender } = renderHook(
       (props: useChatContentType) => useChatContent(props),
@@ -75,7 +84,7 @@ describe('useChatContent', () => {
   });
 
   it('should not throw when scroll ref is null', () => {
-    jest.spyOn(require('react'), 'useRef').mockReturnValue({ current: null });
+    mockUseRef({ current: null });
 
     expect(() =>
       renderHook(() =>

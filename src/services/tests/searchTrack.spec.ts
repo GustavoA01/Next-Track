@@ -15,7 +15,7 @@ jest.mock('next/navigation', () => ({
 describe('searchTrack', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (global as any).fetch = jest.fn();
+    (globalThis as typeof globalThis & { fetch: jest.Mock }).fetch = jest.fn();
   });
 
   it('fetches tracks and returns a flattened items list', async () => {

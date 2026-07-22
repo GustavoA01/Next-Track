@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { toast } from 'sonner';
 import { RightInfo } from '../container/RightInfo';
 
 jest.mock('sonner', () => ({
@@ -99,7 +100,7 @@ describe('RightInfo', () => {
       <RightInfo {...defaultProps} isInPlaylist={false} />
     );
 
-    let plusIcon = container.querySelector('.lucide-plus');
+    const plusIcon = container.querySelector('.lucide-plus');
     expect(plusIcon).toBeInTheDocument();
 
     const button = screen.getByTestId('add-to-playlist-button');
@@ -207,8 +208,6 @@ describe('RightInfo', () => {
   });
 
   it('should show toast.info when trying to add already added music', () => {
-    const { toast } = require('sonner');
-
     render(<RightInfo {...defaultProps} isInPlaylist={true} />);
 
     const button = screen.getByTestId('add-to-playlist-button');
@@ -218,7 +217,6 @@ describe('RightInfo', () => {
   });
 
   it('should show toast.error when onAddToPlaylist fails', async () => {
-    const { toast } = require('sonner');
     onAddToPlaylistMock.mockRejectedValueOnce(new Error('Network error'));
 
     render(<RightInfo {...defaultProps} isInPlaylist={false} />);
@@ -334,7 +332,6 @@ describe('RightInfo', () => {
   });
 
   it('should revert state on error', async () => {
-    const { toast } = require('sonner');
     onAddToPlaylistMock.mockRejectedValueOnce(new Error('Error'));
 
     const { container } = render(

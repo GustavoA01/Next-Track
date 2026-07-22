@@ -2,6 +2,7 @@ import { getMessages } from '@/services/firebase/getMessages';
 import { postMessages } from '@/services/firebase/postMessages';
 import { deleteChat } from '@/services/firebase/deleteChat';
 import { collection, orderBy, where } from 'firebase/firestore';
+import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 
 jest.mock('@/services/firebase/firebaseConfig', () => ({
   db: {},
@@ -113,7 +114,7 @@ describe('postMessages', () => {
   });
 
   it('should save message with userId and all fields', async () => {
-    const recommendations = [{ id: 'track-1' }] as any;
+    const recommendations = [{ id: 'track-1' }] as SpotifyPlaylistTrack[];
 
     await postMessages({
       playlistId: 'playlist-1',

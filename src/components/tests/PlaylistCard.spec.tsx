@@ -1,27 +1,46 @@
 import { render, screen } from '@testing-library/react';
 import { PlaylistCard } from '../PlaylistCard';
+import { NextImgProps } from '@/globalTestsMocks';
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, width, height, className }: any) => (
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-      data-testid="next-image"
-    />
-  ),
+  default: function MockImage({
+    src,
+    alt,
+    width,
+    height,
+    className,
+  }: NextImgProps & { className?: string }) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        data-testid="next-image"
+      />
+    );
+  },
 }));
 
 jest.mock('next/link', () => ({
   __esModule: true,
-  default: ({ children, href, className }: any) => (
-    <a href={href} className={className} data-testid="next-link">
-      {children}
-    </a>
-  ),
+  default: function MockLink({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href: string;
+    className?: string;
+  }) {
+    return (
+      <a href={href} className={className} data-testid="next-link">
+        {children}
+      </a>
+    );
+  },
 }));
 
 const defaultProps = {

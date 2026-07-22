@@ -3,6 +3,7 @@ import { getCurrentToken } from '@/lib/getCurrentToken';
 import { baseSpotifyUrl } from '@/services/constantsKeys';
 
 export const playMusic = async (trackId: string) => {
+  void trackId;
   const accessToken = await getCurrentToken();
 
   try {

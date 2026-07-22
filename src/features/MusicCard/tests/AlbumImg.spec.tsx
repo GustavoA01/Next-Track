@@ -2,9 +2,12 @@ import { render, screen } from '@testing-library/react';
 import { AlbumImg } from '../components/AlbumImg';
 import { NextImgProps } from '@/globalTestsMocks';
 
-jest.mock('next/image', () => ({ src, alt, width, height }: NextImgProps) => (
-  <img src={src} width={width} height={height} alt={alt} />
-));
+jest.mock('next/image', () => {
+  function MockImage({ src, alt, width, height }: NextImgProps) {
+    return <img src={src} width={width} height={height} alt={alt} />;
+  }
+  return MockImage;
+});
 
 describe('AlbumImg', () => {
   it('renders component with correct attributes', () => {
