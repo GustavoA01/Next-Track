@@ -7,15 +7,30 @@ import { Suspense } from 'react';
 import { StatisticsContentSkeleton } from '@/components/Skeletons';
 import { StatisticContentProps } from '../types';
 import { ArtistsCarousel } from './ArtistsCarousel';
+import { SpotifyPlaylistTracks } from '@/data/types/spotify';
 
 export const StatisticContent = ({
   playlist,
   artistsStatistics,
   genresStatistics,
+  tracks,
 }: StatisticContentProps) => {
-  const { avgMessage, chartData, formatName, getHexaColor } = useStatisticTab(
-    playlist.tracks
-  );
+  const playlistTracks: SpotifyPlaylistTracks = {
+    href: playlist.tracks.href,
+    total: playlist.tracks.total,
+    primary_color: playlist.tracks.primary_color,
+    items: tracks ?? playlist.tracks.items,
+  };
+
+  const {
+    avgMessage,
+    chartData,
+    formatName,
+    getHexaColor,
+    mostPopular,
+    leastPopular,
+    showLeastPopular,
+  } = useStatisticTab(playlistTracks);
 
   return (
     <TabsContent value="statistics" className="flex flex-col gap-10">
@@ -51,7 +66,13 @@ export const StatisticContent = ({
 
             <section>
               <StatisticSubTitle text="Nível de popularidade das músicas" />
-              <PopularityChart avgMessage={avgMessage} chartData={chartData} />
+              <PopularityChart
+                avgMessage={avgMessage}
+                chartData={chartData}
+                mostPopular={mostPopular}
+                leastPopular={leastPopular}
+                showLeastPopular={showLeastPopular}
+              />
             </section>
           </>
         )}

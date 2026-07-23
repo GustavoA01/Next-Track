@@ -2,7 +2,7 @@ import {
   AverageMessageType,
   PlaylistStatisticsType,
 } from '@/data/types/recommendations';
-import { SpotifyPlaylist } from '@/data/types/spotify';
+import { SpotifyPlaylist, SpotifyPlaylistTrack } from '@/data/types/spotify';
 
 export type TabsMenuProps = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;
@@ -22,6 +22,14 @@ export type StatisticSubTitleProps = {
 export type PopularityChartProps = {
   avgMessage: AverageMessageType;
   chartData: { popularity: number }[];
+  mostPopular?: SpotifyPlaylistTrack | null;
+  leastPopular?: SpotifyPlaylistTrack | null;
+  showLeastPopular: boolean;
+};
+
+export type PopularTrackCardProps = {
+  label: string;
+  track: SpotifyPlaylistTrack;
 };
 
 export type MostListenGenreBarProps = {

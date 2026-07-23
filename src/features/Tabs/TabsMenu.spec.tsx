@@ -56,8 +56,11 @@ describe('TabsMenu', () => {
 
     expect(discoverBtn).toBeInTheDocument();
     expect(statsBtn).toBeInTheDocument();
-    expect(discoverBtn).toHaveClass('border-primary', 'text-white/80');
-    expect(statsBtn).toHaveClass('border-transparent');
+    expect(discoverBtn).toHaveClass('text-white/80');
+    expect(statsBtn).not.toHaveClass('text-white/80');
+
+    const indicator = screen.getByTestId('tab-indicator');
+    expect(indicator).toHaveStyle({ transform: 'translateX(0%)' });
 
     expect(screen.getByTestId('discover-content')).toBeInTheDocument();
     expect(screen.getByTestId('statistics-content')).toBeInTheDocument();
@@ -67,10 +70,12 @@ describe('TabsMenu', () => {
     render(<TabsMenu accessToken="mock_token" {...baseProps} />);
     const discoverBtn = screen.getByRole('button', { name: /Descobrir/i });
     const statsBtn = screen.getByRole('button', { name: /Estatísticas/i });
+    const indicator = screen.getByTestId('tab-indicator');
 
     fireEvent.click(statsBtn);
 
-    expect(statsBtn).toHaveClass('border-primary', 'text-white/80');
-    expect(discoverBtn).toHaveClass('border-transparent');
+    expect(statsBtn).toHaveClass('text-white/80');
+    expect(discoverBtn).not.toHaveClass('text-white/80');
+    expect(indicator).toHaveStyle({ transform: 'translateX(100%)' });
   });
 });

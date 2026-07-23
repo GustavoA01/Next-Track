@@ -35,6 +35,10 @@ export const StatisticsContentSkeleton = () => (
 
     <div>
       <Skeleton className="h-6 w-80 mb-4" />
+      <div className="grid gap-4 md:grid-cols-2 mb-4">
+        <Skeleton className="h-28 rounded-lg" />
+        <Skeleton className="h-28 rounded-lg" />
+      </div>
       <Skeleton className="w-full h-56 rounded-lg" />
     </div>
   </div>

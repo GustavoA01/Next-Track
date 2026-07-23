@@ -7,10 +7,14 @@ import {
 } from '@/components/ui/chart';
 import { chartConfig } from '@/data/constants';
 import { PopularityChartProps } from '../types';
+import { PopularTrackCard } from './PopularTrackCard';
 
 export const PopularityChart = ({
   avgMessage,
   chartData,
+  mostPopular = null,
+  leastPopular = null,
+  showLeastPopular,
 }: PopularityChartProps) => (
   <div>
     <header className="mb-4">
@@ -19,8 +23,19 @@ export const PopularityChart = ({
       >
         {avgMessage.title}
       </h2>
-      <p className="text-sm sm:text-base">{avgMessage.text} </p>
+      <p className="text-sm sm:text-base">{avgMessage.text}</p>
     </header>
+
+    {mostPopular && (
+      <div
+        className={`grid gap-4 ${showLeastPopular ? 'md:grid-cols-2' : 'max-w-xl'}`}
+      >
+        {showLeastPopular && leastPopular && (
+          <PopularTrackCard label="Menos popular" track={leastPopular} />
+        )}
+        <PopularTrackCard label="Mais popular" track={mostPopular} />
+      </div>
+    )}
 
     <ChartContainer
       data-testid="popularity-chart"

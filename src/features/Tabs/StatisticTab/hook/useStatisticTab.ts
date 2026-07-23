@@ -1,4 +1,5 @@
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
+import { getMostAndLeastPopularTracks } from '@/utils/getMostAndLeastPopularTracks';
 import { getPopularityAvgMessage } from '@/utils/getPopularityAvgMessage';
 import { getTrackPopularity } from '@/utils/getTrackPopulartity';
 import { extractColors } from 'extract-colors';
@@ -28,10 +29,22 @@ export const useStatisticTab = (tracks: SpotifyPlaylistTracks) => {
 
   const chartData = useMemo(() => getTrackPopularity(tracks), [tracks]);
 
+  const { mostPopular, leastPopular } = useMemo(
+    () => getMostAndLeastPopularTracks(tracks.items),
+    [tracks.items]
+  );
+
+  const showLeastPopular = Boolean(
+    leastPopular && mostPopular && leastPopular.id !== mostPopular.id
+  );
+
   return {
     formatName,
     getHexaColor,
     avgMessage,
     chartData,
+    mostPopular,
+    leastPopular,
+    showLeastPopular,
   };
 };
