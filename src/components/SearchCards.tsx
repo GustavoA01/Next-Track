@@ -20,7 +20,7 @@ export const SearchCards = ({ playlistsData }: SearchCardsProps) => {
     <div className="space-y-4 container mx-auto px-4 sm:px-8 ">
       <Input
         placeholder="Buscar por nome"
-        className="w-full md:w-[40%]"
+        className="rounded-full w-full md:w-[40%]"
         onChange={(e) => setQueryText(e.target.value)}
       />
 
