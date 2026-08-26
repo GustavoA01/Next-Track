@@ -15,11 +15,23 @@
 
   --animate-fade-in-up-down: fade-in-up-down 0.8s ease-in-out;
   --animate-scale-appear: scale-appear 0.5s ease-in-out;
+  --animate-slide-in-down: slide-in-down 0.5s ease-out both;
 
   @keyframes fade-in-up-down {
     from {
       opacity: 0;
       transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(-1.5rem);
     }
     to {
       opacity: 1;

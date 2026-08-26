@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { Recommendations } from '../container/Recommendations';
 import { NextImgProps } from '@/globalTestsMocks';
@@ -15,6 +15,15 @@ type MusicCardProps = {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => Promise<void>;
 };
+
+const mockSetUris = jest.fn();
+
+jest.mock('../../usePlayerProvider', () => ({
+  usePlayerProvider: () => ({
+    uris: [],
+    setUris: mockSetUris,
+  }),
+}));
 
 jest.mock('next/image', () => {
   function MockImage({ src, alt, width, height }: NextImgProps) {
@@ -54,19 +63,6 @@ jest.mock('../../../MusicCard/container/MusicCard', () => ({
   ),
 }));
 
-jest.mock('../../../../features/Tabs/DiscoverTab/components/Player', () => ({
-  Player: jest.fn(({ token, uris }) => (
-    <div
-      data-testid="player-component"
-      data-token={token}
-      data-uris={JSON.stringify(uris)}
-    >
-      Mock Player
-    </div>
-  )),
-}));
-
-const mockAccessToken = 'test-access-token';
 const mockOnAddToPlaylist = jest.fn();
 const mockScrollIntoView = jest.fn();
 const mockPlaylistTrackIds = new Set<string>();
@@ -131,7 +127,6 @@ describe('Recommendations', () => {
     render(
       <Recommendations
         recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
         playlistTrackIds={mockPlaylistTrackIds}
       />
@@ -147,7 +142,6 @@ describe('Recommendations', () => {
     render(
       <Recommendations
         recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
         playlistTrackIds={mockPlaylistTrackIds}
       />
@@ -161,7 +155,6 @@ describe('Recommendations', () => {
     render(
       <Recommendations
         recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
         playlistTrackIds={mockPlaylistTrackIds}
       />
@@ -176,123 +169,50 @@ describe('Recommendations', () => {
     );
   });
 
-  it('should not render Player when no track is selected', () => {
+  it('should set uris when a track is clicked', () => {
     render(
       <Recommendations
         recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
         playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
-    expect(screen.queryByTestId('player-component')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByTestId('music-card-track-1'));
+
+    expect(mockSetUris).toHaveBeenCalledWith(['spotify:track:1']);
   });
 
-  it('should render Player when a track is clicked', async () => {
+  it('should scroll to player anchor when track is clicked', () => {
     render(
       <Recommendations
         recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
         playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
-    const musicCard = screen.getByTestId('music-card-track-1');
-    fireEvent.click(musicCard);
+    fireEvent.click(screen.getByTestId('music-card-track-1'));
 
-    await waitFor(() => {
-      expect(screen.getByTestId('player-component')).toBeInTheDocument();
-    });
+    expect(document.getElementById).toHaveBeenCalledWith(
+      'spotify-player-anchor'
+    );
+    expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
   });
 
-  it('should set correct URIs when track is clicked', async () => {
+  it('should update uris when a different track is clicked', () => {
     render(
       <Recommendations
         recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
         onAddToPlaylist={mockOnAddToPlaylist}
         playlistTrackIds={mockPlaylistTrackIds}
       />
     );
 
-    const musicCard = screen.getByTestId('music-card-track-1');
-    fireEvent.click(musicCard);
+    fireEvent.click(screen.getByTestId('music-card-track-1'));
+    expect(mockSetUris).toHaveBeenCalledWith(['spotify:track:1']);
 
-    await waitFor(() => {
-      const player = screen.getByTestId('player-component');
-      const uris = JSON.parse(player.getAttribute('data-uris') || '[]');
-      expect(uris).toEqual(['spotify:track:1']);
-    });
-  });
-
-  it('should pass correct access token to Player', async () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
-
-    const musicCard = screen.getByTestId('music-card-track-1');
-    fireEvent.click(musicCard);
-
-    await waitFor(() => {
-      const player = screen.getByTestId('player-component');
-      expect(player.getAttribute('data-token')).toBe(mockAccessToken);
-    });
-  });
-
-  it('should scroll to player anchor when track is clicked', async () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
-
-    const musicCard = screen.getByTestId('music-card-track-1');
-    fireEvent.click(musicCard);
-
-    await waitFor(() => {
-      expect(document.getElementById).toHaveBeenCalledWith(
-        'spotify-player-anchor'
-      );
-      expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
-    });
-  });
-
-  it('should update Player when different track is clicked', async () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        accessToken={mockAccessToken}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
-
-    const firstMusicCard = screen.getByTestId('music-card-track-1');
-    fireEvent.click(firstMusicCard);
-
-    await waitFor(() => {
-      const player = screen.getByTestId('player-component');
-      const uris = JSON.parse(player.getAttribute('data-uris') || '[]');
-      expect(uris).toEqual(['spotify:track:1']);
-    });
-
-    const secondMusicCard = screen.getByTestId('music-card-track-2');
-    fireEvent.click(secondMusicCard);
-
-    await waitFor(() => {
-      const player = screen.getByTestId('player-component');
-      const uris = JSON.parse(player.getAttribute('data-uris') || '[]');
-      expect(uris).toEqual(['spotify:track:2']);
-    });
+    fireEvent.click(screen.getByTestId('music-card-track-2'));
+    expect(mockSetUris).toHaveBeenCalledWith(['spotify:track:2']);
   });
 });

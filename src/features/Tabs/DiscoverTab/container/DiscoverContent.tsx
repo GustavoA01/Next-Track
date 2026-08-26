@@ -119,7 +119,6 @@ export const DiscoverContent = ({
       ) : (
         <Recommendations
           onAddToPlaylist={onAddToPlaylist}
-          accessToken={accessToken}
           recommendationsTracks={recommendationsTracks}
           playlistTrackIds={playlistTrackIds}
         />
@@ -138,8 +137,6 @@ export const DiscoverContent = ({
       <Dialog open={openConfirmDialog} onOpenChange={setOpenConfirmDialog}>
         <ConfirmClearChat onConfirm={deleteChatFn} />
       </Dialog>
-
-      <div id="spotify-player-anchor" />
     </TabsContent>
   );
 };

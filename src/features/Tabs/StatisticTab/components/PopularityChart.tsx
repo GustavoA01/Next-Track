@@ -8,6 +8,7 @@ import {
 import { chartConfig } from '@/data/constants';
 import { PopularityChartProps } from '../types';
 import { PopularTrackCard } from './PopularTrackCard';
+import { cn } from '@/lib/utils';
 
 export const PopularityChart = ({
   avgMessage,
@@ -19,7 +20,7 @@ export const PopularityChart = ({
   <div>
     <header className="mb-4">
       <h2
-        className={`sm:text-lg md:text-xl ${avgMessage.textColor} font-montserrat font-semibold mb-2`}
+        className={cn('sm:text-lg md:text-xl font-montserrat font-semibold mb-2', avgMessage.textColor)}
       >
         {avgMessage.title}
       </h2>
@@ -28,7 +29,7 @@ export const PopularityChart = ({
 
     {mostPopular && (
       <div
-        className={`grid gap-4 ${showLeastPopular ? 'md:grid-cols-2' : 'max-w-xl'}`}
+        className={cn('grid gap-4', showLeastPopular ? 'md:grid-cols-2' : 'max-w-xl')}
       >
         {showLeastPopular && leastPopular && (
           <PopularTrackCard label="Menos popular" track={leastPopular} />

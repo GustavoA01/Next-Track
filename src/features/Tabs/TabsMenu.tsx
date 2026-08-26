@@ -7,8 +7,10 @@ import { useState } from 'react';
 import { tabs } from '@/data/constants';
 import { TabsMenuProps } from './StatisticTab/types';
 import { cn } from '@/lib/utils';
+import { PlayerProvider, usePlayerProvider } from './usePlayerProvider';
+import { Player } from './DiscoverTab/components/Player';
 
-export const TabsMenu = ({
+const TabsMenuContent = ({
   playlist,
   genresStatistics,
   artistsStatistics,
@@ -16,6 +18,7 @@ export const TabsMenu = ({
   accessToken,
   userId,
 }: TabsMenuProps) => {
+  const { uris } = usePlayerProvider();
   const [tabValue, setTabValue] = useState('discover');
   const activeIndex = tabs.findIndex((tab) => tab.value === tabValue);
 
@@ -69,6 +72,19 @@ export const TabsMenu = ({
         genresStatistics={genresStatistics}
         artistsStatistics={artistsStatistics}
       />
+
+      <div id="spotify-player-anchor" />
+      {uris.length > 0 && (
+        <div className={cn(tabValue === 'statistics' && 'hidden')}>
+          <Player token={accessToken} uris={uris} />
+        </div>
+      )}
     </Tabs>
   );
 };
+
+export const TabsMenu = (props: TabsMenuProps) => (
+  <PlayerProvider>
+    <TabsMenuContent {...props} />
+  </PlayerProvider>
+);

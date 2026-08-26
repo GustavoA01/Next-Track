@@ -15,7 +15,6 @@ export type DiscoverContentProps = PlaylistStatisticsType & {
 
 export type RecommendationsProps = {
   recommendationsTracks: SpotifyPlaylistTrack[];
-  accessToken: string;
   playlistTrackIds: Set<string>;
   onAddToPlaylist: (trackUri: string, musicId: string) => Promise<void>;
 };

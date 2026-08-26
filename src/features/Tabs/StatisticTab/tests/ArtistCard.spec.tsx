@@ -57,6 +57,13 @@ describe('ArtistCard', () => {
     expect(counter).toHaveStyle('color: #121212; textShadow: 0 0 10px #121212');
   });
 
+  it('staggers the slide-in animation based on index', () => {
+    const link = screen.getByRole('link');
+
+    expect(link).toHaveClass('animate-slide-in-down');
+    expect(link).toHaveStyle({ animationDelay: '0.1s' });
+  });
+
   it('should call a function when card is clicked', () => {
     const onClick = jest.fn();
     const link = screen.getByRole('link');
