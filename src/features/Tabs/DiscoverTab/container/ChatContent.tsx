@@ -5,6 +5,7 @@ import { Trash } from 'lucide-react';
 import { MessageCard } from '../components/MessageCard';
 import { ChatContentProps } from '../types';
 import { useChatContent } from '../hooks/useChatContent';
+import { cn } from '@/lib/utils';
 
 const defaultCardClassName = 'p-2 px-0 w-fit max-md:text-sm';
 
@@ -29,6 +30,7 @@ export const ChatContent = ({
         </CardTitle>
         <Button
           variant="destructive"
+          className="rounded-full"
           onClick={() => setOpenConfirmDialog(true)}
         >
           <Trash />
@@ -45,12 +47,18 @@ export const ChatContent = ({
               key={`ia-${index}`}
               content={message.userMessage}
               textClassName="text-background"
-              cardClassName={`bg-primary ml-auto rounded-tr-xs sm:max-w-[75%] ${defaultCardClassName}`}
+              cardClassName={cn(
+                'bg-primary ml-auto rounded-tr-xs sm:max-w-[75%]',
+                defaultCardClassName
+              )}
             />
             <MessageCard
               key={`user-${index}`}
               content={message.chatResponse}
-              cardClassName={`mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs sm:max-w-[80%] ${defaultCardClassName}`}
+              cardClassName={cn(
+                'mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs sm:max-w-[80%]',
+                defaultCardClassName
+              )}
             />
           </div>
         ))}
@@ -59,7 +67,10 @@ export const ChatContent = ({
           <MessageCard
             content={temporaryMessage}
             textClassName="text-background"
-            cardClassName={`bg-primary ml-auto rounded-tr-xs max-w-[75%] ${defaultCardClassName}`}
+            cardClassName={cn(
+              'bg-primary ml-auto rounded-tr-xs max-w-[75%]',
+              defaultCardClassName
+            )}
           />
         )}
 
@@ -67,7 +78,10 @@ export const ChatContent = ({
           <Skeleton className={`md:mr-auto rounded-xl rounded-tl-xs w-fit`}>
             <MessageCard
               content="Buscando músicas..."
-              cardClassName={`${defaultCardClassName} bg-transparent rounded-tl-xs`}
+              cardClassName={cn(
+                defaultCardClassName,
+                'bg-transparent rounded-tl-xs'
+              )}
             />
           </Skeleton>
         )}
@@ -75,7 +89,10 @@ export const ChatContent = ({
         {errorMessage && (
           <MessageCard
             content={errorMessage}
-            cardClassName={`bg-red-600/30 mr-auto rounded-tl-xs max-w-[80%] ${defaultCardClassName}`}
+            cardClassName={cn(
+              'bg-red-600/30 mr-auto rounded-tl-xs max-w-[80%]',
+              defaultCardClassName
+            )}
           />
         )}
       </CardContent>

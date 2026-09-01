@@ -9,6 +9,7 @@ import { Zap } from 'lucide-react';
 import { SliderVibe } from './SliderVibe';
 import { Button } from '@/components/ui/button';
 import { AccordionVibeProps } from '../types';
+import { cn } from '@/lib/utils';
 
 export const AccordionVibe = ({
   emotionalVibe,
@@ -20,7 +21,7 @@ export const AccordionVibe = ({
   onReset,
   isVibesChanged,
 }: AccordionVibeProps) => {
-  const slideVibes = [
+  const vibes = [
     {
       value: energyVibe,
       setValue: setEnergyVibe,
@@ -48,7 +49,10 @@ export const AccordionVibe = ({
           <div className="flex items-center gap-2">
             <Zap className="w-6 h-6 text-primary" />
             <h2
-              className={`sm:text-lg font-semibold ${isVibesChanged ? 'text-primary' : ''}`}
+              className={cn(
+                'sm:text-lg font-semibold',
+                isVibesChanged && 'text-primary'
+              )}
             >
               Ajustar Energia
             </h2>
@@ -58,22 +62,23 @@ export const AccordionVibe = ({
         <AccordionContent>
           <div className="my-2 flex justify-end">
             <Button
-              disabled={!isVibesChanged}
-              onClick={onReset}
               variant="outline"
+              onClick={onReset}
+              className="rounded-full"
+              disabled={!isVibesChanged}
             >
               Resetar
             </Button>
           </div>
 
           <Card className="p-4 space-y-2">
-            {slideVibes.map((slideVibe, index) => (
+            {vibes.map(({ leftLabel, rightLabel, value, setValue }, index) => (
               <SliderVibe
-                key={`slider-vibe-${index}`}
-                value={slideVibe.value}
-                setValue={slideVibe.setValue}
-                leftLabel={slideVibe.leftLabel}
-                rightLabel={slideVibe.rightLabel}
+                key={`vibe-${index}`}
+                value={value}
+                setValue={setValue}
+                leftLabel={leftLabel}
+                rightLabel={rightLabel}
               />
             ))}
           </Card>
