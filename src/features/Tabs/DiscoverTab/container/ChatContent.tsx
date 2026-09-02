@@ -29,11 +29,12 @@ export const ChatContent = ({
           CHAT
         </CardTitle>
         <Button
+          size="icon"
           variant="destructive"
           className="rounded-full"
           onClick={() => setOpenConfirmDialog(true)}
         >
-          <Trash />
+          <Trash className='size-4'/>
         </Button>
       </CardHeader>
 

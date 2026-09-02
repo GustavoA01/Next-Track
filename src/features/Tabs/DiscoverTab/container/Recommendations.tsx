@@ -35,7 +35,7 @@ export const Recommendations = ({
 
   return (
     <div>
-      <header className="flex items-center justify-between mt-4">
+      <header className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold">Recomendações</h2>
         <Button
           size="sm"
