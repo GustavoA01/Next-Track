@@ -12,7 +12,6 @@ export const SliderVibe = ({
       <p>{leftLabel}</p>
       <p>{rightLabel}</p>
     </div>
-
     <Slider
       value={[value]}
       className="cursor-pointer"

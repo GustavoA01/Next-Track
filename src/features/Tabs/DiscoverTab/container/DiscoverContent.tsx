@@ -6,7 +6,6 @@ import { AccordionVibe } from '../components/AccordionVibe';
 import { BadgesGroup } from '../components/BadgesGroup';
 import { ChatContent } from './ChatContent';
 import { useDiscoverTab } from '../hooks/useDiscoverTab';
-import { MusicCardsSkeleton } from '@/components/Skeletons';
 import { ConfirmClearChat } from '../components/ConfirmClearChat';
 import { Dialog } from '@/components/ui/dialog';
 import { DiscoverContentProps } from '../types';
@@ -44,6 +43,8 @@ export const DiscoverContent = ({
     setOpenConfirmDialog,
     handleScrollToTop,
     handleOnKeyDown,
+    onAddAllRecommendations,
+    isAddingTracks,
   } = useDiscoverTab({
     accessToken,
     userId,
@@ -89,15 +90,14 @@ export const DiscoverContent = ({
         * Só é possível reproduzir músicas com uma conta Spotify premium
       </h2>
 
-      {isRecommendationsLoading ? (
-        <MusicCardsSkeleton />
-      ) : (
-        <Recommendations
-          onAddToPlaylist={onAddToPlaylist}
-          recommendationsTracks={recommendationsTracks}
-          playlistTrackIds={playlistTrackIds}
-        />
-      )}
+      <Recommendations
+        onAddToPlaylist={onAddToPlaylist}
+        onAddAllRecommendations={onAddAllRecommendations}
+        recommendationsTracks={recommendationsTracks}
+        playlistTrackIds={playlistTrackIds}
+        isRecommendationsLoading={isRecommendationsLoading}
+        isAddingTracks={isAddingTracks}
+      />
 
       {recommendationsTracks.length > 0 && (
         <Button

@@ -7,6 +7,7 @@ export type MenuOptionsProps = {
 
 export type ToolTipMenuProps = {
   setIsOpen: (isOpen: boolean) => void;
+  pathname: string;
 };
 
 export type ProfileMenuTriggerProps = {
@@ -18,5 +19,6 @@ export type ProfileMenuTriggerProps = {
 };
 
 export type DrawerMenuProps = {
+  pathname: string;
   setIsOpen: (isOpen: boolean) => void;
 };

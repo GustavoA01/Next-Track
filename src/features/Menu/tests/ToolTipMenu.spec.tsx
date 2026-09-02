@@ -2,10 +2,6 @@ import { render } from '@testing-library/react';
 import { ToolTipMenu } from '../components/ToolTipMenu';
 import { Tooltip } from '@/components/ui/tooltip';
 
-jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(() => '/playlist/123 '),
-}));
-
 jest.mock('next/link', () => {
   function MockLink({
     children,
@@ -24,7 +20,7 @@ describe('ToolTipMenu', () => {
     const setIsOpen = jest.fn();
     const { getAllByText } = render(
       <Tooltip open>
-        <ToolTipMenu setIsOpen={setIsOpen} />
+        <ToolTipMenu pathname={"/playlist/sqqerf"} setIsOpen={setIsOpen} />
       </Tooltip>
     );
 

@@ -7,8 +7,6 @@ import { ChatContentProps } from '../types';
 import { useChatContent } from '../hooks/useChatContent';
 import { cn } from '@/lib/utils';
 
-const defaultCardClassName = 'p-2 px-0 w-fit max-md:text-sm';
-
 export const ChatContent = ({
   messages,
   isLoading,
@@ -21,6 +19,8 @@ export const ChatContent = ({
     isLoading,
     temporaryMessage,
   });
+
+  const defaultCardClassName = 'p-2 px-0 w-fit max-md:text-sm';
 
   return (
     <Card className="max-h-150 animate-fade-in-up-down">

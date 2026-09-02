@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Card } from '@/components/ui/card';
-import { Zap } from 'lucide-react';
+import { RotateCcw, Zap } from 'lucide-react';
 import { SliderVibe } from './SliderVibe';
 import { Button } from '@/components/ui/button';
 import { AccordionVibeProps } from '../types';
@@ -67,6 +67,7 @@ export const AccordionVibe = ({
               className="rounded-full"
               disabled={!isVibesChanged}
             >
+              <RotateCcw />
               Resetar
             </Button>
           </div>
