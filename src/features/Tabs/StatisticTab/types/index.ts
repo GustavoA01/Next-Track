@@ -1,8 +1,8 @@
 import {
-  AverageMessageType,
   PlaylistStatisticsType,
 } from '@/data/types/recommendations';
 import { SpotifyPlaylist, SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { AverageMessageType } from '@/data/types/utils';
 
 export type TabsMenuProps = PlaylistStatisticsType & {
   playlist: SpotifyPlaylist;
