@@ -13,8 +13,4 @@ export type PlaylistStatisticsType = {
   totalDuration?: number;
 };
 
-export type AverageMessageType = {
-  title: string;
-  text: string;
-  textColor: string;
-};
+

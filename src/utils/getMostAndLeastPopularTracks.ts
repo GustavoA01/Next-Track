@@ -1,12 +1,5 @@
-import {
-  SpotifyPlaylistTrack,
-  SpotifyPlaylistTracks,
-} from '@/data/types/spotify';
-
-type MostAndLeastPopularTracksReturnType = {
-  mostPopular: SpotifyPlaylistTrack | null;
-  leastPopular: SpotifyPlaylistTrack | null;
-};
+import { SpotifyPlaylistTracks } from '@/data/types/spotify';
+import { MostAndLeastPopularTracksReturnType } from '@/data/types/utils';
 
 export const getMostAndLeastPopularTracks = (
   tracks?: SpotifyPlaylistTracks['items']

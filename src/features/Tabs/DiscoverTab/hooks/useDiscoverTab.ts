@@ -27,7 +27,7 @@ export const useDiscoverTab = ({
   const methods = useForm<ChatFormType>({
     resolver: zodResolver(chatSchema),
   });
-  const { reset,handleSubmit } = methods;
+  const { reset, handleSubmit } = methods;
   const [recommendationsTracks, setRecommendationsTracks] = useState<
     SpotifyPlaylistTrack[]
   >([]);
@@ -49,7 +49,7 @@ export const useDiscoverTab = ({
   };
 
   const [playlistTrackIds, setPlaylistTrackIds] =
-    useState<Set<string>>(setSyncIds());
+    useState<Set<string>>(setSyncIds);
 
   useEffect(() => {
     pendingAddedTrackIds.current = new Set();

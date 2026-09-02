@@ -1,110 +1,55 @@
 import { getPopularityAvgMessage } from '../getPopularityAvgMessage';
 import { mockTracks } from '@/globalTestsMocks';
 
+const tracksWithPopularity = (...popularities: number[]) => ({
+  ...mockTracks,
+  total: popularities.length,
+  items: popularities.map((popularity) => ({
+    ...mockTracks.items[0],
+    track: { ...mockTracks.items[0].track, popularity },
+  })),
+});
+
+const getMessage = (...popularities: number[]) =>
+  getPopularityAvgMessage(
+    tracksWithPopularity(...popularities),
+    popularities.length
+  );
+
 describe('getPopularityAvgMessage', () => {
-  it('returns mainstream message correctly if average > 65', () => {
-    const message = getPopularityAvgMessage(mockTracks, 1);
+  it('returns underground when average is 0 or 30', () => {
+    const message0 = getMessage(0, 0);
+    const message30 = getMessage(30, 30);
 
-    expect(message.title).toBe('Mainstream');
-    expect(message.text).toBe(
-      'Essa seleção é composta por músicas que furaram a bolha e conquistaram o mundo. É hit atrás de hit!'
-    );
-    expect(message.textColor).toBe('text-[#FACC15]');
-  });
-
-  it('returns balanced message if avg <= 65 and > 30', () => {
-    const trackPopularity65 = {
-      ...mockTracks,
-      total: 2,
-      items: [
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 62 },
-        },
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 68 },
-        },
-      ],
-    };
-
-    const message65 = getPopularityAvgMessage(trackPopularity65, 2);
-
-    expect(message65.title).toBe('Equilibrado');
-    expect(message65.text).toBe(
-      'Um equilíbrio perfeito! Você misturou grandes sucessos com faixas mais profundas e específicas.'
-    );
-    expect(message65.textColor).toBe('text-[#38BDF8]');
-
-    const trackPopularity31 = {
-      ...mockTracks,
-      total: 2,
-      items: [
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 35 },
-        },
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 27 },
-        },
-      ],
-    };
-
-    const message31 = getPopularityAvgMessage(trackPopularity31, 2);
-
-    expect(message31.title).toBe('Equilibrado');
-    expect(message31.text).toBe(
-      'Um equilíbrio perfeito! Você misturou grandes sucessos com faixas mais profundas e específicas.'
-    );
-    expect(message31.textColor).toBe('text-[#38BDF8]');
-  });
-
-  it('returns underground message if avg <= 30', () => {
-    const trackPopularity30 = {
-      ...mockTracks,
-      total: 2,
-      items: [
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 35 },
-        },
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 25 },
-        },
-      ],
-    };
-
-    const message30 = getPopularityAvgMessage(trackPopularity30, 2);
-
+    expect(message0.title).toBe('Underground');
+    expect(message0.textColor).toBe('text-[#C084FC]');
     expect(message30.title).toBe('Underground');
     expect(message30.text).toBe(
       'Essa playlist é para quem foge do óbvio. A maioria das faixas aqui são tesouros escondidos que pouca gente conhece. Pura cultura de nicho!'
     );
-    expect(message30.textColor).toBe('text-[#C084FC]');
+  });
 
-    const trackPopularity0 = {
-      ...mockTracks,
-      total: 2,
-      items: [
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 0 },
-        },
-        {
-          ...mockTracks.items[0],
-          track: { ...mockTracks.items[0].track, popularity: 0 },
-        },
-      ],
-    };
+  it('returns balanced when average is 31 or 70', () => {
+    const message31 = getMessage(31, 31);
+    const message70 = getMessage(70, 70);
 
-    const message0 = getPopularityAvgMessage(trackPopularity0, 2);
-
-    expect(message0.title).toBe('Underground');
-    expect(message0.text).toBe(
-      'Essa playlist é para quem foge do óbvio. A maioria das faixas aqui são tesouros escondidos que pouca gente conhece. Pura cultura de nicho!'
+    expect(message31.title).toBe('Equilibrado');
+    expect(message31.textColor).toBe('text-[#38BDF8]');
+    expect(message70.title).toBe('Equilibrado');
+    expect(message70.text).toBe(
+      'Um equilíbrio perfeito! Você misturou grandes sucessos com faixas mais profundas e específicas.'
     );
-    expect(message0.textColor).toBe('text-[#C084FC]');
+  });
+
+  it('returns mainstream when average is 71 or higher', () => {
+    const message71 = getMessage(71, 71);
+    const message100 = getMessage(100, 100);
+
+    expect(message71.title).toBe('Mainstream');
+    expect(message71.textColor).toBe('text-[#FACC15]');
+    expect(message100.title).toBe('Mainstream');
+    expect(message100.text).toBe(
+      'Essa seleção é composta por músicas que furaram a bolha e conquistaram o mundo. É hit atrás de hit!'
+    );
   });
 });
