@@ -17,6 +17,9 @@ export type RecommendationsProps = {
   recommendationsTracks: SpotifyPlaylistTrack[];
   playlistTrackIds: Set<string>;
   onAddToPlaylist: (trackUri: string, musicId: string) => Promise<void>;
+  onAddAllRecommendations: (trackUris: string[], musicsIds: string[]) => void;
+  isRecommendationsLoading: boolean;
+  isAddingTracks: boolean;
 };
 
 export type ChatContentProps = {

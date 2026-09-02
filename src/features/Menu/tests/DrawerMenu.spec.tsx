@@ -2,10 +2,6 @@ import { render } from '@testing-library/react';
 import { DrawerMenu } from '../components/DrawerMenu';
 import { Drawer } from '@/components/ui/drawer';
 
-jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(() => '/playlist/123 '),
-}));
-
 jest.mock('next/link', () => {
   function MockLink({
     children,
@@ -24,7 +20,7 @@ describe('DrawerMenu', () => {
     const setIsOpen = jest.fn();
     const { getAllByText } = render(
       <Drawer open>
-        <DrawerMenu setIsOpen={setIsOpen} />
+        <DrawerMenu pathname={"/playlist/sqqerf"} setIsOpen={setIsOpen} />
       </Drawer>
     );
 

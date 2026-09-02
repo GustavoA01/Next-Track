@@ -356,6 +356,7 @@ describe('useDiscoverTab', () => {
     });
 
     localStorageMock.getItem.mockReturnValue(null);
+    (getMessages as jest.Mock).mockResolvedValue(undefined);
   });
 
   it('should initialize with default values', () => {
@@ -509,7 +510,7 @@ describe('useDiscoverTab', () => {
       playlistId: mockPlaylistId,
       accessToken: mockAccessToken,
     });
-    expect(toast.success).toHaveBeenCalledWith('Música adicionada à playlist!');
+    expect(toast.success).toHaveBeenCalledWith('Música adicionada à playlist');
     expect(result.current.playlistTrackIds.has('music-123')).toBe(true);
   });
 
@@ -596,5 +597,63 @@ describe('useDiscoverTab', () => {
     });
 
     expect(mockReset).toHaveBeenCalledWith({ prompt: 'rock music' });
+  });
+
+  it('should add all recommendations successfully', async () => {
+    (addToPlaylist as jest.Mock).mockResolvedValue({ success: true });
+
+    const { result } = renderHook(() => useDiscoverTab(mockProps));
+
+    await act(async () => {
+      result.current.onAddAllRecommendations(
+        ['spotify:track:a', 'spotify:track:b'],
+        ['music-a', 'music-b']
+      );
+    });
+
+    await waitFor(() => {
+      expect(addToPlaylist).toHaveBeenCalledWith({
+        jsonUris: { uris: ['spotify:track:a', 'spotify:track:b'] },
+        playlistId: mockPlaylistId,
+        accessToken: mockAccessToken,
+      });
+    });
+
+    expect(toast.success).toHaveBeenCalledWith(
+      'Recomendações adicionadas com sucesso'
+    );
+    expect(result.current.playlistTrackIds.has('music-a')).toBe(true);
+    expect(result.current.playlistTrackIds.has('music-b')).toBe(true);
+  });
+
+  it('should show error toast when add all recommendations fails', async () => {
+    (addToPlaylist as jest.Mock).mockResolvedValue({ success: false });
+
+    const { result } = renderHook(() => useDiscoverTab(mockProps));
+
+    await act(async () => {
+      result.current.onAddAllRecommendations(
+        ['spotify:track:a'],
+        ['music-a']
+      );
+    });
+
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalledWith(
+        'Erro ao adicionar recomendações'
+      );
+    });
+
+    expect(result.current.playlistTrackIds.has('music-a')).toBe(false);
+  });
+
+  it('should not add recommendations when there are no tracks to add', async () => {
+    const { result } = renderHook(() => useDiscoverTab(mockProps));
+
+    await act(async () => {
+      result.current.onAddAllRecommendations([], []);
+    });
+
+    expect(addToPlaylist).not.toHaveBeenCalled();
   });
 });

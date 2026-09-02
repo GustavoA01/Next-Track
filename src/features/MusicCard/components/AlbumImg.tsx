@@ -11,9 +11,9 @@ export const AlbumImg = ({ src }: { src: string }) => (
     </div>
     <Image
       src={src}
-      alt="Foto do álbum"
       width={70}
       height={70}
+      alt="Foto do álbum"
       className="object-cover"
     />
   </section>

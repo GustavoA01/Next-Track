@@ -1,17 +1,15 @@
 import { TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { ChevronUp, Sparkles } from 'lucide-react';
-import { Spinner } from '@/components/ui/spinner';
+import { ChevronUp } from 'lucide-react';
 import { Recommendations } from '@/features/Tabs/DiscoverTab/container/Recommendations';
 import { AccordionVibe } from '../components/AccordionVibe';
 import { BadgesGroup } from '../components/BadgesGroup';
 import { ChatContent } from './ChatContent';
 import { useDiscoverTab } from '../hooks/useDiscoverTab';
-import { MusicCardsSkeleton } from '@/components/Skeletons';
-import { Textarea } from '@/components/ui/textarea';
 import { ConfirmClearChat } from '../components/ConfirmClearChat';
 import { Dialog } from '@/components/ui/dialog';
 import { DiscoverContentProps } from '../types';
+import { ChatInput } from '../components/ChatInput';
 
 export const DiscoverContent = ({
   tracks,
@@ -45,6 +43,8 @@ export const DiscoverContent = ({
     setOpenConfirmDialog,
     handleScrollToTop,
     handleOnKeyDown,
+    onAddAllRecommendations,
+    isAddingTracks,
   } = useDiscoverTab({
     accessToken,
     userId,
@@ -65,7 +65,9 @@ export const DiscoverContent = ({
         onReset={onResetVibes}
         isVibesChanged={isVibesChanged}
       />
+
       <BadgesGroup onSelectBadge={onSelectBadge} />
+
       {messages && messages.length > 0 && (
         <ChatContent
           errorMessage={errorMessage}
@@ -76,53 +78,26 @@ export const DiscoverContent = ({
         />
       )}
 
-      <form
-        className="space-y-2"
+      <ChatInput
         onSubmit={methods.handleSubmit(handleChatRequest)}
-      >
-        <div className="flex w-full items-end gap-2 rounded-3xl bg-input/30 p-2 pl-4">
-          <Textarea
-            onKeyDown={handleOnKeyDown}
-            disabled={isResponseLoading}
-            placeholder="Peça músicas..."
-            {...methods.register('prompt')}
-            className="min-h-9 max-h-20 w-full resize-none border-none bg-transparent px-0 py-2 shadow-none hide-scrollbar max-sm:text-sm focus-visible:ring-0 dark:bg-transparent"
-          />
-
-          <Button
-            size="icon"
-            type="submit"
-            disabled={isResponseLoading}
-            className="group shrink-0 rounded-full"
-          >
-            {isResponseLoading ? (
-              <Spinner />
-            ) : (
-              <Sparkles className="transition-all duration-200 group-hover:text-white" />
-            )}
-          </Button>
-        </div>
-
-        {methods.formState.errors.prompt && (
-          <p className="text-sm text-red-500">
-            {methods.formState.errors.prompt.message}
-          </p>
-        )}
-      </form>
+        handleOnKeyDown={handleOnKeyDown}
+        isResponseLoading={isResponseLoading}
+        register={methods.register}
+        errorMessage={methods.formState.errors.prompt?.message}
+      />
 
       <h2 className="text-sm text-muted-foreground">
         * Só é possível reproduzir músicas com uma conta Spotify premium
       </h2>
 
-      {isRecommendationsLoading ? (
-        <MusicCardsSkeleton />
-      ) : (
-        <Recommendations
-          onAddToPlaylist={onAddToPlaylist}
-          recommendationsTracks={recommendationsTracks}
-          playlistTrackIds={playlistTrackIds}
-        />
-      )}
+      <Recommendations
+        onAddToPlaylist={onAddToPlaylist}
+        onAddAllRecommendations={onAddAllRecommendations}
+        recommendationsTracks={recommendationsTracks}
+        playlistTrackIds={playlistTrackIds}
+        isRecommendationsLoading={isRecommendationsLoading}
+        isAddingTracks={isAddingTracks}
+      />
 
       {recommendationsTracks.length > 0 && (
         <Button

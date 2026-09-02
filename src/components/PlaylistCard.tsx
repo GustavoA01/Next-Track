@@ -24,12 +24,10 @@ export const PlaylistCard = ({
           className="rounded-md aspect-square w-full h-auto group-hover:scale-110 group-hover:blur-xs transition-all duration-300 object-cover"
         />
       </div>
-
       <footer className="space-y-2">
         <h2 className="text-sm sm:text-lg font-bold font-inter group-hover:text-primary transition-colors duration-300 line-clamp-1 truncate">
           {playlistName}
         </h2>
-
         <div className="flex items-center gap-2 line-clamp-1 mt-auto">
           <Circle className="fill-primary text-primary" size={8} />
           <span className="text-muted-foreground text-xs sm:text-sm">

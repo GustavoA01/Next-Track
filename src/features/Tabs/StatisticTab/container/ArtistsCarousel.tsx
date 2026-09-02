@@ -13,10 +13,12 @@ export const ArtistsCarousel = ({
   artistsStatistics,
   getHexaColor,
 }: CarouselProps) => {
-  const { paletteByArtistId } = useArtistCarousel({
+  const paletteByArtistId = useArtistCarousel({
     getHexaColor,
     artistsStatistics,
   });
+
+  const palleteColor = (id: string) => paletteByArtistId[id] || '#121212';
 
   return (
     <>
@@ -26,7 +28,7 @@ export const ArtistsCarousel = ({
             <ArtistCard
               index={index}
               artist={artist}
-              palleteColor={paletteByArtistId[artist.id] || '#121212'}
+              palleteColor={palleteColor(artist.id)}
             />
           </div>
         ))}
@@ -36,9 +38,9 @@ export const ArtistsCarousel = ({
           {artistsStatistics.slice(0, 10).map((artist, index) => (
             <CarouselItem key={artist.id} className="basis-1/5">
               <ArtistCard
-                artist={artist}
                 index={index}
-                palleteColor={paletteByArtistId[artist.id] || '#121212'}
+                artist={artist}
+                palleteColor={palleteColor(artist.id)}
               />
             </CarouselItem>
           ))}

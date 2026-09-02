@@ -31,5 +31,5 @@ export const useArtistCarousel = ({
     };
   }, [artistsStatistics, getHexaColor]);
 
-  return { paletteByArtistId };
+  return paletteByArtistId;
 };

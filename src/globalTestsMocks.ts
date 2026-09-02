@@ -34,7 +34,7 @@ export const mockTracks: SpotifyPlaylistTracks = {
             name: 'Mock Artist 1',
             genres: ['pop', 'rock'],
             images: [{ url: 'img1.jpg', height: 640, width: 640 }],
-            popularity: 75,
+            popularity: 71,
             followers: {
               href: 'https://api.spotify.com/v1/artists/artist1/followers/test',
               total: 1000000,

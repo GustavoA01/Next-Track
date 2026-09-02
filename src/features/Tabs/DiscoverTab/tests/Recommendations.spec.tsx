@@ -64,8 +64,8 @@ jest.mock('../../../MusicCard/container/MusicCard', () => ({
 }));
 
 const mockOnAddToPlaylist = jest.fn();
+const mockOnAddAllRecommendations = jest.fn();
 const mockScrollIntoView = jest.fn();
-const mockPlaylistTrackIds = new Set<string>();
 
 const mockRecommendationsTracks: SpotifyPlaylistTrack[] = [
   {
@@ -114,6 +114,15 @@ const mockRecommendationsTracks: SpotifyPlaylistTrack[] = [
   },
 ];
 
+const defaultProps = {
+  recommendationsTracks: mockRecommendationsTracks,
+  onAddToPlaylist: mockOnAddToPlaylist,
+  onAddAllRecommendations: mockOnAddAllRecommendations,
+  playlistTrackIds: new Set<string>(),
+  isRecommendationsLoading: false,
+  isAddingTracks: false,
+};
+
 describe('Recommendations', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -124,13 +133,7 @@ describe('Recommendations', () => {
   });
 
   it('should render all recommendation tracks', () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
+    render(<Recommendations {...defaultProps} />);
 
     expect(screen.getByText('Song One')).toBeInTheDocument();
     expect(screen.getByText('Song Two')).toBeInTheDocument();
@@ -139,26 +142,14 @@ describe('Recommendations', () => {
   });
 
   it('should format duration correctly', () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
+    render(<Recommendations {...defaultProps} />);
 
     expect(screen.getByText('3:00')).toBeInTheDocument();
     expect(screen.getByText('4:00')).toBeInTheDocument();
   });
 
   it('should call onAddToPlaylist when add button is clicked', async () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
+    render(<Recommendations {...defaultProps} />);
 
     const addButton = screen.getByTestId('add-button-track-1');
     fireEvent.click(addButton);
@@ -170,13 +161,7 @@ describe('Recommendations', () => {
   });
 
   it('should set uris when a track is clicked', () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
+    render(<Recommendations {...defaultProps} />);
 
     fireEvent.click(screen.getByTestId('music-card-track-1'));
 
@@ -184,13 +169,7 @@ describe('Recommendations', () => {
   });
 
   it('should scroll to player anchor when track is clicked', () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
+    render(<Recommendations {...defaultProps} />);
 
     fireEvent.click(screen.getByTestId('music-card-track-1'));
 
@@ -201,18 +180,41 @@ describe('Recommendations', () => {
   });
 
   it('should update uris when a different track is clicked', () => {
-    render(
-      <Recommendations
-        recommendationsTracks={mockRecommendationsTracks}
-        onAddToPlaylist={mockOnAddToPlaylist}
-        playlistTrackIds={mockPlaylistTrackIds}
-      />
-    );
+    render(<Recommendations {...defaultProps} />);
 
     fireEvent.click(screen.getByTestId('music-card-track-1'));
     expect(mockSetUris).toHaveBeenCalledWith(['spotify:track:1']);
 
     fireEvent.click(screen.getByTestId('music-card-track-2'));
     expect(mockSetUris).toHaveBeenCalledWith(['spotify:track:2']);
+  });
+
+  it('should add only tracks that are not already in the playlist', () => {
+    render(
+      <Recommendations
+        {...defaultProps}
+        playlistTrackIds={new Set(['track-1'])}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /adicionar todas/i }));
+
+    expect(mockOnAddAllRecommendations).toHaveBeenCalledWith(
+      ['spotify:track:2'],
+      ['track-2']
+    );
+  });
+
+  it('should disable add all when every track is already in the playlist', () => {
+    render(
+      <Recommendations
+        {...defaultProps}
+        playlistTrackIds={new Set(['track-1', 'track-2'])}
+      />
+    );
+
+    expect(
+      screen.getByRole('button', { name: /adicionar todas/i })
+    ).toBeDisabled();
   });
 });

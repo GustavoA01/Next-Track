@@ -33,7 +33,7 @@ describe('useArtistCarousel', () => {
     );
 
     await waitFor(() => {
-      expect(result.current.paletteByArtistId).toEqual({
+      expect(result.current).toEqual({
         'artist-1': '#ff0000',
         'artist-2': '#00ff00',
       });
@@ -54,7 +54,7 @@ describe('useArtistCarousel', () => {
     );
 
     await waitFor(() => {
-      expect(result.current.paletteByArtistId).toEqual({
+      expect(result.current).toEqual({
         'artist-1': '#121212',
       });
     });
@@ -83,6 +83,6 @@ describe('useArtistCarousel', () => {
       await Promise.resolve();
     });
 
-    expect(result.current.paletteByArtistId).toEqual({});
+    expect(result.current).toEqual({});
   });
 });

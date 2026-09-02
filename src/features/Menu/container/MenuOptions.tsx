@@ -8,9 +8,11 @@ import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
 import { ProfileMenuTrigger } from '../components/ProfileMenuTrigger';
 import { Drawer, DrawerTrigger } from '@/components/ui/drawer';
 import { MenuOptionsProps } from '../types';
+import { usePathname } from 'next/navigation';
 
 export const MenuOptions = ({ profile }: MenuOptionsProps) => {
   const [isConfirmLogoutOpen, setIsConfirmLogoutOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
@@ -19,17 +21,15 @@ export const MenuOptions = ({ profile }: MenuOptionsProps) => {
           <TooltipTrigger>
             <ProfileMenuTrigger profile={profile} className="hidden sm:block" />
           </TooltipTrigger>
-          <ToolTipMenu setIsOpen={setIsConfirmLogoutOpen} />
+          <ToolTipMenu pathname={pathname} setIsOpen={setIsConfirmLogoutOpen} />
         </Tooltip>
-
         <Drawer>
           <DrawerTrigger>
             <ProfileMenuTrigger profile={profile} className="sm:hidden" />
           </DrawerTrigger>
-          <DrawerMenu setIsOpen={setIsConfirmLogoutOpen} />
+          <DrawerMenu pathname={pathname} setIsOpen={setIsConfirmLogoutOpen} />
         </Drawer>
       </div>
-
       <Dialog open={isConfirmLogoutOpen} onOpenChange={setIsConfirmLogoutOpen}>
         <ConfirmLogOut />
       </Dialog>
