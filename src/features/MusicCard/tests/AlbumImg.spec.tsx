@@ -13,7 +13,7 @@ describe('AlbumImg', () => {
   it('renders component with correct attributes', () => {
     render(<AlbumImg src="https://github.com/shadcn.png" />);
 
-    expect(screen.getByAltText('Foto do álbum')).toHaveAttribute(
+    expect(screen.getByAltText('Capa')).toHaveAttribute(
       'src',
       'https://github.com/shadcn.png'
     );

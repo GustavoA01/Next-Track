@@ -28,7 +28,6 @@ export const MusicCard = ({
         <AlbumImg src={imageUrl} />
         <MusicInfo musicName={musicName} artistName={artistName} />
       </div>
-
       <RightInfo
         id={id}
         duration={duration}

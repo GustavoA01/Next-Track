@@ -38,7 +38,7 @@ describe('MusicCard', () => {
     expect(screen.getByText('Test Artist')).toBeInTheDocument();
     expect(screen.getByText('3:45')).toBeInTheDocument();
     expect(screen.getByText('1')).toBeInTheDocument();
-    expect(screen.getByAltText('Foto do álbum')).toBeInTheDocument();
+    expect(screen.getByAltText('Capa')).toBeInTheDocument();
   });
 
   it('should render correct index number (index + 1)', () => {
@@ -122,7 +122,7 @@ describe('MusicCard', () => {
   it('should pass correct props to AlbumImg component', () => {
     render(<MusicCard {...defaultProps} />);
 
-    const albumImage = screen.getByAltText('Foto do álbum');
+    const albumImage = screen.getByAltText('Capa');
     expect(albumImage).toHaveAttribute('src', 'https://fakeimg.com/album.jpg');
   });
 

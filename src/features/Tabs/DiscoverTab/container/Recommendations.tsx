@@ -2,10 +2,11 @@ import { msFormatter } from '@/utils/msFormatter';
 import { RecommendationsProps } from '../types';
 import { usePlayerProvider } from '../../usePlayerProvider';
 import { Button } from '@/components/ui/button';
-import { PlusIcon } from 'lucide-react';
 import { MusicCardsSkeleton } from '@/components/Skeletons';
-import { Spinner } from '@/components/ui/spinner';
 import { MusicCard } from '@/features/MusicCard/container/MusicCard';
+import { cn } from '@/lib/utils';
+import { MouseEvent } from 'react';
+import { recommendationStatusMap } from '@/data/constants';
 
 export const Recommendations = ({
   recommendationsTracks,
@@ -16,16 +17,25 @@ export const Recommendations = ({
   isAddingTracks,
 }: RecommendationsProps) => {
   const { setUris } = usePlayerProvider();
+  const isInPlaylist = (id: string) => playlistTrackIds.has(id);
   const tracksToAdd = recommendationsTracks.filter(
-    ({ id }) => !playlistTrackIds.has(id)
+    ({ id }) => !isInPlaylist(id)
   );
   const alreadyAddedTracks = tracksToAdd.length === 0;
+
+  const status = isAddingTracks
+    ? 'adding'
+    : alreadyAddedTracks
+      ? 'added'
+      : 'idle';
 
   const handleMusicCardClick = (uri: string) => {
     setUris([uri]);
     const playerComponent = document.getElementById('spotify-player-anchor');
     if (playerComponent) playerComponent.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const { icon: StatusIcon, label, variant } = recommendationStatusMap[status];
 
   const disableAddAll =
     isRecommendationsLoading ||
@@ -39,9 +49,9 @@ export const Recommendations = ({
         <h2 className="text-2xl font-bold">Recomendações</h2>
         <Button
           size="sm"
-          variant="outline"
-          className="rounded-full"
+          variant={variant}
           disabled={disableAddAll}
+          className={cn('rounded-full', alreadyAddedTracks && 'text-black')}
           onClick={() =>
             onAddAllRecommendations(
               tracksToAdd.map(({ uri }) => uri),
@@ -49,8 +59,8 @@ export const Recommendations = ({
             )
           }
         >
-          {isAddingTracks ? <Spinner /> : <PlusIcon />}
-          {isAddingTracks ? 'Adicionando...' : 'Adicionar todas'}
+          <StatusIcon />
+          {label}
         </Button>
       </header>
 
@@ -61,23 +71,23 @@ export const Recommendations = ({
           {recommendationsTracks.map((track, index) => {
             const { minutes, seconds } = msFormatter(track.duration_ms);
             const duration = `${minutes}:${seconds}`;
+            const onAddFn = async (e: MouseEvent<HTMLDivElement>) => {
+              e.stopPropagation();
+              await onAddToPlaylist(track.uri, track.id);
+            };
+
             return (
               <MusicCard
-                key={`music-card-${track.id}`}
+                key={`card-${track.id}`}
                 id={track.id}
                 index={index}
                 duration={duration}
                 musicName={track.name}
+                onAddToPlaylist={onAddFn}
                 artistName={track.artists[0].name}
                 imageUrl={track.album.images[0].url}
-                isInPlaylist={playlistTrackIds.has(track.id)}
+                isInPlaylist={isInPlaylist(track.id)}
                 onClick={() => handleMusicCardClick(track.uri)}
-                onAddToPlaylist={async (
-                  e: React.MouseEvent<HTMLDivElement, MouseEvent>
-                ) => {
-                  e.stopPropagation();
-                  await onAddToPlaylist(track.uri, track.id);
-                }}
               />
             );
           })}

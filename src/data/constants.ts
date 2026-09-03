@@ -1,4 +1,10 @@
-import { ChartColumnDecreasing, Sparkles } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
+import {
+  ChartColumnDecreasing,
+  Check,
+  PlusIcon,
+  Sparkles,
+} from 'lucide-react';
 
 export const tabs = [
   {
@@ -27,3 +33,21 @@ export const badgesText = [
   'Recomendações do gênero mais presente',
   'Músicas fáceis de tocar no violão',
 ];
+
+export const recommendationStatusMap = {
+  idle: {
+    icon: PlusIcon,
+    label: 'Adicionar todas',
+    variant: 'outline',
+  },
+  adding: {
+    icon: Spinner,
+    label: 'Adicionando...',
+    variant: 'outline',
+  },
+  added: {
+    icon: Check,
+    label: 'Adicionadas',
+    variant: 'default',
+  },
+} as const;
