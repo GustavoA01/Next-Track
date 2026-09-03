@@ -1,6 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { resizeObserverMock } from '@/globalTestsMocks';
+import { NextImgProps, resizeObserverMock } from '@/globalTestsMocks';
 import { PopularityChart } from '../components/PopularityChart';
+
+jest.mock('next/image', () => {
+  function MockImage({ src, alt, width, height }: NextImgProps) {
+    return <img src={src} alt={alt} width={width} height={height} />;
+  }
+  return MockImage;
+});
 
 describe('PopularityChart', () => {
   beforeAll(() => {
@@ -29,5 +36,48 @@ describe('PopularityChart', () => {
     const chart = screen.getByTestId('popularity-chart');
 
     expect(chart).toBeInTheDocument();
+  });
+
+  it('should render most popular after least popular in the DOM', () => {
+    const mockAvgMessage = {
+      title: 'Popularidade Média',
+      text: 'Popularidade média das músicas da sua playlist',
+      textColor: 'text-green-500',
+    };
+
+    const leastPopular = {
+      id: 'least',
+      name: 'Hidden Gem',
+      artists: [{ name: 'Indie' }],
+      album: { images: [{ url: 'https://spotify/least.jpg' }] },
+      popularity: 12,
+      external_urls: { spotify: 'https://open.spotify.com/track/least' },
+    };
+
+    const mostPopular = {
+      id: 'most',
+      name: 'Hit Song',
+      artists: [{ name: 'Star' }],
+      album: { images: [{ url: 'https://spotify/most.jpg' }] },
+      popularity: 95,
+      external_urls: { spotify: 'https://open.spotify.com/track/most' },
+    };
+
+    render(
+      <PopularityChart
+        avgMessage={mockAvgMessage}
+        chartData={[{ popularity: 50 }]}
+        leastPopular={leastPopular as never}
+        mostPopular={mostPopular as never}
+        showLeastPopular
+      />
+    );
+
+    const least = screen.getByText('Menos popular');
+    const most = screen.getByText('Mais popular');
+
+    expect(
+      least.compareDocumentPosition(most) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
   });
 });

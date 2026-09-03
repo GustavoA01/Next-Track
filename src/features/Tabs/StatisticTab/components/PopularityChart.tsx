@@ -13,9 +13,9 @@ import { cn } from '@/lib/utils';
 export const PopularityChart = ({
   avgMessage,
   chartData,
-  mostPopular = null,
-  leastPopular = null,
-  showLeastPopular,
+  mostPopular,
+  leastPopular,
+  showLeastPopular = false,
 }: PopularityChartProps) => (
   <div>
     <header className="mb-4">
@@ -33,14 +33,24 @@ export const PopularityChart = ({
     {mostPopular && (
       <div
         className={cn(
-          'grid gap-4',
-          showLeastPopular ? 'md:grid-cols-2' : 'max-w-xl'
+          'flex gap-4',
+          showLeastPopular
+            ? 'flex-col-reverse md:flex-row'
+            : 'max-w-xl flex-col'
         )}
       >
-        {showLeastPopular && leastPopular && (
-          <PopularTrackCard label="Menos popular" track={leastPopular} />
+        {showLeastPopular && (
+          <PopularTrackCard
+            className="md:flex-1 min-w-0"
+            label="Menos popular"
+            track={leastPopular!}
+          />
         )}
-        <PopularTrackCard label="Mais popular" track={mostPopular} />
+        <PopularTrackCard
+          className="md:flex-1 min-w-0"
+          label="Mais popular"
+          track={mostPopular}
+        />
       </div>
     )}
 

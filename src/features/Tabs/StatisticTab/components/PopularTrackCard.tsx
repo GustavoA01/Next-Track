@@ -2,12 +2,20 @@ import playlistFallbackImage from '@/assets/playlistFallback.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PopularTrackCardProps } from '../types';
+import { cn } from '@/lib/utils';
 
-export const PopularTrackCard = ({ label, track }: PopularTrackCardProps) => (
+export const PopularTrackCard = ({
+  label,
+  track,
+  className,
+}: PopularTrackCardProps) => (
   <Link
     target="_blank"
     href={track.external_urls.spotify}
-    className="group block rounded-lg border border-border/40 bg-surface-hover/20 p-4 transition-colors hover:bg-surface-hover/40"
+    className={cn(
+      'group block rounded-lg border border-border/40 bg-surface-hover/20 p-4 transition-colors hover:bg-surface-hover/40',
+      className
+    )}
   >
     <div className="flex items-center gap-4">
       <Image

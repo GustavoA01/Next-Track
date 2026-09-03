@@ -24,12 +24,13 @@ export type PopularityChartProps = {
   chartData: { popularity: number }[];
   mostPopular?: SpotifyPlaylistTrack | null;
   leastPopular?: SpotifyPlaylistTrack | null;
-  showLeastPopular: boolean;
+  showLeastPopular?: boolean;
 };
 
 export type PopularTrackCardProps = {
   label: string;
   track: SpotifyPlaylistTrack;
+  className?: string;
 };
 
 export type MostListenGenreBarProps = {
