@@ -17,10 +17,11 @@ export const tabs: TabType[] = [
 
 export const badgesText = [
   'Faça recomendações',
+  'Músicas fáceis de tocar no piano',
+  'Músicas fáceis de tocar na guitarra',
   'Recomendações do artista mais presente',
   'Recomendações do gênero mais presente',
-  'Músicas fáceis de tocar no violão',
-];
+] as const;
 
 export const recommendationStatusMap = {
   idle: {

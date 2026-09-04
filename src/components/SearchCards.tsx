@@ -5,6 +5,7 @@ import { PlaylistCard } from './PlaylistCard';
 import playlistFallbackImage from '@/assets/playlistFallback.svg';
 import { useState } from 'react';
 import { SearchCardsProps } from '@/data/types/components';
+import { ScrollToTop } from './ScrollToTop';
 
 export const SearchCards = ({ playlistsData }: SearchCardsProps) => {
   const [queryText, setQueryText] = useState('');
@@ -45,6 +46,8 @@ export const SearchCards = ({ playlistsData }: SearchCardsProps) => {
           </div>
         )}
       </div>
+
+      {playlistsFiltered.length > 0 && <ScrollToTop />}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { scrollToTop } from '../scrollToTop';
 
 describe('scrollToTop', () => {
-  it('should scroll the playlist header into view', () => {
+  it('should scroll the header into view', () => {
     const mockScrollIntoView = jest.fn();
     const mockElement = { scrollIntoView: mockScrollIntoView };
 
@@ -9,7 +9,7 @@ describe('scrollToTop', () => {
 
     scrollToTop();
 
-    expect(document.getElementById).toHaveBeenCalledWith('playlist-header');
+    expect(document.getElementById).toHaveBeenCalledWith('header');
     expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
   });
 
@@ -18,6 +18,6 @@ describe('scrollToTop', () => {
 
     scrollToTop();
 
-    expect(document.getElementById).toHaveBeenCalledWith('playlist-header');
+    expect(document.getElementById).toHaveBeenCalledWith('header');
   });
 });

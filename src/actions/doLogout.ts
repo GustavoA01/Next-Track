@@ -5,8 +5,6 @@ import { RedirectType, redirect } from 'next/navigation';
 
 export const doLogout = async () => {
   const cookiesStore = await cookies();
-
   clearSpotifyAuthCookies(cookiesStore);
-
   redirect('/', RedirectType.replace);
 };

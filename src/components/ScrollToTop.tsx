@@ -6,7 +6,7 @@ export const ScrollToTop = () => (
   <Button
     variant="ghost"
     onClick={scrollToTop}
-    className="my-5 flex justify-center items-center rounded-full border-2 border-muted p-2 cursor-pointer w-10 h-10 self-center"
+    className="flex justify-center items-center my-5 mx-auto rounded-full border-2 border-muted p-2 w-10 h-10"
   >
     <ChevronUp className="text-primary" />
   </Button>

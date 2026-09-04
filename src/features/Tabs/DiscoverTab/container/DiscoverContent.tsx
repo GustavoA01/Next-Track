@@ -84,10 +84,6 @@ export const DiscoverContent = ({
         errorMessage={methods.formState.errors.prompt?.message}
       />
 
-      <h2 className="text-sm text-muted-foreground">
-        * Só é possível reproduzir músicas com uma conta Spotify premium
-      </h2>
-
       <Recommendations
         onAddToPlaylist={onAddToPlaylist}
         onAddAllRecommendations={onAddAllRecommendations}
@@ -97,9 +93,7 @@ export const DiscoverContent = ({
         isAddingTracks={isAddingTracks}
       />
 
-      {recommendationsTracks.length > 0 && (
-        <ScrollToTop />
-      )}
+      {messages && messages.length > 0 && <ScrollToTop />}
 
       <Dialog open={openConfirmDialog} onOpenChange={setOpenConfirmDialog}>
         <ConfirmClearChat onConfirm={deleteChatFn} />

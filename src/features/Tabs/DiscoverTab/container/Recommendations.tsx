@@ -22,6 +22,7 @@ export const Recommendations = ({
     ({ id }) => !isInPlaylist(id)
   );
   const alreadyAddedTracks = tracksToAdd.length === 0;
+  const emptyRecomendations = recommendationsTracks.length === 0;
 
   const status = isAddingTracks
     ? 'adding'
@@ -41,28 +42,30 @@ export const Recommendations = ({
     isRecommendationsLoading ||
     isAddingTracks ||
     alreadyAddedTracks ||
-    recommendationsTracks.length === 0;
+    emptyRecomendations;
 
   return (
     <div>
-      <header className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">Recomendações</h2>
-        <Button
-          size="sm"
-          variant={variant}
-          disabled={disableAddAll}
-          className={cn('rounded-full', alreadyAddedTracks && 'text-black')}
-          onClick={() =>
-            onAddAllRecommendations(
-              tracksToAdd.map(({ uri }) => uri),
-              tracksToAdd.map(({ id }) => id)
-            )
-          }
-        >
-          <StatusIcon />
-          {label}
-        </Button>
-      </header>
+      {!emptyRecomendations && (
+        <header className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold">Recomendações</h2>
+          <Button
+            size="sm"
+            variant={variant}
+            disabled={disableAddAll}
+            className={cn('rounded-full', alreadyAddedTracks && 'text-black')}
+            onClick={() =>
+              onAddAllRecommendations(
+                tracksToAdd.map(({ uri }) => uri),
+                tracksToAdd.map(({ id }) => id)
+              )
+            }
+          >
+            <StatusIcon />
+            {label}
+          </Button>
+        </header>
+      )}
 
       {isRecommendationsLoading ? (
         <MusicCardsSkeleton />

@@ -7,13 +7,16 @@ describe('BadgesGroup', () => {
 
     expect(screen.getByText('Faça recomendações')).toBeInTheDocument();
     expect(
+      screen.getByText('Músicas fáceis de tocar no piano')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Músicas fáceis de tocar na guitarra')
+    ).toBeInTheDocument();
+    expect(
       screen.getByText('Recomendações do artista mais presente')
     ).toBeInTheDocument();
     expect(
       screen.getByText('Recomendações do gênero mais presente')
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText('Músicas fáceis de tocar no violão')
     ).toBeInTheDocument();
   });
 

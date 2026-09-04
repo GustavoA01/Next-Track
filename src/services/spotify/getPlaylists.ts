@@ -19,11 +19,11 @@ export const getPlaylists = async () => {
     throw new Error(`Falha ao buscar playlists: ${response.status}`);
   }
 
-  const playlistsData = (await response.json().then((playlists) => {
-    return playlists.items.filter(
-      (playlist: SpotifyPlaylist) => playlist.public
-    );
-  })) as SpotifyPlaylist[];
+  const playlistsData = (await response
+    .json()
+    .then((playlists) =>
+      playlists.items.filter((playlist: SpotifyPlaylist) => playlist.public)
+    )) as SpotifyPlaylist[];
 
   return playlistsData;
 };
