@@ -12,5 +12,3 @@ export type PlaylistStatisticsType = {
   tracks?: SpotifyPlaylistTracks['items'];
   totalDuration?: number;
 };
-
-

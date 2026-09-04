@@ -20,7 +20,7 @@ describe('DrawerMenu', () => {
     const setIsOpen = jest.fn();
     const { getAllByText } = render(
       <Drawer open>
-        <DrawerMenu pathname={"/playlist/sqqerf"} setIsOpen={setIsOpen} />
+        <DrawerMenu pathname={'/playlist/sqqerf'} setIsOpen={setIsOpen} />
       </Drawer>
     );
 

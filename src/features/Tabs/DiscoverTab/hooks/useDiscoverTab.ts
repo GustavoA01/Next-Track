@@ -70,8 +70,6 @@ export const useDiscoverTab = ({
 
   const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
-  
-
   const handleChatRequest = async (data: { prompt: string }) => {
     setTemporaryMessage(data.prompt);
     const vibes = {

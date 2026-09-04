@@ -19,7 +19,7 @@ const LoginPage = async () => {
         alt="Imagem de fundo"
         className="-z-30 object-cover"
       />
-      
+
       <div className="flex flex-col gap-4 items-center px-4 text-center">
         <Image
           preload

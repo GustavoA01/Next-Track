@@ -213,8 +213,6 @@ describe('Recommendations', () => {
       />
     );
 
-    expect(
-      screen.getByRole('button', { name: /adicionadas/i })
-    ).toBeDisabled();
+    expect(screen.getByRole('button', { name: /adicionadas/i })).toBeDisabled();
   });
 });

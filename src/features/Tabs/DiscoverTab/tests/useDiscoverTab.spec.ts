@@ -616,10 +616,7 @@ describe('useDiscoverTab', () => {
     const { result } = renderHook(() => useDiscoverTab(mockProps));
 
     await act(async () => {
-      result.current.onAddAllRecommendations(
-        ['spotify:track:a'],
-        ['music-a']
-      );
+      result.current.onAddAllRecommendations(['spotify:track:a'], ['music-a']);
     });
 
     await waitFor(() => {

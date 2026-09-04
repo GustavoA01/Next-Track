@@ -36,11 +36,7 @@ describe('getPlaylistStatistic', () => {
 
     const result = await getPlaylistStatistic('token', 'playlistId', 2);
 
-    expect(getTracksStatistics).toHaveBeenCalledWith(
-      'playlistId',
-      'token',
-      2
-    );
+    expect(getTracksStatistics).toHaveBeenCalledWith('playlistId', 'token', 2);
     expect(getArtistsStatistics).toHaveBeenCalledWith(['artist1'], 'token');
     expect(result.artistsStatistics).toEqual([
       expect.objectContaining({

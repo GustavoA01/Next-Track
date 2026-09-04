@@ -1,8 +1,5 @@
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
-import {
-  SpotifyArtist,
-  SpotifyPlaylistTrack,
-} from '@/data/types/spotify';
+import { SpotifyArtist, SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { getArtistsStatistics } from './getArtistsStatistics';
 import { getTracksStatistics } from './getTracksStatistics';
 
@@ -11,7 +8,11 @@ export const getPlaylistStatistic = async (
   playlistId: string,
   totalTracks: number
 ): Promise<PlaylistStatisticsType> => {
-  const { tracks, totalDuration } = await getTracksStatistics(playlistId, accessToken, totalTracks);
+  const { tracks, totalDuration } = await getTracksStatistics(
+    playlistId,
+    accessToken,
+    totalTracks
+  );
 
   const artistCount: Record<string, number> = {};
   const artistIds = new Set<string>();
@@ -24,7 +25,10 @@ export const getPlaylistStatistic = async (
     }
   });
 
-  const artists = await getArtistsStatistics(Array.from(artistIds), accessToken);
+  const artists = await getArtistsStatistics(
+    Array.from(artistIds),
+    accessToken
+  );
 
   const genresCount: Record<string, number> = {};
   let totalGenres = 0;

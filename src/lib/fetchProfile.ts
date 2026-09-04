@@ -1,5 +1,5 @@
-import { SpotifyUserProfile } from "@/data/types/spotify";
-import { baseSpotifyUrl } from "@/services/constantsKeys";
+import { SpotifyUserProfile } from '@/data/types/spotify';
+import { baseSpotifyUrl } from '@/services/constantsKeys';
 
 export const fetchProfile = async (
   token: string

@@ -5,4 +5,3 @@ export const connectSpotifyAccount = async (code: string) => {
   const { accessToken, refreshToken } = await getAccessToken(clientId!, code);
   return { accessToken, refreshToken };
 };
-

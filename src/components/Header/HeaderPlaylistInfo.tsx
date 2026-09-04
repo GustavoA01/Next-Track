@@ -26,7 +26,7 @@ export const HeaderPlaylistInfo = ({
       color="muted-foreground"
       className="fill-muted-foreground drop-shadow-lg"
     />
-    
+
     <span className="text-muted-foreground">{timeText}</span>
   </div>
 );

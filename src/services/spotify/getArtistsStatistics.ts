@@ -1,6 +1,9 @@
-import { baseSpotifyUrl } from "../constantsKeys";
+import { baseSpotifyUrl } from '../constantsKeys';
 
-export const getArtistsStatistics = async (artistIds: string[], accessToken: string) => {
+export const getArtistsStatistics = async (
+  artistIds: string[],
+  accessToken: string
+) => {
   const rawArtistsData = [];
   const chunkSize = 15;
 

@@ -6,11 +6,7 @@ export const syncPlaylistTrackIds = (
 ) => {
   const fromServer = !tracks
     ? new Set()
-    : new Set(
-        tracks
-          .map((item) => item.track?.id)
-          .filter((id) => Boolean(id))
-      );
+    : new Set(tracks.map((item) => item.track?.id).filter((id) => Boolean(id)));
 
   const remainingPending = new Set(
     [...pendingAddedIds].filter((id) => !fromServer.has(id))

@@ -34,9 +34,7 @@ describe('redirectToAuthCodeFlow', () => {
       (key: string) => key === 'spotifyAccessToken'
     );
 
-    await expect(redirectToAuthCodeFlow()).rejects.toThrow(
-      'REDIRECT:/home'
-    );
+    await expect(redirectToAuthCodeFlow()).rejects.toThrow('REDIRECT:/home');
 
     expect(mockRedirect).toHaveBeenCalledWith('/home');
     expect(mockCookiesStore.set).not.toHaveBeenCalled();

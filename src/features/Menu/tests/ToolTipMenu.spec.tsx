@@ -20,7 +20,7 @@ describe('ToolTipMenu', () => {
     const setIsOpen = jest.fn();
     const { getAllByText } = render(
       <Tooltip open>
-        <ToolTipMenu pathname={"/playlist/sqqerf"} setIsOpen={setIsOpen} />
+        <ToolTipMenu pathname={'/playlist/sqqerf'} setIsOpen={setIsOpen} />
       </Tooltip>
     );
 
