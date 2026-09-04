@@ -1,12 +1,21 @@
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
 
+type SyncPlaylistTrackIdsResult = {
+  syncedIds: Set<string>;
+  pendingAddedIds: Set<string>;
+};
+
 export const syncPlaylistTrackIds = (
   tracks: SpotifyPlaylistTracks['items'] | undefined,
   pendingAddedIds: Set<string>
-) => {
-  const fromServer = !tracks
-    ? new Set()
-    : new Set(tracks.map((item) => item.track?.id).filter((id) => Boolean(id)));
+): SyncPlaylistTrackIdsResult => {
+  const fromServer: Set<string> = !tracks
+    ? new Set<string>()
+    : new Set(
+        tracks
+          .map((item) => item.track?.id)
+          .filter((id): id is string => Boolean(id))
+      );
 
   const remainingPending = new Set(
     [...pendingAddedIds].filter((id) => !fromServer.has(id))
