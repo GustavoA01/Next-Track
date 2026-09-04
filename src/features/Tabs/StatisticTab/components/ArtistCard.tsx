@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ArtistCardProps } from '../types';
-import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/utils/cn';
+import { ArtistCardSkeleton } from '@/components/Skeletons';
 
 export const ArtistCard = ({
   artist,
@@ -15,12 +15,7 @@ export const ArtistCard = ({
 
   return (
     <div className="relative min-w-37.5 min-h-37.5 sm:w-full">
-      {!hasImageLoaded && (
-        <Skeleton
-          data-testid="artist-card-skeleton"
-          className="absolute inset-0 z-10 min-h-37.5 rounded-lg"
-        />
-      )}
+      {!hasImageLoaded && <ArtistCardSkeleton overlay />}
 
       <Link
         target="_blank"

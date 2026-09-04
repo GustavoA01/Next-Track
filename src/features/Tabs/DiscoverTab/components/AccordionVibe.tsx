@@ -9,7 +9,7 @@ import { RotateCcw, Zap } from 'lucide-react';
 import { SliderVibe } from './SliderVibe';
 import { Button } from '@/components/ui/button';
 import { AccordionVibeProps } from '../types';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 
 export const AccordionVibe = ({
   emotionalVibe,

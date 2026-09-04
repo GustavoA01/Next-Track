@@ -2,6 +2,7 @@ import { Montserrat, Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import type { Metadata } from 'next';
 import { Providers } from '@/components/Providers';
 import './globals.css';
+import { cn } from '@/utils/cn';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -50,14 +51,15 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => (
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en" suppressHydrationWarning>
     <body
-      className={`${montserrat.variable} ${inter.variable} ${jakarta.variable} dark antialiased`}
+      className={cn(
+        montserrat.variable,
+        inter.variable,
+        jakarta.variable,
+        'dark antialiased'
+      )}
     >
       <Providers>{children}</Providers>
     </body>

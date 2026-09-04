@@ -1,8 +1,5 @@
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
-import {
-  getPlaylistTrackIds,
-  syncPlaylistTrackIds,
-} from '../getPlaylistTrackIds';
+import { syncPlaylistTrackIds } from '../syncPlaylistTrackIds';
 
 const mockTracks = [
   {
@@ -15,29 +12,6 @@ const mockTracks = [
   },
 ] as SpotifyPlaylistTracks['items'];
 
-describe('getPlaylistTrackIds', () => {
-  it('should extract track ids from playlist items', () => {
-    const ids = getPlaylistTrackIds(mockTracks);
-
-    expect(ids.has('track-1')).toBe(true);
-    expect(ids.has('track-2')).toBe(true);
-    expect(ids.size).toBe(2);
-  });
-
-  it('should ignore items without track id', () => {
-    const ids = getPlaylistTrackIds([
-      { added_at: new Date(), track: { id: 'track-1' } },
-      { added_at: new Date(), track: {} },
-    ] as SpotifyPlaylistTracks['items']);
-
-    expect(ids).toEqual(new Set(['track-1']));
-  });
-
-  it('should return empty set when tracks is undefined', () => {
-    expect(getPlaylistTrackIds(undefined)).toEqual(new Set());
-  });
-});
-
 describe('syncPlaylistTrackIds', () => {
   it('should sync ids from server tracks', () => {
     const { syncedIds, pendingAddedIds } = syncPlaylistTrackIds(
@@ -46,6 +20,28 @@ describe('syncPlaylistTrackIds', () => {
     );
 
     expect(syncedIds).toEqual(new Set(['track-1', 'track-2']));
+    expect(pendingAddedIds.size).toBe(0);
+  });
+
+  it('should ignore items without track id', () => {
+    const { syncedIds } = syncPlaylistTrackIds(
+      [
+        { added_at: new Date(), track: { id: 'track-1' } },
+        { added_at: new Date(), track: {} },
+      ] as SpotifyPlaylistTracks['items'],
+      new Set()
+    );
+
+    expect(syncedIds).toEqual(new Set(['track-1']));
+  });
+
+  it('should return empty sets when tracks is undefined', () => {
+    const { syncedIds, pendingAddedIds } = syncPlaylistTrackIds(
+      undefined,
+      new Set()
+    );
+
+    expect(syncedIds).toEqual(new Set());
     expect(pendingAddedIds.size).toBe(0);
   });
 

@@ -2,7 +2,7 @@ import { SpotifyPlaylistTrack } from '@/data/types/spotify';
 import { addToPlaylist } from '@/actions/addToPlaylist';
 import { getMessages } from '@/services/firebase/getMessages';
 import { searchTrack } from '@/services/spotify/searchTrack';
-import { syncPlaylistTrackIds } from '@/utils/getPlaylistTrackIds';
+import { syncPlaylistTrackIds } from '@/utils/syncPlaylistTrackIds';
 import { getChatStorageKey } from '@/utils/getChatStorageKey';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { toast } from 'sonner';

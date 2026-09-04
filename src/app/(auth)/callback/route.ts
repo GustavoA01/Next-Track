@@ -1,4 +1,4 @@
-import { connectSpotifyAccount } from '@/lib/spotify';
+import { connectSpotifyAccount } from '@/lib/connectSpotify';
 import { setSpotifyAuthCookies } from '@/lib/spotifyAuthCookies';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';

@@ -5,7 +5,7 @@ import { Trash } from 'lucide-react';
 import { MessageCard } from '../components/MessageCard';
 import { ChatContentProps } from '../types';
 import { useChatContent } from '../hooks/useChatContent';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 
 export const ChatContent = ({
   messages,
@@ -34,7 +34,7 @@ export const ChatContent = ({
           className="rounded-full"
           onClick={() => setOpenConfirmDialog(true)}
         >
-          <Trash className='size-4'/>
+          <Trash className="size-4" />
         </Button>
       </CardHeader>
 

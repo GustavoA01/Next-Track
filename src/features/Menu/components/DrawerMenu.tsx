@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/drawer';
 import Link from 'next/link';
 import { DrawerMenuProps } from '../types';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import { buttonVariants } from '@/components/ui/button';
 
 export const DrawerMenu = ({ pathname, setIsOpen }: DrawerMenuProps) => (

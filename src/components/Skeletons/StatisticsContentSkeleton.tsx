@@ -1,19 +1,18 @@
 import { Skeleton } from '@/components/ui/skeleton';
+import { ArtistCardSkeleton } from './ArtistCardSkeleton';
 
 export const StatisticsContentSkeleton = () => (
   <div className="flex flex-col gap-10">
     <div className="mt-4">
       <Skeleton className="h-6 w-64 mb-3" />
 
-      <div className="flex gap-2 overflow-x-auto md:grid sm:grid-cols-5 sm:overflow-hidden hide-scrollbar">
+      <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2 md:grid md:grid-cols-5 md:overflow-hidden">
         {Array.from({ length: 5 }).map((_, index) => (
           <div
             key={`artist-card-skeleton-${index}`}
-            className="shrink-0 sm:w-auto"
+            className="shrink-0 md:w-auto"
           >
-            <div className="rounded-xl overflow-hidden">
-              <Skeleton className="w-55 h-55 sm:w-full sm:h-60" />
-            </div>
+            <ArtistCardSkeleton />
           </div>
         ))}
       </div>

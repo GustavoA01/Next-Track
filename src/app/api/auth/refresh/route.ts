@@ -1,13 +1,13 @@
+import { refreshAccessToken } from '@/lib/refreshAccessToken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { refreshAccessToken } from '@/lib/spotify';
 import {
   clearSpotifyAuthCookies,
   setSpotifyAuthCookies,
   SPOTIFY_REFRESH_TOKEN_COOKIE,
 } from '@/lib/spotifyAuthCookies';
 
-export async function GET() {
+export const GET = async () => {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get(SPOTIFY_REFRESH_TOKEN_COOKIE)?.value;
 
@@ -28,4 +28,4 @@ export async function GET() {
   }
 
   redirect('/home');
-}
+};

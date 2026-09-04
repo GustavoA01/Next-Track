@@ -2,7 +2,7 @@ import { getPlaylistStatistic } from '@/services/spotify/getPlaylistStatistic';
 import { PlaylistHeader } from '@/components/Header/PlaylistHeader';
 import { TabsMenu } from '@/features/Tabs/TabsMenu';
 import { getPlaylistInfo } from '@/services/spotify/getPlaylistInfo';
-import { fetchProfile } from '@/lib/spotify';
+import { fetchProfile } from '@/lib/fetchProfile';
 
 const PlaylistPage = async ({
   params,

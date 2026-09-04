@@ -1,6 +1,6 @@
 import { MenuOptions } from '@/features/Menu/container/MenuOptions';
+import { fetchProfile } from '@/lib/fetchProfile';
 import { getCurrentToken } from '@/lib/getCurrentToken';
-import { fetchProfile } from '@/lib/spotify';
 import Image from 'next/image';
 
 export const Header = async () => {
@@ -8,7 +8,10 @@ export const Header = async () => {
   const profile = await fetchProfile(accessToken);
 
   return (
-    <header id="header" className="flex justify-between px-4 container mx-auto sm:px-8 pt-4 mb-4 select-none bg-transparent backdrop-blur-md">
+    <header
+      id="header"
+      className="flex justify-between px-4 container mx-auto sm:px-8 pt-4 mb-4 select-none bg-transparent backdrop-blur-md"
+    >
       <div className="flex items-center gap-4">
         <Image
           preload

@@ -1,10 +1,8 @@
 import { cookies } from 'next/headers';
-import {
-  connectSpotifyAccount,
-  fetchProfile,
-  getAccessToken,
-  refreshAccessToken,
-} from '../spotify';
+import { refreshAccessToken } from '../refreshAccessToken';
+import { getAccessToken } from '../getAccessToken';
+import { connectSpotifyAccount } from '../connectSpotify';
+import { fetchProfile } from '../fetchProfile';
 
 jest.mock('next/headers', () => ({
   cookies: jest.fn(),

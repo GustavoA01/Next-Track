@@ -1,5 +1,5 @@
 import { GET } from '@/app/api/auth/refresh/route';
-import { refreshAccessToken } from '@/lib/spotify';
+import { refreshAccessToken } from '@/lib/refreshAccessToken';
 import {
   clearSpotifyAuthCookies,
   setSpotifyAuthCookies,
@@ -17,7 +17,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('@/lib/spotify', () => ({
+jest.mock('@/lib/refreshAccessToken', () => ({
   refreshAccessToken: jest.fn(),
 }));
 

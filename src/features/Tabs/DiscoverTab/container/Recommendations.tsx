@@ -4,7 +4,7 @@ import { usePlayerProvider } from '../../usePlayerProvider';
 import { Button } from '@/components/ui/button';
 import { MusicCardsSkeleton } from '@/components/Skeletons';
 import { MusicCard } from '@/features/MusicCard/container/MusicCard';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import { MouseEvent } from 'react';
 import { recommendationStatusMap } from '@/data/constants';
 

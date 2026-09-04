@@ -6,7 +6,7 @@ import { StatisticContent } from './StatisticTab/container/StatisticContent';
 import { useState } from 'react';
 import { tabs } from '@/data/constants';
 import { TabsMenuProps } from './StatisticTab/types';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import { PlayerProvider, usePlayerProvider } from './usePlayerProvider';
 import { Player } from './DiscoverTab/components/Player';
 import { TabType } from '@/data/types';

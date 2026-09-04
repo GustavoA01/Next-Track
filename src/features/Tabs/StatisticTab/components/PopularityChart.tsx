@@ -8,7 +8,7 @@ import {
 import { chartConfig } from '@/data/constants';
 import { PopularityChartProps } from '../types';
 import { PopularTrackCard } from './PopularTrackCard';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 
 export const PopularityChart = ({
   avgMessage,

@@ -2,7 +2,7 @@ import playlistFallbackImage from '@/assets/playlistFallback.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PopularTrackCardProps } from '../types';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 
 export const PopularTrackCard = ({
   label,

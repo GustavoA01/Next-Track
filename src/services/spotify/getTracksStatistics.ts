@@ -13,16 +13,15 @@ export const getTracksStatistics = async (
   let totalCopy = totalTracks;
   let offSetCount = 0;
   let totalDuration = 0;
+  const tracksUrl = (offset: number, limit: number) =>
+    `${baseSpotifyUrl}/playlists/${playlistId}/tracks?offset=${offset}&limit=${limit}`;
 
   while (totalCopy > 50) {
-    const tracksResponse = await fetch(
-      `${baseSpotifyUrl}/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=50`,
-      {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${accessToken}` },
-        next: { revalidate: 3600 },
-      }
-    )
+    const tracksResponse = await fetch(tracksUrl(offSetCount, 50), {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${accessToken}` },
+      next: { revalidate: 3600 },
+    })
       .then((res) => res.json())
       .then((data) => data);
 
@@ -38,8 +37,7 @@ export const getTracksStatistics = async (
   }
 
   if (totalCopy > 0) {
-    const url = `${baseSpotifyUrl}/playlists/${playlistId}/tracks?offset=${offSetCount}&limit=${totalCopy}`;
-    const tracksResponse = await fetch(url, {
+    const tracksResponse = await fetch(tracksUrl(offSetCount, totalCopy), {
       method: 'GET',
       headers: { Authorization: `Bearer ${accessToken}` },
       next: { revalidate: 3600 },
