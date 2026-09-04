@@ -1,12 +1,8 @@
 import { Spinner } from '@/components/ui/spinner';
-import {
-  ChartColumnDecreasing,
-  Check,
-  PlusIcon,
-  Sparkles,
-} from 'lucide-react';
+import { ChartColumnDecreasing, Check, PlusIcon, Sparkles } from 'lucide-react';
+import { TabType } from './types';
 
-export const tabs = [
+export const tabs: TabType[] = [
   {
     label: 'Descobrir',
     value: 'discover',
@@ -17,15 +13,7 @@ export const tabs = [
     value: 'statistics',
     icon: ChartColumnDecreasing,
   },
-];
-
-export const chartConfig = {
-  popularity: {
-    label: 'Popularidade das músicas (0 - 100)',
-    dataKey: 'popularity',
-    color: ' #1db954',
-  },
-};
+] as const;
 
 export const badgesText = [
   'Faça recomendações',
@@ -51,3 +39,11 @@ export const recommendationStatusMap = {
     variant: 'default',
   },
 } as const;
+
+export const chartConfig = {
+  popularity: {
+    label: 'Popularidade das músicas (0 - 100)',
+    dataKey: 'popularity',
+    color: ' #1db954',
+  },
+};

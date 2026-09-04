@@ -70,10 +70,7 @@ export const useDiscoverTab = ({
 
   const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
-  const handleScrollToTop = () => {
-    const header = document.getElementById('playlist-header');
-    if (header) header.scrollIntoView({ behavior: 'smooth' });
-  };
+  
 
   const handleChatRequest = async (data: { prompt: string }) => {
     setTemporaryMessage(data.prompt);
@@ -151,7 +148,6 @@ export const useDiscoverTab = ({
     deleteChatFn,
     openConfirmDialog,
     setOpenConfirmDialog,
-    handleScrollToTop,
     handleOnKeyDown,
     isAddingTracks,
   };

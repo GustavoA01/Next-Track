@@ -8,6 +8,7 @@ import { StatisticsContentSkeleton } from '@/components/Skeletons';
 import { StatisticContentProps } from '../types';
 import { ArtistsCarousel } from './ArtistsCarousel';
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
+import { ScrollToTop } from '@/components/ScrollToTop';
 
 export const StatisticContent = ({
   playlist,
@@ -74,6 +75,8 @@ export const StatisticContent = ({
                 showLeastPopular={showLeastPopular}
               />
             </section>
+
+            <ScrollToTop />
           </>
         )}
       </Suspense>

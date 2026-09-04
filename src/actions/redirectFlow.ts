@@ -7,7 +7,10 @@ import {
   SPOTIFY_REFRESH_TOKEN_COOKIE,
 } from '@/lib/spotifyAuthCookies';
 
-export const redirectToAuthCodeFlow = async (clientId: string) => {
+export const redirectToAuthCodeFlow = async () => {
+  const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+  if (!clientId) throw new Error('Client ID não está definido');
+
   const cookiesStore = await cookies();
   const settedCookies =
     cookiesStore.has(SPOTIFY_REFRESH_TOKEN_COOKIE) ||

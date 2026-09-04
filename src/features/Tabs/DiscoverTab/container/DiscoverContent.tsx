@@ -1,6 +1,4 @@
 import { TabsContent } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { ChevronUp } from 'lucide-react';
 import { Recommendations } from '@/features/Tabs/DiscoverTab/container/Recommendations';
 import { AccordionVibe } from '../components/AccordionVibe';
 import { BadgesGroup } from '../components/BadgesGroup';
@@ -10,6 +8,7 @@ import { ConfirmClearChat } from '../components/ConfirmClearChat';
 import { Dialog } from '@/components/ui/dialog';
 import { DiscoverContentProps } from '../types';
 import { ChatInput } from '../components/ChatInput';
+import { ScrollToTop } from '@/components/ScrollToTop';
 
 export const DiscoverContent = ({
   tracks,
@@ -41,7 +40,6 @@ export const DiscoverContent = ({
     deleteChatFn,
     openConfirmDialog,
     setOpenConfirmDialog,
-    handleScrollToTop,
     handleOnKeyDown,
     onAddAllRecommendations,
     isAddingTracks,
@@ -100,13 +98,7 @@ export const DiscoverContent = ({
       />
 
       {recommendationsTracks.length > 0 && (
-        <Button
-          variant="ghost"
-          onClick={handleScrollToTop}
-          className="my-5 flex justify-center items-center rounded-full border-2 border-muted p-2 cursor-pointer w-10 h-10 self-center"
-        >
-          <ChevronUp className="text-primary" />
-        </Button>
+        <ScrollToTop />
       )}
 
       <Dialog open={openConfirmDialog} onOpenChange={setOpenConfirmDialog}>

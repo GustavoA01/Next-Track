@@ -1,5 +1,7 @@
+import { ForwardRefExoticComponent, RefAttributes } from 'react';
 import { SpotifyPlaylistTrack } from './spotify';
 import { Timestamp } from 'firebase/firestore';
+import { LucideProps } from 'lucide-react';
 
 export interface ChatContentResponse {
   userId: string;
@@ -27,4 +29,12 @@ export type VibesType = {
 export type ChatPromptType = {
   systemMessage: { role: string; content: string };
   userMessage: { role: string; content: string };
+};
+
+export type TabType = {
+  label: string;
+  value: 'discover' | 'statistics';
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
+  >;
 };

@@ -565,22 +565,6 @@ describe('useDiscoverTab', () => {
     expect(result.current.isRecommendationsLoading).toBe(false);
   });
 
-  it('should call handleScrollToTop', () => {
-    const mockScrollIntoView = jest.fn();
-    const mockElement = { scrollIntoView: mockScrollIntoView };
-
-    document.getElementById = jest.fn().mockReturnValue(mockElement);
-
-    const { result } = renderHook(() => useDiscoverTab(mockProps));
-
-    act(() => {
-      result.current.handleScrollToTop();
-    });
-
-    expect(document.getElementById).toHaveBeenCalledWith('playlist-header');
-    expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
-  });
-
   it('should call onSelectBadge and reset form', () => {
     const mockReset = jest.fn();
     (useForm as jest.Mock).mockReturnValue({

@@ -29,7 +29,7 @@ export const PlaylistCard = ({
           {playlistName}
         </h2>
         <div className="flex items-center gap-2 line-clamp-1 mt-auto">
-          <Circle className="fill-primary text-primary" size={8} />
+          <Circle size={8} className="fill-primary text-primary" />
           <span className="text-muted-foreground text-xs sm:text-sm">
             {totalTracks} músicas
           </span>

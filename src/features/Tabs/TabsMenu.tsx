@@ -9,6 +9,13 @@ import { TabsMenuProps } from './StatisticTab/types';
 import { cn } from '@/lib/utils';
 import { PlayerProvider, usePlayerProvider } from './usePlayerProvider';
 import { Player } from './DiscoverTab/components/Player';
+import { TabType } from '@/data/types';
+
+export const TabsMenu = (props: TabsMenuProps) => (
+  <PlayerProvider>
+    <TabsMenuContent {...props} />
+  </PlayerProvider>
+);
 
 const TabsMenuContent = ({
   playlist,
@@ -19,30 +26,31 @@ const TabsMenuContent = ({
   userId,
 }: TabsMenuProps) => {
   const { uris } = usePlayerProvider();
-  const [tabValue, setTabValue] = useState('discover');
-  const activeIndex = tabs.findIndex((tab) => tab.value === tabValue);
+  const [tabValue, setTabValue] = useState<TabType['value']>('discover');
+  const activeIndex = tabs.findIndex(({ value }) => value === tabValue);
 
   return (
-    <Tabs className="w-full" value={tabValue} onValueChange={setTabValue}>
+    <Tabs
+      className="w-full"
+      value={tabValue}
+      onValueChange={(value) => setTabValue(value as TabType['value'])}
+    >
       <div className="relative w-full">
         <TabsList className="bg-transparent m-auto w-full">
-          {tabs.map((tab) => (
+          {tabs.map(({ value, label, icon: Icon }) => (
             <Button
-              key={tab.value}
+              key={value}
               variant="ghost"
-              onClick={() => setTabValue(tab.value)}
-              className={cn(
-                'flex-1',
-                tabValue === tab.value && 'text-white/80'
-              )}
+              onClick={() => setTabValue(value)}
+              className={cn('flex-1', tabValue === value && 'text-white/80')}
             >
-              <tab.icon
+              <Icon
                 className={cn(
                   'text-muted-foreground',
-                  tabValue === tab.value && 'text-primary'
+                  tabValue === value && 'text-primary'
                 )}
               />
-              {tab.label}
+              {label}
             </Button>
           ))}
         </TabsList>
@@ -82,9 +90,3 @@ const TabsMenuContent = ({
     </Tabs>
   );
 };
-
-export const TabsMenu = (props: TabsMenuProps) => (
-  <PlayerProvider>
-    <TabsMenuContent {...props} />
-  </PlayerProvider>
-);

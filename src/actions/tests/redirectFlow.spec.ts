@@ -24,6 +24,7 @@ describe('redirectToAuthCodeFlow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     process.env.SPOTIFY_REDIRECT_URI = 'http://127.0.0.1:3000/callback';
+    process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID = 'client-id';
     (cookies as jest.Mock).mockResolvedValue(mockCookiesStore);
     mockCookiesStore.has.mockReturnValue(false);
   });
@@ -33,7 +34,7 @@ describe('redirectToAuthCodeFlow', () => {
       (key: string) => key === 'spotifyAccessToken'
     );
 
-    await expect(redirectToAuthCodeFlow('client-id')).rejects.toThrow(
+    await expect(redirectToAuthCodeFlow()).rejects.toThrow(
       'REDIRECT:/home'
     );
 
@@ -42,7 +43,7 @@ describe('redirectToAuthCodeFlow', () => {
   });
 
   it('should set verifier cookie and redirect to Spotify authorize URL', async () => {
-    await expect(redirectToAuthCodeFlow('client-id')).rejects.toThrow(
+    await expect(redirectToAuthCodeFlow()).rejects.toThrow(
       /REDIRECT:https:\/\/accounts\.spotify\.com\/authorize/
     );
 
@@ -59,5 +60,15 @@ describe('redirectToAuthCodeFlow', () => {
     expect(redirectUrl).toContain('code_challenge_method=S256');
     expect(redirectUrl).toContain('code_challenge=');
     expect(redirectType).toBe(RedirectType.push);
+  });
+
+  it('should throw when Spotify client ID is missing', async () => {
+    delete process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+
+    await expect(redirectToAuthCodeFlow()).rejects.toThrow(
+      'Client ID não está definido'
+    );
+
+    expect(mockRedirect).not.toHaveBeenCalled();
   });
 });
