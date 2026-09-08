@@ -18,14 +18,15 @@ export const SearchCards = ({ playlistsData }: SearchCardsProps) => {
     .sort((a, b) => b.tracks.total - a.tracks.total);
 
   return (
-    <div className="space-y-4 container mx-auto px-4 sm:px-8 ">
+    <div className="space-y-4 container mx-auto px-4 sm:px-8 pb-8">
       <Input
+        id="input-search"
         placeholder="Buscar por nome"
         className="rounded-full w-full md:w-[40%]"
         onChange={(e) => setQueryText(e.target.value)}
       />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3">
         {playlistsFiltered.length > 0 ? (
           playlistsFiltered.map((playlist: SpotifyPlaylist) => {
             const imageUrl = playlist.images?.[0]?.url || playlistFallbackImage;
@@ -47,7 +48,7 @@ export const SearchCards = ({ playlistsData }: SearchCardsProps) => {
         )}
       </div>
 
-      {playlistsFiltered.length > 0 && <ScrollToTop />}
+      {playlistsFiltered.length > 0 && <ScrollToTop id="input-search" />}
     </div>
   );
 };

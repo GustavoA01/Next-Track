@@ -1,9 +1,21 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { useEffect } from 'react';
 import { TabsMenu } from './TabsMenu';
 import { SpotifyPlaylist } from '@/data/types/spotify';
 
+let mockHasChat = false;
+
 jest.mock('./DiscoverTab/container/DiscoverContent', () => ({
-  DiscoverContent: () => <div data-testid="discover-content" />,
+  DiscoverContent: ({
+    onHasChatChange,
+  }: {
+    onHasChatChange?: (hasChat: boolean) => void;
+  }) => {
+    useEffect(() => {
+      onHasChatChange?.(mockHasChat);
+    }, [onHasChatChange]);
+    return <div data-testid="discover-content" />;
+  },
 }));
 
 jest.mock('./StatisticTab/container/StatisticContent', () => ({
@@ -67,6 +79,7 @@ const baseProps = {
 
 describe('TabsMenu', () => {
   beforeEach(() => {
+    mockHasChat = false;
     mockUsePlayerProvider.mockReturnValue({
       uris: [],
       setUris: jest.fn(),
@@ -122,5 +135,37 @@ describe('TabsMenu', () => {
     expect(screen.getByTestId('player-component').parentElement).toHaveClass(
       'hidden'
     );
+  });
+
+  it('shows scroll to top after the player only when there is chat', () => {
+    mockHasChat = true;
+    mockUsePlayerProvider.mockReturnValue({
+      uris: ['spotify:track:1'],
+      setUris: jest.fn(),
+    });
+
+    render(<TabsMenu accessToken="mock_token" {...baseProps} />);
+
+    const scrollButton = screen.getByRole('button', { name: 'Voltar ao topo' });
+    const player = screen.getByTestId('player-component');
+
+    expect(scrollButton).toBeInTheDocument();
+    expect(
+      player.compareDocumentPosition(scrollButton) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: /Estatísticas/i }));
+    expect(
+      screen.queryByRole('button', { name: 'Voltar ao topo' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('does not show scroll to top when there is no chat', () => {
+    render(<TabsMenu accessToken="mock_token" {...baseProps} />);
+
+    expect(
+      screen.queryByRole('button', { name: 'Voltar ao topo' })
+    ).not.toBeInTheDocument();
   });
 });

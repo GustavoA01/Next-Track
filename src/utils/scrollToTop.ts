@@ -1,4 +1,4 @@
-export const scrollToTop = () => {
-  const header = document.getElementById('header');
-  if (header) header.scrollIntoView({ behavior: 'smooth' });
+export const scrollToTop = (id: string = 'header') => {
+  const element = document.getElementById(id);
+  if (element) element.scrollIntoView({ behavior: 'smooth' });
 };

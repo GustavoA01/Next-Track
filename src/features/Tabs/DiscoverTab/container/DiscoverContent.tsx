@@ -8,7 +8,11 @@ import { ConfirmClearChat } from '../components/ConfirmClearChat';
 import { Dialog } from '@/components/ui/dialog';
 import { DiscoverContentProps } from '../types';
 import { ChatInput } from '../components/ChatInput';
-import { ScrollToTop } from '@/components/ScrollToTop';
+import { useEffect } from 'react';
+
+type DiscoverContentComponentProps = DiscoverContentProps & {
+  onHasChatChange?: (hasChat: boolean) => void;
+};
 
 export const DiscoverContent = ({
   tracks,
@@ -16,7 +20,8 @@ export const DiscoverContent = ({
   userId,
   genresStatistics,
   artistsStatistics,
-}: DiscoverContentProps) => {
+  onHasChatChange,
+}: DiscoverContentComponentProps) => {
   const {
     methods,
     emotionalVibe,
@@ -50,6 +55,10 @@ export const DiscoverContent = ({
     genresStatistics,
     tracks,
   });
+
+  useEffect(() => {
+    onHasChatChange?.(Boolean(messages?.length));
+  }, [messages, onHasChatChange]);
 
   return (
     <TabsContent className="sm:px-8 pt-4 flex flex-col gap-6" value="discover">
@@ -92,8 +101,6 @@ export const DiscoverContent = ({
         isRecommendationsLoading={isRecommendationsLoading}
         isAddingTracks={isAddingTracks}
       />
-
-      {messages && messages.length > 0 && <ScrollToTop />}
 
       <Dialog open={openConfirmDialog} onOpenChange={setOpenConfirmDialog}>
         <ConfirmClearChat onConfirm={deleteChatFn} />

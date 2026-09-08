@@ -53,7 +53,7 @@ export const Recommendations = ({
             size="sm"
             variant={variant}
             disabled={disableAddAll}
-            className={cn('rounded-full', alreadyAddedTracks && 'text-black')}
+            className={cn('rounded-full', status === 'added' && 'text-black')}
             onClick={() =>
               onAddAllRecommendations(
                 tracksToAdd.map(({ uri }) => uri),

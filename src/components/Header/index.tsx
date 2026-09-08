@@ -10,7 +10,7 @@ export const Header = async () => {
   return (
     <header
       id="header"
-      className="flex justify-between px-4 container mx-auto sm:px-8 pt-4 mb-4 select-none bg-transparent backdrop-blur-md"
+      className="sticky top-0 z-10 flex justify-between px-4 container mx-auto sm:px-8 py-4 select-none bg-background/70 backdrop-blur-md"
     >
       <div className="flex items-center gap-4">
         <Image

@@ -3,6 +3,7 @@ import { Tabs, TabsList } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { DiscoverContent } from './DiscoverTab/container/DiscoverContent';
 import { StatisticContent } from './StatisticTab/container/StatisticContent';
+import { ScrollToTop } from '@/components/ScrollToTop';
 import { useState } from 'react';
 import { tabs } from '@/data/constants';
 import { TabsMenuProps } from './StatisticTab/types';
@@ -27,6 +28,7 @@ const TabsMenuContent = ({
 }: TabsMenuProps) => {
   const { uris } = usePlayerProvider();
   const [tabValue, setTabValue] = useState<TabType['value']>('discover');
+  const [hasChat, setHasChat] = useState(false);
   const activeIndex = tabs.findIndex(({ value }) => value === tabValue);
 
   return (
@@ -72,6 +74,7 @@ const TabsMenuContent = ({
         userId={userId}
         genresStatistics={genresStatistics}
         artistsStatistics={artistsStatistics}
+        onHasChatChange={setHasChat}
       />
 
       <StatisticContent
@@ -87,6 +90,7 @@ const TabsMenuContent = ({
           <Player token={accessToken} uris={uris} />
         </div>
       )}
+      {hasChat && tabValue === 'discover' && <ScrollToTop />}
     </Tabs>
   );
 };

@@ -12,7 +12,7 @@ const HomePageLoading = () => (
       <Skeleton className="md:w-70 w-full h-10" />
     </div>
 
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 pb-16">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3">
       {Array.from({ length: 10 }).map((_, index) => (
         <Skeleton
           key={index}
