@@ -20,7 +20,6 @@ export const SearchCards = ({ playlistsData }: SearchCardsProps) => {
   return (
     <div className="space-y-4 container mx-auto px-4 sm:px-8 pb-8">
       <Input
-        id="input-search"
         placeholder="Buscar por nome"
         className="rounded-full w-full md:w-[40%]"
         onChange={(e) => setQueryText(e.target.value)}
@@ -48,7 +47,7 @@ export const SearchCards = ({ playlistsData }: SearchCardsProps) => {
         )}
       </div>
 
-      {playlistsFiltered.length > 0 && <ScrollToTop id="input-search" />}
+      {playlistsFiltered.length > 0 && <ScrollToTop id="title-home" />}
     </div>
   );
 };
