@@ -1,21 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { useEffect } from 'react';
 import { TabsMenu } from './TabsMenu';
 import { SpotifyPlaylist } from '@/data/types/spotify';
 
-let mockHasChat = false;
-
 jest.mock('./DiscoverTab/container/DiscoverContent', () => ({
-  DiscoverContent: ({
-    onHasChatChange,
-  }: {
-    onHasChatChange?: (hasChat: boolean) => void;
-  }) => {
-    useEffect(() => {
-      onHasChatChange?.(mockHasChat);
-    }, [onHasChatChange]);
-    return <div data-testid="discover-content" />;
-  },
+  DiscoverContent: () => <div data-testid="discover-content" />,
 }));
 
 jest.mock('./StatisticTab/container/StatisticContent', () => ({
@@ -33,10 +21,16 @@ jest.mock('./DiscoverTab/components/Player', () => ({
 }));
 
 const mockUsePlayerProvider = jest.fn();
+const mockUseChatProvider = jest.fn();
 
-jest.mock('./usePlayerProvider', () => ({
+jest.mock('./providers/usePlayerProvider', () => ({
   PlayerProvider: ({ children }: { children: React.ReactNode }) => children,
   usePlayerProvider: () => mockUsePlayerProvider(),
+}));
+
+jest.mock('./providers/useChatProvider', () => ({
+  ChatProvider: ({ children }: { children: React.ReactNode }) => children,
+  useChatProvider: () => mockUseChatProvider(),
 }));
 
 const mockPlaylist: SpotifyPlaylist = {
@@ -79,10 +73,12 @@ const baseProps = {
 
 describe('TabsMenu', () => {
   beforeEach(() => {
-    mockHasChat = false;
     mockUsePlayerProvider.mockReturnValue({
       uris: [],
       setUris: jest.fn(),
+    });
+    mockUseChatProvider.mockReturnValue({
+      hasChat: false,
     });
   });
 
@@ -138,7 +134,9 @@ describe('TabsMenu', () => {
   });
 
   it('shows scroll to top after the player only when there is chat', () => {
-    mockHasChat = true;
+    mockUseChatProvider.mockReturnValue({
+      hasChat: true,
+    });
     mockUsePlayerProvider.mockReturnValue({
       uris: ['spotify:track:1'],
       setUris: jest.fn(),

@@ -1,9 +1,9 @@
 'use client';
-import { ProvidersProps } from '@/data/types/components';
+import { ProvidersType } from '@/data/types/providers';
 import { Toaster } from '../ui/sonner';
 import { QClientProvider } from './QClientProvider';
 
-export const Providers = ({ children }: ProvidersProps) => (
+export const Providers = ({ children }: ProvidersType) => (
   <QClientProvider>
     {children}
     <Toaster />

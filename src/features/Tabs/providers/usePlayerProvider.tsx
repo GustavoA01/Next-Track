@@ -1,9 +1,5 @@
+import { PlayerProviderType } from '@/data/types/providers';
 import { createContext, useContext, useMemo, useState } from 'react';
-
-type PlayerProviderType = {
-  uris: string[];
-  setUris: (uris: string[]) => void;
-};
 
 const PlayerContext = createContext<PlayerProviderType>(
   {} as PlayerProviderType

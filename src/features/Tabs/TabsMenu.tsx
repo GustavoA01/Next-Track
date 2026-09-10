@@ -8,13 +8,39 @@ import { useState } from 'react';
 import { tabs } from '@/data/constants';
 import { TabsMenuProps } from './StatisticTab/types';
 import { cn } from '@/utils/cn';
-import { PlayerProvider, usePlayerProvider } from './usePlayerProvider';
+import {
+  PlayerProvider,
+  usePlayerProvider,
+} from './providers/usePlayerProvider';
+import { ChatProvider, useChatProvider } from './providers/useChatProvider';
 import { Player } from './DiscoverTab/components/Player';
 import { TabType } from '@/data/types';
 
-export const TabsMenu = (props: TabsMenuProps) => (
+export const TabsMenu = ({
+  genresStatistics,
+  artistsStatistics,
+  tracks,
+  accessToken,
+  userId,
+  ...props
+}: TabsMenuProps) => (
   <PlayerProvider>
-    <TabsMenuContent {...props} />
+    <ChatProvider
+      tracks={tracks}
+      accessToken={accessToken}
+      userId={userId}
+      genresStatistics={genresStatistics}
+      artistsStatistics={artistsStatistics}
+    >
+      <TabsMenuContent
+        {...props}
+        tracks={tracks}
+        accessToken={accessToken}
+        userId={userId}
+        genresStatistics={genresStatistics}
+        artistsStatistics={artistsStatistics}
+      />
+    </ChatProvider>
   </PlayerProvider>
 );
 
@@ -24,12 +50,12 @@ const TabsMenuContent = ({
   artistsStatistics,
   tracks,
   accessToken,
-  userId,
 }: TabsMenuProps) => {
   const { uris } = usePlayerProvider();
+  const { hasChat } = useChatProvider();
   const [tabValue, setTabValue] = useState<TabType['value']>('discover');
-  const [hasChat, setHasChat] = useState(false);
   const activeIndex = tabs.findIndex(({ value }) => value === tabValue);
+  const isDiscoverTab = tabValue === 'discover';
 
   return (
     <Tabs
@@ -68,14 +94,7 @@ const TabsMenuContent = ({
         />
       </div>
 
-      <DiscoverContent
-        tracks={tracks}
-        accessToken={accessToken}
-        userId={userId}
-        genresStatistics={genresStatistics}
-        artistsStatistics={artistsStatistics}
-        onHasChatChange={setHasChat}
-      />
+      <DiscoverContent />
 
       <StatisticContent
         tracks={tracks}
@@ -85,12 +104,14 @@ const TabsMenuContent = ({
       />
 
       <div id="spotify-player-anchor" />
+
       {uris.length > 0 && (
-        <div className={cn(tabValue === 'statistics' && 'hidden')}>
+        <div className={cn(!isDiscoverTab && 'hidden')}>
           <Player token={accessToken} uris={uris} />
         </div>
       )}
-      {hasChat && tabValue === 'discover' && <ScrollToTop />}
+
+      {hasChat && isDiscoverTab && <ScrollToTop />}
     </Tabs>
   );
 };

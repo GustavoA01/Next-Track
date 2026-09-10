@@ -6,22 +6,9 @@ import { ChatContent } from './ChatContent';
 import { useDiscoverTab } from '../hooks/useDiscoverTab';
 import { ConfirmClearChat } from '../components/ConfirmClearChat';
 import { Dialog } from '@/components/ui/dialog';
-import { DiscoverContentProps } from '../types';
 import { ChatInput } from '../components/ChatInput';
-import { useEffect } from 'react';
 
-type DiscoverContentComponentProps = DiscoverContentProps & {
-  onHasChatChange?: (hasChat: boolean) => void;
-};
-
-export const DiscoverContent = ({
-  tracks,
-  accessToken,
-  userId,
-  genresStatistics,
-  artistsStatistics,
-  onHasChatChange,
-}: DiscoverContentComponentProps) => {
+export const DiscoverContent = () => {
   const {
     methods,
     emotionalVibe,
@@ -48,17 +35,7 @@ export const DiscoverContent = ({
     handleOnKeyDown,
     onAddAllRecommendations,
     isAddingTracks,
-  } = useDiscoverTab({
-    accessToken,
-    userId,
-    artistsStatistics,
-    genresStatistics,
-    tracks,
-  });
-
-  useEffect(() => {
-    onHasChatChange?.(Boolean(messages?.length));
-  }, [messages, onHasChatChange]);
+  } = useDiscoverTab();
 
   return (
     <TabsContent className="sm:px-8 pt-4 flex flex-col gap-6" value="discover">

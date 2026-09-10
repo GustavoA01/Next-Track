@@ -21,5 +21,3 @@ export type PlaylistCardProps = {
 export type SearchCardsProps = {
   playlistsData: SpotifyPlaylist[];
 };
-
-export type ProvidersProps = { children: React.ReactNode };

@@ -1,6 +1,6 @@
 import { msFormatter } from '@/utils/msFormatter';
 import { RecommendationsProps } from '../types';
-import { usePlayerProvider } from '../../usePlayerProvider';
+import { usePlayerProvider } from '../../providers/usePlayerProvider';
 import { Button } from '@/components/ui/button';
 import { MusicCardsSkeleton } from '@/components/Skeletons';
 import { MusicCard } from '@/features/MusicCard/container/MusicCard';
