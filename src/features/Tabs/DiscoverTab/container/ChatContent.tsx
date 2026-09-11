@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Trash } from 'lucide-react';
 import { MessageCard } from '../components/MessageCard';
@@ -23,11 +22,11 @@ export const ChatContent = ({
   const defaultCardClassName = 'p-2 px-0 w-fit max-md:text-sm';
 
   return (
-    <Card className="max-h-150 animate-fade-in-up-down">
-      <CardHeader className="flex max-h-5 justify-between items-center py-0">
-        <CardTitle className="font-montserrat text-muted-foreground tracking-widest select-none">
+    <div className="max-h-150 animate-fade-in-up-down flex flex-col min-h-0">
+      <div className="flex justify-between items-center border-b border-border/40 px-4 py-3 sm:px-6">
+        <h3 className="font-montserrat text-sm text-muted-foreground tracking-widest select-none">
           CHAT
-        </CardTitle>
+        </h3>
         <Button
           size="icon"
           variant="destructive"
@@ -36,11 +35,11 @@ export const ChatContent = ({
         >
           <Trash className="size-4" />
         </Button>
-      </CardHeader>
+      </div>
 
-      <CardContent
+      <div
         ref={scrollRef}
-        className="flex flex-col h-auto overflow-y-auto overflow-x-hidden gap-4"
+        className="flex flex-col h-auto max-h-110 overflow-y-auto overflow-x-hidden gap-4 px-4 py-4 sm:px-6"
       >
         {messages.map((message, index) => (
           <div key={`message-${index}`}>
@@ -96,7 +95,7 @@ export const ChatContent = ({
             )}
           />
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

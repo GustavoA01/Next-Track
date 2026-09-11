@@ -22,11 +22,11 @@ describe('PopularityChart', () => {
     };
 
     const mockChartData = [
-      { popularity: 20 },
-      { popularity: 40 },
-      { popularity: 60 },
-      { popularity: 80 },
-      { popularity: 100 },
+      { popularity: 20, count: 2 },
+      { popularity: 40, count: 5 },
+      { popularity: 60, count: 3 },
+      { popularity: 80, count: 1 },
+      { popularity: 100, count: 4 },
     ];
 
     render(
@@ -66,7 +66,7 @@ describe('PopularityChart', () => {
     render(
       <PopularityChart
         avgMessage={mockAvgMessage}
-        chartData={[{ popularity: 50 }]}
+        chartData={[{ popularity: 50, count: 1 }]}
         leastPopular={leastPopular as never}
         mostPopular={mostPopular as never}
         showLeastPopular

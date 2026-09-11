@@ -42,9 +42,8 @@ export const recommendationStatusMap = {
 } as const;
 
 export const chartConfig = {
-  popularity: {
-    label: 'Popularidade das músicas (0 - 100)',
-    dataKey: 'popularity',
-    color: ' #1db954',
+  count: {
+    label: 'Quantidade de músicas',
+    color: '#1db954',
   },
 };

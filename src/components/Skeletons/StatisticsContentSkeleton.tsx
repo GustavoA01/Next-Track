@@ -20,14 +20,12 @@ export const StatisticsContentSkeleton = () => (
 
     <div>
       <Skeleton className="h-6 w-72 mb-4" />
-      <div className="space-y-4">
+      <div className="space-y-3">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div key={`genre-bar-skeleton-${index}`} className="space-y-2">
-            <div className="flex items-center gap-3">
-              <Skeleton className="h-4 w-28" />
-              <Skeleton className="h-3 w-full" />
-            </div>
-          </div>
+          <Skeleton
+            key={`genre-bar-skeleton-${index}`}
+            className="h-19 w-full rounded-lg"
+          />
         ))}
       </div>
     </div>

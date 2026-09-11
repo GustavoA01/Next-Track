@@ -7,13 +7,15 @@ export const getMostAndLeastPopularTracks = (
   const nullResult = { mostPopular: null, leastPopular: null };
   if (!tracks?.length) return nullResult;
 
-  const tracksWithPopularity = tracks
+  const playlistTracks = tracks
     .map((item) => item.track)
-    .filter((track) => track.popularity > 0);
+    .filter(
+      (track) => Boolean(track?.id) && Boolean(track?.external_urls?.spotify)
+    );
 
-  if (!tracksWithPopularity.length) return nullResult;
+  if (!playlistTracks.length) return nullResult;
 
-  const sorted = [...tracksWithPopularity].sort((a, b) => {
+  const sorted = [...playlistTracks].sort((a, b) => {
     if (b.popularity !== a.popularity) return b.popularity - a.popularity;
     return a.name.localeCompare(b.name);
   });

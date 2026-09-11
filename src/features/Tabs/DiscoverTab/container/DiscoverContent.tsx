@@ -52,23 +52,33 @@ export const DiscoverContent = () => {
 
       <BadgesGroup onSelectBadge={onSelectBadge} />
 
-      {messages && messages.length > 0 && (
-        <ChatContent
-          errorMessage={errorMessage}
-          messages={messages}
-          isLoading={isResponseLoading}
-          temporaryMessage={temporaryMessage}
-          setOpenConfirmDialog={setOpenConfirmDialog}
-        />
-      )}
+      <section className="flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card/20">
+        {messages && messages.length > 0 && (
+          <ChatContent
+            errorMessage={errorMessage}
+            messages={messages}
+            isLoading={isResponseLoading}
+            temporaryMessage={temporaryMessage}
+            setOpenConfirmDialog={setOpenConfirmDialog}
+          />
+        )}
 
-      <ChatInput
-        onSubmit={methods.handleSubmit(handleChatRequest)}
-        handleOnKeyDown={handleOnKeyDown}
-        isResponseLoading={isResponseLoading}
-        register={methods.register}
-        errorMessage={methods.formState.errors.prompt?.message}
-      />
+        <div
+          className={
+            messages && messages.length > 0
+              ? 'border-t border-border/40 p-3 sm:px-4'
+              : 'p-3 sm:px-4'
+          }
+        >
+          <ChatInput
+            onSubmit={methods.handleSubmit(handleChatRequest)}
+            handleOnKeyDown={handleOnKeyDown}
+            isResponseLoading={isResponseLoading}
+            register={methods.register}
+            errorMessage={methods.formState.errors.prompt?.message}
+          />
+        </div>
+      </section>
 
       <Recommendations
         onAddToPlaylist={onAddToPlaylist}

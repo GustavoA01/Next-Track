@@ -54,15 +54,17 @@ export const StatisticContent = ({
 
             <section>
               <StatisticSubTitle text="Top 5 gêneros mais presentes" />
-              <div className="space-y-4">
-                {genresStatistics.slice(0, 5).map((genre) => (
+              <ol className="space-y-3">
+                {genresStatistics.slice(0, 5).map((genre, index) => (
                   <MostListenGenreBar
                     key={genre.name}
+                    rank={index + 1}
                     name={formatName(genre.name)}
-                    value={genre.percentage}
+                    count={genre.value}
+                    maxCount={genresStatistics[0]?.value ?? 1}
                   />
                 ))}
-              </div>
+              </ol>
             </section>
 
             <section>

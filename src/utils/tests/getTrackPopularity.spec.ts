@@ -141,5 +141,6 @@ describe('getTrackPopularity', () => {
     ];
 
     expect(result).toMatchObject(expectedResult);
+    expect(result[0].popularity).toBeLessThan(result[1].popularity);
   });
 });

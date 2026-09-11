@@ -12,12 +12,12 @@ export const getTrackPopularity = (
       (popularityDictionary[popularity] || 0) + 1;
   });
 
-  const chartData = Object.entries(popularityDictionary).map(
-    ([popularity, count]) => ({
+  const chartData = Object.entries(popularityDictionary)
+    .map(([popularity, count]) => ({
       popularity: Number(popularity),
       count,
-    })
-  );
+    }))
+    .sort((a, b) => a.popularity - b.popularity);
 
   return chartData;
 };

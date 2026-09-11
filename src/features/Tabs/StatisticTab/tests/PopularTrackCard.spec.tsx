@@ -73,4 +73,16 @@ describe('PopularTrackCard', () => {
     );
     expect(screen.getByRole('img')).toHaveAttribute('alt', mockTrack.name);
   });
+
+  it('should render without link when spotify url is missing', () => {
+    const trackWithoutUrl = {
+      ...mockTrack,
+      external_urls: { spotify: undefined as never },
+    };
+
+    render(<PopularTrackCard label="Menos popular" track={trackWithoutUrl} />);
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    expect(screen.getByText('Menos popular')).toBeInTheDocument();
+  });
 });
