@@ -8,6 +8,7 @@ import { chartConfig } from '@/data/constants';
 import { PopularityChartProps } from '../types';
 import { PopularTrackCard } from './PopularTrackCard';
 import { cn } from '@/utils/cn';
+import { toolTipFormatter } from '@/utils/getPopularityAvgMessage';
 
 export const PopularityChart = ({
   avgMessage,
@@ -18,7 +19,7 @@ export const PopularityChart = ({
 }: PopularityChartProps) => {
   const showAllXTicks = chartData.length <= 7;
   const maxCount = chartData.reduce(
-    (max, item) => Math.max(max, item.count),
+    (max, { count }) => Math.max(max, count),
     0
   );
   const yAxisWidth = Math.max(28, String(maxCount).length * 10 + 8);
@@ -95,12 +96,7 @@ export const PopularityChart = ({
                 hideLabel
                 hideIndicator
                 className="min-w-0 w-fit gap-0 rounded-md px-2 py-0.5 text-[11px] leading-tight shadow-sm"
-                formatter={(value, _name, item) => {
-                  const popularity = item.payload.popularity;
-                  const count = Number(value);
-                  const label = count === 1 ? '1 música' : `${count} músicas`;
-                  return `${label} · ${popularity}`;
-                }}
+                formatter={toolTipFormatter}
               />
             }
           />

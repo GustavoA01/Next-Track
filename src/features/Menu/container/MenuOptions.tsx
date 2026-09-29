@@ -13,6 +13,7 @@ import { usePathname } from 'next/navigation';
 export const MenuOptions = ({ profile }: MenuOptionsProps) => {
   const [isConfirmLogoutOpen, setIsConfirmLogoutOpen] = useState(false);
   const pathname = usePathname();
+  const showBackButton = pathname !== '/home';
 
   return (
     <>
@@ -21,13 +22,19 @@ export const MenuOptions = ({ profile }: MenuOptionsProps) => {
           <TooltipTrigger>
             <ProfileMenuTrigger profile={profile} className="hidden sm:block" />
           </TooltipTrigger>
-          <ToolTipMenu pathname={pathname} setIsOpen={setIsConfirmLogoutOpen} />
+          <ToolTipMenu
+            showBackButton={showBackButton}
+            setIsOpen={setIsConfirmLogoutOpen}
+          />
         </Tooltip>
         <Drawer>
           <DrawerTrigger>
             <ProfileMenuTrigger profile={profile} className="sm:hidden" />
           </DrawerTrigger>
-          <DrawerMenu pathname={pathname} setIsOpen={setIsConfirmLogoutOpen} />
+          <DrawerMenu
+            showBackButton={showBackButton}
+            setIsOpen={setIsConfirmLogoutOpen}
+          />
         </Drawer>
       </div>
       <Dialog open={isConfirmLogoutOpen} onOpenChange={setIsConfirmLogoutOpen}>

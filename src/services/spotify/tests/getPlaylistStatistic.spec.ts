@@ -1,13 +1,13 @@
 import { mockTracks } from '@/globalTestsMocks';
-import { getPlaylistStatistic } from '../spotify/getPlaylistStatistic';
-import { getArtistsStatistics } from '../spotify/getArtistsStatistics';
-import { getTracksStatistics } from '../spotify/getTracksStatistics';
+import { getPlaylistStatistic } from '../getPlaylistStatistic';
+import { getArtistsStatistics } from '../getArtistsStatistics';
+import { getTracksStatistics } from '../getTracksStatistics';
 
-jest.mock('../spotify/getTracksStatistics', () => ({
+jest.mock('../getTracksStatistics', () => ({
   getTracksStatistics: jest.fn(),
 }));
 
-jest.mock('../spotify/getArtistsStatistics', () => ({
+jest.mock('../getArtistsStatistics', () => ({
   getArtistsStatistics: jest.fn(),
 }));
 

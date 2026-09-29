@@ -1,5 +1,10 @@
 import { AverageMessageType } from '@/data/types/utils';
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
+import {
+  NameType,
+  Payload,
+  ValueType,
+} from 'recharts/types/component/DefaultTooltipContent';
 
 export const getPopularityAvgMessage = (
   tracks: SpotifyPlaylistTracks,
@@ -30,4 +35,15 @@ export const getPopularityAvgMessage = (
       text: 'Essa seleção é composta por músicas que furaram a bolha e conquistaram o mundo. É hit atrás de hit!',
       textColor: 'text-[#FACC15]',
     };
+};
+
+export const toolTipFormatter = (
+  value: ValueType,
+  _name: NameType,
+  item: Payload<ValueType, NameType>
+) => {
+  const popularity = item.payload.popularity;
+  const count = Number(value);
+  const label = count === 1 ? '1 música' : `${count} músicas`;
+  return `${label} · ${popularity}`;
 };

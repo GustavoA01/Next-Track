@@ -1,5 +1,5 @@
 import { CarouselProps } from '../types';
-import { ArtistCard } from '../components/ArtistCard';
+import { ArtistCard } from './ArtistCard';
 import {
   Carousel,
   CarouselContent,
@@ -13,12 +13,10 @@ export const ArtistsCarousel = ({
   artistsStatistics,
   getHexaColor,
 }: CarouselProps) => {
-  const paletteByArtistId = useArtistCarousel({
+  const palleteColor = useArtistCarousel({
     getHexaColor,
     artistsStatistics,
   });
-
-  const palleteColor = (id: string) => paletteByArtistId[id] || '#121212';
 
   return (
     <>

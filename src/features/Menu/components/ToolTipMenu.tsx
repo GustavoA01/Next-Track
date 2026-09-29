@@ -4,9 +4,12 @@ import { TooltipContent } from '../../../components/ui/tooltip';
 import Link from 'next/link';
 import { ToolTipMenuProps } from '../types';
 
-export const ToolTipMenu = ({ pathname, setIsOpen }: ToolTipMenuProps) => (
+export const ToolTipMenu = ({
+  showBackButton,
+  setIsOpen,
+}: ToolTipMenuProps) => (
   <TooltipContent className="mt-2 bg-black/70 backdrop-blur-sm p-1 flex flex-col gap-1">
-    {pathname !== '/home' && (
+    {showBackButton && (
       <Button variant="ghost" className="text-muted-foreground bg-background">
         <Link href="/" className="flex gap-2 items-center">
           <HomeIcon className="text-primary" />

@@ -28,3 +28,8 @@ export type MostAndLeastPopularTracksReturnType = {
   mostPopular: SpotifyPlaylistTrack | null;
   leastPopular: SpotifyPlaylistTrack | null;
 };
+
+export type SyncPlaylistTrackIdsResult = {
+  syncedIds: Set<string>;
+  pendingAddedIds: Set<string>;
+};

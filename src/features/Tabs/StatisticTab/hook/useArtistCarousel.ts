@@ -31,5 +31,7 @@ export const useArtistCarousel = ({
     };
   }, [artistsStatistics, getHexaColor]);
 
-  return paletteByArtistId;
+  const palleteColor = (id: string) => paletteByArtistId[id] || '#121212';
+
+  return palleteColor;
 };

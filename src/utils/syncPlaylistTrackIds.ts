@@ -1,9 +1,5 @@
 import { SpotifyPlaylistTracks } from '@/data/types/spotify';
-
-type SyncPlaylistTrackIdsResult = {
-  syncedIds: Set<string>;
-  pendingAddedIds: Set<string>;
-};
+import { SyncPlaylistTrackIdsResult } from '@/data/types/utils';
 
 export const syncPlaylistTrackIds = (
   tracks: SpotifyPlaylistTracks['items'] | undefined,

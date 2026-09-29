@@ -10,6 +10,12 @@ export const PopularTrackCard = ({
   className,
 }: PopularTrackCardProps) => {
   const spotifyUrl = track.external_urls?.spotify;
+
+  const cardClassName = cn(
+    'group block rounded-lg border border-border/40 bg-surface-hover/20 p-4 transition-colors hover:bg-surface-hover/40',
+    className
+  );
+
   const content = (
     <div className="flex items-center gap-4">
       <Image
@@ -35,14 +41,7 @@ export const PopularTrackCard = ({
     </div>
   );
 
-  const cardClassName = cn(
-    'group block rounded-lg border border-border/40 bg-surface-hover/20 p-4 transition-colors hover:bg-surface-hover/40',
-    className
-  );
-
-  if (!spotifyUrl) {
-    return <div className={cardClassName}>{content}</div>;
-  }
+  if (!spotifyUrl) return <div className={cardClassName}>{content}</div>;
 
   return (
     <Link target="_blank" href={spotifyUrl} className={cardClassName}>

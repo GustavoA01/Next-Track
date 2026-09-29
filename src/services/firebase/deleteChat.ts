@@ -5,13 +5,19 @@ import {
   where,
   writeBatch,
 } from 'firebase/firestore';
-import { chatMessageCollection, db } from './firebaseConfig';
+import { db } from './config';
+import { firebaseKeys } from '../constantsKeys';
 
 export const deleteChat = async (playlistId: string, userId: string) => {
   try {
     const queryWhere = query(
-      collection(db, 'playlists', playlistId, chatMessageCollection),
-      where('userId', '==', userId)
+      collection(
+        db,
+        firebaseKeys.playlists,
+        playlistId,
+        firebaseKeys.chatMessagesCollection
+      ),
+      where(firebaseKeys.userId, '==', userId)
     );
     const querySnapshot = await getDocs(queryWhere);
 

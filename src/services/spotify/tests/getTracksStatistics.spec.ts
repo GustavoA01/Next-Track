@@ -1,5 +1,5 @@
-import { getTracksStatistics } from '../spotify/getTracksStatistics';
-import { baseSpotifyUrl } from '../constantsKeys';
+import { getTracksStatistics } from '../getTracksStatistics';
+import { baseSpotifyUrl } from '../../constantsKeys';
 
 const trackItem = (id: string, durationMs: number) => ({
   track: { id, duration_ms: durationMs },

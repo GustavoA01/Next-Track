@@ -1,6 +1,7 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
-import { chatMessageCollection, db } from './firebaseConfig';
+import { db } from './config';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { firebaseKeys } from '../constantsKeys';
 
 type PostMessagesParams = {
   playlistId: string;
@@ -19,7 +20,12 @@ export const postMessages = async ({
 }: PostMessagesParams) => {
   try {
     await addDoc(
-      collection(db, 'playlists', playlistId, chatMessageCollection),
+      collection(
+        db,
+        firebaseKeys.playlists,
+        playlistId,
+        firebaseKeys.chatMessagesCollection
+      ),
       {
         userId,
         userMessage: userMessageContent,

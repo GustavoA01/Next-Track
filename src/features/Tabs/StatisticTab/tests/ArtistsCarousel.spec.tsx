@@ -16,7 +16,7 @@ jest.mock('../../../../components/ui/carousel', () => ({
   CarouselNext: () => <button type="button">Next slide</button>,
 }));
 
-jest.mock('../components/ArtistCard', () => ({
+jest.mock('../container/ArtistCard', () => ({
   ArtistCard: ({
     artist,
     index,

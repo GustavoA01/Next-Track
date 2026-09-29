@@ -3,10 +3,10 @@ import { postMessages } from '@/services/firebase/postMessages';
 import { deleteChat } from '@/services/firebase/deleteChat';
 import { collection, orderBy, where } from 'firebase/firestore';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { firebaseKeys } from '@/services/constantsKeys';
 
-jest.mock('@/services/firebase/firebaseConfig', () => ({
+jest.mock('@/services/firebase/config', () => ({
   db: {},
-  chatMessageCollection: 'chatMessages',
 }));
 
 const mockGetDocs = jest.fn();
@@ -54,13 +54,13 @@ describe('getMessages', () => {
 
     const messages = await getMessages('playlist-1', 'user-1');
 
-    expect(where).toHaveBeenCalledWith('userId', '==', 'user-1');
+    expect(where).toHaveBeenCalledWith(firebaseKeys.userId, '==', 'user-1');
     expect(orderBy).toHaveBeenCalledWith('createdAt', 'asc');
     expect(collection).toHaveBeenCalledWith(
       {},
-      'playlists',
+      firebaseKeys.playlists,
       'playlist-1',
-      'chatMessages'
+      firebaseKeys.chatMessagesCollection
     );
     expect(messages).toHaveLength(2);
     expect(messages[0].userMessage).toBe('first');
@@ -126,9 +126,9 @@ describe('postMessages', () => {
 
     expect(collection).toHaveBeenCalledWith(
       {},
-      'playlists',
+      firebaseKeys.playlists,
       'playlist-1',
-      'chatMessages'
+      firebaseKeys.chatMessagesCollection
     );
     expect(mockAddDoc.mock.calls[0][1]).toEqual(
       expect.objectContaining({
@@ -185,7 +185,7 @@ describe('deleteChat', () => {
 
     await deleteChat('playlist-1', 'user-1');
 
-    expect(where).toHaveBeenCalledWith('userId', '==', 'user-1');
+    expect(where).toHaveBeenCalledWith(firebaseKeys.userId, '==', 'user-1');
     expect(deleteMock).toHaveBeenCalledTimes(2);
     expect(mockCommit).toHaveBeenCalled();
   });

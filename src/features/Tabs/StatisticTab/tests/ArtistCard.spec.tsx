@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { NextImgProps } from '@/globalTestsMocks';
-import { ArtistCard } from '../components/ArtistCard';
+import { ArtistCard } from '../container/ArtistCard';
 
 type MockImageProps = NextImgProps & {
   onLoad?: () => void;

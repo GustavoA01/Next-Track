@@ -11,11 +11,11 @@ import { DrawerMenuProps } from '../types';
 import { cn } from '@/utils/cn';
 import { buttonVariants } from '@/components/ui/button';
 
-export const DrawerMenu = ({ pathname, setIsOpen }: DrawerMenuProps) => (
+export const DrawerMenu = ({ showBackButton, setIsOpen }: DrawerMenuProps) => (
   <DrawerContent>
     <DrawerTitle className="sr-only">Menu</DrawerTitle>
     <DrawerFooter>
-      {pathname !== '/home' && (
+      {showBackButton && (
         <DrawerClose asChild>
           <Link
             href="/"

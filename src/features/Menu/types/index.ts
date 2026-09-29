@@ -7,8 +7,10 @@ export type MenuOptionsProps = {
 
 export type ToolTipMenuProps = {
   setIsOpen: (isOpen: boolean) => void;
-  pathname: string;
+  showBackButton: boolean;
 };
+
+export type DrawerMenuProps = ToolTipMenuProps;
 
 export type ProfileMenuTriggerProps = {
   profile: {
@@ -16,9 +18,4 @@ export type ProfileMenuTriggerProps = {
     display_name: string | null;
   };
   className?: string;
-};
-
-export type DrawerMenuProps = {
-  pathname: string;
-  setIsOpen: (isOpen: boolean) => void;
 };

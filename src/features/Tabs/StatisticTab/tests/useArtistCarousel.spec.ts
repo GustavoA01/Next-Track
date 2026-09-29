@@ -19,7 +19,7 @@ const mockArtists = [
 ];
 
 describe('useArtistCarousel', () => {
-  it('should build palette map from artist images', async () => {
+  it('should resolve palette colors from artist images', async () => {
     const getHexaColor = jest
       .fn()
       .mockResolvedValueOnce('#ff0000')
@@ -33,10 +33,8 @@ describe('useArtistCarousel', () => {
     );
 
     await waitFor(() => {
-      expect(result.current).toEqual({
-        'artist-1': '#ff0000',
-        'artist-2': '#00ff00',
-      });
+      expect(result.current('artist-1')).toBe('#ff0000');
+      expect(result.current('artist-2')).toBe('#00ff00');
     });
 
     expect(getHexaColor).toHaveBeenCalledWith('https://image-1.jpg');
@@ -54,10 +52,19 @@ describe('useArtistCarousel', () => {
     );
 
     await waitFor(() => {
-      expect(result.current).toEqual({
-        'artist-1': '#121212',
-      });
+      expect(result.current('artist-1')).toBe('#121212');
     });
+  });
+
+  it('should fallback to default color for unknown artist ids', () => {
+    const { result } = renderHook(() =>
+      useArtistCarousel({
+        artistsStatistics: [],
+        getHexaColor: jest.fn(),
+      })
+    );
+
+    expect(result.current('missing-artist')).toBe('#121212');
   });
 
   it('should not update state after unmount', async () => {
@@ -83,6 +90,6 @@ describe('useArtistCarousel', () => {
       await Promise.resolve();
     });
 
-    expect(result.current).toEqual({});
+    expect(result.current('artist-1')).toBe('#121212');
   });
 });

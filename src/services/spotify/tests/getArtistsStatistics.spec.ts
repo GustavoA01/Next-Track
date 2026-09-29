@@ -1,5 +1,5 @@
-import { getArtistsStatistics } from '../spotify/getArtistsStatistics';
-import { baseSpotifyUrl } from '../constantsKeys';
+import { getArtistsStatistics } from '../getArtistsStatistics';
+import { baseSpotifyUrl } from '../../constantsKeys';
 
 const artistResponse = (id: string) => ({
   id,

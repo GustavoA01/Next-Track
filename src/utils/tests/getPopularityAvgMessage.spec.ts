@@ -1,4 +1,7 @@
-import { getPopularityAvgMessage } from '../getPopularityAvgMessage';
+import {
+  getPopularityAvgMessage,
+  toolTipFormatter,
+} from '../getPopularityAvgMessage';
 import { mockTracks } from '@/globalTestsMocks';
 
 const tracksWithPopularity = (...popularities: number[]) => ({
@@ -51,5 +54,19 @@ describe('getPopularityAvgMessage', () => {
     expect(message100.text).toBe(
       'Essa seleção é composta por músicas que furaram a bolha e conquistaram o mundo. É hit atrás de hit!'
     );
+  });
+});
+
+describe('toolTipFormatter', () => {
+  it('formats a single track with popularity', () => {
+    expect(
+      toolTipFormatter(1, 'count', { payload: { popularity: 82 } } as never)
+    ).toBe('1 música · 82');
+  });
+
+  it('formats multiple tracks with popularity', () => {
+    expect(
+      toolTipFormatter(4, 'count', { payload: { popularity: 40 } } as never)
+    ).toBe('4 músicas · 40');
   });
 });

@@ -1,34 +1,48 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ToolTipMenu } from '../components/ToolTipMenu';
 import { Tooltip } from '@/components/ui/tooltip';
 
 jest.mock('next/link', () => {
-  function MockLink({
+  const MockLink = ({
     children,
     href,
   }: {
     children: React.ReactNode;
     href: string;
-  }) {
-    return <a href={href}>{children}</a>;
-  }
+  }) => <a href={href}>{children}</a>;
   return MockLink;
 });
 
-describe('ToolTipMenu', () => {
-  it('renders component correctly', () => {
-    const setIsOpen = jest.fn();
-    const { getAllByText } = render(
-      <Tooltip open>
-        <ToolTipMenu pathname={'/playlist/sqqerf'} setIsOpen={setIsOpen} />
-      </Tooltip>
-    );
+const renderMenu = (showBackButton: boolean) => {
+  const setIsOpen = jest.fn();
 
-    const logoutButton = getAllByText('Sair da conta')[0];
-    logoutButton.click();
+  render(
+    <Tooltip open>
+      <ToolTipMenu showBackButton={showBackButton} setIsOpen={setIsOpen} />
+    </Tooltip>
+  );
+
+  return { setIsOpen };
+};
+
+describe('ToolTipMenu', () => {
+  it('renders the back button and opens logout confirm', () => {
+    const { setIsOpen } = renderMenu(true);
+
+    screen.getAllByText('Sair da conta')[0].click();
 
     expect(setIsOpen).toHaveBeenCalledWith(true);
-    expect(getAllByText('Voltar ao início')[0]).toBeInTheDocument();
-    expect(getAllByText('Voltar ao início')[0]).toHaveAttribute('href', '/');
+    expect(screen.getAllByText('Voltar ao início')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Voltar ao início')[0]).toHaveAttribute(
+      'href',
+      '/'
+    );
+  });
+
+  it('hides the back button when showBackButton is false', () => {
+    renderMenu(false);
+
+    expect(screen.queryByText('Voltar ao início')).not.toBeInTheDocument();
+    expect(screen.getAllByText('Sair da conta')[0]).toBeInTheDocument();
   });
 });
