@@ -6,6 +6,7 @@ jest.mock('sonner', () => ({
   toast: {
     info: jest.fn(),
     error: jest.fn(),
+    success: jest.fn(),
   },
 }));
 
@@ -13,6 +14,8 @@ const onAddToPlaylistMock = jest.fn();
 const defaultProps = {
   id: '741',
   duration: '3:45',
+  musicName: 'Test Song',
+  artistName: 'Test Artist',
   onAddToPlaylist: onAddToPlaylistMock,
   isInPlaylist: false,
 };
@@ -20,6 +23,7 @@ const defaultProps = {
 describe('RightInfo', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    localStorage.clear();
   });
 
   it('should render duration text correctly', () => {
@@ -33,7 +37,7 @@ describe('RightInfo', () => {
   it('should render Plus icon when music is not added', () => {
     render(<RightInfo {...defaultProps} isInPlaylist={false} />);
 
-    const plusIcon = document.querySelector('svg');
+    const plusIcon = document.querySelector('.lucide-plus');
     expect(plusIcon).toBeInTheDocument();
     expect(plusIcon).toHaveClass('lucide-plus');
   });
@@ -41,7 +45,7 @@ describe('RightInfo', () => {
   it('should render Check icon when music is already added', () => {
     render(<RightInfo {...defaultProps} isInPlaylist={true} />);
 
-    const checkIcon = document.querySelector('svg');
+    const checkIcon = document.querySelector('.lucide-check');
     expect(checkIcon).toBeInTheDocument();
     expect(checkIcon).toHaveClass('lucide-check');
   });
@@ -377,5 +381,37 @@ describe('RightInfo', () => {
 
     const wrapper = container.querySelector('.border-primary');
     expect(wrapper).toHaveClass('transition-all', 'duration-200');
+  });
+
+  it('stores a like and removes it on the second click', () => {
+    render(<RightInfo {...defaultProps} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Gostei' }));
+
+    expect(JSON.parse(localStorage.getItem('feedback') ?? '{}')).toEqual({
+      likes: [{ id: '741', name: 'Test Song', artist: 'Test Artist' }],
+      dislikes: [],
+    });
+    expect(toast.success).toHaveBeenCalledWith('Música curtida');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Gostei' }));
+
+    expect(JSON.parse(localStorage.getItem('feedback') ?? '{}')).toEqual({
+      likes: [],
+      dislikes: [],
+    });
+  });
+
+  it('moves a track from like to dislike', () => {
+    render(<RightInfo {...defaultProps} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Gostei' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Não gostei' }));
+
+    expect(JSON.parse(localStorage.getItem('feedback') ?? '{}')).toEqual({
+      likes: [],
+      dislikes: [{ id: '741', name: 'Test Song', artist: 'Test Artist' }],
+    });
+    expect(toast.success).toHaveBeenCalledWith('Música não curtida');
   });
 });

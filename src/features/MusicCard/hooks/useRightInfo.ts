@@ -1,15 +1,34 @@
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { RightInfoProps } from '../types';
 import { toast } from 'sonner';
+import {
+  getServerTrackFeedback,
+  getTrackFeedbackSnapshot,
+  saveTrackFeedback,
+  subscribeTrackFeedback,
+  toggleTrackVote,
+} from '@/utils/trackFeedback';
 
 export const useRightInfo = ({
   id,
   onAddToPlaylist,
   isInPlaylist = false,
+  musicName,
+  artistName,
 }: Omit<RightInfoProps, 'duration'>) => {
   const [addedLocally, setAddedLocally] = useState(false);
   const [prevId, setPrevId] = useState(id);
   const [prevIsInPlaylist, setPrevIsInPlaylist] = useState(isInPlaylist);
+
+  const feedback = useSyncExternalStore(
+    subscribeTrackFeedback,
+    getTrackFeedbackSnapshot,
+    getServerTrackFeedback
+  );
+
+  const isMusicAdded = isInPlaylist || addedLocally;
+  const isLiked = feedback.likes.some((vote) => vote.id === id);
+  const isDisliked = feedback.dislikes.some((vote) => vote.id === id);
 
   if (id !== prevId) {
     setPrevId(id);
@@ -18,16 +37,10 @@ export const useRightInfo = ({
 
   if (isInPlaylist !== prevIsInPlaylist) {
     setPrevIsInPlaylist(isInPlaylist);
-    if (!isInPlaylist) {
-      setAddedLocally(false);
-    }
+    if (!isInPlaylist) setAddedLocally(false);
   }
 
-  const isMusicAdded = isInPlaylist || addedLocally;
-
-  const handleCLick = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const handleAdd = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (isMusicAdded) {
       e.stopPropagation();
       toast.info('Música já adicionada à playlist');
@@ -44,8 +57,33 @@ export const useRightInfo = ({
     }
   };
 
+  const vote = (e: React.MouseEvent, kind: 'like' | 'dislike') => {
+    e.stopPropagation();
+    const next = toggleTrackVote(feedback, kind, {
+      id,
+      name: musicName,
+      artist: artistName,
+    });
+    saveTrackFeedback(next);
+
+    const kept =
+      kind === 'like'
+        ? next.likes.some((item) => item.id === id)
+        : next.dislikes.some((item) => item.id === id);
+
+    if (kept)
+      toast.success(kind === 'like' ? 'Música curtida' : 'Música não curtida');
+  };
+
+  const handleLike = (e: React.MouseEvent) => vote(e, 'like');
+  const handleDislike = (e: React.MouseEvent) => vote(e, 'dislike');
+
   return {
-    handleCLick,
+    handleAdd,
     isMusicAdded,
+    handleLike,
+    handleDislike,
+    isLiked,
+    isDisliked,
   };
 };

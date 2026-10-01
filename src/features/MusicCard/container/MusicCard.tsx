@@ -33,6 +33,8 @@ export const MusicCard = ({
         duration={duration}
         isInPlaylist={isInPlaylist}
         onAddToPlaylist={onAddToPlaylist}
+        musicName={musicName}
+        artistName={artistName}
       />
     </div>
   </Card>
