@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { useArtistCarousel } from '../hook/useArtistCarousel';
+import { useArtistCarousel } from '../hooks/useArtistCarousel';
 
 const mockArtists = [
   {

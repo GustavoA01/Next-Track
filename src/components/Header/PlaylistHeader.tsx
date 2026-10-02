@@ -23,7 +23,6 @@ export const PlaylistHeader = async ({
       const response = await fetch(playlist.images[0].url);
       const arrayBuffer = await response.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
-
       const color = await getAverageColor(buffer);
       colorHex = color.hex;
       imageUrl = playlist.images[0].url;
@@ -38,12 +37,12 @@ export const PlaylistHeader = async ({
       }}
       className="py-4 select-none"
     >
-      <div className="flex justify-between mb-10 items-center px-4 container mx-auto sm:px-8">
+      <section className="flex justify-between mb-10 items-center px-4 container mx-auto sm:px-8">
         <GoBack />
         <MenuOptions profile={profile} />
-      </div>
+      </section>
 
-      <div className="flex flex-col px-4 sm:px-8 sm:flex-row max-sm:items-center items-end justify-center gap-4">
+      <section className="flex flex-col px-4 sm:px-8 sm:flex-row max-sm:items-center items-end justify-center gap-4">
         <Image
           width={250}
           height={250}
@@ -58,12 +57,16 @@ export const PlaylistHeader = async ({
           <p className="text-muted-foreground md:text-lg font-semibold drop-shadow-lg">
             PLAYLIST
           </p>
-          <HeaderPlaylistInfo playlist={playlist} timeText={timeText} />
+          <HeaderPlaylistInfo
+            timeText={timeText}
+            totalTracks={playlist.tracks.total}
+            ownerName={playlist.owner.display_name}
+          />
           <h1 className="text-3xl font-bold max-w-lg font-montserrat mt-4 line-clamp-2 sm:text-4xl lg:text-5xl">
             {playlist.name}
           </h1>
         </div>
-      </div>
+      </section>
     </header>
   );
 };

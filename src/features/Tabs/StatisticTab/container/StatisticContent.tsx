@@ -2,7 +2,7 @@ import { MostListenGenreBar } from '../components/MostListenGenreBar';
 import { PopularityChart } from '../components/PopularityChart';
 import { StatisticSubTitle } from '../components/StatSubTitle';
 import { TabsContent } from '@/components/ui/tabs';
-import { useStatisticTab } from '../hook/useStatisticTab';
+import { useStatisticTab } from '../hooks/useStatisticTab';
 import { Suspense } from 'react';
 import { StatisticsContentSkeleton } from '@/components/Skeletons';
 import { StatisticContentProps } from '../types';

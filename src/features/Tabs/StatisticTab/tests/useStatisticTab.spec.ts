@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { extractColors } from 'extract-colors';
-import { useStatisticTab } from '../hook/useStatisticTab';
+import { useStatisticTab } from '../hooks/useStatisticTab';
 
 jest.mock('extract-colors', () => ({
   extractColors: jest.fn(async () => [{ hex: '#abcdef' }]),

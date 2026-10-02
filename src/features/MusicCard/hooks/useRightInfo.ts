@@ -59,30 +59,29 @@ export const useRightInfo = ({
 
   const vote = (e: React.MouseEvent, kind: 'like' | 'dislike') => {
     e.stopPropagation();
+
     const next = toggleTrackVote(feedback, kind, {
       id,
       name: musicName,
       artist: artistName,
     });
+    
     saveTrackFeedback(next);
 
-    const kept =
-      kind === 'like'
-        ? next.likes.some((item) => item.id === id)
-        : next.dislikes.some((item) => item.id === id);
+    const isLike = kind === 'like';
 
-    if (kept)
-      toast.success(kind === 'like' ? 'Música curtida' : 'Música não curtida');
+    const kept = isLike
+      ? next.likes.some((item) => item.id === id)
+      : next.dislikes.some((item) => item.id === id);
+
+    if (kept) toast.success(isLike ? 'Música curtida' : 'Música não curtida');
   };
-
-  const handleLike = (e: React.MouseEvent) => vote(e, 'like');
-  const handleDislike = (e: React.MouseEvent) => vote(e, 'dislike');
 
   return {
     handleAdd,
     isMusicAdded,
-    handleLike,
-    handleDislike,
+    handleLike: (e: React.MouseEvent) => vote(e, 'like'),
+    handleDislike: (e: React.MouseEvent) => vote(e, 'dislike'),
     isLiked,
     isDisliked,
   };

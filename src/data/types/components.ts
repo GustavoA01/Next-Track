@@ -1,7 +1,8 @@
 import { SpotifyPlaylist, SpotifyUserProfile } from './spotify';
 
 export type HeaderPlaylistInfoProps = {
-  playlist: SpotifyPlaylist;
+  totalTracks: number;
+  ownerName: string;
   timeText: string;
 };
 

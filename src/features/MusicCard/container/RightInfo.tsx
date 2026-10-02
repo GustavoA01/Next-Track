@@ -1,4 +1,3 @@
-'use client';
 import { Check, Plus, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { RightInfoProps } from '../types';
 import { useRightInfo } from '../hooks/useRightInfo';
@@ -27,30 +26,41 @@ export const RightInfo = ({
     artistName,
   });
 
+  const voteButtons = [
+    {
+      icon: ThumbsUp,
+      onClick: handleLike,
+      ariaLabel: 'Gostei',
+      className: isLiked
+        ? 'text-primary'
+        : 'text-muted-foreground hover:text-primary/50',
+    },
+    {
+      icon: ThumbsDown,
+      onClick: handleDislike,
+      ariaLabel: 'Não gostei',
+      className: isDisliked
+        ? 'text-destructive'
+        : 'text-muted-foreground hover:text-destructive/50',
+    },
+  ];
+
   return (
     <section className="flex items-center gap-2">
       <p className="text-sm text-muted-foreground">{duration}</p>
       <div className="flex items-center gap-2">
-        <button type="button" aria-label="Gostei" onClick={handleLike}>
-          <ThumbsUp
-            className={cn(
-              'size-4 transition-colors duration-200',
-              isLiked
-                ? 'text-primary'
-                : 'text-muted-foreground hover:text-primary/50'
-            )}
-          />
-        </button>
-        <button type="button" aria-label="Não gostei" onClick={handleDislike}>
-          <ThumbsDown
-            className={cn(
-              'size-4 transition-colors duration-200',
-              isDisliked
-                ? 'text-destructive'
-                : 'text-muted-foreground hover:text-destructive/50'
-            )}
-          />
-        </button>
+        {voteButtons.map(({ icon: Icon, className, onClick, ariaLabel }) => (
+          <button
+            key={ariaLabel}
+            type="button"
+            onClick={onClick}
+            aria-label={ariaLabel}
+          >
+            <Icon
+              className={cn('size-4 transition-colors duration-200', className)}
+            />
+          </button>
+        ))}
       </div>
       <div
         data-testid="add-to-playlist-button"

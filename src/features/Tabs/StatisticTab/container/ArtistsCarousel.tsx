@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { useArtistCarousel } from '../hook/useArtistCarousel';
+import { useArtistCarousel } from '../hooks/useArtistCarousel';
 
 export const ArtistsCarousel = ({
   artistsStatistics,
