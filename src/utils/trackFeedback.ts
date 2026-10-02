@@ -1,15 +1,5 @@
-export const trackFeedbackKey = 'feedback';
-
-export type TrackVote = {
-  id: string;
-  name: string;
-  artist: string;
-};
-
-export type TrackFeedback = {
-  likes: TrackVote[];
-  dislikes: TrackVote[];
-};
+import { TrackFeedback, TrackVote } from '@/data/types/utils';
+import { trackFeedbackKey } from './getChatStorageKey';
 
 const emptyFeedback: TrackFeedback = { likes: [], dislikes: [] };
 
@@ -61,6 +51,22 @@ export const saveTrackFeedback = (feedback: TrackFeedback) => {
   snapshotRaw = raw;
   snapshot = feedback;
   listeners.forEach((listener) => listener());
+};
+
+const formatVotes = (votes: TrackVote[]) =>
+  votes.map((vote) => `${vote.name} - ${vote.artist}`).join('\n');
+
+export const formatTrackFeedbackMessage = (feedback: TrackFeedback) => {
+  const sections = [
+    feedback.likes.length > 0
+      ? `Músicas que o usuário gostou e devem guiar as próximas sugestões:\n${formatVotes(feedback.likes)}`
+      : '',
+    feedback.dislikes.length > 0
+      ? `Músicas que o usuário não gostou. Não repita essas faixas:\n${formatVotes(feedback.dislikes)}`
+      : '',
+  ].filter(Boolean);
+
+  return sections.join('\n\n');
 };
 
 export const toggleTrackVote = (

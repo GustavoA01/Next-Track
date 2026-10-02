@@ -16,6 +16,7 @@ export type getPopularityReturnType = {
 export type getContextPromptProps = PlaylistStatisticsType & {
   vibes: VibesType;
   isVibesChanged: boolean;
+  feedback: TrackFeedback;
 };
 
 export type AverageMessageType = {
@@ -32,4 +33,15 @@ export type MostAndLeastPopularTracksReturnType = {
 export type SyncPlaylistTrackIdsResult = {
   syncedIds: Set<string>;
   pendingAddedIds: Set<string>;
+};
+
+export type TrackVote = {
+  id: string;
+  name: string;
+  artist: string;
+};
+
+export type TrackFeedback = {
+  likes: TrackVote[];
+  dislikes: TrackVote[];
 };

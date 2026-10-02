@@ -1,6 +1,7 @@
 import { getContextPrompt } from '../getContextPrompt';
 import { VibesType } from '@/data/types';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
+import { TrackFeedback } from '@/data/types/utils';
 
 describe('getContextPrompt', () => {
   const baseStats: PlaylistStatisticsType = {
@@ -50,14 +51,17 @@ describe('getContextPrompt', () => {
     energyVibe: 0.3,
     instrumentalVibe: 0.5,
   };
+  const emptyFeedback: TrackFeedback = { likes: [], dislikes: [] };
 
   it('generates default prompt with correct values', () => {
     const prompt = getContextPrompt({
       ...baseStats,
       vibes: baseVibes,
       isVibesChanged: false,
+      feedback: emptyFeedback,
     });
     expect(prompt).toContain('Você será usada na minha aplicação web');
+    expect(prompt).not.toContain('Músicas que o usuário gostou');
     expect(prompt).not.toContain(
       'IMPORTANTE: O usuário definiu ajustes finos de energia'
     );
@@ -72,6 +76,7 @@ describe('getContextPrompt', () => {
       ...baseStats,
       vibes: baseVibes,
       isVibesChanged: true,
+      feedback: emptyFeedback,
     });
     expect(prompt).toContain(
       'IMPORTANTE: O usuário definiu ajustes finos de energia'
@@ -87,7 +92,30 @@ describe('getContextPrompt', () => {
       tracks: undefined,
       vibes: baseVibes,
       isVibesChanged: false,
+      feedback: emptyFeedback,
     });
     expect(prompt).toContain('Aqui a playlist completa:');
+  });
+
+  it('includes liked and disliked tracks when the user voted', () => {
+    const prompt = getContextPrompt({
+      ...baseStats,
+      vibes: baseVibes,
+      isVibesChanged: false,
+      feedback: {
+        likes: [{ id: '1', name: 'Faixa', artist: 'Artista' }],
+        dislikes: [{ id: '2', name: 'Outra', artist: 'Banda' }],
+      },
+    });
+
+    expect(prompt).toContain(
+      'Músicas que o usuário gostou e devem guiar as próximas sugestões:'
+    );
+    expect(prompt).toContain('Faixa - Artista');
+    expect(prompt).toContain(
+      'Músicas que o usuário não gostou. Não repita essas faixas:'
+    );
+    expect(prompt).toContain('Outra - Banda');
+    expect(prompt).toContain('Na resposta, não mencione esses votos.');
   });
 });

@@ -1,9 +1,10 @@
+import { TrackFeedback } from '@/data/types/utils';
+import { trackFeedbackKey } from '../getChatStorageKey';
 import {
+  formatTrackFeedbackMessage,
   readTrackFeedback,
   saveTrackFeedback,
   toggleTrackVote,
-  trackFeedbackKey,
-  TrackFeedback,
 } from '../trackFeedback';
 
 const track = { id: '1', name: 'Faixa', artist: 'Artista' };
@@ -30,6 +31,27 @@ describe('trackFeedback', () => {
       JSON.stringify(feedback)
     );
     expect(readTrackFeedback()).toEqual(feedback);
+  });
+
+  it('formats likes and dislikes for the chat prompt', () => {
+    expect(
+      formatTrackFeedbackMessage({
+        likes: [track],
+        dislikes: [{ id: '2', name: 'Outra', artist: 'Banda' }],
+      })
+    ).toBe(
+      [
+        'Músicas que o usuário gostou e devem guiar as próximas sugestões:',
+        'Faixa - Artista',
+        '',
+        'Músicas que o usuário não gostou. Não repita essas faixas:',
+        'Outra - Banda',
+      ].join('\n')
+    );
+  });
+
+  it('returns an empty prompt when there are no votes', () => {
+    expect(formatTrackFeedbackMessage(empty)).toBe('');
   });
 
   it('toggles a like off and keeps dislike exclusive', () => {

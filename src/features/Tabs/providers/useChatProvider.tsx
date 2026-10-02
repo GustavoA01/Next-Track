@@ -14,6 +14,7 @@ import { useDiscoverVibe } from '../DiscoverTab/hooks/useDiscoverVibe';
 import { useRecommendations } from '../DiscoverTab/hooks/useRecommendations';
 import { DiscoverContentProps } from '../DiscoverTab/types';
 import { ChatProviderType } from '@/data/types/providers';
+import { readTrackFeedback } from '@/utils/trackFeedback';
 
 const ChatContext = createContext<ChatProviderType | null>(null);
 
@@ -93,6 +94,7 @@ export const ChatProvider = ({
           tracks,
           vibes,
           isVibesChanged,
+          feedback: readTrackFeedback(),
         }),
       };
 
@@ -114,6 +116,7 @@ export const ChatProvider = ({
           userMessageContent: prompt,
           recommendations: recommendationsResponse,
         });
+
         localStorage.removeItem(chatStorageKey);
       } catch (error) {
         console.error('Error ao chamar gemini', error);

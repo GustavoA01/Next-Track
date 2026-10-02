@@ -1,4 +1,5 @@
 import { getContextPromptProps } from '@/data/types/utils';
+import { formatTrackFeedbackMessage } from './trackFeedback';
 
 export const getContextPrompt = ({
   artistsStatistics,
@@ -6,7 +7,11 @@ export const getContextPrompt = ({
   tracks,
   vibes,
   isVibesChanged,
-}: getContextPromptProps): string => `
+  feedback,
+}: getContextPromptProps): string => {
+  const feedbackMessage = formatTrackFeedbackMessage(feedback);
+
+  return `
 Você será usada na minha aplicação web que usa a api do spotify para recomendação de músicas de acordo com a playlist.
 Irei enviar toda a playlist e os 5 artistas mais presentes junto com os 5 gêneros mais presentes, para você gerar as músicas que aparecerão na tela de descobrir.
 
@@ -37,6 +42,14 @@ ${
 `
     : ''
 }
+${
+  feedbackMessage
+    ? `
+${feedbackMessage}
+Na resposta, não mencione esses votos. Use os gostos como referência e não repita as faixas marcadas como não gostei.
+`
+    : ''
+}
 
 RESPONDA SOMENTE EM JSON, NO FORMATO 
 {
@@ -59,3 +72,4 @@ responda que não pode ajudar com isso.
 
 Será enviado também o histórico de conversa de vocês dois.
 `;
+};
