@@ -6,21 +6,14 @@ import { syncPlaylistTrackIds } from '@/utils/syncPlaylistTrackIds';
 import { getChatStorageKey } from '@/utils/getChatStorageKey';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { toast } from 'sonner';
-import { DiscoverContentProps } from '../types';
-
-type UseRecommendationsProps = Pick<
-  DiscoverContentProps,
-  'tracks' | 'accessToken' | 'userId'
-> & {
-  playlistId: string;
-};
+import { UseRecommendationsType } from '../types';
 
 export const useRecommendations = ({
   tracks,
   accessToken,
   userId,
   playlistId,
-}: UseRecommendationsProps) => {
+}: UseRecommendationsType) => {
   const chatStorageKey = getChatStorageKey(userId, playlistId);
   const [recommendationsTracks, setRecommendationsTracks] = useState<
     SpotifyPlaylistTrack[]

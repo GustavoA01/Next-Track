@@ -23,7 +23,7 @@ export const ChatContent = ({
 
   return (
     <div className="max-h-150 animate-fade-in-up-down flex flex-col min-h-0">
-      <div className="flex justify-between items-center border-b border-border/40 px-4 py-3 sm:px-6">
+      <header className="flex justify-between items-center border-b border-border/40 px-4 py-3 sm:px-6">
         <h3 className="font-montserrat text-sm text-muted-foreground tracking-widest select-none">
           CHAT
         </h3>
@@ -35,17 +35,16 @@ export const ChatContent = ({
         >
           <Trash className="size-4" />
         </Button>
-      </div>
+      </header>
 
       <div
         ref={scrollRef}
         className="flex flex-col h-auto max-h-110 overflow-y-auto overflow-x-hidden gap-4 px-4 py-4 sm:px-6"
       >
-        {messages.map((message, index) => (
-          <div key={`message-${index}`}>
+        {messages.map(({ userMessage, chatResponse }, index) => (
+          <section key={index}>
             <MessageCard
-              key={`ia-${index}`}
-              content={message.userMessage}
+              content={userMessage}
               textClassName="text-background"
               cardClassName={cn(
                 'bg-primary ml-auto rounded-tr-xs sm:max-w-[75%]',
@@ -53,14 +52,13 @@ export const ChatContent = ({
               )}
             />
             <MessageCard
-              key={`user-${index}`}
-              content={message.chatResponse}
+              content={chatResponse}
               cardClassName={cn(
                 'mt-6 bg-[#2A2A2A] mr-auto rounded-tl-xs sm:max-w-[80%]',
                 defaultCardClassName
               )}
             />
-          </div>
+          </section>
         ))}
 
         {temporaryMessage !== '' && (

@@ -7,17 +7,16 @@ import { getMessages } from '@/services/firebase/getMessages';
 import { postMessages } from '@/services/firebase/postMessages';
 import { getChatStorageKey } from '@/utils/getChatStorageKey';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'sonner';
 
 export const useDiscoverMutation = (
   playlistId: string,
   userId: string,
-  setTemporaryMessage: React.Dispatch<React.SetStateAction<string>>,
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
-  setOpenConfirmDialog: React.Dispatch<React.SetStateAction<boolean>>,
-  setRecommendationsTracks: React.Dispatch<
-    React.SetStateAction<SpotifyPlaylistTrack[]>
-  >
+  setTemporaryMessage: Dispatch<SetStateAction<string>>,
+  setErrorMessage: Dispatch<SetStateAction<string>>,
+  setOpenConfirmDialog: Dispatch<SetStateAction<boolean>>,
+  setRecommendationsTracks: Dispatch<SetStateAction<SpotifyPlaylistTrack[]>>
 ) => {
   const queryClient = useQueryClient();
   const chatStorageKey = getChatStorageKey(userId, playlistId);
@@ -46,19 +45,23 @@ export const useDiscoverMutation = (
         queryKey: [clientKeys.chatMessages, playlistId, userId],
       });
     },
+    onError: (error) => {
+      console.error('Error ao enviar mensagem', error);
+      setErrorMessage('Erro ao processar a solicitação');
+    },
   });
 
   const { mutateAsync: geminiRequestFn, isPending: isResponseLoading } =
     useMutation({
-      mutationFn: (prompt: ChatPromptType) =>
+      mutationFn: ({ systemMessage, userMessage }: ChatPromptType) =>
         geminiRequest({
-          systemMessage: prompt.systemMessage,
-          userMessage: prompt.userMessage,
+          systemMessage,
+          userMessage,
           playlistId,
           userId,
         }),
       onError: (error) => {
-        console.log('Error ao chamar gemini', error);
+        console.error('Error ao chamar gemini', error);
         setErrorMessage(
           'Erro ao processar a solicitação. Tente novamente mais tarde.'
         );

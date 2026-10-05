@@ -1,8 +1,11 @@
+import { ChatFormType } from '@/data/chatSchema';
 import { ChatContentResponse } from '@/data/types';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
+import { Dispatch, SetStateAction } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 
-export type useChatContentType = {
+export type UseChatContentType = {
   messages: ChatContentResponse[];
   isLoading: boolean;
   temporaryMessage: string;
@@ -11,6 +14,13 @@ export type useChatContentType = {
 export type DiscoverContentProps = PlaylistStatisticsType & {
   accessToken: string;
   userId: string;
+};
+
+export type UseRecommendationsType = Pick<
+  DiscoverContentProps,
+  'tracks' | 'accessToken' | 'userId'
+> & {
+  playlistId: string;
 };
 
 export type RecommendationsProps = {
@@ -34,15 +44,23 @@ export type AccordionVibeProps = {
   emotionalVibe: number;
   energyVibe: number;
   instrumentalVibe: number;
-  setEmotionalVibe: React.Dispatch<React.SetStateAction<number>>;
-  setEnergyVibe: React.Dispatch<React.SetStateAction<number>>;
-  setInstrumentalVibe: React.Dispatch<React.SetStateAction<number>>;
+  setEmotionalVibe: Dispatch<SetStateAction<number>>;
+  setEnergyVibe: Dispatch<SetStateAction<number>>;
+  setInstrumentalVibe: Dispatch<SetStateAction<number>>;
   onReset: () => void;
   isVibesChanged: boolean;
 };
 
 export type BadgesGroupProps = {
   onSelectBadge: (badge: string) => void;
+};
+
+export type ChatInputProps = {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleOnKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  isResponseLoading: boolean;
+  register: UseFormRegister<ChatFormType>;
+  errorMessage?: string;
 };
 
 export type ConfirmClearChatProps = { onConfirm: () => void };

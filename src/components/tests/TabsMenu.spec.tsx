@@ -1,16 +1,17 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { TabsMenu } from './TabsMenu';
+import { TabsMenu } from '../TabsMenu';
 import { SpotifyPlaylist } from '@/data/types/spotify';
 
-jest.mock('./DiscoverTab/container/DiscoverContent', () => ({
+jest.mock('../../features/Tabs/DiscoverTab/container/DiscoverContent', () => ({
   DiscoverContent: () => <div data-testid="discover-content" />,
 }));
-
-jest.mock('./StatisticTab/container/StatisticContent', () => ({
-  StatisticContent: () => <div data-testid="statistics-content" />,
-}));
-
-jest.mock('./DiscoverTab/components/Player', () => ({
+jest.mock(
+  '../../features/Tabs/StatisticTab/container/StatisticContent',
+  () => ({
+    StatisticContent: () => <div data-testid="statistics-content" />,
+  })
+);
+jest.mock('../../features/Tabs/DiscoverTab/components/Player', () => ({
   Player: ({ token, uris }: { token: string; uris: string[] }) => (
     <div
       data-testid="player-component"
@@ -23,12 +24,12 @@ jest.mock('./DiscoverTab/components/Player', () => ({
 const mockUsePlayerProvider = jest.fn();
 const mockUseChatProvider = jest.fn();
 
-jest.mock('./providers/usePlayerProvider', () => ({
+jest.mock('../Providers/usePlayerProvider', () => ({
   PlayerProvider: ({ children }: { children: React.ReactNode }) => children,
   usePlayerProvider: () => mockUsePlayerProvider(),
 }));
 
-jest.mock('./providers/useChatProvider', () => ({
+jest.mock('../Providers/useChatProvider', () => ({
   ChatProvider: ({ children }: { children: React.ReactNode }) => children,
   useChatProvider: () => mockUseChatProvider(),
 }));

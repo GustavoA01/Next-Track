@@ -38,7 +38,7 @@ Devido às políticas da API do Spotify criadas em 2025, apenas grandes organiza
 
 Ao observar a repetição e falha do algoritmo do Spotify em recomendar músicas variadas que agradam o usuário, o **Next Track** resolve isso integrando a API do Spotify com a IA do Google (Gemini).
 
-O usuário conversa com a IA pedindo recomendações baseadas em sentimentos, situações ou gêneros abstratos, por exemplo: _"Músicas para programar em um dia chuvoso"_, e a aplicação não apenas sugere as faixas, mas permite **salvar a playlist diretamente na conta do usuário** e visualizar estatísticas de áudio. O usuário consegue uma experiência e precisão muito melhor ao especificar para a IA artistas que não gosta ou estilos que prefere ouvir.
+O usuário conversa com a IA pedindo recomendações baseadas em sentimentos, situações ou gêneros abstratos, por exemplo: _"Músicas para programar em um dia chuvoso"_, e a aplicação não apenas sugere as faixas, mas permite **salvar a playlist diretamente na conta do usuário** e visualizar estatísticas de áudio. Além disso, é possível curtir ou rejeitar músicas sugeridas — esse feedback fica no dispositivo e entra no contexto das próximas recomendações da IA.
 
 ---
 
@@ -49,6 +49,7 @@ O usuário conversa com a IA pedindo recomendações baseadas em sentimentos, si
 - 🎛️ **Ajuste de "vibes"** — Controles deslizantes de energia, humor e instrumentalidade que influenciam as recomendações da IA
 - 🎧 **Player integrado** — Escute as músicas direto na interface via Spotify Web Playback SDK
 - 💾 **Salvar músicas** — Adiciona músicas sugeridas diretamente nas playlists do usuário
+- 👍 **Like / Dislike** — Avalie as sugestões; o feedback é salvo no `localStorage` e influencia as próximas recomendações da IA
 - 📊 **Estatísticas da playlist** — Visualização dos artistas mais presentes, gêneros mais ouvidos e gráfico de popularidade
 - 🕘 **Histórico de conversa** — O histórico do chat com a IA é persistido no Firebase por playlist
 - 📱 **Responsivo** — Layout adaptado para mobile e desktop
@@ -158,12 +159,13 @@ src/
 │   └── page.tsx          # Landing page / login
 ├── components/           # Componentes globais reutilizáveis
 │   ├── Header/
+│   ├── Providers/        # Chat, player e React Query
 │   ├── Skeletons/
 │   └── ui/               # Componentes shadcn/ui
 ├── data/
 │   └── types/            # Tipos TypeScript globais
 ├── features/
-│   ├── MusicCard/        # Card de música recomendada
+│   ├── MusicCard/        # Card de música (play, like/dislike, adicionar)
 │   └── Tabs/
 │       ├── DiscoverTab/  # Aba de chat com IA e recomendações
 │       └── StatisticTab/ # Aba de estatísticas da playlist
@@ -172,7 +174,7 @@ src/
 │   ├── firebase/         # Serviços do Firestore (chat history)
 │   ├── getPlaylistStatistic.ts
 │   └── searchTrack.ts    # Busca de faixas na API do Spotify
-└── utils/                # Helpers (formatação, prompt context, popularidade)
+└── utils/                # Helpers (prompt, feedback local, formatação)
 ```
 
 ---

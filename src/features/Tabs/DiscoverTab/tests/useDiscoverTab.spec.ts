@@ -1,9 +1,9 @@
 import { renderHook, act } from '@testing-library/react';
 import { useForm } from 'react-hook-form';
 import { useDiscoverTab } from '../hooks/useDiscoverTab';
-import { useChatProvider } from '../../providers/useChatProvider';
+import { useChatProvider } from '@/components/Providers/useChatProvider';
 
-jest.mock('../../providers/useChatProvider', () => ({
+jest.mock('../../../../components/Providers/useChatProvider', () => ({
   useChatProvider: jest.fn(),
 }));
 

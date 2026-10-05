@@ -2,17 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { Textarea } from '@/components/ui/textarea';
 import { Sparkles } from 'lucide-react';
-import { UseFormRegister } from 'react-hook-form';
-
-type ChatInputProps = {
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleOnKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  isResponseLoading: boolean;
-  register: UseFormRegister<{
-    prompt: string;
-  }>;
-  errorMessage?: string;
-};
+import { ChatInputProps } from '../types';
 
 export const ChatInput = ({
   onSubmit,

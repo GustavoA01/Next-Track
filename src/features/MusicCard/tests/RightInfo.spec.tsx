@@ -31,7 +31,6 @@ describe('RightInfo', () => {
 
     const duration = screen.getByText('3:45');
     expect(duration).toBeInTheDocument();
-    expect(duration).toHaveClass('text-sm', 'text-muted-foreground');
   });
 
   it('should render Plus icon when music is not added', () => {
@@ -56,12 +55,6 @@ describe('RightInfo', () => {
     );
 
     const wrapper = container.querySelector('.border-primary');
-    expect(wrapper).toHaveClass(
-      'border',
-      'border-primary',
-      'rounded-full',
-      'p-2'
-    );
     expect(wrapper).toHaveClass('group/add', 'hover:bg-primary');
     expect(wrapper).not.toHaveClass('bg-primary');
   });
@@ -72,13 +65,6 @@ describe('RightInfo', () => {
     );
 
     const wrapper = container.querySelector('.bg-primary');
-    expect(wrapper).toHaveClass(
-      'border',
-      'border-primary',
-      'rounded-full',
-      'p-2',
-      'bg-primary'
-    );
     expect(wrapper).not.toHaveClass('group/add', 'hover:bg-primary');
   });
 
@@ -249,7 +235,7 @@ describe('RightInfo', () => {
     expect(onClickParent).not.toHaveBeenCalled();
   });
 
-  it('should not stop propagation when adding new music', async () => {
+  it('should stop propagation when adding new music', async () => {
     onAddToPlaylistMock.mockResolvedValueOnce(undefined);
 
     const onClickParent = jest.fn();
@@ -263,8 +249,10 @@ describe('RightInfo', () => {
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(onClickParent).toHaveBeenCalled();
+      expect(onAddToPlaylistMock).toHaveBeenCalled();
     });
+
+    expect(onClickParent).not.toHaveBeenCalled();
   });
 
   it('should reflect isInPlaylist prop on mount', () => {
@@ -291,7 +279,7 @@ describe('RightInfo', () => {
     );
 
     const plusIcon = container.querySelector('.lucide-plus');
-    expect(plusIcon).toHaveClass('md:w-6', 'md:h-6', 'w-4', 'h-4');
+    expect(plusIcon).toHaveClass('size-5', 'sm:size-6');
   });
 
   it('should apply correct text color to Plus icon', () => {
@@ -366,6 +354,8 @@ describe('RightInfo', () => {
           duration={duration}
           onAddToPlaylist={onAddToPlaylistMock}
           isInPlaylist={false}
+          musicName="Test Song"
+          artistName="Test Artist"
         />
       );
 

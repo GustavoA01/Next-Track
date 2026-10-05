@@ -2,7 +2,7 @@ import { ChatContentResponse } from '@/data/types';
 import { renderHook } from '@testing-library/react';
 import { Timestamp } from 'firebase/firestore';
 import { useChatContent } from '../hooks/useChatContent';
-import { useChatContentType } from '../types';
+import { UseChatContentType } from '../types';
 
 const mockMessage = (userMessage: string): ChatContentResponse => ({
   userId: 'user-1',
@@ -13,7 +13,7 @@ const mockMessage = (userMessage: string): ChatContentResponse => ({
   recommendations: [],
 });
 
-const defaultProps: useChatContentType = {
+const defaultProps: UseChatContentType = {
   messages: [],
   isLoading: false,
   temporaryMessage: '',
@@ -41,7 +41,7 @@ describe('useChatContent', () => {
     mockUseRef(scrollRef);
 
     const { rerender } = renderHook(
-      (props: useChatContentType) => useChatContent(props),
+      (props: UseChatContentType) => useChatContent(props),
       { initialProps: defaultProps }
     );
 
@@ -68,7 +68,7 @@ describe('useChatContent', () => {
     mockUseRef(scrollRef);
 
     const { rerender } = renderHook(
-      (props: useChatContentType) => useChatContent(props),
+      (props: UseChatContentType) => useChatContent(props),
       { initialProps: defaultProps }
     );
 

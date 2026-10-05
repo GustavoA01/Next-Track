@@ -1,6 +1,6 @@
 import { msFormatter } from '@/utils/msFormatter';
 import { RecommendationsProps } from '../types';
-import { usePlayerProvider } from '../../providers/usePlayerProvider';
+import { usePlayerProvider } from '../../../../components/Providers/usePlayerProvider';
 import { Button } from '@/components/ui/button';
 import { MusicCardsSkeleton } from '@/components/Skeletons';
 import { MusicCard } from '@/features/MusicCard/container/MusicCard';
@@ -44,6 +44,12 @@ export const Recommendations = ({
     alreadyAddedTracks ||
     emptyRecomendations;
 
+  const addAllMusics = () => {
+    const allUris = tracksToAdd.map(({ uri }) => uri);
+    const allTracks = tracksToAdd.map(({ id }) => id);
+    onAddAllRecommendations(allUris, allTracks);
+  };
+
   return (
     <div>
       {!emptyRecomendations && (
@@ -52,14 +58,9 @@ export const Recommendations = ({
           <Button
             size="sm"
             variant={variant}
+            onClick={addAllMusics}
             disabled={disableAddAll}
             className={cn('rounded-full', status === 'added' && 'text-black')}
-            onClick={() =>
-              onAddAllRecommendations(
-                tracksToAdd.map(({ uri }) => uri),
-                tracksToAdd.map(({ id }) => id)
-              )
-            }
           >
             <StatusIcon />
             {label}

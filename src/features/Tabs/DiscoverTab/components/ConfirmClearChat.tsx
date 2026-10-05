@@ -22,11 +22,9 @@ export const ConfirmClearChat = ({ onConfirm }: ConfirmClearChatProps) => (
       <DialogClose asChild>
         <Button variant="outline">Cancelar</Button>
       </DialogClose>
-      <DialogClose asChild>
-        <Button variant="destructive" onClick={onConfirm}>
-          Limpar
-        </Button>
-      </DialogClose>
+      <Button variant="destructive" onClick={onConfirm}>
+        Limpar
+      </Button>
     </DialogFooter>
   </DialogContent>
 );

@@ -9,10 +9,10 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { useDiscoverMutation } from '../DiscoverTab/hooks/useDiscoverMutation';
-import { useDiscoverVibe } from '../DiscoverTab/hooks/useDiscoverVibe';
-import { useRecommendations } from '../DiscoverTab/hooks/useRecommendations';
-import { DiscoverContentProps } from '../DiscoverTab/types';
+import { useDiscoverMutation } from '../../features/Tabs/DiscoverTab/hooks/useDiscoverMutation';
+import { useDiscoverVibe } from '../../features/Tabs/DiscoverTab/hooks/useDiscoverVibe';
+import { useRecommendations } from '../../features/Tabs/DiscoverTab/hooks/useRecommendations';
+import { DiscoverContentProps } from '../../features/Tabs/DiscoverTab/types';
 import { ChatProviderType } from '@/data/types/providers';
 import { readTrackFeedback } from '@/utils/trackFeedback';
 

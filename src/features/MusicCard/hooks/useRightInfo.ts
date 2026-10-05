@@ -65,7 +65,7 @@ export const useRightInfo = ({
       name: musicName,
       artist: artistName,
     });
-    
+
     saveTrackFeedback(next);
 
     const isLike = kind === 'like';

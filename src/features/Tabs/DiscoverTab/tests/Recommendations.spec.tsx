@@ -18,7 +18,7 @@ type MusicCardProps = {
 
 const mockSetUris = jest.fn();
 
-jest.mock('../../providers/usePlayerProvider', () => ({
+jest.mock('../../../../components/Providers/usePlayerProvider', () => ({
   usePlayerProvider: () => ({
     uris: [],
     setUris: mockSetUris,
@@ -32,7 +32,7 @@ jest.mock('next/image', () => {
   return MockImage;
 });
 
-jest.mock('../../../MusicCard/container/MusicCard', () => ({
+jest.mock('../../../../features/MusicCard/container/MusicCard', () => ({
   MusicCard: ({
     id,
     index,

@@ -47,3 +47,13 @@ export const chartConfig = {
     color: '#1db954',
   },
 };
+
+export const playerStyles = {
+  bgColor: 'transparent',
+  activeColor: '#ffffff',
+  loaderColor: '#ffffff',
+  sliderColor: '#1cb954',
+  trackNameColor: '#ffffff',
+  errorColor: '#f00',
+  sliderHandleColor: '#ffffff',
+};

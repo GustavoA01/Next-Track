@@ -55,8 +55,7 @@ describe('MusicCard', () => {
   it('should call onClick when card is clicked', () => {
     render(<MusicCard {...defaultProps} />);
 
-    const card = screen.getByTestId('music-card');
-    fireEvent.click(card);
+    fireEvent.click(screen.getByTestId('music-card'));
 
     expect(defaultProps.onClick).toHaveBeenCalledTimes(1);
   });
@@ -93,30 +92,6 @@ describe('MusicCard', () => {
     expect(indexNumber).toHaveClass('text-sm', 'sm:text-base');
     expect(indexNumber).toHaveClass('font-montserrat');
     expect(indexNumber).toHaveClass('text-muted-foreground');
-  });
-
-  it('should have correct flex layout structure', () => {
-    render(<MusicCard {...defaultProps} />);
-
-    const mainDiv = document.querySelector('.flex.justify-between');
-    expect(mainDiv).toBeInTheDocument();
-    expect(mainDiv).toHaveClass(
-      'flex',
-      'justify-between',
-      'items-center',
-      'gap-2'
-    );
-
-    const leftSection = document.querySelector(
-      '.flex.items-center.gap-4.md\\:gap-8'
-    );
-    expect(leftSection).toBeInTheDocument();
-    expect(leftSection).toHaveClass(
-      'flex',
-      'items-center',
-      'gap-4',
-      'md:gap-8'
-    );
   });
 
   it('should pass correct props to AlbumImg component', () => {
@@ -204,16 +179,18 @@ describe('MusicCard', () => {
     render(<MusicCard {...defaultProps} />);
 
     const leftSection = document.querySelector(
-      '.flex.items-center.gap-4.md\\:gap-8'
+      '.flex.min-w-0.flex-1.items-center'
     );
-    expect(leftSection).toHaveClass('gap-4', 'md:gap-8');
+    expect(leftSection).toHaveClass('gap-3', 'md:gap-8');
   });
 
   it('should have correct gap class in main container', () => {
     render(<MusicCard {...defaultProps} />);
 
-    const mainContainer = document.querySelector('.flex.justify-between');
-    expect(mainContainer).toHaveClass('gap-2');
+    const mainContainer = document.querySelector(
+      '.flex.items-center.justify-between'
+    );
+    expect(mainContainer).toHaveClass('gap-1', 'sm:gap-2');
   });
 
   it('should have transition effects on card', () => {

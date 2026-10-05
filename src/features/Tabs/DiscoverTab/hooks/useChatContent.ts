@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { useChatContentType } from '../types';
+import { UseChatContentType } from '../types';
 
 export const useChatContent = ({
   messages,
   isLoading,
   temporaryMessage,
-}: useChatContentType) => {
+}: UseChatContentType) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

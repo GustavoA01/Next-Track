@@ -1,14 +1,9 @@
 import { ChatFormType, chatSchema } from '@/data/chatSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useChatProvider } from '../../providers/useChatProvider';
+import { useChatProvider } from '../../../../components/Providers/useChatProvider';
 
 export const useDiscoverTab = () => {
-  const methods = useForm<ChatFormType>({
-    resolver: zodResolver(chatSchema),
-  });
-  const { reset, handleSubmit } = methods;
-
   const {
     messages,
     isResponseLoading,
@@ -34,6 +29,15 @@ export const useDiscoverTab = () => {
     isVibesChanged,
   } = useChatProvider();
 
+  const {
+    reset,
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<ChatFormType>({
+    resolver: zodResolver(chatSchema),
+  });
+
   const onSelectBadge = (badge: string) => reset({ prompt: badge });
 
   const handleChatRequest = async (data: { prompt: string }) => {
@@ -49,7 +53,9 @@ export const useDiscoverTab = () => {
   };
 
   return {
-    methods,
+    handleSubmit,
+    register,
+    errors,
     handleChatRequest,
     messages,
     isResponseLoading,

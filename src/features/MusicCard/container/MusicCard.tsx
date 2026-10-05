@@ -18,11 +18,11 @@ export const MusicCard = ({
   <Card
     onClick={onClick}
     data-testid="music-card"
-    className="group/card w-full px-4 sm:px-8 bg-transparent border-none cursor-pointer hover:bg-surface-hover/40 transition-all duration-200 shadow-none"
+    className="group/card w-full cursor-pointer border-none bg-transparent px-4 shadow-none transition-all duration-200 hover:bg-surface-hover/40 sm:px-8"
   >
-    <div className="flex justify-between items-center gap-2">
-      <div className="flex items-center gap-4 md:gap-8">
-        <p className="text-sm sm:text-base font-montserrat text-muted-foreground">
+    <div className="flex items-center justify-between gap-1 sm:gap-2">
+      <div className="flex min-w-0 flex-1 items-center gap-3 md:gap-8">
+        <p className="shrink-0 font-montserrat text-sm text-muted-foreground sm:text-base">
           {index + 1}
         </p>
         <AlbumImg src={imageUrl} />

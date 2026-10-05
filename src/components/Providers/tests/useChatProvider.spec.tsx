@@ -14,8 +14,8 @@ import { getMessages } from '@/services/firebase/getMessages';
 import { searchTrack } from '@/services/spotify/searchTrack';
 import { PlaylistStatisticsType } from '@/data/types/recommendations';
 import { SpotifyPlaylistTrack } from '@/data/types/spotify';
-import { useDiscoverMutation } from '../DiscoverTab/hooks/useDiscoverMutation';
-import { ChatProvider, useChatProvider } from './useChatProvider';
+import { useDiscoverMutation } from '../../../features/Tabs/DiscoverTab/hooks/useDiscoverMutation';
+import { ChatProvider, useChatProvider } from '../useChatProvider';
 
 jest.mock('next/navigation', () => ({
   useParams: jest.fn(),
@@ -40,9 +40,12 @@ jest.mock('../../../services/spotify/searchTrack', () => ({
   searchTrack: jest.fn(),
 }));
 
-jest.mock('../DiscoverTab/hooks/useDiscoverMutation', () => ({
-  useDiscoverMutation: jest.fn(),
-}));
+jest.mock(
+  '../../../features/Tabs/DiscoverTab/hooks/useDiscoverMutation',
+  () => ({
+    useDiscoverMutation: jest.fn(),
+  })
+);
 
 const localStorageMock = {
   getItem: jest.fn(),

@@ -46,18 +46,25 @@ export const RightInfo = ({
   ];
 
   return (
-    <section className="flex items-center gap-2">
+    <section
+      onClick={(e) => e.stopPropagation()}
+      className="flex shrink-0 items-center gap-0.5 sm:gap-2"
+    >
       <p className="text-sm text-muted-foreground">{duration}</p>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         {voteButtons.map(({ icon: Icon, className, onClick, ariaLabel }) => (
           <button
             key={ariaLabel}
             type="button"
             onClick={onClick}
             aria-label={ariaLabel}
+            className="flex size-11 items-center justify-center rounded-full sm:size-9"
           >
             <Icon
-              className={cn('size-4 transition-colors duration-200', className)}
+              className={cn(
+                'size-5 transition-colors duration-200 sm:size-4',
+                className
+              )}
             />
           </button>
         ))}
@@ -66,14 +73,14 @@ export const RightInfo = ({
         data-testid="add-to-playlist-button"
         onClick={(e) => handleAdd(e)}
         className={cn(
-          'border border-primary transition-all duration-200 rounded-full p-2',
+          'flex size-11 items-center justify-center rounded-full border border-primary transition-all duration-200 sm:size-auto sm:p-2',
           isMusicAdded ? 'bg-primary' : 'group/add hover:bg-primary'
         )}
       >
         {isMusicAdded ? (
-          <Check className="animate-scale-appear text-black m-auto md:w-6 md:h-6 w-4 h-4" />
+          <Check className="animate-scale-appear m-auto size-5 text-black sm:size-6" />
         ) : (
-          <Plus className="md:w-6 md:h-6 w-4 h-4 text-white m-auto group-hover/add:text-black" />
+          <Plus className="m-auto size-5 text-white group-hover/add:text-black sm:size-6" />
         )}
       </div>
     </section>

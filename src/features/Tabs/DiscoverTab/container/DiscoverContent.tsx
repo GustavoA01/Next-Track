@@ -10,7 +10,9 @@ import { ChatInput } from '../components/ChatInput';
 
 export const DiscoverContent = () => {
   const {
-    methods,
+    handleSubmit,
+    register,
+    errors,
     emotionalVibe,
     energyVibe,
     instrumentalVibe,
@@ -38,7 +40,7 @@ export const DiscoverContent = () => {
   } = useDiscoverTab();
 
   return (
-    <TabsContent className="sm:px-8 pt-4 flex flex-col gap-6" value="discover">
+    <TabsContent value="discover" className="sm:px-8 pt-4 flex flex-col gap-6">
       <AccordionVibe
         emotionalVibe={emotionalVibe}
         energyVibe={energyVibe}
@@ -71,11 +73,11 @@ export const DiscoverContent = () => {
           }
         >
           <ChatInput
-            onSubmit={methods.handleSubmit(handleChatRequest)}
+            onSubmit={handleSubmit(handleChatRequest)}
             handleOnKeyDown={handleOnKeyDown}
             isResponseLoading={isResponseLoading}
-            register={methods.register}
-            errorMessage={methods.formState.errors.prompt?.message}
+            register={register}
+            errorMessage={errors.prompt?.message}
           />
         </div>
       </section>

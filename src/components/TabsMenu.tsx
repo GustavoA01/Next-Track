@@ -1,19 +1,19 @@
 'use client';
 import { Tabs, TabsList } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { DiscoverContent } from './DiscoverTab/container/DiscoverContent';
-import { StatisticContent } from './StatisticTab/container/StatisticContent';
+import { DiscoverContent } from '../features/Tabs/DiscoverTab/container/DiscoverContent';
+import { StatisticContent } from '../features/Tabs/StatisticTab/container/StatisticContent';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { useState } from 'react';
 import { tabs } from '@/data/constants';
-import { TabsMenuProps } from './StatisticTab/types';
+import { TabsMenuProps } from '../features/Tabs/StatisticTab/types';
 import { cn } from '@/utils/cn';
 import {
   PlayerProvider,
   usePlayerProvider,
-} from './providers/usePlayerProvider';
-import { ChatProvider, useChatProvider } from './providers/useChatProvider';
-import { Player } from './DiscoverTab/components/Player';
+} from './Providers/usePlayerProvider';
+import { ChatProvider, useChatProvider } from './Providers/useChatProvider';
+import { Player } from '../features/Tabs/DiscoverTab/components/Player';
 import { TabType } from '@/data/types';
 
 export const TabsMenu = ({
