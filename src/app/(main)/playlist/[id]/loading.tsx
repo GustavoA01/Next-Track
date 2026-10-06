@@ -11,7 +11,6 @@ const PlaylistLoadingPage = () => (
 
       <div className="flex flex-col px-4 sm:px-8 sm:flex-row max-sm:items-center items-end justify-center gap-4">
         <Skeleton className="rounded-lg aspect-square w-62.5 h-62.5 lg:w-[23%]" />
-
         <div className="flex flex-col max-sm:items-center max-w-2xl">
           <Skeleton className="w-24 h-5 mb-2" />
           <Skeleton className="w-70 h-6 mb-2" />

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en" suppressHydrationWarning>
+  <html lang="pt-BR" suppressHydrationWarning>
     <body
       className={cn(
         montserrat.variable,

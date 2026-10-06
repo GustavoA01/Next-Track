@@ -49,7 +49,7 @@ export const redirectToAuthCodeFlow = async () => {
   redirect(redirectUrl, RedirectType.push);
 };
 
-function generateCodeVerifier(length: number) {
+const generateCodeVerifier = (length: number) => {
   let text = '';
   const possible =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -59,13 +59,13 @@ function generateCodeVerifier(length: number) {
   }
 
   return text;
-}
+};
 
-function generateCodeChallenge(codeVerifier: string) {
+const generateCodeChallenge = (codeVerifier: string) => {
   const hash = crypto
     .createHash('sha256')
     .update(codeVerifier)
     .digest('base64');
 
   return hash.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
+};
