@@ -1,5 +1,5 @@
 import { Montserrat, Inter, Plus_Jakarta_Sans } from 'next/font/google';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Providers } from '@/components/Providers';
 import './globals.css';
 import { cn } from '@/utils/cn';
@@ -23,6 +23,7 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: 'Next Track',
+  applicationName: 'Next Track',
   description:
     'Descubra novas músicas com inteligência artificial baseada nas suas playlists do Spotify.',
   authors: [{ name: 'Gustavo Aguiar' }],
@@ -35,6 +36,11 @@ export const metadata: Metadata = {
     'playlist',
     'descoberta musical',
   ],
+  appleWebApp: {
+    capable: true,
+    title: 'Next Track',
+    statusBarStyle: 'default',
+  },
   icons: {
     icon: '/icon.jpg',
     shortcut: '/icon.jpg',
@@ -49,6 +55,10 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     type: 'website',
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#121212',
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
